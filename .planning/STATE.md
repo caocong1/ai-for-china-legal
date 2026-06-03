@@ -6,12 +6,12 @@ status: in_progress
 last_updated: "2026-06-03T06:56:09.217Z"
 progress:
   total_phases: 16
-  completed_phases: 1
+  completed_phases: 3
   total_plans: 0
   completed_plans: 0
-  percent: 6
-  current_phase: 3
-  current_phase_name: "核心插件完善 — 诉讼仲裁"
+  percent: 19
+  current_phase: 5
+  current_phase_name: "新增插件 — 数据合规"
   current_phase_status: "pending"
 ---
 
@@ -32,9 +32,9 @@ progress:
 |-------|--------|---------|
 | 1 | ✅ Complete | 项目骨架搭建 |
 | 2 | ✅ Complete | 核心插件完善 — 商事合同 |
-| 3 | 🔵 In Progress | 核心插件完善 — 诉讼仲裁 |
-| 4 | 🚧 Pending | 核心插件完善 — 劳动人事 |
-| 5 | 🚧 Pending | 新增插件 — 数据合规 |
+| 3 | ✅ Complete | 核心插件完善 — 诉讼仲裁 |
+| 4 | ✅ Complete | 核心插件完善 — 劳动人事 |
+| 5 | 🔵 In Progress | 新增插件 — 数据合规 |
 | 6 | 🚧 Pending | 新增插件 — 知识产权 |
 | 7 | 🚧 Pending | 新增插件 — 建设工程 |
 | 8 | 🚧 Pending | 新增插件 — 婚姻家事 |
