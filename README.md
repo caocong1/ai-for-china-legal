@@ -4,46 +4,19 @@
 
 ## 概述
 
-AI for China Legal 是一套模块化的法律 AI 插件套件，为 Qwen Code、Kimi Code、OpenCode 等 Agent 平台提供端到端的中国大陆法律工作流辅助能力。
+AI for China Legal 是一套模块化的法律 AI 插件套件，面向中国大陆法律体系、执业环境和监管要求进行中国化适配。
 
-本项目的架构和设计模式参考了 Anthropic 的 [claude-for-legal](https://github.com/anthropics/claude-for-legal) 项目，但针对中国大陆法律体系、执业环境和监管要求进行了全面的中国化适配。
+本项目的架构和设计模式参考了 Anthropic 的 [claude-for-legal](https://github.com/anthropics/claude-for-legal) 项目。
 
 ## 核心概念
 
 | 概念 | 说明 |
 |------|------|
 | **Plugins (插件)** | 自包含的业务领域包（如商事合同、诉讼仲裁），包含 Skills、Agents 和实践配置文件模板 |
-| **Skills (技能)** | 领域专业知识，通过斜杠命令调用（如 `/commercial-legal:review`）或自动触发 |
+| **Skills (技能)** | 领域专业知识，通过斜杠命令调用或自动触发 |
 | **Agents (代理)** | 定时或事件驱动的工作流（如裁判文书监控、法规动态监控），在后台运行 |
 | **实践配置文件** | 通过"冷启动访谈"生成的个性化配置，描述团队的审查立场、升级规则和文书风格 |
-| **Connectors (连接器)** | 基于 MCP 协议的服务器，连接外部数据源（裁判文书网、企业信用系统、法规库等） |
-
-## 快速开始
-
-### 安装（以 Qwen Code 为例）
-
-1. **添加市场源** — 将本项目路径添加为 Skill 市场源
-2. **选择插件** — 根据你的执业领域选择对应插件
-3. **运行设置** — 执行 `/<plugin>:cold-start-interview` 完成冷启动访谈
-4. **连接数据源** — 配置裁判文书网、企业信用信息公示系统等 MCP 连接器
-
-### 哪个插件适合我？
-
-| 你是… | 安装… | 第一个命令 |
-|---|---|---|
-| 商事合同律师 / 法务 | `commercial-legal` | `/commercial-legal:review` |
-| 诉讼律师 / 法务 | `litigation-legal` | `/litigation-legal:matter-intake` |
-| 劳动法律师 / HR 法务 | `employment-legal` | `/employment-legal:hiring-review` |
-| 数据合规律师 / DPO | `data-compliance` | `/data-compliance:pia-generation` |
-| 知识产权律师 | `ip-legal` | `/ip-legal:clearance` |
-| 建设工程律师 | `construction-legal` | `/construction-legal:contract-review` |
-| 婚姻家事律师 | `family-legal` | `/family-legal:divorce-agreement` |
-| 刑事合规律师 | `criminal-compliance` | `/criminal-compliance:risk-assessment` |
-| 监管合规律师 | `regulatory-legal` | `/regulatory-legal:reg-feed-watcher` |
-| AI 治理负责人 | `ai-governance` | `/ai-governance:use-case-triage` |
-| 法学生 / 法考备考 | `law-student` | `/law-student:case-brief` |
-| 法律援助律师 | `legal-aid` | `/legal-aid:client-intake` |
-| 法律运营 / 寻找技能 | `legal-builder-hub` | `/legal-builder-hub:registry-browser` |
+| **Connectors (连接器)** | 基于 MCP 协议的服务器，连接外部数据源（规划中） |
 
 ## 插件列表
 
@@ -166,18 +139,6 @@ ai-for-china-legal/
 | FMLA/ADA | 劳动合同法/年休假条例 |
 | Federal Register | 国务院公报/部委规章 |
 | EU AI Act | 深度合成规定/生成式 AI 办法/算法推荐规定 |
-
-### 中国特有 MCP 连接器
-
-| 连接器 | 数据源 | 用途 |
-|--------|--------|------|
-| 裁判文书网 | wenshu.court.gov.cn | 案例检索 |
-| 企业信用 | gsxt.gov.cn | 工商查询 |
-| 商标查询 | sbj.cnipa.gov.cn | 商标近似查询 |
-| 专利查询 | pss-system.cnipa.gov.cn | 专利检索 |
-| 执行信息 | zxgk.court.gov.cn | 失信被执行查询 |
-| 法规库 | 北大法宝/威科先行 | 法规检索 |
-| 微信/钉钉 | 企业微信/钉钉 API | 通知推送 |
 
 ## 开发路线
 
