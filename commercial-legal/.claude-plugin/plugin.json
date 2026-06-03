@@ -1,8 +1,30 @@
 {
   "name": "commercial-legal",
-  "version": "0.1.0",
-  "description": "审查买卖合同、技术服务合同、租赁合同等对中国大陆执业律师的商事合同，追踪履约期限，路由升级问题，生成业务人员可读的审查摘要。",
+  "version": "0.2.0",
+  "description": "审查和起草买卖合同、技术服务合同、租赁合同等对中国大陆执业律师的商事合同，包含冷启动访谈、合同审查、合同起草、违约责任分析等完整技能集。",
   "author": {
     "name": "AI for China Legal Contributors"
-  }
+  },
+  "skills": [
+    {
+      "name": "cold-start-interview",
+      "path": "skills/cold-start-interview/SKILL.md",
+      "description": "实践配置文件初始化设置"
+    },
+    {
+      "name": "contract-review",
+      "path": "skills/contract-review/SKILL.md",
+      "description": "合同审查技能"
+    },
+    {
+      "name": "contract-drafting",
+      "path": "skills/contract-drafting/SKILL.md",
+      "description": "合同起草技能"
+    },
+    {
+      "name": "liability-analysis",
+      "path": "skills/liability-analysis/SKILL.md",
+      "description": "违约责任分析技能"
+    }
+  ]
 }

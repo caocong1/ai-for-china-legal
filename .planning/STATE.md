@@ -1,3 +1,20 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+status: in_progress
+last_updated: "2026-06-03T06:56:09.217Z"
+progress:
+  total_phases: 16
+  completed_phases: 1
+  total_plans: 0
+  completed_plans: 0
+  percent: 6
+  current_phase: 3
+  current_phase_name: "核心插件完善 — 诉讼仲裁"
+  current_phase_status: "pending"
+---
+
 # STATE.md
 
 ## Current State
@@ -14,8 +31,8 @@
 | Phase | Status | Summary |
 |-------|--------|---------|
 | 1 | ✅ Complete | 项目骨架搭建 |
-| 2 | 🚧 Pending | 核心插件完善 — 商事合同 |
-| 3 | 🚧 Pending | 核心插件完善 — 诉讼仲裁 |
+| 2 | ✅ Complete | 核心插件完善 — 商事合同 |
+| 3 | 🔵 In Progress | 核心插件完善 — 诉讼仲裁 |
 | 4 | 🚧 Pending | 核心插件完善 — 劳动人事 |
 | 5 | 🚧 Pending | 新增插件 — 数据合规 |
 | 6 | 🚧 Pending | 新增插件 — 知识产权 |
