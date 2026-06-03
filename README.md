@@ -18,6 +18,18 @@ AI for China Legal 是一套模块化的法律 AI 插件套件，面向中国大
 | **实践配置文件** | 通过"冷启动访谈"生成的个性化配置，描述团队的审查立场、升级规则和文书风格 |
 | **Connectors (连接器)** | 基于 MCP 协议的服务器，连接外部数据源（规划中） |
 
+## 安装（Qwen Code）
+
+本项目使用符号链接方式将 SKILL.md 文件注册到 Qwen Code 的项目级 skill 目录（`.qwen/skills/`）。
+
+```bash
+cd /path/to/ai-for-china-legal
+bash scripts/setup-skills.sh    # 注册 55 个 skill
+bash scripts/cleanup-skills.sh  # 卸载
+```
+
+注册后，在 Qwen Code 中打开本项目目录，各 skill 将自动加载。详见 [INSTALL.md](INSTALL.md)。
+
 ## 插件列表
 
 ### 交易与咨询类
