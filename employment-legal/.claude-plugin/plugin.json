@@ -1,8 +1,35 @@
 {
   "name": "employment-legal",
-  "version": "0.1.0",
-  "description": "审查劳动合同、竞业限制协议、裁员方案，追踪年休假/医疗期期限，处理劳动争议案件。",
+  "version": "0.2.0",
+  "description": "审查劳动合同、录用通知书、竞业限制协议等雇佣文件，包含冷启动访谈、雇佣审查、解雇审查、竞业限制和假期管理技能。",
   "author": {
     "name": "AI for China Legal Contributors"
-  }
+  },
+  "skills": [
+    {
+      "name": "cold-start-interview",
+      "path": "skills/cold-start-interview/SKILL.md",
+      "description": "实践配置文件初始化设置"
+    },
+    {
+      "name": "hiring-review",
+      "path": "skills/hiring-review/SKILL.md",
+      "description": "雇佣审查技能"
+    },
+    {
+      "name": "termination-review",
+      "path": "skills/termination-review/SKILL.md",
+      "description": "解雇审查技能"
+    },
+    {
+      "name": "non-compete-review",
+      "path": "skills/non-compete-review/SKILL.md",
+      "description": "竞业限制审查技能"
+    },
+    {
+      "name": "leave-management",
+      "path": "skills/leave-management/SKILL.md",
+      "description": "假期管理技能"
+    }
+  ]
 }

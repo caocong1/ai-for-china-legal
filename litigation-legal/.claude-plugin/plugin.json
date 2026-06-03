@@ -1,8 +1,35 @@
 {
   "name": "litigation-legal",
-  "version": "0.1.0",
-  "description": "管理诉讼仲裁案件组合——案件 intake、证据目录、代理词起草、期限管理、外律状态。适配中国法院诉讼和仲裁机构仲裁。",
+  "version": "0.2.0",
+  "description": "管理诉讼仲裁案件组合——案件录入、答辩状起草、证据管理、代理词起草、期限管理、外律状态。适配中国法院诉讼和仲裁机构仲裁。",
   "author": {
     "name": "AI for China Legal Contributors"
-  }
+  },
+  "skills": [
+    {
+      "name": "cold-start-interview",
+      "path": "skills/cold-start-interview/SKILL.md",
+      "description": "实践配置文件初始化设置"
+    },
+    {
+      "name": "matter-intake",
+      "path": "skills/matter-intake/SKILL.md",
+      "description": "案件录入技能"
+    },
+    {
+      "name": "defense-drafting",
+      "path": "skills/defense-drafting/SKILL.md",
+      "description": "答辩状起草技能"
+    },
+    {
+      "name": "evidence-management",
+      "path": "skills/evidence-management/SKILL.md",
+      "description": "证据管理技能"
+    },
+    {
+      "name": "representation-drafting",
+      "path": "skills/representation-drafting/SKILL.md",
+      "description": "代理词起草技能"
+    }
+  ]
 }
