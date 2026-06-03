@@ -1,0 +1,27 @@
+# 企业工商变更监控 Agent
+
+**触发器**: 每天 10:00 AM
+**描述**: 监控目标企业的工商变更，推送重要变更通知
+
+## 配置
+
+```yaml
+name: corporate-change-monitor
+schedule: "0 10 * * *"
+description: "监控企业工商变更"
+input_prompt: |
+  监控以下企业的工商变更：
+  - 对方当事人
+  - 客户
+  - 合作伙伴
+  
+  对于每个变更，提取：
+  - 企业名称
+  - 变更类型（法定代表人/注册资本/经营范围等）
+  - 变更日期
+  - 变更内容
+  - 法律影响评估
+
+output_format: "markdown"
+recipients: ["business-team"]
+```

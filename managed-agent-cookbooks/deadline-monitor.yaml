@@ -1,0 +1,27 @@
+# 诉讼时效监控 Agent
+
+**触发器**: 每周一 9:00 AM
+**描述**: 监控诉讼时效/举证期限，提醒即将到来的关键日期
+
+## 配置
+
+```yaml
+name: deadline-monitor
+schedule: "0 9 * * 1"
+description: "监控诉讼时效和举证期限"
+input_prompt: |
+  检查所有活跃案件的以下期限：
+  - 诉讼时效截止
+  - 举证期限
+  - 答辩期限
+  - 上诉期限
+  
+  对于每个即将到来的期限（30 天内），生成提醒：
+  - 案件名称
+  - 期限类型
+  - 截止日期
+  - 建议行动
+
+output_format: "markdown"
+recipients: ["litigation-team"]
+```

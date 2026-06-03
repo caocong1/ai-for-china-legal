@@ -1,0 +1,28 @@
+# 法规动态监控 Agent
+
+**触发器**: 每天 8:00 AM
+**描述**: 监控国务院/部委规章更新，推送相关法规变化
+
+## 配置
+
+```yaml
+name: regulation-monitor
+schedule: "0 8 * * *"
+description: "监控法规动态"
+input_prompt: |
+  检查以下来源的法规更新：
+  - 国务院公报
+  - 各部委规章
+  - 地方性法规
+  - 司法解释
+  
+  对于每个新法规，提取：
+  - 法规名称
+  - 发布机构
+  - 生效日期
+  - 核心内容摘要
+  - 对业务的影响
+
+output_format: "markdown"
+recipients: ["compliance-team"]
+```
