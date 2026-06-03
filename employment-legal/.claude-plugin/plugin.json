@@ -1,0 +1,8 @@
+{
+  "name": "employment-legal",
+  "version": "0.1.0",
+  "description": "审查劳动合同、竞业限制协议、裁员方案，追踪年休假/医疗期期限，处理劳动争议案件。",
+  "author": {
+    "name": "AI for China Legal Contributors"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "regulatory-legal",
+  "version": "0.1.0",
+  "description": "监管动态监控（国务院/部委规章/行业监管）、政策差异比对、行政处罚应对、合规差距分析。",
+  "author": {
+    "name": "AI for China Legal Contributors"
+  }
+}

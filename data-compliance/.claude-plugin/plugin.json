@@ -1,0 +1,8 @@
+{
+  "name": "data-compliance",
+  "version": "0.1.0",
+  "description": "个人信息保护影响评估 (PIA)、数据出境安全评估、数据处理协议审查、个保法/数据安全法合规监控。",
+  "author": {
+    "name": "AI for China Legal Contributors"
+  }
+}

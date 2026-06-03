@@ -1,0 +1,8 @@
+{
+  "name": "ai-governance",
+  "version": "0.1.0",
+  "description": "深度合成服务备案、算法备案、生成式 AI 服务合规、AI 影响评估、供应商 AI 条款审查。",
+  "author": {
+    "name": "AI for China Legal Contributors"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "litigation-legal",
+  "version": "0.1.0",
+  "description": "管理诉讼仲裁案件组合——案件 intake、证据目录、代理词起草、期限管理、外律状态。适配中国法院诉讼和仲裁机构仲裁。",
+  "author": {
+    "name": "AI for China Legal Contributors"
+  }
+}

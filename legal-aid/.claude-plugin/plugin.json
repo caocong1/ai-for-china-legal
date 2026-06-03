@@ -1,0 +1,8 @@
+{
+  "name": "legal-aid",
+  "version": "0.1.0",
+  "description": "法律援助案件管理、客户 intake、法律咨询热线、跨领域问题识别、案件转介。",
+  "author": {
+    "name": "AI for China Legal Contributors"
+  }
+}

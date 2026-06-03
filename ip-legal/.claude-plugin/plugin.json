@@ -1,0 +1,8 @@
+{
+  "name": "ip-legal",
+  "version": "0.1.0",
+  "description": "商标近似查询初步筛查、专利侵权初步分析、著作权登记、不正当竞争初步筛查。",
+  "author": {
+    "name": "AI for China Legal Contributors"
+  }
+}

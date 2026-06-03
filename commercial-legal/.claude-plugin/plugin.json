@@ -1,0 +1,8 @@
+{
+  "name": "commercial-legal",
+  "version": "0.1.0",
+  "description": "审查买卖合同、技术服务合同、租赁合同等对中国大陆执业律师的商事合同，追踪履约期限，路由升级问题，生成业务人员可读的审查摘要。",
+  "author": {
+    "name": "AI for China Legal Contributors"
+  }
+}
