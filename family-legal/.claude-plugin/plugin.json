@@ -1,8 +1,7 @@
 {
   "name": "family-legal",
   "version": "0.1.0",
-  "description": "离婚协议起草、遗嘱起草、继承事务、婚前财产协议、家族信托初步规划。",
-  "author": {
-    "name": "AI for China Legal Contributors"
-  }
+  "description": "离婚协议、遗嘱、继承",
+  "author": { "name": "AI for China Legal Contributors" },
+  "skills": [{"name":"cold-start-interview","path":"skills/cold-start-interview/SKILL.md"},{"name":"divorce-agreement","path":"skills/divorce-agreement/SKILL.md"},{"name":"will-drafting","path":"skills/will-drafting/SKILL.md"},{"name":"inheritance","path":"skills/inheritance/SKILL.md"}]
 }

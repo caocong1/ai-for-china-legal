@@ -1,8 +1,7 @@
 {
   "name": "construction-legal",
   "version": "0.1.0",
-  "description": "建设工程施工合同审查、工程款结算争议、工期索赔、质量保修、商品房买卖合同。",
-  "author": {
-    "name": "AI for China Legal Contributors"
-  }
+  "description": "施工合同审查、工程款争议、招投标",
+  "author": { "name": "AI for China Legal Contributors" },
+  "skills": [{"name":"cold-start-interview","path":"skills/cold-start-interview/SKILL.md"},{"name":"contract-review","path":"skills/contract-review/SKILL.md"},{"name":"payment-dispute","path":"skills/payment-dispute/SKILL.md"},{"name":"bidding-compliance","path":"skills/bidding-compliance/SKILL.md"}]
 }

@@ -1,8 +1,7 @@
 {
   "name": "law-student",
   "version": "0.1.0",
-  "description": "法考刷题训练、案例研习、法律检索练习、主观题写作练习——不提供答案，只提供训练框架。",
-  "author": {
-    "name": "AI for China Legal Contributors"
-  }
+  "description": "案例研习、法条记忆、模拟题",
+  "author": { "name": "AI for China Legal Contributors" },
+  "skills": [{"name":"cold-start-interview","path":"skills/cold-start-interview/SKILL.md"},{"name":"case-study","path":"skills/case-study/SKILL.md"},{"name":"law-memorization","path":"skills/law-memorization/SKILL.md"},{"name":"practice-questions","path":"skills/practice-questions/SKILL.md"}]
 }

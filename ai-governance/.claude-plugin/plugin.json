@@ -1,8 +1,7 @@
 {
   "name": "ai-governance",
   "version": "0.1.0",
-  "description": "深度合成服务备案、算法备案、生成式 AI 服务合规、AI 影响评估、供应商 AI 条款审查。",
-  "author": {
-    "name": "AI for China Legal Contributors"
-  }
+  "description": "深度合成备案、算法备案、生成式 AI",
+  "author": { "name": "AI for China Legal Contributors" },
+  "skills": [{"name":"cold-start-interview","path":"skills/cold-start-interview/SKILL.md"},{"name":"deep-synthesis-filing","path":"skills/deep-synthesis-filing/SKILL.md"},{"name":"algorithm-filing","path":"skills/algorithm-filing/SKILL.md"},{"name":"generative-ai","path":"skills/generative-ai/SKILL.md"}]
 }

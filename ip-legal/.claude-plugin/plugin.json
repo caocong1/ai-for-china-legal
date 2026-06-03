@@ -1,8 +1,7 @@
 {
   "name": "ip-legal",
   "version": "0.1.0",
-  "description": "商标近似查询初步筛查、专利侵权初步分析、著作权登记、不正当竞争初步筛查。",
-  "author": {
-    "name": "AI for China Legal Contributors"
-  }
+  "description": "商标查询、专利侵权分析、著作权登记",
+  "author": { "name": "AI for China Legal Contributors" },
+  "skills": [{"name":"cold-start-interview","path":"skills/cold-start-interview/SKILL.md"},{"name":"trademark-search","path":"skills/trademark-search/SKILL.md"},{"name":"patent-analysis","path":"skills/patent-analysis/SKILL.md"},{"name":"copyright-registration","path":"skills/copyright-registration/SKILL.md"}]
 }
