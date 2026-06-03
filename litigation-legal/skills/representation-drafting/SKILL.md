@@ -2,14 +2,24 @@
 name: representation-drafting
 description: >
   起草代理词、辩论意见和法庭陈述材料，包含法律依据、案例引用和逻辑论证。
+  必须先运行研究闸门（shared/research-gate/SKILL.md），再生成文书。
 argument-hint: "[案件 slug] [庭审阶段]"
 ---
 
 # 代理词起草
 
+> **研究闸门**：除非用户明确豁免联网检索，必须先运行 `shared/research-gate/SKILL.md`，完成研究底稿后再进入本 skill。
+
 ## 目的
 
 根据案件事实、证据和法律依据，起草逻辑严密、论证有力的代理词或法庭陈述材料。
+
+## 前置：加载共享资源
+
+在进入工作流前，读取以下共享资源：
+- `shared/references/document-structures.md` — 诉讼文书结构模板
+- `shared/research-gate/references/quality-gates.md` — 研究质量闸门
+- `shared/research-gate/references/search-playbooks.md` — 搜索策略（如涉保函/担保/主体资格）
 
 ## 工作流
 

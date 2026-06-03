@@ -2,14 +2,25 @@
 name: defense-drafting
 description: >
   起草答辩状、管辖权异议、证据目录等诉讼文件，包含法律依据引用和格式规范。
+  必须先运行研究闸门（shared/research-gate/SKILL.md），再生成文书。
 argument-hint: "[案件 slug] [文件类型]"
 ---
 
 # 答辩状起草
 
+> **研究闸门**：除非用户明确豁免联网检索，必须先运行 `shared/research-gate/SKILL.md`，完成研究底稿后再进入本 skill。
+
 ## 目的
 
 根据案件事实和法律依据，起草结构完整、论证清晰的答辩状或其他诉讼文件。
+
+## 前置：加载共享资源
+
+在进入工作流前，读取以下共享资源：
+- `shared/references/document-structures.md` — 诉讼文书结构模板
+- `shared/research-gate/references/quality-gates.md` — 研究质量闸门
+- `shared/research-gate/references/search-playbooks.md` — 搜索策略（如涉保函/担保/主体资格）
+- `shared/references/subject-qualification-traps.md` — 主体资格陷阱清单
 
 ## 工作流
 
