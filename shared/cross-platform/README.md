@@ -8,12 +8,12 @@
 
 ## 支持的平台
 
-| 平台 | 目录 | 技能格式 | 触发格式 | 状态 |
-|------|------|---------|---------|------|
-| OpenCode | `opencode/` | SKILL.md + frontmatter | `/plugin:skill` | 主要平台 |
-| Qwen Code | `qwen-code/` | SKILL.md + YAML frontmatter | `/skill` | 适配完成 |
-| Kimi Code | `kimi-code/` | prompt.md + 自定义格式 | `@skill` | 适配完成 |
-| 独立 Agent | `standalone-agent/` | agent.json + prompts/ | API 调用 | 适配完成 |
+| 平台 | 目录 | 技能格式 | 触发格式 | 格式规范 | 状态 |
+|------|------|---------|---------|---------|------|
+| Qwen Code | `qwen-code/` | SKILL.md + YAML frontmatter | `/plugin:skill` | [SKILL-FORMAT.md](qwen-code/SKILL-FORMAT.md) | ✅ 主要平台 |
+| OpenCode | `opencode/` | skill.yaml + content 字段 | `/skill` | [SKILL-FORMAT.md](opencode/SKILL-FORMAT.md) | ✅ 适配完成 |
+| Kimi Code | `kimi-code/` | prompt.md + HTML 注释 | `@skill` | [SKILL-FORMAT.md](kimi-code/SKILL-FORMAT.md) | ✅ 适配完成 |
+| 独立 Agent | `standalone-agent/` | agent.json + prompts/ | API 调用 | [SKILL-FORMAT.md](standalone-agent/SKILL-FORMAT.md) | ✅ 适配完成 |
 
 ## 核心差异对比
 
@@ -85,21 +85,38 @@ agent-name/
 
 ## 转换工具
 
-### OpenCode → Qwen Code
+使用 `scripts/convert-skills.js` 进行自动转换：
 
-1. 保留 SKILL.md 内容不变
-2. 调整 frontmatter 字段映射（参见 `qwen-code/SKILL-FORMAT.md`）
-3. 将 `.claude-plugin/plugin.json` 转换为 `config.yaml`
-4. 调整 agents 目录结构
+```bash
+# 转换为 Kimi Code 格式
+npm run convert -- --to kimi --input ./commercial-legal/skills --output ./dist/kimi
 
-### OpenCode → Kimi Code
+# 转换为 OpenCode 格式
+npm run convert -- --to opencode --input ./commercial-legal/skills --output ./dist/opencode
+
+# 转换为独立 Agent 格式
+npm run convert -- --to standalone --input ./commercial-legal/skills --output ./dist/agent
+
+# 转换为所有平台
+npm run convert -- --to all --input ./commercial-legal/skills --output ./dist
+```
+
+### 手动转换规则
+
+#### Qwen Code → Kimi Code
 
 1. 将 SKILL.md 重命名为 prompt.md
-2. 将 frontmatter 转换为文件头部注释格式
+2. 将 YAML frontmatter 转换为 HTML 注释格式（`@name`, `@description` 等）
 3. 创建 manifest.json 清单文件
-4. 调整目录结构
+4. 子技能扁平化到 prompts/ 目录
 
-### OpenCode → 独立 Agent
+#### Qwen Code → OpenCode
+
+1. 将 SKILL.md 的 frontmatter 字段映射为 YAML 顶层字段
+2. Markdown 内容放入 `content` 字段（使用 `|` 块标量）
+3. 创建 plugin.yaml 清单文件
+
+#### Qwen Code → 独立 Agent
 
 1. 将 SKILL.md 拆分为 system prompt 和 user template
 2. 创建 agent.json 配置文件

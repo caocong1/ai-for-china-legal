@@ -1,0 +1,30 @@
+{
+  "name": "ai-for-china-legal",
+  "version": "1.0.0",
+  "description": "AI Legal Assistant Framework for China-based lawyers — 13 plugins, MCP connectors, managed agents",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "connector:law-database": "node connectors/law-database/index.js",
+    "connector:health:law-database": "node connectors/law-database/health-check.js",
+    "agent": "node run-agent.js",
+    "agent:dry-run": "node run-agent.js --dry-run",
+    "setup:skills": "bash scripts/setup-skills.sh",
+    "cleanup:skills": "bash scripts/cleanup-skills.sh",
+    "convert": "node scripts/convert-skills.js",
+    "test:compatibility": "node scripts/convert-skills.js --to all --input ./commercial-legal/skills --output ./dist/test",
+    "publish:all": "echo 'Publishing to all platforms...' && node scripts/convert-skills.js --to all --input ./commercial-legal/skills --output ./dist"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "js-yaml": "^4.1.0",
+    "yaml": "^2.7.0",
+    "node-fetch": "^3.3.2",
+    "dotenv": "^16.4.7",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {}
+}
