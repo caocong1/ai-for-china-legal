@@ -1,7 +1,7 @@
 {
   "name": "commercial-legal",
-  "version": "0.2.0",
-  "description": "审查和起草买卖合同、技术服务合同、租赁合同等对中国大陆执业律师的商事合同，包含冷启动访谈、合同审查、合同起草、违约责任分析等完整技能集。",
+  "version": "0.3.0",
+  "description": "审查和起草买卖合同、技术服务合同、租赁合同等对中国大陆执业律师的商事合同。含冷启动访谈、合同审查、合同起草、违约责任分析四大编排入口，及19个可独立触发的深层子技能（子技能深度拆分：每个编排入口下4-5个独立子技能，含详细步骤、检查清单、输出模板、法律依据）。",
   "author": {
     "name": "AI for China Legal Contributors"
   },
@@ -9,22 +9,117 @@
     {
       "name": "cold-start-interview",
       "path": "skills/cold-start-interview/SKILL.md",
-      "description": "实践配置文件初始化设置"
+      "description": "冷启动访谈编排入口：初始化实践配置文件，按五步子技能顺序收集律师执业立场"
+    },
+    {
+      "name": "identity-team",
+      "path": "skills/cold-start-interview/identity-team/SKILL.md",
+      "description": "冷启动访谈子技能：收集公司/律所身份、团队规模、执业环境等基础信息"
+    },
+    {
+      "name": "review-stance",
+      "path": "skills/cold-start-interview/review-stance/SKILL.md",
+      "description": "冷启动访谈子技能：收集甲方/乙方审查立场、责任限制、违约金、交易破坏者等立场配置"
+    },
+    {
+      "name": "escalation-rules",
+      "path": "skills/cold-start-interview/escalation-rules/SKILL.md",
+      "description": "冷启动访谈子技能：收集金额阈值、审批层级、自动升级触发条件等升级矩阵"
+    },
+    {
+      "name": "document-style",
+      "path": "skills/cold-start-interview/document-style/SKILL.md",
+      "description": "冷启动访谈子技能：收集文书风格偏好、利益相关者摘要、工作产物格式等配置"
+    },
+    {
+      "name": "jurisdiction-profile",
+      "path": "skills/cold-start-interview/jurisdiction-profile/SKILL.md",
+      "description": "冷启动访谈子技能：收集管辖法律、地方性法规关注、行业特殊监管要求等管辖配置"
     },
     {
       "name": "contract-review",
       "path": "skills/contract-review/SKILL.md",
-      "description": "合同审查技能"
+      "description": "合同审查编排入口：五步子技能顺序编排（风险识别→条款修改→谈判要点→法律依据→输出格式化）"
+    },
+    {
+      "name": "risk-identification",
+      "path": "skills/contract-review/risk-identification/SKILL.md",
+      "description": "合同审查子技能：条款级风险识别，对照实践配置文件逐条识别法律风险与商业摩擦"
+    },
+    {
+      "name": "clause-revision",
+      "path": "skills/contract-review/clause-revision/SKILL.md",
+      "description": "合同审查子技能：逐条提供修改建议，按修改粒度（最小改动/中度调整/深度重写）提供分级修改语言"
+    },
+    {
+      "name": "negotiation-points",
+      "path": "skills/contract-review/negotiation-points/SKILL.md",
+      "description": "合同审查子技能：生成谈判策略、优先级排序和底线清单"
+    },
+    {
+      "name": "legal-basis",
+      "path": "skills/contract-review/legal-basis/SKILL.md",
+      "description": "合同审查子技能：引用民法典合同编及司法解释，按法条/案例/学说分类，标待验证"
+    },
+    {
+      "name": "output-formatting",
+      "path": "skills/contract-review/output-formatting/SKILL.md",
+      "description": "合同审查子技能：按文书风格配置格式化输出审查报告（内部版/对外版/业务摘要版）"
     },
     {
       "name": "contract-drafting",
       "path": "skills/contract-drafting/SKILL.md",
-      "description": "合同起草技能"
+      "description": "合同起草编排入口：五步子技能顺序编排（需求收集→框架设计→条款起草→风险自查→输出生成）"
+    },
+    {
+      "name": "requirements-intake",
+      "path": "skills/contract-drafting/requirements-intake/SKILL.md",
+      "description": "合同起草子技能：系统性需求收集，信息不全时主动追问，确认合同类型/立场/金额/特殊需求"
+    },
+    {
+      "name": "framework-design",
+      "path": "skills/contract-drafting/framework-design/SKILL.md",
+      "description": "合同起草子技能：设计合同框架（标准条款清单+特别条款），担保条款提示主体资格陷阱"
+    },
+    {
+      "name": "clause-drafting",
+      "path": "skills/contract-drafting/clause-drafting/SKILL.md",
+      "description": "合同起草子技能：逐条起草合同条款，引用民法典496-498/506/577/584/585，为最深子技能"
+    },
+    {
+      "name": "risk-self-check",
+      "path": "skills/contract-drafting/risk-self-check/SKILL.md",
+      "description": "合同起草子技能：五维度可勾选风险自查（结构完整性/立场体现/常见风险/交易破坏者/效力瑕疵）"
+    },
+    {
+      "name": "output-generation",
+      "path": "skills/contract-drafting/output-generation/SKILL.md",
+      "description": "合同起草子技能：整合生成输出包（合同草案+起草说明+风险提示+谈判要点+法律依据）"
     },
     {
       "name": "liability-analysis",
       "path": "skills/liability-analysis/SKILL.md",
-      "description": "违约责任分析技能"
+      "description": "违约责任分析编排入口：四个子技能顺序编排（责任限制分析→违约金评估→赔偿范围界定→例外清单审查）"
+    },
+    {
+      "name": "liability-cap-analysis",
+      "path": "skills/liability-analysis/liability-cap-analysis/SKILL.md",
+      "description": "违约责任子技能：四维责任限制深度分析（直接/间接损失、基数定义、例外交互、审查立场对照）"
+    },
+    {
+      "name": "penalty-assessment",
+      "path": "skills/liability-analysis/penalty-assessment/SKILL.md",
+      "description": "违约责任子技能：违约金合法性（民法典第585条）与商业影响评估，含定金违约金并用规则"
+    },
+    {
+      "name": "damages-scope",
+      "path": "skills/liability-analysis/damages-scope/SKILL.md",
+      "description": "违约责任子技能：赔偿范围界定（民法典第584条可预见性规则）、律师费、减损义务、赔偿程序"
+    },
+    {
+      "name": "carveout-review",
+      "path": "skills/liability-analysis/carveout-review/SKILL.md",
+      "description": "违约责任子技能：例外清单全面审查（完整性/过宽过窄/定义争议/法律强制例外核查）"
     }
   ]
 }

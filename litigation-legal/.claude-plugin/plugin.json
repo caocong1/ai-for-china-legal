@@ -1,7 +1,7 @@
 {
   "name": "litigation-legal",
-  "version": "0.2.0",
-  "description": "管理诉讼仲裁案件组合——案件录入、答辩状起草、证据管理、代理词起草、期限管理、外律状态。适配中国法院诉讼和仲裁机构仲裁。",
+  "version": "0.3.0",
+  "description": "管理诉讼仲裁案件组合——六大编排入口（冷启动访谈/案件录入/答辩起草/证据管理/代理词起草/时效监控）及32个可独立触发的深层子技能（每个编排入口下4-5个独立子技能，含详细步骤、检查清单、输出模板、边界条件、错误处理和按来源分类的法律依据）。适配中国大陆法院四级诉讼体系与仲裁机构仲裁。",
   "author": {
     "name": "AI for China Legal Contributors"
   },
@@ -9,27 +9,162 @@
     {
       "name": "cold-start-interview",
       "path": "skills/cold-start-interview/SKILL.md",
-      "description": "实践配置文件初始化设置"
+      "description": "冷启动访谈编排入口：初始化诉讼仲裁实践配置文件（litigation-legal/CLAUDE.md），按四步子技能顺序收集律师执业配置"
+    },
+    {
+      "name": "identity-team",
+      "path": "skills/cold-start-interview/identity-team/SKILL.md",
+      "description": "冷启动访谈子技能：收集律所/公司身份、诉讼团队规模、执业角色、角色倾向（原告/被告/两者），写入 ## 我们是谁 / ## 谁在使用"
+    },
+    {
+      "name": "risk-calibration",
+      "path": "skills/cold-start-interview/risk-calibration/SKILL.md",
+      "description": "冷启动访谈子技能：收集风险校准配置（严重程度/可能性/重大性阈值），含法律事实合理性检查，写入 ## 风险校准"
+    },
+    {
+      "name": "case-management",
+      "path": "skills/cold-start-interview/case-management/SKILL.md",
+      "description": "冷启动访谈子技能：收集利益冲突检查方法、证据保全偏好、外部律师管理、和解策略，写入对应章节"
+    },
+    {
+      "name": "document-style",
+      "path": "skills/cold-start-interview/document-style/SKILL.md",
+      "description": "冷启动访谈子技能：收集代理词风格、输出格式偏好、法条/案例引用偏好，写入 ## 文书风格 / ## 输出"
     },
     {
       "name": "matter-intake",
       "path": "skills/matter-intake/SKILL.md",
-      "description": "案件录入技能"
+      "description": "案件录入编排入口：五步子技能顺序编排（主体冲突预检→案件识别分级→关键日期时效初判→证据保全→初始理论装配）"
+    },
+    {
+      "name": "subject-conflict-precheck",
+      "path": "skills/matter-intake/subject-conflict-precheck/SKILL.md",
+      "description": "案件录入子技能：主体资格核查（委托人/对方/担保人）与利益冲突预检，标记异常主体"
+    },
+    {
+      "name": "case-identification",
+      "path": "skills/matter-intake/case-identification/SKILL.md",
+      "description": "案件录入子技能：案件识别与分级（案由/诉请/风险等级/管辖法院判断）"
+    },
+    {
+      "name": "key-dates-limitation",
+      "path": "skills/matter-intake/key-dates-limitation/SKILL.md",
+      "description": "案件录入子技能：关键日期记录（答辩期/举证期/庭审）与诉讼时效起算初判，提示深度分析路径"
+    },
+    {
+      "name": "evidence-preservation",
+      "path": "skills/matter-intake/evidence-preservation/SKILL.md",
+      "description": "案件录入子技能：证据保全通知起草与种子文档管理，按配置文件读取默认保全范围"
+    },
+    {
+      "name": "initial-theory",
+      "path": "skills/matter-intake/initial-theory/SKILL.md",
+      "description": "案件录入子技能：初始诉讼理论装配（请求权基础/初始立场/和解评估/下一步决策树）"
     },
     {
       "name": "defense-drafting",
       "path": "skills/defense-drafting/SKILL.md",
-      "description": "答辩状起草技能"
+      "description": "答辩起草编排入口：五步子技能顺序编排（答辩策略→管辖权异议→实体答辩→程序时效抗辩→答辩状装配）"
+    },
+    {
+      "name": "defense-strategy",
+      "path": "skills/defense-drafting/defense-strategy/SKILL.md",
+      "description": "答辩起草子技能：整体答辩策略制定（攻防重点/时间规划/和解评估）"
+    },
+    {
+      "name": "jurisdiction-objection",
+      "path": "skills/defense-drafting/jurisdiction-objection/SKILL.md",
+      "description": "答辩起草子技能：管辖权异议分析与起草（级别管辖/地域管辖/仲裁协议有效性）"
+    },
+    {
+      "name": "substantive-defense",
+      "path": "skills/defense-drafting/substantive-defense/SKILL.md",
+      "description": "答辩起草子技能：实体答辩（攻击对方请求权要件/提出抗辩事由/证据反驳）"
+    },
+    {
+      "name": "procedural-limitation-defense",
+      "path": "skills/defense-drafting/procedural-limitation-defense/SKILL.md",
+      "description": "答辩起草子技能：程序性与时效抗辩（诉讼时效抗辩须当事人主动提出/起诉资格/其他程序抗辩）"
+    },
+    {
+      "name": "defense-assembly",
+      "path": "skills/defense-drafting/defense-assembly/SKILL.md",
+      "description": "答辩起草子技能：答辩状装配（整合策略/管辖/实体/程序各部分为完整文书）"
     },
     {
       "name": "evidence-management",
       "path": "skills/evidence-management/SKILL.md",
-      "description": "证据管理技能"
+      "description": "证据管理编排入口：四步子技能顺序编排（证据收集→三性审查→证据目录→证据交换）"
+    },
+    {
+      "name": "evidence-collection",
+      "path": "skills/evidence-management/evidence-collection/SKILL.md",
+      "description": "证据管理子技能：按请求权要件收集证据，识别证据缺口"
+    },
+    {
+      "name": "three-properties-review",
+      "path": "skills/evidence-management/three-properties-review/SKILL.md",
+      "description": "证据管理子技能：真实性/合法性/关联性三性审查，标记证据效力风险"
+    },
+    {
+      "name": "evidence-catalog",
+      "path": "skills/evidence-management/evidence-catalog/SKILL.md",
+      "description": "证据管理子技能：生成规范化证据目录（证据序号/名称/来源/证明目的/三性状态）"
+    },
+    {
+      "name": "evidence-exchange",
+      "path": "skills/evidence-management/evidence-exchange/SKILL.md",
+      "description": "证据管理子技能：证据交换策略（时机/范围/对方证据分析/逾期举证风险）"
     },
     {
       "name": "representation-drafting",
       "path": "skills/representation-drafting/SKILL.md",
-      "description": "代理词起草技能"
+      "description": "代理词起草编排入口：四步子技能顺序编排（争议焦点梳理→事实论证→法律论证与法条适用→代理词装配），含研究闸门前置"
+    },
+    {
+      "name": "dispute-focus",
+      "path": "skills/representation-drafting/dispute-focus/SKILL.md",
+      "description": "代理词起草子技能：梳理争议焦点（对照法院归纳/我方对方立场/证据 pivot/优劣势评估），生成争议焦点对照表"
+    },
+    {
+      "name": "fact-argumentation",
+      "path": "skills/representation-drafting/fact-argumentation/SKILL.md",
+      "description": "代理词起草子技能：起草事实论证（事实概述/证据支持/对方事实反驳），生成事实-证据对应表"
+    },
+    {
+      "name": "legal-argumentation",
+      "path": "skills/representation-drafting/legal-argumentation/SKILL.md",
+      "description": "代理词起草子技能：法律论证与法条适用（请求权基础/要件分析/法律涵摄/指导性案例参考），生成法律依据清单"
+    },
+    {
+      "name": "representation-assembly",
+      "path": "skills/representation-drafting/representation-assembly/SKILL.md",
+      "description": "代理词起草子技能：代理词装配（开头/事实/法律/代理请求），生成辩论提纲、法庭陈述和交付前检查报告"
+    },
+    {
+      "name": "limitation-monitoring",
+      "path": "skills/limitation-monitoring/SKILL.md",
+      "description": "诉讼时效监控编排入口：四步子技能顺序编排（时效期间识别→起算点判定→中止中断事由分析→监控台账预警），含时效抗辩须主动提出护栏"
+    },
+    {
+      "name": "limitation-period-identification",
+      "path": "skills/limitation-monitoring/limitation-period-identification/SKILL.md",
+      "description": "时效监控子技能：按案由识别适用时效期间（一般3年=民法典第188条/特殊时效[待验证]/最长保护期20年）"
+    },
+    {
+      "name": "accrual-determination",
+      "path": "skills/limitation-monitoring/accrual-determination/SKILL.md",
+      "description": "时效监控子技能：精确判定起算点（知道或应当知道权利受损及义务人之日），分约定期限/未约定/分期/持续侵权等情形"
+    },
+    {
+      "name": "tolling-interruption",
+      "path": "skills/limitation-monitoring/tolling-interruption/SKILL.md",
+      "description": "时效监控子技能：中止与中断事由分析（明确区分法律后果：中止=继续计算/中断=重新起算），计算调整后届满日"
+    },
+    {
+      "name": "monitoring-ledger",
+      "path": "skills/limitation-monitoring/monitoring-ledger/SKILL.md",
+      "description": "时效监控子技能：建立/更新时效监控台账，分级预警（90天黄色/30天红色），生成催款函/起诉/仲裁行动建议"
     }
   ]
 }

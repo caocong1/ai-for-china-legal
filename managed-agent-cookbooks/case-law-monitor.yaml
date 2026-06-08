@@ -8,35 +8,193 @@
 ```yaml
 name: case-law-monitor
 schedule: "0 9 * * *"
-description: "监控裁判文书网新判例"
+description: "监控裁判文书网新判例，自动推送法律领域新案例至律师团队"
+version: "2.0"
+
 input_prompt: |
   检查以下法律领域的新裁判文书：
-  - 合同纠纷
-  - 劳动争议
-  - 知识产权
+  - 合同纠纷（买卖合同、借款合同、承揽合同、建设工程合同）
+  - 劳动争议（劳动合同纠纷、工伤赔偿、竞业限制）
+  - 知识产权（著作权侵权、商标侵权、专利侵权）
+  - 公司纠纷（股东纠纷、股权转让、公司解散）
   - 其他关注领域
-  
-  对于每个新案例，提取：
-  - 案件名称
-  - 法院
+
+  数据来源：
+  - 主要来源：中国裁判文书网 (wenshu.court.gov.cn)
+  - 补充来源：中国法院网 (chinacourt.org) 典型案例
+  - 补充来源：最高人民法院指导性案例 (rmfyalk.court.gov.cn)
+  - 补充来源：北大法宝案例库
+
+  对于每个新案例，提取以下信息：
+  - 案件名称及案号
+  - 审理法院（含法院层级：基层/中院/高院/最高院）
   - 裁判日期
-  - 关键法律观点
-  - 对相关案件的影响
+  - 案由分类
+  - 当事人基本信息（自然人/法人）
+  - 关键法律观点及裁判要旨
+  - 引用法律条文
+  - 判决结果摘要
+  - 对相关案件或业务的影响分析
+
+  分析维度：
+  - 裁判趋势：同类型案件近6个月裁判倾向变化
+  - 地域差异：不同地区法院对同一法律问题的裁判差异
+  - 法律适用：新法或司法解释适用情况
+```
 
 output_format: "markdown"
 recipients: ["lawyer-team"]
+
+data_sources:
+  primary:
+    - name: "中国裁判文书网"
+      url: "https://wenshu.court.gov.cn"
+      connector: "wenshu"
+      frequency: "每日"
+  secondary:
+    - name: "中国法院网"
+      url: "https://www.chinacourt.org"
+      connector: null
+      frequency: "每日"
+    - name: "最高人民法院指导性案例"
+      url: "https://rmfyalk.court.gov.cn"
+      connector: null
+      frequency: "每周"
+
+error_handling:
+  source_unavailable:
+    action: "重试3次，间隔5分钟"
+    fallback: "切换至备用数据源"
+    notify: "若所有数据源均不可用，立即通知系统管理员"
+  data_parse_error:
+    action: "跳过异常记录，记录错误日志"
+    notify: "连续3次解析失败时通知开发人员"
+  rate_limit:
+    action: "降低请求频率至每分钟1次"
+    retry_after: 300
+
+escalation_rules:
+  immediate_notify:
+    - "最高人民法院发布新的指导性案例"
+    - "涉及我方当事人的公开裁判文书"
+    - "重大法律适用变化（如司法解释出台）"
+    - "同一案件在不同法院出现矛盾裁判"
+  batch_report:
+    - "普通案例更新汇总"
+    - "裁判趋势分析报告"
+    - "地域裁判差异报告"
+  batch_schedule: "每日17:00汇总当日更新"
+
+integration:
+  plugins:
+    - plugin: "commercial-legal"
+      skill: "contract-dispute-analysis"
+      trigger: "发现合同纠纷类新案例时"
+    - plugin: "litigation-arbitration"
+      skill: "case-strategy"
+      trigger: "发现与在手案件高度相关的裁判时"
+    - plugin: "labor-legal"
+      skill: "labor-dispute-analysis"
+      trigger: "发现劳动争议类新案例时"
+    - plugin: "ip-legal"
+      skill: "ip-infringement-analysis"
+      trigger: "发现知识产权类新案例时"
+    - plugin: "criminal-compliance"
+      skill: "criminal-risk-assessment"
+      trigger: "发现涉及刑事犯罪的裁判时"
+
+output_template: |
+  # 裁判文书监控报告 - {{date}}
+
+  ## 概览
+  - 监控日期: {{date}}
+  - 新增案例数量: {{total_count}}
+  - 重点关注: {{highlight_count}}
+
+  ## 重点案例
+
+  ### 案例 {{index}}: {{case_name}}
+  - **案号**: {{case_number}}
+  - **法院**: {{court_name}}（{{court_level}}）
+  - **裁判日期**: {{judgment_date}}
+  - **案由**: {{cause_of_action}}
+  - **当事人**: {{parties}}
+  - **关键法律观点**: {{key_legal_points}}
+  - **引用法条**: {{cited_laws}}
+  - **判决结果**: {{judgment_result}}
+  - **影响分析**: {{impact_analysis}}
+  - **关联插件**: {{related_plugins}}
+
+  ## 裁判趋势
+  {{trend_analysis}}
+
+  ## 地域差异
+  {{regional_differences}}
+
+  ## 统计汇总
+  | 法律领域 | 新增数量 | 重点关注 |
+  |---------|---------|---------|
+  | 合同纠纷 | {{contract_count}} | {{contract_highlight}} |
+  | 劳动争议 | {{labor_count}} | {{labor_highlight}} |
+  | 知识产权 | {{ip_count}} | {{ip_highlight}} |
+  | 公司纠纷 | {{corporate_count}} | {{corporate_highlight}} |
+```
+
+configuration:
+  env_vars:
+    - name: "WENSHU_API_KEY"
+      description: "裁判文书网 API 密钥"
+      required: true
+    - name: "WENSHU_API_URL"
+      description: "裁判文书网 API 地址"
+      default: "https://wenshu.court.gov.cn/api"
+    - name: "CASE_MONITOR_KEYWORDS"
+      description: "自定义监控关键词列表（JSON 数组）"
+      required: false
+    - name: "CASE_MONITOR_COURTS"
+      description: "指定监控法院列表（JSON 数组）"
+      required: false
+    - name: "NOTIFICATION_CHANNEL"
+      description: "通知渠道（wechat/dingtalk/email）"
+      default: "wechat"
+  schedule_notes: "建议在工作日早9点运行，避开周末和节假日减少无效请求"
 ```
 
 ## 输出示例
 
 ```markdown
-# 裁判文书监控报告 - 2026-06-03
+# 裁判文书监控报告 - 2026-06-08
 
-## 新案例
+## 概览
+- 监控日期: 2026-06-08
+- 新增案例数量: 47
+- 重点关注: 3
 
-### 案例 1: 甲公司诉乙公司合同纠纷
-- **法院**: 北京市朝阳区人民法院
-- **裁判日期**: 2026-06-02
-- **关键法律观点**: [观点摘要]
-- **影响**: [对相关案件的影响]
+## 重点案例
+
+### 案例 1: 甲公司诉乙公司买卖合同纠纷案
+- **案号**: (2026)京01民初1234号
+- **法院**: 北京市第一中级人民法院（中级）
+- **裁判日期**: 2026-06-07
+- **案由**: 买卖合同纠纷
+- **当事人**: 甲公司（原告）vs 乙公司（被告）
+- **关键法律观点**: 关于电子合同成立时间的认定，以数据电文进入指定系统时间为准
+- **引用法条**: 《民法典》第491条、第469条
+- **判决结果**: 支持原告主要诉讼请求
+- **影响分析**: 对电子合同签订流程有重要指导意义
+- **关联插件**: commercial-legal / contract-dispute-analysis
+
+## 裁判趋势
+近30日合同纠纷案件中，涉及电子合同效力认定的案件数量上升15%。
+
+## 地域差异
+关于竞业限制补偿金标准，北京、上海、深圳裁判标准存在差异。
+
+## 统计汇总
+| 法律领域 | 新增数量 | 重点关注 |
+|---------|---------|---------|
+| 合同纠纷 | 18 | 1 |
+| 劳动争议 | 12 | 1 |
+| 知识产权 | 9 | 1 |
+| 公司纠纷 | 8 | 0 |
 ```

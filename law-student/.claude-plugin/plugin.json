@@ -1,7 +1,135 @@
 {
   "name": "law-student",
-  "version": "0.1.0",
-  "description": "案例研习、法条记忆、模拟题",
-  "author": { "name": "AI for China Legal Contributors" },
-  "skills": [{"name":"cold-start-interview","path":"skills/cold-start-interview/SKILL.md"},{"name":"case-study","path":"skills/case-study/SKILL.md"},{"name":"law-memorization","path":"skills/law-memorization/SKILL.md"},{"name":"practice-questions","path":"skills/practice-questions/SKILL.md"}]
+  "version": "0.2.0",
+  "description": "法考培训技能套件：覆盖冷启动访谈（身份/目标/薄弱点/风格）、案例研习（事实识别/法律定性/多方论证/结构化输出）、法条记忆（体系图谱/重点识别/记忆技巧/间隔复习）、模拟题生成（题型设计/情景构建/答案解析/难度校准）、错题分析（错误模式/薄弱诊断/补强方案/进步追踪），共五大模块二十个子技能加五个编排入口，从备考规划到查漏补缺全链路覆盖。",
+  "author": {
+    "name": "AI for China Legal Contributors"
+  },
+  "skills": [
+    {
+      "name": "cold-start-interview",
+      "path": "skills/cold-start-interview/SKILL.md",
+      "description": "冷启动访谈编排入口：收集学习者身份、目标、薄弱环节、学习风格，写入 law-student/CLAUDE.md"
+    },
+    {
+      "name": "identity-enterprise-profile",
+      "path": "skills/cold-start-interview/identity-enterprise-profile/SKILL.md",
+      "description": "访谈子技能：身份与学习画像 → 写入 ## 我是谁"
+    },
+    {
+      "name": "study-stance-goals",
+      "path": "skills/cold-start-interview/study-stance-goals/SKILL.md",
+      "description": "访谈子技能：学习立场与目标 → 写入 ## 学习目标"
+    },
+    {
+      "name": "weakness-escalation",
+      "path": "skills/cold-start-interview/weakness-escalation/SKILL.md",
+      "description": "访谈子技能：薄弱环节与升级规则 → 写入 ## 薄弱环节"
+    },
+    {
+      "name": "style-resources",
+      "path": "skills/cold-start-interview/style-resources/SKILL.md",
+      "description": "访谈子技能：学习风格与资源 → 写入 ## 学习偏好 / ## 输出偏好"
+    },
+    {
+      "name": "case-study",
+      "path": "skills/case-study/SKILL.md",
+      "description": "案例研习编排入口：编排四个案例研习子技能，训练法律案例分析方法论"
+    },
+    {
+      "name": "case-fact-identification",
+      "path": "skills/case-study/case-fact-identification/SKILL.md",
+      "description": "案例研习子技能：案件事实识别与争议焦点归纳"
+    },
+    {
+      "name": "legal-issue-analysis",
+      "path": "skills/case-study/legal-issue-analysis/SKILL.md",
+      "description": "案例研习子技能：法律问题定性与请求权基础分析"
+    },
+    {
+      "name": "multi-perspective-argumentation",
+      "path": "skills/case-study/multi-perspective-argumentation/SKILL.md",
+      "description": "案例研习子技能：多方观点论证与利益衡量"
+    },
+    {
+      "name": "conclusion-structured-output",
+      "path": "skills/case-study/conclusion-structured-output/SKILL.md",
+      "description": "案例研习子技能：结论形成与结构化表达（IRAC答题结构）"
+    },
+    {
+      "name": "law-memorization",
+      "path": "skills/law-memorization/SKILL.md",
+      "description": "法条记忆编排入口：编排四个法条记忆子技能，系统训练高效记忆核心法条"
+    },
+    {
+      "name": "legal-system-mapping",
+      "path": "skills/law-memorization/legal-system-mapping/SKILL.md",
+      "description": "法条记忆子技能：法律体系与部门法知识图谱构建"
+    },
+    {
+      "name": "key-provision-identification",
+      "path": "skills/law-memorization/key-provision-identification/SKILL.md",
+      "description": "法条记忆子技能：重点法条识别与高频考点标记"
+    },
+    {
+      "name": "memory-technique-application",
+      "path": "skills/law-memorization/memory-technique-application/SKILL.md",
+      "description": "法条记忆子技能：记忆技巧应用（对比/联想/口诀/案例串联/图表）"
+    },
+    {
+      "name": "spaced-repetition-review",
+      "path": "skills/law-memorization/spaced-repetition-review/SKILL.md",
+      "description": "法条记忆子技能：间隔复习与自测计划"
+    },
+    {
+      "name": "practice-questions",
+      "path": "skills/practice-questions/SKILL.md",
+      "description": "模拟题生成编排入口：编排四个模拟题子技能，按法考标准生成模拟题"
+    },
+    {
+      "name": "question-type-design",
+      "path": "skills/practice-questions/question-type-design/SKILL.md",
+      "description": "模拟题子技能：题型设计与知识点覆盖矩阵"
+    },
+    {
+      "name": "scenario-construction",
+      "path": "skills/practice-questions/scenario-construction/SKILL.md",
+      "description": "模拟题子技能：案例情景构建与法律逻辑检查"
+    },
+    {
+      "name": "answer-key-explanation",
+      "path": "skills/practice-questions/answer-key-explanation/SKILL.md",
+      "description": "模拟题子技能：答案与解析撰写（含易错点说明）"
+    },
+    {
+      "name": "difficulty-calibration",
+      "path": "skills/practice-questions/difficulty-calibration/SKILL.md",
+      "description": "模拟题子技能：难度校准与区分度动态调整"
+    },
+    {
+      "name": "wrong-answer-analysis",
+      "path": "skills/wrong-answer-analysis/SKILL.md",
+      "description": "错题分析编排入口（新增）：编排四个错题分析子技能，系统化分析错题找原因"
+    },
+    {
+      "name": "error-pattern-recognition",
+      "path": "skills/wrong-answer-analysis/error-pattern-recognition/SKILL.md",
+      "description": "错题分析子技能：错误模式识别与分类"
+    },
+    {
+      "name": "knowledge-gap-diagnosis",
+      "path": "skills/wrong-answer-analysis/knowledge-gap-diagnosis/SKILL.md",
+      "description": "错题分析子技能：知识薄弱点诊断与优先级排序"
+    },
+    {
+      "name": "targeted-remediation",
+      "path": "skills/wrong-answer-analysis/targeted-remediation/SKILL.md",
+      "description": "错题分析子技能：针对性补强方案制定"
+    },
+    {
+      "name": "progress-tracking",
+      "path": "skills/wrong-answer-analysis/progress-tracking/SKILL.md",
+      "description": "错题分析子技能：进步追踪与阶段性评估"
+    }
+  ]
 }

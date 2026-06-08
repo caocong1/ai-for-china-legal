@@ -1,7 +1,133 @@
 {
   "name": "ai-governance",
-  "version": "0.1.0",
-  "description": "深度合成备案、算法备案、生成式 AI",
+  "version": "0.2.0",
+  "description": "AI 治理全流程辅助，涵盖五大模块二十个子技能加五个编排入口：冷启动访谈（身份与企业画像/合规立场与服务范围/风险与升级/文书风格与监管资源）初始化实践配置档案；深度合成备案（深度合成服务识别与分类/备案材料准备/安全评估与备案提交/备案后合规管理）完成深度合成备案全流程；算法备案（算法类型识别与分类/备案要求分析/备案材料准备与提交/备案后变更管理）完成算法推荐服务备案全流程；生成式AI合规（服务类型与合规要求识别/训练数据合规/内容安全机制建设/用户保护与备案管理）满足生成式AI合规要求；AI使用案例分类（应用场景盘点/风险等级分类/合规要求映射/分类报告输出）盘点评估AI应用场景合规风险。用于AI治理合规预防与备案管理，AI治理法规快速演进须核实现行版本，涉及行刑衔接或重大违规强制升级执业律师。",
   "author": { "name": "AI for China Legal Contributors" },
-  "skills": [{"name":"cold-start-interview","path":"skills/cold-start-interview/SKILL.md"},{"name":"deep-synthesis-filing","path":"skills/deep-synthesis-filing/SKILL.md"},{"name":"algorithm-filing","path":"skills/algorithm-filing/SKILL.md"},{"name":"generative-ai","path":"skills/generative-ai/SKILL.md"}]
+  "skills": [
+    {
+      "name": "cold-start-interview",
+      "path": "skills/cold-start-interview/SKILL.md",
+      "description": "冷启动访谈编排入口，顺序调用四个访谈子技能（身份与企业画像→合规立场→风险与升级→文书风格与监管资源），初始化并填充 ai-governance/CLAUDE.md 实践配置档案（散文章节，非独立 YAML），支持单独触发任一子技能更新特定章节。"
+    },
+    {
+      "name": "identity-enterprise-profile",
+      "path": "skills/cold-start-interview/identity-enterprise-profile/SKILL.md",
+      "description": "访谈子技能一：采集执业角色（AI合规律师/企业合规官/企业法务/当事人）、AI服务类型（生成式AI/深度合成/算法推荐）、企业画像（所属行业·是否提供AI服务·AI服务类型描述·主管监管机关·规模·业务模式·涉外·已备案情况·重点风险领域），填充 CLAUDE.md「我们是谁/谁在使用」章节。"
+    },
+    {
+      "name": "compliance-stance-scope",
+      "path": "skills/cold-start-interview/compliance-stance-scope/SKILL.md",
+      "description": "访谈子技能二：采集整体服务立场（深度合成备案/算法备案/生成式AI合规/AI使用案例分类/混合）、合规严格度（保守/平衡/务实）、监管关系（主动合规/被动应对），填充 CLAUDE.md「合规与监管立场」章节。"
+    },
+    {
+      "name": "risk-escalation",
+      "path": "skills/cold-start-interview/risk-escalation/SKILL.md",
+      "description": "访谈子技能三：采集AI合规风险等级定义（🔴关键/🟠高/🟡中等/🟢低）、角色权限表、强制升级触发条件（被责令下架/未备案被整改/行刑衔接/用户权益损害/人身自由风险强制升级执业律师），填充 CLAUDE.md「AI合规风险校准/升级矩阵」章节。"
+    },
+    {
+      "name": "style-regulatory-resources",
+      "path": "skills/cold-start-interview/style-regulatory-resources/SKILL.md",
+      "description": "访谈子技能四：采集文书风格（备案材料/合规分析报告/合规制度文本）、主管监管机关·算法备案系统·深度合成备案系统·行业协会·法规数据库资源，填充 CLAUDE.md「文书风格/可用集成」章节。"
+    },
+    {
+      "name": "deep-synthesis-filing",
+      "path": "skills/deep-synthesis-filing/SKILL.md",
+      "description": "深度合成备案编排入口，顺序调用四个子技能（深度合成服务识别与分类→备案材料准备→安全评估与备案提交→备案后合规管理）；AI治理法规快速演进须核实现行版本，行刑衔接强制升级律师。"
+    },
+    {
+      "name": "deep-synthesis-scope-identification",
+      "path": "skills/deep-synthesis-filing/deep-synthesis-scope-identification/SKILL.md",
+      "description": "深度合成备案子技能一：识别企业AI服务是否属于深度合成服务，按深度合成管理规定分类（图像/音频/视频/虚拟数字人），确定适用的备案义务，识别交叉备案义务（算法备案/生成式AI备案）。"
+    },
+    {
+      "name": "filing-material-preparation",
+      "path": "skills/deep-synthesis-filing/filing-material-preparation/SKILL.md",
+      "description": "深度合成备案子技能二：按备案要求准备材料（服务信息·算法说明·安全管理制度·内容标识方案·技术保障措施·安全评估报告·用户协议），确保材料完整符合备案系统要求。"
+    },
+    {
+      "name": "security-assessment-filing",
+      "path": "skills/deep-synthesis-filing/security-assessment-filing/SKILL.md",
+      "description": "深度合成备案子技能三：完成安全评估（内容安全·数据安全·算法安全·用户保护·应急处置），撰写安全评估报告，通过互联网信息服务算法备案系统提交备案，处理审核反馈。"
+    },
+    {
+      "name": "post-filing-compliance",
+      "path": "skills/deep-synthesis-filing/post-filing-compliance/SKILL.md",
+      "description": "深度合成备案子技能四：备案后变更管理（主体变更·服务变更·算法变更）、定期合规自查、监管配合、备案续期、AI治理法规跟踪。"
+    },
+    {
+      "name": "algorithm-filing",
+      "path": "skills/algorithm-filing/SKILL.md",
+      "description": "算法备案编排入口，顺序调用四个子技能（算法类型识别与分类→备案要求分析→备案材料准备与提交→备案后变更管理）；AI治理法规快速演进须核实现行版本，行刑衔接强制升级律师。"
+    },
+    {
+      "name": "algorithm-type-identification",
+      "path": "skills/algorithm-filing/algorithm-type-identification/SKILL.md",
+      "description": "算法备案子技能一：识别算法推荐服务类型（生成合成类/个性化推送类/排序精选类/检索过滤类/调度决策类），按算法推荐管理规定确定备案义务，识别交叉备案义务。"
+    },
+    {
+      "name": "filing-requirement-analysis",
+      "path": "skills/algorithm-filing/filing-requirement-analysis/SKILL.md",
+      "description": "算法备案子技能二：根据算法类型分析备案条件·备案流程·材料要求·安全评估要求，识别特殊要求（舆论属性·个人信息·未成年人）。"
+    },
+    {
+      "name": "algorithm-filing-material-preparation",
+      "path": "skills/algorithm-filing/filing-material-preparation/SKILL.md",
+      "description": "算法备案子技能三：准备算法备案材料（主体信息·算法信息·训练数据说明·服务说明·安全管理制度·算法透明度方案·用户权益保护·安全评估报告），通过备案系统提交。"
+    },
+    {
+      "name": "post-filing-change-management",
+      "path": "skills/algorithm-filing/post-filing-change-management/SKILL.md",
+      "description": "算法备案子技能四：备案后变更管理（主体变更·算法重大变更·服务变更）、定期合规自查（算法运行监测·偏见检测·用户权益）、监管配合、法规跟踪。"
+    },
+    {
+      "name": "generative-ai",
+      "path": "skills/generative-ai/SKILL.md",
+      "description": "生成式AI合规编排入口，顺序调用四个子技能（服务类型与合规要求识别→训练数据合规→内容安全机制建设→用户保护与备案管理）；AI治理法规快速演进须核实现行版本，行刑衔接强制升级律师。"
+    },
+    {
+      "name": "service-type-compliance-identification",
+      "path": "skills/generative-ai/service-type-compliance-identification/SKILL.md",
+      "description": "生成式AI合规子技能一：识别生成式AI服务类型（文本/图像/音频/视频/代码/多模态生成），映射适用合规要求（备案·安全评估·训练数据·内容安全·标识·用户保护），识别交叉义务。"
+    },
+    {
+      "name": "training-data-compliance",
+      "path": "skills/generative-ai/training-data-compliance/SKILL.md",
+      "description": "生成式AI合规子技能二：审查训练数据来源合法性，评估知识产权合规（著作权·授权·开源协议）、个人信息合规（合法性基础·敏感信息·去标识化·跨境）、内容合规（违法不良信息·虚假信息），输出整改建议。"
+    },
+    {
+      "name": "content-safety-mechanism",
+      "path": "skills/generative-ai/content-safety-mechanism/SKILL.md",
+      "description": "生成式AI合规子技能三：建设内容安全机制，包括风险识别（政治敏感·暴力·色情·虚假·侵权·歧视·违法）、多层审核体系（模型层·输入层·输出层·人工层）、风险监测系统、违规处置机制、应急响应预案、内容标识方案。"
+    },
+    {
+      "name": "user-protection-filing",
+      "path": "skills/generative-ai/user-protection-filing/SKILL.md",
+      "description": "生成式AI合规子技能四：建设用户权益保护机制（知情权·选择权·投诉举报机制），准备备案材料，完成安全评估，通过备案系统提交。"
+    },
+    {
+      "name": "ai-use-case-classification",
+      "path": "skills/ai-use-case-classification/SKILL.md",
+      "description": "AI使用案例分类编排入口，顺序调用四个子技能（应用场景盘点→风险等级分类→合规要求映射→分类报告输出）；系统盘点AI应用场景并评估合规风险，行刑衔接强制升级律师。"
+    },
+    {
+      "name": "use-case-inventory",
+      "path": "skills/ai-use-case-classification/use-case-inventory/SKILL.md",
+      "description": "AI使用案例分类子技能一：全面盘点企业AI应用场景（内容生成·推荐决策·自动化处理·数据分析·生物识别），建立AI应用场景台账，排查遗漏风险。"
+    },
+    {
+      "name": "risk-level-classification",
+      "path": "skills/ai-use-case-classification/risk-level-classification/SKILL.md",
+      "description": "AI使用案例分类子技能二：对已盘点场景按数据类型·服务对象·内容影响·决策影响·备案义务五维度进行风险等级分类（🔴高/🟠较高/🟡中等/🟢低），重点标注高风险场景。"
+    },
+    {
+      "name": "compliance-requirement-mapping",
+      "path": "skills/ai-use-case-classification/compliance-requirement-mapping/SKILL.md",
+      "description": "AI使用案例分类子技能三：将每个AI应用场景映射到适用合规要求（算法备案·深度合成备案·生成式AI备案·安全评估·个人信息保护·数据安全·内容安全·内容标识·算法透明度·用户保护），输出合规差距分析与整改优先级。"
+    },
+    {
+      "name": "classification-report-output",
+      "path": "skills/ai-use-case-classification/classification-report-output/SKILL.md",
+      "description": "AI使用案例分类子技能四：整合场景台账·风险分布·合规映射·差距分析，输出完整AI使用案例分类报告，含整改优先级与下一步行动计划。"
+    }
+  ]
 }

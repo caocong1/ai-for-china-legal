@@ -1,8 +1,135 @@
 {
   "name": "data-compliance",
-  "version": "0.1.0",
-  "description": "个人信息保护影响评估 (PIA)、数据出境安全评估、数据处理协议审查、个保法/数据安全法合规监控。",
+  "version": "0.2.0",
+  "description": "数据合规法律技能套件：覆盖冷启动访谈（身份/合规立场/风险升级/文书跨境）、个保法 PIA 生成（评估情形告知同意/数据映射最小必要/风险评估保护措施/报告组装）、数据出境评估（路径判定/安全评估申报/标准合同/装配）、数据安全法合规检查（分类分级 DSL第21条/重要数据/管理制度/风险报告）、网络安全法合规检查（等级保护 CSL第21条/关基保护 CSL第31条起/运营者义务/个人信息收集），五大模块二十个子技能加五个编排入口，覆盖 PIPL/DSL/CSL 全链路合规。",
   "author": {
     "name": "AI for China Legal Contributors"
-  }
+  },
+  "skills": [
+    {
+      "name": "cold-start-interview",
+      "path": "skills/cold-start-interview/SKILL.md",
+      "description": "冷启动访谈编排入口——顺序调用四个访谈子技能，初始化 data-compliance/CLAUDE.md 数据合规实践档案"
+    },
+    {
+      "name": "identity-team",
+      "path": "skills/cold-start-interview/identity-team/SKILL.md",
+      "description": "访谈子技能一：数据处理者画像采集（组织/行业/CIIO/处理规模/敏感信息/出境场景），填充 data-compliance/CLAUDE.md 身份章节"
+    },
+    {
+      "name": "compliance-stance",
+      "path": "skills/cold-start-interview/compliance-stance/SKILL.md",
+      "description": "访谈子技能二：三维合规立场（整体合规偏好/敏感数据政策/跨境政策/数据安全立场），填充 data-compliance/CLAUDE.md 合规立场章节"
+    },
+    {
+      "name": "risk-escalation",
+      "path": "skills/cold-start-interview/risk-escalation/SKILL.md",
+      "description": "访谈子技能三：风险等级定义与升级矩阵（角色权限/自动升级触发/监管报告触发），填充 data-compliance/CLAUDE.md 风险校准与升级矩阵章节"
+    },
+    {
+      "name": "style-cross-border-policy",
+      "path": "skills/cold-start-interview/style-cross-border-policy/SKILL.md",
+      "description": "访谈子技能四：文书风格与行业监管偏好（合规报告格式/PIA报告/监管沟通风格/行业特殊要求），填充 data-compliance/CLAUDE.md 文书风格与共享护栏章节"
+    },
+    {
+      "name": "pia-generation",
+      "path": "skills/pia-generation/SKILL.md",
+      "description": "个保法 PIA 生成编排入口——依据 PIPL（2021年），协调四个子技能完成个人信息保护影响评估（第55-56条）"
+    },
+    {
+      "name": "trigger-consent-basis",
+      "path": "skills/pia-generation/trigger-consent-basis/SKILL.md",
+      "description": "PIA 子技能一：评估情形判定与告知-同意基础审查，依 PIPL 第13-14条（已核实）/第28-29条（已核实）"
+    },
+    {
+      "name": "data-mapping-necessity",
+      "path": "skills/pia-generation/data-mapping-necessity/SKILL.md",
+      "description": "PIA 子技能二：数据映射与最小必要原则审查，含敏感个人信息识别与分类（PIPL 第28条，已核实）"
+    },
+    {
+      "name": "risk-mitigation-assessment",
+      "path": "skills/pia-generation/risk-mitigation-assessment/SKILL.md",
+      "description": "PIA 子技能三：风险评估与保护措施审查，依 PIPL 第55条情形（已核实）"
+    },
+    {
+      "name": "pia-report-assembly",
+      "path": "skills/pia-generation/pia-report-assembly/SKILL.md",
+      "description": "PIA 子技能四：PIA 报告组装，记录存 3 年（PIPL 第56条，已核实），整改建议与监管报告衔接"
+    },
+    {
+      "name": "cross-border-assessment",
+      "path": "skills/cross-border-assessment/SKILL.md",
+      "description": "数据出境评估编排入口——依据 PIPL 第38条（已核实）三路径，协调四个子技能完成跨境数据合规评估"
+    },
+    {
+      "name": "pathway-determination",
+      "path": "skills/cross-border-assessment/pathway-determination/SKILL.md",
+      "description": "出境子技能一：跨境三路径判定（安全评估/保护认证/标准合同），PIPL 第38条（已核实）"
+    },
+    {
+      "name": "security-assessment-filing",
+      "path": "skills/cross-border-assessment/security-assessment-filing/SKILL.md",
+      "description": "出境子技能二：安全评估申报——数据出境安全评估办法（2022年，网信办），重要数据出境强制路径（DSL第31条，已核实）"
+    },
+    {
+      "name": "standard-contract",
+      "path": "skills/cross-border-assessment/standard-contract/SKILL.md",
+      "description": "出境子技能三：标准合同备案——个人信息出境标准合同办法（2023年，网信办），PIPL 第39条（已核实）单独同意"
+    },
+    {
+      "name": "cross-border-assembly",
+      "path": "skills/cross-border-assessment/cross-border-assembly/SKILL.md",
+      "description": "出境子技能四：出境装配——保护认证路径（PIPL 第40条，已核实），出境前合规清单，出境记录"
+    },
+    {
+      "name": "data-security-compliance",
+      "path": "skills/data-security-compliance/SKILL.md",
+      "description": "数据安全法合规检查编排入口——依据 DSL（2021年），协调四个子技能完成数据分类分级（DSL第21条）/重要数据/管理制度/风险报告全面合规审查"
+    },
+    {
+      "name": "data-classification-grading",
+      "path": "skills/data-security-compliance/data-classification-grading/SKILL.md",
+      "description": "数据安全子技能一：数据分类分级，依 DSL 第21条（已核实），三级分类（国家核心数据/重要数据/一般数据）"
+    },
+    {
+      "name": "important-data-handling",
+      "path": "skills/data-security-compliance/important-data-handling/SKILL.md",
+      "description": "数据安全子技能二：重要数据识别与处理，依 DSL 第31条（已核实），出境须安全评估，对照行业主管部门目录"
+    },
+    {
+      "name": "security-management-system",
+      "path": "skills/data-security-compliance/security-management-system/SKILL.md",
+      "description": "数据安全子技能三：数据安全管理制度——全流程管理制度建立/安全教育培训/技术措施审查"
+    },
+    {
+      "name": "risk-assessment-reporting",
+      "path": "skills/data-security-compliance/risk-assessment-reporting/SKILL.md",
+      "description": "数据安全子技能四：数据安全风险评估与报告——重要数据定期风险评估报送/安全事件处置与报告/数据交易合规"
+    },
+    {
+      "name": "network-security-compliance",
+      "path": "skills/network-security-compliance/SKILL.md",
+      "description": "网络安全法合规检查编排入口——依据 CSL（2017年），协调四个子技能完成等级保护（CSL第21条）/关基保护（CSL第31条起）/运营者义务/个人信息收集合规审查"
+    },
+    {
+      "name": "mlps-grading",
+      "path": "skills/network-security-compliance/mlps-grading/SKILL.md",
+      "description": "网络安全子技能一：网络安全等级保护，依 CSL 第21条（已核实），等保五级定级备案测评整改（等保2.0）"
+    },
+    {
+      "name": "cii-protection",
+      "path": "skills/network-security-compliance/cii-protection/SKILL.md",
+      "description": "网络安全子技能二：关键信息基础设施保护，依 CSL 第31条起（已核实），关基识别/运营者特别义务/数据本地化与出境安全评估"
+    },
+    {
+      "name": "operator-obligations",
+      "path": "skills/network-security-compliance/operator-obligations/SKILL.md",
+      "description": "网络安全子技能三：网络运营者安全义务——实名制/日志留存不少于六个月/技术措施/应急预案/违法信息处置"
+    },
+    {
+      "name": "personal-info-collection",
+      "path": "skills/network-security-compliance/personal-info-collection/SKILL.md",
+      "description": "网络安全子技能四：个人信息收集合规——CSL 与 PIPL 衔接，合法正当必要，最小必要原则，告知-同意（PIPL 第13-14条，已核实），用户权利保障（第44-47条，已核实）"
+    }
+  ]
 }

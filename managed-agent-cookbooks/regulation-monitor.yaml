@@ -8,21 +8,242 @@
 ```yaml
 name: regulation-monitor
 schedule: "0 8 * * *"
-description: "监控法规动态"
+description: "监控国家法律法规数据库及各部委发布的法规动态，自动推送法规变化至合规团队"
+version: "2.0"
+
 input_prompt: |
   检查以下来源的法规更新：
-  - 国务院公报
-  - 各部委规章
-  - 地方性法规
-  - 司法解释
-  
-  对于每个新法规，提取：
-  - 法规名称
+
+  一、法律法规
+  - 全国人大及其常委会通过的法律
+  - 国务院发布的行政法规
+  - 数据来源：国家法律法规数据库 (flk.npc.gov.cn)
+
+  二、部门规章
+  - 各部委发布的部门规章
+  - 重点关注：
+    - 国家互联网信息办公室（网信办）
+    - 工业和信息化部（工信部）
+    - 国家市场监督管理总局
+    - 人力资源和社会保障部
+    - 住房和城乡建设部
+    - 国家知识产权局
+  - 数据来源：国务院公报 (gov.cn/zhengce)
+
+  三、地方性法规
+  - 省/直辖市人大及其常委会通过的地方性法规
+  - 地方政府规章
+  - 重点关注地区：北京、上海、广东、浙江、江苏
+  - 数据来源：各省市人大网站
+
+  四、司法解释
+  - 最高人民法院发布的司法解释
+  - 最高人民检察院发布的司法解释
+  - 数据来源：最高人民法院网站 (court.gov.cn)
+
+  五、规范性文件
+  - 国务院及各部委发布的规范性文件（通知、意见、办法等）
+  - 行业标准和规范
+
+  对于每个新法规，提取以下信息：
+  - 法规全称及文号
   - 发布机构
-  - 生效日期
-  - 核心内容摘要
-  - 对业务的影响
+  - 发布日期
+  - 生效日期（含过渡期安排）
+  - 法规类型（法律/行政法规/部门规章/地方性法规/司法解释/规范性文件）
+  - 核心内容摘要（不超过500字）
+  - 废止或修订的旧法规
+  - 对行业和业务的合规影响分析
+  - 需要采取的合规行动建议
+
+  分析维度：
+  - 法规效力层级分析
+  - 新旧法规对比
+  - 合规影响等级（高/中/低）
+  - 合规过渡期安排
+```
 
 output_format: "markdown"
 recipients: ["compliance-team"]
+
+data_sources:
+  primary:
+    - name: "国家法律法规数据库"
+      url: "https://flk.npc.gov.cn"
+      connector: "law-database"
+      frequency: "每日"
+    - name: "国务院政策文件库"
+      url: "https://www.gov.cn/zhengce/"
+      connector: null
+      frequency: "每日"
+  secondary:
+    - name: "最高人民法院"
+      url: "https://www.court.gov.cn"
+      connector: null
+      frequency: "每日"
+    - name: "最高人民检察院"
+      url: "https://www.spp.gov.cn"
+      connector: null
+      frequency: "每日"
+    - name: "各部委官方网站"
+      url: "各部委官网"
+      connector: null
+      frequency: "每日"
+
+error_handling:
+  source_unavailable:
+    action: "重试3次，间隔5分钟"
+    fallback: "切换至备用数据源或使用缓存数据"
+    notify: "若主要数据源持续不可用超过2小时，通知系统管理员"
+  data_parse_error:
+    action: "跳过异常记录，记录错误日志"
+    notify: "连续3次解析失败时通知开发人员"
+  duplicate_detection:
+    action: "比对法规文号去重，避免重复推送"
+    strategy: "以法规文号为唯一标识"
+
+escalation_rules:
+  immediate_notify:
+    - "新法律通过或公布"
+    - "涉及我方业务核心领域的行政法规变化"
+    - "直接影响在手案件处理的司法解释"
+    - "合规影响等级为高的法规变化"
+    - "法规废止或重大修订"
+  batch_report:
+    - "部门规章更新汇总"
+    - "地方性法规更新汇总"
+    - "规范性文件更新汇总"
+    - "合规影响等级为中和低的法规变化"
+  batch_schedule: "每日17:00汇总当日更新"
+
+integration:
+  plugins:
+    - plugin: "data-compliance"
+      skill: "data-regulation-monitor"
+      trigger: "涉及数据保护、个人信息、网络安全的新法规"
+    - plugin: "regulatory-compliance"
+      skill: "compliance-impact-analysis"
+      trigger: "任何合规影响等级为高的法规变化"
+    - plugin: "labor-legal"
+      skill: "labor-policy-update"
+      trigger: "涉及劳动人事领域的新法规"
+    - plugin: "construction-legal"
+      skill: "construction-regulation-update"
+      trigger: "涉及建设工程领域的新法规"
+    - plugin: "ai-governance"
+      skill: "ai-regulation-monitor"
+      trigger: "涉及人工智能、算法治理的新法规"
+    - plugin: "commercial-legal"
+      skill: "contract-compliance-check"
+      trigger: "影响合同效力的法规变化"
+
+output_template: |
+  # 法规动态监控报告 - {{date}}
+
+  ## 概览
+  - 监控日期: {{date}}
+  - 新增法规数量: {{total_count}}
+  - 高影响法规: {{high_impact_count}}
+  - 中影响法规: {{medium_impact_count}}
+  - 低影响法规: {{low_impact_count}}
+
+  ## 重点法规
+
+  ### 法规 {{index}}: {{regulation_title}}
+  - **文号**: {{document_number}}
+  - **发布机构**: {{issuing_authority}}
+  - **发布日期**: {{publish_date}}
+  - **生效日期**: {{effective_date}}
+  - **法规类型**: {{regulation_type}}
+  - **合规影响等级**: {{impact_level}}
+  - **核心内容摘要**: {{summary}}
+  - **废止/修订旧法规**: {{superseded_laws}}
+  - **合规影响分析**: {{compliance_impact}}
+  - **建议行动**: {{recommended_actions}}
+  - **关联插件**: {{related_plugins}}
+
+  ## 新旧法规对比
+  {{comparison_table}}
+
+  ## 合规过渡期
+  | 法规名称 | 生效日期 | 过渡期截止 | 需完成事项 |
+  |---------|---------|-----------|-----------|
+  {{transition_table}}
+
+  ## 统计汇总
+  | 法规类型 | 新增数量 | 高影响 | 中影响 | 低影响 |
+  |---------|---------|--------|--------|--------|
+  | 法律 | {{law_count}} | {{law_high}} | {{law_mid}} | {{law_low}} |
+  | 行政法规 | {{admin_count}} | {{admin_high}} | {{admin_mid}} | {{admin_low}} |
+  | 部门规章 | {{dept_count}} | {{dept_high}} | {{dept_mid}} | {{dept_low}} |
+  | 地方性法规 | {{local_count}} | {{local_high}} | {{local_mid}} | {{local_low}} |
+  | 司法解释 | {{judicial_count}} | {{judicial_high}} | {{judicial_mid}} | {{judicial_low}} |
+```
+
+configuration:
+  env_vars:
+    - name: "LAW_DB_API_KEY"
+      description: "法规数据库 API 密钥"
+      required: true
+    - name: "LAW_DB_API_URL"
+      description: "法规数据库 API 地址"
+      default: "https://flk.npc.gov.cn/api"
+    - name: "REGULATION_MONITOR_KEYWORDS"
+      description: "自定义监控关键词列表（JSON 数组）"
+      required: false
+    - name: "REGULATION_MONITOR_REGIONS"
+      description: "监控的地区列表（JSON 数组）"
+      required: false
+    - name: "REGULATION_MONITOR_MINISTRIES"
+      description: "监控的部委列表（JSON 数组）"
+      required: false
+    - name: "NOTIFICATION_CHANNEL"
+      description: "通知渠道（wechat/dingtalk/email）"
+      default: "wechat"
+    - name: "IMPACT_ASSESSMENT_MODEL"
+      description: "合规影响评估模型（basic/advanced）"
+      default: "basic"
+  schedule_notes: "建议在工作日早8点运行，确保在上班前完成数据采集"
+```
+
+## 输出示例
+
+```markdown
+# 法规动态监控报告 - 2026-06-08
+
+## 概览
+- 监控日期: 2026-06-08
+- 新增法规数量: 12
+- 高影响法规: 2
+- 中影响法规: 5
+- 低影响法规: 5
+
+## 重点法规
+
+### 法规 1: 个人信息出境标准合同备案管理办法
+- **文号**: 网信办令第XX号
+- **发布机构**: 国家互联网信息办公室
+- **发布日期**: 2026-06-07
+- **生效日期**: 2026-09-01
+- **法规类型**: 部门规章
+- **合规影响等级**: 高
+- **核心内容摘要**: 规范个人信息出境标准合同备案流程，明确备案材料要求和时限
+- **废止/修订旧法规**: 无
+- **合规影响分析**: 涉及跨境数据传输的企业需重新评估合规方案
+- **建议行动**: 1. 梳理现有跨境数据传输场景 2. 评估是否需要重新备案 3. 在过渡期内完成合规调整
+- **关联插件**: data-compliance / data-regulation-monitor
+
+## 合规过渡期
+| 法规名称 | 生效日期 | 过渡期截止 | 需完成事项 |
+|---------|---------|-----------|-----------|
+| 个人信息出境标准合同备案管理办法 | 2026-09-01 | 2026-12-01 | 完成标准合同备案 |
+
+## 统计汇总
+| 法规类型 | 新增数量 | 高影响 | 中影响 | 低影响 |
+|---------|---------|--------|--------|--------|
+| 法律 | 0 | 0 | 0 | 0 |
+| 行政法规 | 1 | 1 | 0 | 0 |
+| 部门规章 | 3 | 1 | 1 | 1 |
+| 地方性法规 | 5 | 0 | 3 | 2 |
+| 司法解释 | 3 | 0 | 1 | 2 |
 ```

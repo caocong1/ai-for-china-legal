@@ -1,7 +1,135 @@
 {
   "name": "legal-builder-hub",
-  "version": "0.1.0",
-  "description": "技能发现、安装、安全审查",
-  "author": { "name": "AI for China Legal Contributors" },
-  "skills": [{"name":"cold-start-interview","path":"skills/cold-start-interview/SKILL.md"},{"name":"skill-discovery","path":"skills/skill-discovery/SKILL.md"},{"name":"installation","path":"skills/installation/SKILL.md"},{"name":"security-review","path":"skills/security-review/SKILL.md"}]
+  "version": "0.2.0",
+  "description": "法律技能中心/社区技能中心：覆盖冷启动访谈（身份角色画像/偏好范围/安全策略升级/风格资源）、技能发现（搜索浏览/详情评价/分类筛选/推荐排序）、安装向导（兼容性检查/安装执行/安装后配置/更新卸载）、安全审查（静态分析/权限审查/隐私评估/报告认证）、技能注册表（清单管理/版本发布/依赖解析/查询发布），五大模块二十个子技能加五个编排入口，覆盖技能发现、安装、安全审查、注册管理全生命周期。",
+  "author": {
+    "name": "AI for China Legal Contributors"
+  },
+  "skills": [
+    {
+      "name": "cold-start-interview",
+      "path": "skills/cold-start-interview/SKILL.md",
+      "description": "冷启动访谈编排入口——顺序调用四个访谈子技能，初始化 legal-builder-hub/CLAUDE.md 法律技能中心实践档案"
+    },
+    {
+      "name": "identity-role-profile",
+      "path": "skills/cold-start-interview/identity-role-profile/SKILL.md",
+      "description": "访谈子技能一：用户身份与角色画像采集（组织/行业/角色/技术背景/团队/集成），填充身份章节"
+    },
+    {
+      "name": "preference-scope",
+      "path": "skills/cold-start-interview/preference-scope/SKILL.md",
+      "description": "访谈子技能二：技能偏好与范围配置（管理偏好/发现偏好/安装偏好/注册表配置），填充偏好章节"
+    },
+    {
+      "name": "security-escalation",
+      "path": "skills/cold-start-interview/security-escalation/SKILL.md",
+      "description": "访谈子技能三：安全策略与升级规则（审查级别/零容忍权限/隐私要求/风险等级/升级矩阵），填充安全与风险章节"
+    },
+    {
+      "name": "style-resources",
+      "path": "skills/cold-start-interview/style-resources/SKILL.md",
+      "description": "访谈子技能四：风格与资源配置（报告风格/产物位置/工作产物标题），填充文书风格与输出章节"
+    },
+    {
+      "name": "skill-discovery",
+      "path": "skills/skill-discovery/SKILL.md",
+      "description": "技能发现编排入口——协调四个子技能完成法律技能的搜索、筛选、推荐和评估"
+    },
+    {
+      "name": "skill-search-browse",
+      "path": "skills/skill-discovery/skill-search-browse/SKILL.md",
+      "description": "发现子技能一：技能搜索与浏览——关键词搜索和分类浏览，返回匹配技能列表并标注安全审查状态"
+    },
+    {
+      "name": "skill-detail-evaluation",
+      "path": "skills/skill-discovery/skill-detail-evaluation/SKILL.md",
+      "description": "发现子技能二：技能详情与评价——展示技能完整信息（功能/安全/兼容性/社区评价/许可证），辅助安装决策"
+    },
+    {
+      "name": "category-tag-filtering",
+      "path": "skills/skill-discovery/category-tag-filtering/SKILL.md",
+      "description": "发现子技能三：分类·标签·筛选——构建多维筛选条件（法律领域/能力类型/安全等级/许可证/兼容性）"
+    },
+    {
+      "name": "recommendation-ranking",
+      "path": "skills/skill-discovery/recommendation-ranking/SKILL.md",
+      "description": "发现子技能四：推荐与排序——根据用户画像个性化排序，安全加权排序，自动化决策透明度（PIPL第24条）"
+    },
+    {
+      "name": "installation",
+      "path": "skills/installation/SKILL.md",
+      "description": "安装向导编排入口——协调四个子技能完成技能的安全安装和生命周期管理"
+    },
+    {
+      "name": "compatibility-check",
+      "path": "skills/installation/compatibility-check/SKILL.md",
+      "description": "安装子技能一：兼容性检查——平台版本/依赖项/系统资源/安全审查状态/许可证兼容性全面检查"
+    },
+    {
+      "name": "installation-execution",
+      "path": "skills/installation/installation-execution/SKILL.md",
+      "description": "安装子技能二：安装执行——回滚点创建/文件下载复制/本地注册/完整性验证/安装日志；安全审查前置不可绕过"
+    },
+    {
+      "name": "post-install-configuration",
+      "path": "skills/installation/post-install-configuration/SKILL.md",
+      "description": "安装子技能三：安装后配置——API密钥/偏好设置/集成连接/功能验证，确保技能可正常运行"
+    },
+    {
+      "name": "update-uninstall",
+      "path": "skills/installation/update-uninstall/SKILL.md",
+      "description": "安装子技能四：更新与卸载——版本更新（含安全审查重审）/回滚/完全卸载（文件/配置/注册清理）"
+    },
+    {
+      "name": "security-review",
+      "path": "skills/security-review/SKILL.md",
+      "description": "安全审查编排入口——协调四个子技能完成技能安装前的全面安全审查，覆盖静态分析/权限/隐私/报告"
+    },
+    {
+      "name": "static-analysis-scan",
+      "path": "skills/security-review/static-analysis-scan/SKILL.md",
+      "description": "审查子技能一：静态分析与代码扫描——恶意代码检测/硬编码密钥/不安全函数/已知漏洞依赖项（OWASP）"
+    },
+    {
+      "name": "permission-scope-review",
+      "path": "skills/security-review/permission-scope-review/SKILL.md",
+      "description": "审查子技能二：权限范围审查——最小权限原则检查/零容忍权限检测/权限必要性分析"
+    },
+    {
+      "name": "data-privacy-assessment",
+      "path": "skills/security-review/data-privacy-assessment/SKILL.md",
+      "description": "审查子技能三：数据隐私评估——数据收集/处理/存储/外传/用户权利合规评估（PIPL/DSL）"
+    },
+    {
+      "name": "review-report-certification",
+      "path": "skills/security-review/review-report-certification/SKILL.md",
+      "description": "审查子技能四：审查报告与认证——汇总审查结果，出具安全审查报告，认证结论（通过/有条件通过/未通过）"
+    },
+    {
+      "name": "skill-registry",
+      "path": "skills/skill-registry/SKILL.md",
+      "description": "技能注册表编排入口——协调四个子技能完成技能的注册、版本管理和发布"
+    },
+    {
+      "name": "skill-manifest-management",
+      "path": "skills/skill-registry/skill-manifest-management/SKILL.md",
+      "description": "注册表子技能一：技能清单管理——SKILL.md/plugin.json 规范校验与生成，元数据格式合规检查"
+    },
+    {
+      "name": "version-release-management",
+      "path": "skills/skill-registry/version-release-management/SKILL.md",
+      "description": "注册表子技能二：版本发布管理——语义化版本（SemVer）/变更日志/发布前检查/发布流程/版本撤销"
+    },
+    {
+      "name": "dependency-resolution",
+      "path": "skills/skill-registry/dependency-resolution/SKILL.md",
+      "description": "注册表子技能三：依赖解析——依赖树构建/版本冲突检测/循环依赖检查/许可证兼容性/依赖安全状态"
+    },
+    {
+      "name": "registry-search-publish",
+      "path": "skills/skill-registry/registry-search-publish/SKILL.md",
+      "description": "注册表子技能四：注册表查询与发布——多维度查询/发布前检查/发布执行/审核流程/状态管理/撤销废弃"
+    }
+  ]
 }

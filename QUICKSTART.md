@@ -28,7 +28,7 @@
 
 | 你是… | 安装… | 第一个命令 |
 |---|---|---|
-| 商事合同律师 / 法务 | `commercial-legal` | `/commercial-legal:review` |
+| 商事合同律师 / 法务 | `commercial-legal` | `/commercial-legal:cold-start-interview` |
 | 诉讼律师 / 法务 | `litigation-legal` | `/litigation-legal:matter-intake` |
 | 劳动法律师 / HR 法务 | `employment-legal` | `/employment-legal:hiring-review` |
 | 数据合规律师 / DPO | `data-compliance` | `/data-compliance:pia-generation` |

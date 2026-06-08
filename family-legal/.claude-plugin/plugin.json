@@ -1,7 +1,133 @@
 {
   "name": "family-legal",
-  "version": "0.1.0",
-  "description": "离婚协议、遗嘱、继承",
+  "version": "0.2.0",
+  "description": "婚姻家事法律 AI 插件——五大模块二十个子技能加五个编排入口：（1）冷启动访谈（身份与当事人画像/审查与代理立场/敏感度与升级矩阵/文书风格与地方规定），初始化婚姻家事实践配置；（2）离婚协议起草（财产分割条款/子女抚养与探望/债务处理/协议生效与登记）；（3）继承权分析（法定继承顺序与份额/遗嘱继承效力/遗产范围与债务/代位与转继承）；（4）遗嘱起草（遗嘱形式选择/遗嘱能力与意思表示/遗嘱内容与必留份/见证与生效）；（5）财产分割方案（共同财产认定/特殊财产分割房产股权公司/分割原则与照顾/隐藏转移财产救济）。婚姻家事敏感护栏贯穿：未成年人利益最大化（民法典第1084条）/家暴人身安全强制升级（第1079/1091条）/律师审查护栏。规则基于民法典婚姻家庭编（第1040-1118条）与继承编（第1119-1163条）。",
   "author": { "name": "AI for China Legal Contributors" },
-  "skills": [{"name":"cold-start-interview","path":"skills/cold-start-interview/SKILL.md"},{"name":"divorce-agreement","path":"skills/divorce-agreement/SKILL.md"},{"name":"will-drafting","path":"skills/will-drafting/SKILL.md"},{"name":"inheritance","path":"skills/inheritance/SKILL.md"}]
+  "skills": [
+    {
+      "name": "cold-start-interview",
+      "path": "skills/cold-start-interview/SKILL.md",
+      "description": "冷启动访谈编排入口——初始化婚姻家事实践配置档案（family-legal/CLAUDE.md），顺序调用四个访谈子技能"
+    },
+    {
+      "name": "divorce-agreement",
+      "path": "skills/divorce-agreement/SKILL.md",
+      "description": "离婚协议起草编排入口——编排财产分割条款/子女抚养与探望/债务处理/协议生效与登记四个子技能"
+    },
+    {
+      "name": "inheritance",
+      "path": "skills/inheritance/SKILL.md",
+      "description": "继承权分析编排入口——编排法定继承顺序/遗嘱继承效力/遗产范围与债务/代位与转继承四个子技能"
+    },
+    {
+      "name": "will-drafting",
+      "path": "skills/will-drafting/SKILL.md",
+      "description": "遗嘱起草编排入口——编排遗嘱形式选择/遗嘱能力与意思表示/遗嘱内容与必留份/见证与生效四个子技能"
+    },
+    {
+      "name": "property-division",
+      "path": "skills/property-division/SKILL.md",
+      "description": "财产分割方案编排入口——编排共同财产认定/特殊财产分割/分割原则与照顾/隐藏转移财产救济四个子技能"
+    },
+    {
+      "name": "identity-party-profile",
+      "path": "skills/cold-start-interview/identity-party-profile/SKILL.md",
+      "description": "访谈子技能——采集执业角色、当事人画像与可用集成资源，填充 family-legal/CLAUDE.md 我们是谁/谁在使用/可用集成章节"
+    },
+    {
+      "name": "review-representation-stance",
+      "path": "skills/cold-start-interview/review-representation-stance/SKILL.md",
+      "description": "访谈子技能——配置代理立场（离婚一方/某继承人/遗嘱人/中立）、协议审查严格度与诉讼倾向，填充 family-legal/CLAUDE.md 审查与代理立场章节"
+    },
+    {
+      "name": "sensitivity-escalation",
+      "path": "skills/cold-start-interview/sensitivity-escalation/SKILL.md",
+      "description": "访谈子技能——配置敏感度校准（家暴/未成年人/情绪危机/涉刑）与升级矩阵（含强制升级触发），填充 family-legal/CLAUDE.md 敏感度校准/升级矩阵章节"
+    },
+    {
+      "name": "style-local-rules",
+      "path": "skills/cold-start-interview/style-local-rules/SKILL.md",
+      "description": "访谈子技能——配置文书风格偏好与地方性规定（彩礼/房产分割/抚养费裁判口径），填充 family-legal/CLAUDE.md 文书风格/共享护栏章节"
+    },
+    {
+      "name": "property-division-clauses",
+      "path": "skills/divorce-agreement/property-division-clauses/SKILL.md",
+      "description": "离婚协议子技能——拟定离婚协议财产分割条款（共同财产/个人财产/房产/股权/隐匿财产救济保留条款）"
+    },
+    {
+      "name": "child-custody-visitation",
+      "path": "skills/divorce-agreement/child-custody-visitation/SKILL.md",
+      "description": "离婚协议子技能——拟定子女抚养权归属、抚养费标准与支付安排、探望权（以最有利于未成年子女为首要原则）"
+    },
+    {
+      "name": "debt-handling",
+      "path": "skills/divorce-agreement/debt-handling/SKILL.md",
+      "description": "离婚协议子技能——处理夫妻共同债务认定（共债共签/家庭日常生活需要）与个人债务排除、内部分担与对外效力局限"
+    },
+    {
+      "name": "effectiveness-registration",
+      "path": "skills/divorce-agreement/effectiveness-registration/SKILL.md",
+      "description": "离婚协议子技能——协议离婚程序（第1076条）、冷静期30日（第1077条）、协议反悔可撤销路径、协议不成转诉讼离婚"
+    },
+    {
+      "name": "legal-succession-order",
+      "path": "skills/inheritance/legal-succession-order/SKILL.md",
+      "description": "继承权分析子技能——法定继承顺序（第一/第二顺序，第1127条）、同顺序份额均等与酌情多分（第1130条）、丧偶儿媳女婿继承（第1129条）"
+    },
+    {
+      "name": "testate-succession-validity",
+      "path": "skills/inheritance/testate-succession-validity/SKILL.md",
+      "description": "继承权分析子技能——遗嘱继承效力核查（遗嘱优先于法定继承、数份遗嘱以最后为准、遗赠扶养协议优先第1158条）"
+    },
+    {
+      "name": "estate-scope-debt",
+      "path": "skills/inheritance/estate-scope-debt/SKILL.md",
+      "description": "继承权分析子技能——遗产范围认定（第1122条）、夫妻共同财产析产后继承、遗产债务清偿以遗产实际价值为限（第1161条）"
+    },
+    {
+      "name": "subrogation-transmission",
+      "path": "skills/inheritance/subrogation-transmission/SKILL.md",
+      "description": "继承权分析子技能——代位继承（被继承人子女先于死亡，第1128条）、转继承（继承人在遗产分割前死亡）、丧失继承权（第1125条）"
+    },
+    {
+      "name": "will-form-selection",
+      "path": "skills/will-drafting/will-form-selection/SKILL.md",
+      "description": "遗嘱起草子技能——遗嘱形式选择（自书/代书/打印/录音录像/口头/公证，第1134-1139条），各形式要件与适用情形对照，公证遗嘱不再优先"
+    },
+    {
+      "name": "testamentary-capacity-intent",
+      "path": "skills/will-drafting/testamentary-capacity-intent/SKILL.md",
+      "description": "遗嘱起草子技能——遗嘱能力（完全民事行为能力）与意思表示真实性（无欺诈胁迫，第1143条），遗嘱人精神状态评估"
+    },
+    {
+      "name": "content-reserved-share",
+      "path": "skills/will-drafting/content-reserved-share/SKILL.md",
+      "description": "遗嘱起草子技能——遗嘱处分范围（仅限个人财产，先析产）、必留份安排（缺乏劳动能力又无生活来源，第1141条）、附义务遗嘱（第1144条）"
+    },
+    {
+      "name": "witnessing-effectiveness",
+      "path": "skills/will-drafting/witnessing-effectiveness/SKILL.md",
+      "description": "遗嘱起草子技能——见证人资格（第1140条，不能为继承人/受遗赠人/利害关系人）、各形式生效要件（日期/签名/见证人签名）、遗产管理人（第1145条）"
+    },
+    {
+      "name": "community-property-identification",
+      "path": "skills/property-division/community-property-identification/SKILL.md",
+      "description": "财产分割子技能——夫妻共同财产认定（第1062条）、个人财产边界（第1063条）、约定财产制效力（第1065条）、婚前财产婚后增值性质判断"
+    },
+    {
+      "name": "special-asset-division",
+      "path": "skills/property-division/special-asset-division/SKILL.md",
+      "description": "财产分割子技能——房产（婚前购买/父母出资/按揭增值/加名）、股权与公司份额、知识产权收益、股票基金投资、养老金保险等特殊财产分割"
+    },
+    {
+      "name": "division-principles-care",
+      "path": "skills/property-division/division-principles-care/SKILL.md",
+      "description": "财产分割子技能——照顾子女/女方/无过错方原则（第1087条）、家务劳动补偿（第1088条）、经济帮助（第1090条）、离婚损害赔偿（家暴/重婚，第1091条）"
+    },
+    {
+      "name": "concealed-asset-remedy",
+      "path": "skills/property-division/concealed-asset-remedy/SKILL.md",
+      "description": "财产分割子技能——隐藏转移变卖毁损挥霍共同财产少分不分（第1092条）、离婚后再次分割、举证策略（调查令/银行流水/工商查询）、财产保全申请"
+    }
+  ]
 }

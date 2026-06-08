@@ -8,20 +8,242 @@
 ```yaml
 name: corporate-change-monitor
 schedule: "0 10 * * *"
-description: "监控企业工商变更"
+description: "监控目标企业在国家企业信用信息公示系统的工商变更，自动推送重要变更至业务团队"
+version: "2.0"
+
 input_prompt: |
   监控以下企业的工商变更：
-  - 对方当事人
-  - 客户
-  - 合作伙伴
-  
-  对于每个变更，提取：
-  - 企业名称
-  - 变更类型（法定代表人/注册资本/经营范围等）
+
+  一、监控对象
+  - 对方当事人：涉及诉讼或仲裁的相对方
+  - 客户：委托服务的企业客户
+  - 合作伙伴：合资/合作方
+  - 目标公司：投资并购目标
+  - 数据来源：国家企业信用信息公示系统 (gsxt.gov.cn)
+
+  二、监控变更类型
+
+  1. 重大变更（立即通知）
+  - 法定代表人变更
+  - 注册资本变更（增资/减资）
+  - 股东变更（控股股东/实控人变更）
+  - 经营范围变更（新增/移除核心业务）
+  - 企业名称变更
+  - 注册地址跨省变更
+  - 经营状态变更（注销/吊销/清算）
+
+  2. 一般变更（批量报告）
+  - 董事/监事/高级管理人员变更
+  - 注册地址同区变更
+  - 章程备案
+  - 分支机构变更
+  - 联系方式变更
+
+  3. 特殊监控项
+  - 股权出质设立/变更/注销
+  - 股权冻结
+  - 动产抵押
+  - 经营异常名录列入/移出
+  - 行政处罚信息
+  - 严重违法失信信息
+
+  对于每个变更，提取以下信息：
+  - 企业名称及统一社会信用代码
+  - 变更类型
   - 变更日期
-  - 变更内容
+  - 变更前后内容对比
+  - 变更原因（如有）
   - 法律影响评估
+  - 对在办业务/案件的影响分析
+  - 建议应对措施
+
+  分析维度：
+  - 变更对合同履行的影响
+  - 变更对诉讼/仲裁执行的影响
+  - 变更对债权实现的影响
+  - 变更对合规状态的影响
+  - 变更是否触发合同条款（如控制权变更条款）
+```
 
 output_format: "markdown"
 recipients: ["business-team"]
+
+data_sources:
+  primary:
+    - name: "国家企业信用信息公示系统"
+      url: "https://www.gsxt.gov.cn"
+      connector: "gsxt"
+      frequency: "每日"
+  secondary:
+    - name: "天眼查"
+      url: "https://www.tianyancha.com"
+      connector: null
+      frequency: "每日"
+    - name: "企查查"
+      url: "https://www.qcc.com"
+      connector: null
+      frequency: "每日"
+    - name: "中国执行信息公开网"
+      url: "https://zxgk.court.gov.cn"
+      connector: null
+      frequency: "每日"
+
+error_handling:
+  source_unavailable:
+    action: "重试3次，间隔5分钟"
+    fallback: "切换至备用数据源（天眼查/企查查）"
+    notify: "若所有数据源均不可用，立即通知系统管理员"
+  data_parse_error:
+    action: "跳过异常记录，记录错误日志"
+    notify: "连续3次解析失败时通知开发人员"
+  company_not_found:
+    action: "标记该企业为查无信息，不推送"
+    notify: "若已添加监控的企业查无信息，通知监控管理员核实"
+  rate_limit:
+    action: "降低请求频率至每分钟2次"
+    retry_after: 300
+
+escalation_rules:
+  immediate_notify:
+    - "监控企业被吊销营业执照"
+    - "监控企业进入清算程序"
+    - "监控企业法定代表人变更（涉及合同签署权限）"
+    - "监控企业被列为失信被执行人"
+    - "监控企业股权被冻结"
+    - "监控企业控股股东/实控人变更"
+    - "涉及我方在手案件当事人的重大变更"
+  batch_report:
+    - "高管变更汇总"
+    - "注册资本变更汇总"
+    - "经营范围变更汇总"
+    - "股权出质/动产抵押变更"
+    - "经营异常名录变动"
+  batch_schedule: "每日17:00汇总当日更新"
+
+integration:
+  plugins:
+    - plugin: "commercial-legal"
+      skill: "contract-risk-assessment"
+      trigger: "合同相对方发生重大变更，需评估对合同履行的影响"
+    - plugin: "litigation-arbitration"
+      skill: "enforcement-analysis"
+      trigger: "对方当事人发生重大变更，需评估执行风险"
+    - plugin: "corporate-governance"
+      skill: "corporate-change-analysis"
+      trigger: "客户或合作伙伴发生重大治理变更"
+    - plugin: "criminal-compliance"
+      skill: "enterprise-risk-screening"
+      trigger: "监控企业出现行政处罚或严重违法信息"
+
+output_template: |
+  # 企业工商变更监控报告 - {{date}}
+
+  ## 概览
+  - 监控日期: {{date}}
+  - 监控企业数量: {{monitored_count}}
+  - 发生变更企业: {{changed_count}}
+  - 重大变更: {{major_change_count}}
+  - 一般变更: {{normal_change_count}}
+
+  ## 重大变更（需立即关注）
+
+  ### 变更 {{index}}: {{company_name}} - {{change_type}}
+  - **企业名称**: {{company_name}}
+  - **统一社会信用代码**: {{credit_code}}
+  - **变更类型**: {{change_type}}
+  - **变更日期**: {{change_date}}
+  - **变更前**: {{before_value}}
+  - **变更后**: {{after_value}}
+  - **变更原因**: {{change_reason}}
+  - **监控关系**: {{monitoring_relationship}}
+  - **法律影响评估**: {{legal_impact}}
+  - **对业务的影响**: {{business_impact}}
+  - **建议应对措施**: {{recommended_actions}}
+  - **关联插件**: {{related_plugins}}
+
+  ## 股权出质/冻结信息
+  | 企业名称 | 类型 | 质权人/冻结机关 | 金额(万元) | 登记日期 |
+  |---------|------|---------------|-----------|---------|
+  {{pledge_freeze_table}}
+
+  ## 经营异常/行政处罚
+  | 企业名称 | 类型 | 决定机关 | 事由 | 日期 |
+  |---------|------|---------|------|------|
+  {{abnormal_penalty_table}}
+
+  ## 一般变更汇总
+  | 企业名称 | 变更类型 | 变更日期 | 变更内容摘要 |
+  |---------|---------|---------|-------------|
+  {{normal_changes_table}}
+
+  ## 趋势分析
+  {{trend_analysis}}
+```
+
+configuration:
+  env_vars:
+    - name: "GSXT_API_KEY"
+      description: "企业信用信息公示系统 API 密钥"
+      required: true
+    - name: "GSXT_API_URL"
+      description: "企业信用信息公示系统 API 地址"
+      default: "https://www.gsxt.gov.cn/api"
+    - name: "MONITORED_COMPANIES"
+      description: "监控企业列表（JSON 数组，含企业名称和信用代码）"
+      required: true
+    - name: "MONITOR_CHANGE_TYPES"
+      description: "监控的变更类型列表（JSON 数组）"
+      required: false
+    - name: "ENABLE_PLEDGE_MONITOR"
+      description: "是否启用股权出质监控"
+      default: "true"
+    - name: "ENABLE_PENALTY_MONITOR"
+      description: "是否启用行政处罚监控"
+      default: "true"
+    - name: "NOTIFICATION_CHANNEL"
+      description: "通知渠道（wechat/dingtalk/email）"
+      default: "wechat"
+    - name: "BACKUP_DATA_SOURCE"
+      description: "备用数据源（tianyancha/qcc）"
+      default: "tianyancha"
+  schedule_notes: "建议在工作日上午10点运行，确保工商信息已更新"
+```
+
+## 输出示例
+
+```markdown
+# 企业工商变更监控报告 - 2026-06-08
+
+## 概览
+- 监控日期: 2026-06-08
+- 监控企业数量: 128
+- 发生变更企业: 7
+- 重大变更: 2
+- 一般变更: 5
+
+## 重大变更（需立即关注）
+
+### 变更 1: 乙科技有限公司 - 法定代表人变更
+- **企业名称**: 乙科技有限公司
+- **统一社会信用代码**: 91110108XXXXXXXXXX
+- **变更类型**: 法定代表人变更
+- **变更日期**: 2026-06-07
+- **变更前**: 李某某
+- **变更后**: 王某某
+- **监控关系**: 合同纠纷案件被告
+- **法律影响评估**: 可能影响案件调解/和解谈判进程
+- **对业务的影响**: 新法定代表人对案件态度可能变化，需关注
+- **建议应对措施**: 1. 了解新法定代表人背景 2. 评估对在手案件影响 3. 必要时调整诉讼策略
+- **关联插件**: litigation-arbitration / enforcement-analysis
+
+## 经营异常/行政处罚
+| 企业名称 | 类型 | 决定机关 | 事由 | 日期 |
+|---------|------|---------|------|------|
+| 丙贸易有限公司 | 经营异常 | 上海市市场监管局 | 通过登记住所无法联系 | 2026-06-06 |
+
+## 一般变更汇总
+| 企业名称 | 变更类型 | 变更日期 | 变更内容摘要 |
+|---------|---------|---------|-------------|
+| 丁投资有限公司 | 监事变更 | 2026-06-05 | 监事由A变更为B |
+| 戊实业有限公司 | 注册资本变更 | 2026-06-04 | 从5000万元增至8000万元 |
 ```

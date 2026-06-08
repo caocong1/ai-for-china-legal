@@ -1,7 +1,135 @@
 {
   "name": "legal-aid",
-  "version": "0.1.0",
-  "description": "客户 intake、案件管理、文书模板",
-  "author": { "name": "AI for China Legal Contributors" },
-  "skills": [{"name":"cold-start-interview","path":"skills/cold-start-interview/SKILL.md"},{"name":"client-intake","path":"skills/client-intake/SKILL.md"},{"name":"case-management","path":"skills/case-management/SKILL.md"},{"name":"document-templates","path":"skills/document-templates/SKILL.md"}]
+  "version": "0.2.0",
+  "description": "法律援助法律技能套件：覆盖冷启动访谈（身份/立场/质量/资源）、客户intake（身份核实/事实收集/资格初评/冲突分流）、案件管理（登记指派/进展跟踪/质量监督/结案归档）、法律文书模板（申请书/委托协议/诉讼文书/结案报告）、法律援助申请（条件评估/材料准备/提交跟踪/结果应对），共五大模块二十个子技能加五个编排入口，从法援案件 intake 到结案归档全链路覆盖。",
+  "author": {
+    "name": "AI for China Legal Contributors"
+  },
+  "skills": [
+    {
+      "name": "cold-start-interview",
+      "path": "skills/cold-start-interview/SKILL.md",
+      "description": "冷启动访谈编排入口：收集执业身份、服务立场、质量标准、文书风格，写入 legal-aid/CLAUDE.md"
+    },
+    {
+      "name": "identity-role-profile",
+      "path": "skills/cold-start-interview/identity-role-profile/SKILL.md",
+      "description": "访谈子技能：身份与角色画像 → 写入 ## 我是谁 / ## 谁在使用 / ## 可用集成"
+    },
+    {
+      "name": "service-stance-scope",
+      "path": "skills/cold-start-interview/service-stance-scope/SKILL.md",
+      "description": "访谈子技能：服务立场与范围（民事/刑事/行政、法援类型、受理优先级）→ 写入 ## 服务立场"
+    },
+    {
+      "name": "quality-escalation",
+      "path": "skills/cold-start-interview/quality-escalation/SKILL.md",
+      "description": "访谈子技能：质量标准与升级（重大案件/群体性案件定义、升级触发条件）→ 写入 ## 质量标准"
+    },
+    {
+      "name": "style-local-resources",
+      "path": "skills/cold-start-interview/style-local-resources/SKILL.md",
+      "description": "访谈子技能：文书风格与本地资源（法援中心/法院/民政、经济困难标准）→ 写入 ## 文书风格 / ## 本地资源"
+    },
+    {
+      "name": "client-intake",
+      "path": "skills/client-intake/SKILL.md",
+      "description": "客户 intake 编排入口：编排四个子技能完成法援案件当事人信息收集与初步筛选"
+    },
+    {
+      "name": "party-identity-verification",
+      "path": "skills/client-intake/party-identity-verification/SKILL.md",
+      "description": "intake 子技能：当事人身份与基本信息核实（身份证件、经济状况基本信息、特殊群体识别）"
+    },
+    {
+      "name": "case-fact-collection",
+      "path": "skills/client-intake/case-fact-collection/SKILL.md",
+      "description": "intake 子技能：案件事实初步收集（案件类型定位、事实经过、证据线索、时效评估）"
+    },
+    {
+      "name": "eligibility-preliminary-assessment",
+      "path": "skills/client-intake/eligibility-preliminary-assessment/SKILL.md",
+      "description": "intake 子技能：法援资格初步评估（经济困难初评、事项范围、免予核查情形、特殊群体快速通道）"
+    },
+    {
+      "name": "conflict-check-referral",
+      "path": "skills/client-intake/conflict-check-referral/SKILL.md",
+      "description": "intake 子技能：利益冲突审查与案件分流（冲突识别、分流决策树、转介资源、intake 汇总）"
+    },
+    {
+      "name": "case-management",
+      "path": "skills/case-management/SKILL.md",
+      "description": "法援案件管理编排入口：编排四个子技能覆盖案件从受理到归档的全流程管理"
+    },
+    {
+      "name": "case-docket-assignment",
+      "path": "skills/case-management/case-docket-assignment/SKILL.md",
+      "description": "案件管理子技能：案件登记与指派（编号分配、紧急程度、承办律师指派、建立档案）"
+    },
+    {
+      "name": "case-progress-tracking",
+      "path": "skills/case-management/case-progress-tracking/SKILL.md",
+      "description": "案件管理子技能：案件进展跟踪（阶段管理、超期预警、案件变更、受援人通报）"
+    },
+    {
+      "name": "quality-review-supervision",
+      "path": "skills/case-management/quality-review-supervision/SKILL.md",
+      "description": "案件管理子技能：质量审查与监督（程序规范性、实体质量、案卷检查、受援人满意度）"
+    },
+    {
+      "name": "case-closure-archiving",
+      "path": "skills/case-management/case-closure-archiving/SKILL.md",
+      "description": "案件管理子技能：结案归档与统计（结案审批、材料归档、结案报告、统计报表）"
+    },
+    {
+      "name": "document-templates",
+      "path": "skills/document-templates/SKILL.md",
+      "description": "法律文书模板编排入口：编排四个子技能覆盖法援常用文书的起草与审核"
+    },
+    {
+      "name": "legal-aid-application-form",
+      "path": "skills/document-templates/legal-aid-application-form/SKILL.md",
+      "description": "文书模板子技能：法律援助申请书（标准模板、要素收集、申请书自查）"
+    },
+    {
+      "name": "power-of-attorney-agreement",
+      "path": "skills/document-templates/power-of-attorney-agreement/SKILL.md",
+      "description": "文书模板子技能：委托代理协议/指定辩护函（民事委托协议、刑事指定辩护函）"
+    },
+    {
+      "name": "litigation-document-drafting",
+      "path": "skills/document-templates/litigation-document-drafting/SKILL.md",
+      "description": "文书模板子技能：诉讼文书起草（起诉状/答辩状/代理词/辩护词模板）"
+    },
+    {
+      "name": "case-closure-report",
+      "path": "skills/document-templates/case-closure-report/SKILL.md",
+      "description": "文书模板子技能：结案报告与质量自查（结案报告模板、质量自查清单、归档材料清单）"
+    },
+    {
+      "name": "legal-aid-application",
+      "path": "skills/legal-aid-application/SKILL.md",
+      "description": "法律援助申请编排入口：编排四个子技能覆盖法援申请全流程"
+    },
+    {
+      "name": "eligibility-assessment",
+      "path": "skills/legal-aid-application/eligibility-assessment/SKILL.md",
+      "description": "法援申请子技能：援助条件评估（经济困难审查·事项范围审查·免予核查·综合评估）"
+    },
+    {
+      "name": "material-preparation",
+      "path": "skills/legal-aid-application/material-preparation/SKILL.md",
+      "description": "法援申请子技能：申请材料准备（材料清单、经济困难证明获取、材料整理装订）"
+    },
+    {
+      "name": "application-submission-tracking",
+      "path": "skills/legal-aid-application/application-submission-tracking/SKILL.md",
+      "description": "法援申请子技能：申请提交与审查跟踪（提交方式、期限跟踪、补正处理）"
+    },
+    {
+      "name": "review-result-response",
+      "path": "skills/legal-aid-application/review-result-response/SKILL.md",
+      "description": "法援申请子技能：审查结果应对（批准衔接/补正指导/不予援助救济·异议审查·替代渠道）"
+    }
+  ]
 }

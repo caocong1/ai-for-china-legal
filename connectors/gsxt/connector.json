@@ -1,0 +1,159 @@
+{
+  "name": "gsxt",
+  "version": "1.0.0",
+  "description": "国家企业信用信息公示系统 MCP 连接器，提供企业信息查询、详情获取和变更记录查询功能",
+  "displayName": "企业信用信息公示系统连接器",
+  "category": "legal-data",
+  "dataSources": [
+    {
+      "name": "国家企业信用信息公示系统",
+      "url": "https://www.gsxt.gov.cn",
+      "type": "rest-api",
+      "description": "国家市场监督管理总局主办的企业信用信息公示平台"
+    }
+  ],
+  "authentication": {
+    "type": "api-key",
+    "headerName": "Authorization",
+    "headerPrefix": "Bearer",
+    "envVar": "GSXT_API_KEY"
+  },
+  "env": {
+    "GSXT_API_URL": {
+      "description": "企业信用系统 API 基础地址",
+      "default": "https://www.gsxt.gov.cn/api",
+      "required": true
+    },
+    "GSXT_API_KEY": {
+      "description": "企业信用系统 API 密钥",
+      "required": true,
+      "secret": true
+    },
+    "GSXT_TIMEOUT_MS": {
+      "description": "请求超时时间（毫秒）",
+      "default": "30000",
+      "required": false
+    },
+    "GSXT_MAX_RETRIES": {
+      "description": "最大重试次数",
+      "default": "3",
+      "required": false
+    },
+    "GSXT_BACKUP_SOURCE": {
+      "description": "备用数据源（tianyancha/qcc）",
+      "default": "tianyancha",
+      "required": false
+    }
+  },
+  "tools": [
+    {
+      "name": "search_company",
+      "description": "根据企业名称或统一社会信用代码搜索企业信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "companyName": {
+            "type": "string",
+            "description": "企业名称"
+          },
+          "creditCode": {
+            "type": "string",
+            "description": "统一社会信用代码"
+          },
+          "legalRepresentative": {
+            "type": "string",
+            "description": "法定代表人姓名"
+          },
+          "province": {
+            "type": "string",
+            "description": "省份"
+          },
+          "page": {
+            "type": "integer",
+            "default": 1,
+            "description": "页码"
+          },
+          "pageSize": {
+            "type": "integer",
+            "default": 20,
+            "description": "每页数量"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "get_company_detail",
+      "description": "获取企业工商登记详情（基本信息、股东信息、高管信息等）",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "companyName": {
+            "type": "string",
+            "description": "企业名称"
+          },
+          "creditCode": {
+            "type": "string",
+            "description": "统一社会信用代码"
+          },
+          "sections": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["basic", "shareholders", "officers", "branches", "pledge", "abnormal", "penalty"]
+            },
+            "description": "需要返回的信息板块"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "get_company_changes",
+      "description": "获取企业工商变更记录",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "companyName": {
+            "type": "string",
+            "description": "企业名称"
+          },
+          "creditCode": {
+            "type": "string",
+            "description": "统一社会信用代码"
+          },
+          "changeType": {
+            "type": "string",
+            "enum": ["法定代表人", "注册资本", "股东", "经营范围", "注册地址", "企业名称", "全部"],
+            "description": "变更类型筛选"
+          },
+          "dateRange": {
+            "type": "object",
+            "properties": {
+              "start": { "type": "string", "format": "date" },
+              "end": { "type": "string", "format": "date" }
+            },
+            "description": "变更日期范围"
+          }
+        },
+        "required": []
+      }
+    }
+  ],
+  "rateLimit": {
+    "requestsPerSecond": 2,
+    "requestsPerDay": 2000,
+    "maxConcurrent": 3
+  },
+  "retry": {
+    "maxAttempts": 3,
+    "initialDelayMs": 2000,
+    "maxDelayMs": 30000,
+    "backoffMultiplier": 2.5,
+    "retryableStatusCodes": [429, 502, 503, 504]
+  },
+  "healthCheck": {
+    "endpoint": "/health",
+    "intervalSeconds": 300
+  }
+}

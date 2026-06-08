@@ -1,7 +1,133 @@
 {
   "name": "ip-legal",
-  "version": "0.1.0",
-  "description": "商标查询、专利侵权分析、著作权登记",
+  "version": "0.2.0",
+  "description": "知识产权全流程辅助：冷启动访谈（身份团队/维权立场/风险升级/文书检索）、商标查询与近似分析（检索查询/近似判断/类似商品/在先权利障碍）、专利侵权初步分析（权利要求解读/全面覆盖/等同原则/现有技术抗辩）、著作权登记（作品类型/权属/登记材料/登记流程）、知识产权清权 clearance（商标清权/专利FTO/著作权字号域名清权/清权报告）；五大模块二十个子技能加五个编排入口",
   "author": { "name": "AI for China Legal Contributors" },
-  "skills": [{"name":"cold-start-interview","path":"skills/cold-start-interview/SKILL.md"},{"name":"trademark-search","path":"skills/trademark-search/SKILL.md"},{"name":"patent-analysis","path":"skills/patent-analysis/SKILL.md"},{"name":"copyright-registration","path":"skills/copyright-registration/SKILL.md"}]
+  "skills": [
+    {
+      "name": "cold-start-interview",
+      "path": "skills/cold-start-interview/SKILL.md",
+      "description": "知识产权冷启动访谈编排入口——顺序调用四个访谈子技能，初始化或更新 ip-legal/CLAUDE.md 实践配置档案（权利人画像/维权立场/风险矩阵/文书风格）"
+    },
+    {
+      "name": "identity-team",
+      "path": "skills/cold-start-interview/identity-team/SKILL.md",
+      "description": "访谈子技能一：采集权利人画像与 IP 组合（组织/实体类型/行业/商标专利著作权字号域名）、执业角色、可用检索数据库，填充 ip-legal/CLAUDE.md 我们是谁/谁在使用/可用集成章节"
+    },
+    {
+      "name": "enforcement-stance",
+      "path": "skills/cold-start-interview/enforcement-stance/SKILL.md",
+      "description": "访谈子技能二：采集整体维权立场（进取/平衡/防御）、商标策略、专利策略、著作权策略及清权严格度，填充 ip-legal/CLAUDE.md 维权与申请立场章节"
+    },
+    {
+      "name": "risk-escalation",
+      "path": "skills/cold-start-interview/risk-escalation/SKILL.md",
+      "description": "访谈子技能三：采集风险等级定义、角色权限表、自动升级触发条件及维权/异议/诉讼触发时限，填充 ip-legal/CLAUDE.md 风险校准与升级矩阵章节"
+    },
+    {
+      "name": "style-search-databases",
+      "path": "skills/cold-start-interview/style-search-databases/SKILL.md",
+      "description": "访谈子技能四：采集文书风格（检索报告/侵权意见书/清权报告/维权函）、工作产物存放、检索数据库再确认及行业识别偏好，填充 ip-legal/CLAUDE.md 文书风格与共享护栏章节"
+    },
+    {
+      "name": "trademark-search",
+      "path": "skills/trademark-search/SKILL.md",
+      "description": "商标查询与近似分析编排入口——整合商标检索查询/商标近似判断/类似商品服务判定/在先权利障碍分析四个子技能，输出综合商标查询近似分析报告"
+    },
+    {
+      "name": "search-query",
+      "path": "skills/trademark-search/search-query/SKILL.md",
+      "description": "商标检索与查询——确认检索目标、确定尼斯分类类别、选择检索数据库、构造检索式、执行检索并整理检索结果清单"
+    },
+    {
+      "name": "similarity-assessment",
+      "path": "skills/trademark-search/similarity-assessment/SKILL.md",
+      "description": "商标近似判断——音/形/义三要素比对、整体观察与隔离比对方法、混淆可能性评估"
+    },
+    {
+      "name": "goods-services-classification",
+      "path": "skills/trademark-search/goods-services-classification/SKILL.md",
+      "description": "类似商品与服务判定——区分表类似群组查阅、关联性因素分析、混淆可能性综合判断"
+    },
+    {
+      "name": "prior-rights-obstacles",
+      "path": "skills/trademark-search/prior-rights-obstacles/SKILL.md",
+      "description": "在先权利与障碍分析——识别全类型在先权利（注册商标/驰名商标/著作权/字号等）、绝对/相对障碍分级评估、可注册性综合结论"
+    },
+    {
+      "name": "patent-analysis",
+      "path": "skills/patent-analysis/SKILL.md",
+      "description": "专利侵权初步分析编排入口——整合权利要求解读/全面覆盖原则/等同原则/现有技术抗辩四个子技能，输出专利侵权初步分析意见"
+    },
+    {
+      "name": "claim-construction",
+      "path": "skills/patent-analysis/claim-construction/SKILL.md",
+      "description": "权利要求解读——拆解权利要求技术特征、理解发明核心与保护边界、为侵权比对提供技术特征对照基础"
+    },
+    {
+      "name": "all-elements-rule",
+      "path": "skills/patent-analysis/all-elements-rule/SKILL.md",
+      "description": "全面覆盖原则（字面侵权）判断——逐一核查被诉方案是否覆盖权利要求全部技术特征，输出字面侵权结论"
+    },
+    {
+      "name": "doctrine-of-equivalents",
+      "path": "skills/patent-analysis/doctrine-of-equivalents/SKILL.md",
+      "description": "等同原则分析——对字面不覆盖的技术特征判断手段/功能/效果是否基本相同，评估等同侵权风险"
+    },
+    {
+      "name": "prior-art-defense",
+      "path": "skills/patent-analysis/prior-art-defense/SKILL.md",
+      "description": "现有技术抗辩——检索申请日前的现有技术，判断被诉方案是否属于现有技术或其显而易见变形，构建不侵权抗辩"
+    },
+    {
+      "name": "copyright-registration",
+      "path": "skills/copyright-registration/SKILL.md",
+      "description": "著作权登记编排入口——整合作品类型判断/权属判定/登记材料准备/登记流程四个子技能，输出著作权登记全流程方案"
+    },
+    {
+      "name": "work-type-determination",
+      "path": "skills/copyright-registration/work-type-determination/SKILL.md",
+      "description": "作品类型判断——识别作品所属著作权法保护类型（文字/美术/软件/视听等）、独创性审查及保护期评估"
+    },
+    {
+      "name": "ownership-determination",
+      "path": "skills/copyright-registration/ownership-determination/SKILL.md",
+      "description": "著作权权属判定——判断职务作品/委托作品/合作作品/法人作品的权属归属，识别权属争议风险"
+    },
+    {
+      "name": "registration-materials",
+      "path": "skills/copyright-registration/registration-materials/SKILL.md",
+      "description": "著作权登记材料准备——按作品类型列出申请所需材料清单、材料规范要求及常见缺件问题"
+    },
+    {
+      "name": "registration-process",
+      "path": "skills/copyright-registration/registration-process/SKILL.md",
+      "description": "著作权登记流程——中国版权保护中心受理流程、审查周期参考、登记证书效力及登记后维权注意事项"
+    },
+    {
+      "name": "ip-clearance",
+      "path": "skills/ip-clearance/SKILL.md",
+      "description": "知识产权清权（clearance）编排入口——对拟用商标/拟实施技术/拟用素材字号域名进行多维在先权利障碍检索与风险评估，整合商标清权/专利FTO/著作权字号域名清权/清权报告四个子技能，给出✅可用/⚠有风险/❌不可用三档清权结论"
+    },
+    {
+      "name": "trademark-clearance",
+      "path": "skills/ip-clearance/trademark-clearance/SKILL.md",
+      "description": "商标清权检索——拟用商标的在先权利障碍检索，分析可注册性（绝对/相对障碍）与可使用性（商标侵权风险），给出清权结论三档"
+    },
+    {
+      "name": "patent-fto",
+      "path": "skills/ip-clearance/patent-fto/SKILL.md",
+      "description": "专利清权 FTO 初步分析——对拟实施技术方案在先专利检索，判断是否落入他人有效专利保护范围，给出自由实施初判结论及规避设计提示"
+    },
+    {
+      "name": "copyright-tradename-domain-clearance",
+      "path": "skills/ip-clearance/copyright-tradename-domain-clearance/SKILL.md",
+      "description": "著作权与字号域名清权——作品素材著作权来源合规检查、企业字号在先权利冲突评估、域名与商标冲突及不正当竞争风险分析"
+    },
+    {
+      "name": "clearance-risk-report",
+      "path": "skills/ip-clearance/clearance-risk-report/SKILL.md",
+      "description": "清权风险评估与清权报告——汇总多维清权发现，按各维度分级风险评估（🔴🟠🟡🟢），给出三档清权结论（✅可用/⚠有风险/❌不可用），组装清权报告"
+    }
+  ]
 }

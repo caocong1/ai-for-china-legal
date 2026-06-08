@@ -12,11 +12,10 @@
 
 | 技能 | 命令 | 说明 |
 |------|------|------|
-| 合同审查 | `/commercial-legal:review` | 审查各类商事合同 |
-| 续约追踪 | `/commercial-legal:renewal-tracker` | 追踪合同续约和取消期限 |
-| 升级标记 | `/commercial-legal:escalation-flagger` | 标记需要升级审批的问题 |
-| 事项工作区 | `/commercial-legal:matter-workspace` | 管理合同审查事项 |
+| 合同审查 | `/commercial-legal:contract-review` | 审查各类商事合同 |
 | 冷启动访谈 | `/commercial-legal:cold-start-interview` | 初始化实践配置 |
+| 合同起草 | `/commercial-legal:contract-drafting` | 起草商事合同 |
+| 违约责任分析 | `/commercial-legal:liability-analysis` | 分析违约责任条款 |
 
 ## 本插件不做什么
 

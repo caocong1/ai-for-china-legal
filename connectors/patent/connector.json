@@ -1,0 +1,188 @@
+{
+  "name": "patent",
+  "version": "1.0.0",
+  "description": "国家知识产权局专利查询 MCP 连接器，提供专利检索、详情查询和侵权初步分析功能",
+  "displayName": "专利查询连接器",
+  "category": "legal-data",
+  "dataSources": [
+    {
+      "name": "专利检索及分析系统",
+      "url": "https://pss-system.cnipa.gov.cn",
+      "type": "rest-api",
+      "description": "国家知识产权局专利检索及分析系统"
+    },
+    {
+      "name": "中国专利公布公告",
+      "url": "https://epub.cnipa.gov.cn",
+      "type": "web-scrape",
+      "description": "专利公布公告查询"
+    }
+  ],
+  "authentication": {
+    "type": "api-key",
+    "headerName": "Authorization",
+    "headerPrefix": "Bearer",
+    "envVar": "PATENT_API_KEY"
+  },
+  "env": {
+    "PATENT_API_URL": {
+      "description": "专利查询 API 基础地址",
+      "default": "https://pss-system.cnipa.gov.cn/api",
+      "required": true
+    },
+    "PATENT_API_KEY": {
+      "description": "专利查询 API 密钥",
+      "required": false,
+      "secret": true
+    },
+    "PATENT_TIMEOUT_MS": {
+      "description": "请求超时时间（毫秒）",
+      "default": "30000",
+      "required": false
+    },
+    "PATENT_MAX_RETRIES": {
+      "description": "最大重试次数",
+      "default": "3",
+      "required": false
+    }
+  },
+  "tools": [
+    {
+      "name": "search_patent",
+      "description": "根据关键词、专利号、申请人、IPC分类号等条件检索专利",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string",
+            "description": "搜索关键词"
+          },
+          "patentNumber": {
+            "type": "string",
+            "description": "专利号（如：CN202610001234.5）"
+          },
+          "applicant": {
+            "type": "string",
+            "description": "申请人/专利权人名称"
+          },
+          "inventor": {
+            "type": "string",
+            "description": "发明人姓名"
+          },
+          "ipcClassification": {
+            "type": "string",
+            "description": "IPC 分类号（如：H04L29/06）"
+          },
+          "patentType": {
+            "type": "string",
+            "enum": ["发明", "实用新型", "外观设计"],
+            "description": "专利类型"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["有效", "无效", "审查中", "驳回", "失效", "全部"],
+            "description": "专利法律状态"
+          },
+          "dateRange": {
+            "type": "object",
+            "properties": {
+              "start": { "type": "string", "format": "date" },
+              "end": { "type": "string", "format": "date" }
+            },
+            "description": "申请日期范围"
+          },
+          "page": {
+            "type": "integer",
+            "default": 1,
+            "description": "页码"
+          },
+          "pageSize": {
+            "type": "integer",
+            "default": 20,
+            "description": "每页数量"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "get_patent_detail",
+      "description": "根据专利号获取专利详细信息（权利要求书、说明书、法律状态、缴费信息等）",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "patentNumber": {
+            "type": "string",
+            "description": "专利号"
+          },
+          "includeClaims": {
+            "type": "boolean",
+            "default": true,
+            "description": "是否包含权利要求书"
+          },
+          "includeDescription": {
+            "type": "boolean",
+            "default": false,
+            "description": "是否包含说明书"
+          },
+          "includeLegalStatus": {
+            "type": "boolean",
+            "default": true,
+            "description": "是否包含法律状态历史"
+          },
+          "includeFeeInfo": {
+            "type": "boolean",
+            "default": false,
+            "description": "是否包含年费缴纳信息"
+          }
+        },
+        "required": ["patentNumber"]
+      }
+    },
+    {
+      "name": "check_infringement",
+      "description": "对指定技术方案进行专利侵权初步分析，比对权利要求并输出侵权风险报告",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "technicalSolution": {
+            "type": "string",
+            "description": "待分析的技术方案描述"
+          },
+          "targetPatentNumber": {
+            "type": "string",
+            "description": "对比目标专利号"
+          },
+          "analysisScope": {
+            "type": "string",
+            "enum": ["权利要求比对", "全面覆盖分析", "等同原则分析", "综合分析"],
+            "default": "综合分析",
+            "description": "分析范围"
+          },
+          "additionalPatents": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "其他需要比对的专利号列表"
+          }
+        },
+        "required": ["technicalSolution", "targetPatentNumber"]
+      }
+    }
+  ],
+  "rateLimit": {
+    "requestsPerSecond": 2,
+    "requestsPerDay": 2000,
+    "maxConcurrent": 3
+  },
+  "retry": {
+    "maxAttempts": 3,
+    "initialDelayMs": 2000,
+    "maxDelayMs": 30000,
+    "backoffMultiplier": 2.5,
+    "retryableStatusCodes": [429, 502, 503, 504]
+  },
+  "healthCheck": {
+    "endpoint": "/health",
+    "intervalSeconds": 300
+  }
+}

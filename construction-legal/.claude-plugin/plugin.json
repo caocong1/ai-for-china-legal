@@ -1,7 +1,133 @@
 {
   "name": "construction-legal",
-  "version": "0.1.0",
-  "description": "施工合同审查、工程款争议、招投标",
+  "version": "0.2.0",
+  "description": "建设工程法律全流程辅助：冷启动访谈（主体画像项目组合/审查争议立场/风险升级矩阵/文书风格地方规定）、施工合同审查（主体资质与合同效力/工期与质量/价款与结算/违约与解除）、工程款争议处理（优先受偿权/结算依据黑白合同/质量抗辩反索赔/利息垫资）、建设工程招投标合规（必须招标范围/招标投标程序/串通投标/中标无效投诉）、商品房买卖合同审查（预售许可主体/定金认购/交付违约面积误差/贷款解除风险）；五大模块二十个子技能加五个编排入口",
   "author": { "name": "AI for China Legal Contributors" },
-  "skills": [{"name":"cold-start-interview","path":"skills/cold-start-interview/SKILL.md"},{"name":"contract-review","path":"skills/contract-review/SKILL.md"},{"name":"payment-dispute","path":"skills/payment-dispute/SKILL.md"},{"name":"bidding-compliance","path":"skills/bidding-compliance/SKILL.md"}]
+  "skills": [
+    {
+      "name": "cold-start-interview",
+      "path": "skills/cold-start-interview/SKILL.md",
+      "description": "建设工程冷启动访谈编排入口——顺序调用四个访谈子技能，初始化或更新 construction-legal/CLAUDE.md 实践配置档案（主体画像/审查立场/风险矩阵/文书地方规定）"
+    },
+    {
+      "name": "identity-project",
+      "path": "skills/cold-start-interview/identity-project/SKILL.md",
+      "description": "访谈子技能一：采集主体画像与项目组合（建设工程角色/项目类型/团队规模/可用集成），填充 construction-legal/CLAUDE.md 我们是谁/谁在使用/可用集成章节"
+    },
+    {
+      "name": "review-stance",
+      "path": "skills/cold-start-interview/review-stance/SKILL.md",
+      "description": "访谈子技能二：采集整体代理立场（发包人/承包人/中立/购房人侧）、合同审查严格度、争议处理倾向及商品房审查立场，填充 construction-legal/CLAUDE.md 审查与争议立场章节"
+    },
+    {
+      "name": "risk-escalation",
+      "path": "skills/cold-start-interview/risk-escalation/SKILL.md",
+      "description": "访谈子技能三：采集风险等级定义、角色权限表、自动升级触发条件及诉讼/仲裁/优先受偿权行使触发规则，填充 construction-legal/CLAUDE.md 风险校准与升级矩阵章节"
+    },
+    {
+      "name": "style-local-rules",
+      "path": "skills/cold-start-interview/style-local-rules/SKILL.md",
+      "description": "访谈子技能四：采集文书风格（合同审查意见书/工程款函件/争议分析/商品房审查报告）、造价鉴定资源及地方建设主管部门规定偏好，填充 construction-legal/CLAUDE.md 文书风格与共享护栏章节"
+    },
+    {
+      "name": "contract-review",
+      "path": "skills/contract-review/SKILL.md",
+      "description": "施工合同审查编排入口——整合主体资质与合同效力/工期与质量/价款与结算/违约与解除四个子技能，输出施工合同综合审查意见"
+    },
+    {
+      "name": "subject-qualification-validity",
+      "path": "skills/contract-review/subject-qualification-validity/SKILL.md",
+      "description": "主体资质与合同效力——承包人资质核查（施工总承包/专业资质/安全生产许可）、合同效力风险（未招标/违法分包/挂靠/黑白合同）"
+    },
+    {
+      "name": "schedule-quality",
+      "path": "skills/contract-review/schedule-quality/SKILL.md",
+      "description": "工期与质量——工期约定与顺延条件、竣工验收程序、质量标准与保修条款、工期质量违约责任分析"
+    },
+    {
+      "name": "price-settlement",
+      "path": "skills/contract-review/price-settlement/SKILL.md",
+      "description": "价款与结算——合同价款类型（固定总价/单价/成本加酬金）、进度款支付条件、结算依据与审核程序、价款调整机制"
+    },
+    {
+      "name": "breach-termination",
+      "path": "skills/contract-review/breach-termination/SKILL.md",
+      "description": "违约与解除——违约金约定与调整、法定/约定解除条件、解除后工程款结算与折价补偿、争议解决条款审查"
+    },
+    {
+      "name": "payment-dispute",
+      "path": "skills/payment-dispute/SKILL.md",
+      "description": "工程款争议处理编排入口——整合优先受偿权/黑白合同结算依据/质量抗辩反索赔/利息垫资四个子技能，输出工程款追收综合方案"
+    },
+    {
+      "name": "priority-payment-right",
+      "path": "skills/payment-dispute/priority-payment-right/SKILL.md",
+      "description": "工程款优先受偿权——行使条件与期限、折价/拍卖程序、与抵押权/其他债权的顺位、期限临近的自动预警"
+    },
+    {
+      "name": "settlement-basis-dual-contract",
+      "path": "skills/payment-dispute/settlement-basis-dual-contract/SKILL.md",
+      "description": "结算依据与黑白合同——黑白合同效力判断、以中标合同（白合同）作为结算依据的规则、无效合同折价补偿路径"
+    },
+    {
+      "name": "quality-defense-counterclaim",
+      "path": "skills/payment-dispute/quality-defense-counterclaim/SKILL.md",
+      "description": "质量抗辩与反索赔——发包人以质量问题抵扣工程款的抗辩评估、承包人反索赔（工期索赔/变更签证/赶工费）的材料准备"
+    },
+    {
+      "name": "interest-advance-funding",
+      "path": "skills/payment-dispute/interest-advance-funding/SKILL.md",
+      "description": "利息与垫资——工程款利息计算（拖欠利息/逾期付款利息起算）、垫资约定效力与利息主张、资金占用费的处理"
+    },
+    {
+      "name": "bidding-compliance",
+      "path": "skills/bidding-compliance/SKILL.md",
+      "description": "招投标合规编排入口——整合必须招标范围/招标程序/串通投标/中标无效投诉四个子技能，输出招投标合规综合意见"
+    },
+    {
+      "name": "mandatory-bidding-scope",
+      "path": "skills/bidding-compliance/mandatory-bidding-scope/SKILL.md",
+      "description": "必须招标范围——工程项目必须招标的规模标准（国家+地方 [地方 flagged]）、依法必须招标但未招标的合同效力与法律责任"
+    },
+    {
+      "name": "bidding-procedure",
+      "path": "skills/bidding-compliance/bidding-procedure/SKILL.md",
+      "description": "招标投标程序——招标文件合规、资格预审、评标与定标程序、合同签订与备案、招标投标程序违规的法律后果"
+    },
+    {
+      "name": "collusion-fraud",
+      "path": "skills/bidding-compliance/collusion-fraud/SKILL.md",
+      "description": "串通投标与弄虚作假——串通投标的认定标准与法律后果（中标无效/罚款/禁止参与招投标）、虚假材料投标的法律责任"
+    },
+    {
+      "name": "bid-invalidity-complaint",
+      "path": "skills/bidding-compliance/bid-invalidity-complaint/SKILL.md",
+      "description": "中标无效与投诉——中标无效的法定情形与处理、投诉举报程序（向招标投标监督管理机构）、中标无效后的合同处理与损失追偿"
+    },
+    {
+      "name": "commercial-housing-review",
+      "path": "skills/commercial-housing-review/SKILL.md",
+      "description": "商品房买卖合同审查编排入口——整合预售许可主体/定金认购/交付违约面积误差/贷款解除风险四个子技能，面向预售/现售合同的合规审查与购房人/开发商风险识别"
+    },
+    {
+      "name": "presale-license-subject",
+      "path": "skills/commercial-housing-review/presale-license-subject/SKILL.md",
+      "description": "预售许可与主体核查——五证逐项核查、预售许可证效力判定（含起诉前取得规则）、开发商主体资质（房地产开发企业资质/失信核查）、现售条件核查"
+    },
+    {
+      "name": "deposit-subscription",
+      "path": "skills/commercial-housing-review/deposit-subscription/SKILL.md",
+      "description": "定金与认购书——认购书性质（预约/本约）、定金vs订金/诚意金区分、定金罚则（民法典第587条，建议复核）、认购书向正式合同转化、格式条款审查"
+    },
+    {
+      "name": "delivery-breach",
+      "path": "skills/commercial-housing-review/delivery-breach/SKILL.md",
+      "description": "交付与违约——逾期交房/逾期办证违约责任、面积误差3%处理决策（描述规则，条号待验证）、质量与保修条款审查"
+    },
+    {
+      "name": "loan-termination-risk",
+      "path": "skills/commercial-housing-review/loan-termination-risk/SKILL.md",
+      "description": "贷款解除与风险——按揭不成的可归责vs不可归责分析、退房退款项目、一房二卖履行顺位与赔偿、网签备案/预告登记/不动产登记保护对比"
+    }
+  ]
 }

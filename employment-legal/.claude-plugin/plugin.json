@@ -1,7 +1,7 @@
 {
   "name": "employment-legal",
-  "version": "0.2.0",
-  "description": "审查劳动合同、录用通知书、竞业限制协议等雇佣文件，包含冷启动访谈、雇佣审查、解雇审查、竞业限制和假期管理技能。",
+  "version": "0.3.0",
+  "description": "劳动人事法律技能套件：覆盖冷启动访谈（身份/立场/风险/风格）、雇佣审查（必备条款/试用期工时/社保报酬/服务期违约金/装配）、解雇审查（事由合法性/经济补偿/程序/违法解除救济）、竞业限制（人员保密/期限补偿/可执行性/违约救济）、假期管理（年休假/病假医疗期/生育假女职工保护/其他法定假期考勤）、劳动争议处理（定性时效/调解/仲裁一裁终局/诉讼衔接），共六大模块二十二个子技能加六个编排入口，从入职到争议全链路覆盖。",
   "author": {
     "name": "AI for China Legal Contributors"
   },
@@ -9,27 +9,157 @@
     {
       "name": "cold-start-interview",
       "path": "skills/cold-start-interview/SKILL.md",
-      "description": "实践配置文件初始化设置"
+      "description": "冷启动访谈编排入口：收集执业立场、风险偏好、文书风格，写入 employment-legal/CLAUDE.md"
+    },
+    {
+      "name": "identity-team",
+      "path": "skills/cold-start-interview/identity-team/SKILL.md",
+      "description": "访谈子技能：身份与团队信息 → 写入 ## 我们是谁 / ## 谁在使用 / ## 可用集成"
+    },
+    {
+      "name": "review-stance",
+      "path": "skills/cold-start-interview/review-stance/SKILL.md",
+      "description": "访谈子技能：审查立场（用人单位方/劳动者方）+ 雇佣/解雇/竞业配置 → 写入 ## 审查立场"
+    },
+    {
+      "name": "risk-escalation",
+      "path": "skills/cold-start-interview/risk-escalation/SKILL.md",
+      "description": "访谈子技能：风险等级定义 + 升级矩阵（角色/条件/自动升级）→ 写入 ## 风险校准 / ## 升级矩阵"
+    },
+    {
+      "name": "style-local-rules",
+      "path": "skills/cold-start-interview/style-local-rules/SKILL.md",
+      "description": "访谈子技能：文书风格 + 地方性规定勾选 → 写入 ## 文书风格 / ## 输出 / ## 共享护栏"
     },
     {
       "name": "hiring-review",
       "path": "skills/hiring-review/SKILL.md",
-      "description": "雇佣审查技能"
+      "description": "雇佣审查编排入口：编排五个雇佣审查子技能，覆盖入职文件全风险面"
+    },
+    {
+      "name": "document-mandatory-terms",
+      "path": "skills/hiring-review/document-mandatory-terms/SKILL.md",
+      "description": "雇佣审查子技能：文件定位与必备条款（劳动合同九项必备条款合规）"
+    },
+    {
+      "name": "probation-working-hours",
+      "path": "skills/hiring-review/probation-working-hours/SKILL.md",
+      "description": "雇佣审查子技能：试用期合规（按合同期限分档）+ 工时制度审查"
+    },
+    {
+      "name": "social-insurance-wages",
+      "path": "skills/hiring-review/social-insurance-wages/SKILL.md",
+      "description": "雇佣审查子技能：社会保险与公积金缴纳合规 + 劳动报酬条款审查"
+    },
+    {
+      "name": "service-period-penalty",
+      "path": "skills/hiring-review/service-period-penalty/SKILL.md",
+      "description": "雇佣审查子技能：服务期约定合法性 + 违约金条款（仅两类情形可设）"
+    },
+    {
+      "name": "hiring-review-assembly",
+      "path": "skills/hiring-review/hiring-review-assembly/SKILL.md",
+      "description": "雇佣审查装配子技能：汇总全部审查结论生成雇佣审查备忘录"
     },
     {
       "name": "termination-review",
       "path": "skills/termination-review/SKILL.md",
-      "description": "解雇审查技能"
+      "description": "解雇审查编排入口：编排四个解雇审查子技能，覆盖解除合法性到违法解除救济"
+    },
+    {
+      "name": "grounds-legality",
+      "path": "skills/termination-review/grounds-legality/SKILL.md",
+      "description": "解雇审查子技能：解除事由合法性（过失性/非过失性/经济性裁员/禁止解除情形）"
+    },
+    {
+      "name": "severance-calculation",
+      "path": "skills/termination-review/severance-calculation/SKILL.md",
+      "description": "解雇审查子技能：经济补偿N / N+1计算（第47条）+ 赔偿金2N计算（第87条）"
+    },
+    {
+      "name": "termination-procedure",
+      "path": "skills/termination-review/termination-procedure/SKILL.md",
+      "description": "解雇审查子技能：解除程序合规（提前通知/工会告知/书面通知要求）"
+    },
+    {
+      "name": "unlawful-termination-remedy",
+      "path": "skills/termination-review/unlawful-termination-remedy/SKILL.md",
+      "description": "解雇审查子技能：违法解除救济与风险预防（2N赔偿金/复职/证据保全）"
     },
     {
       "name": "non-compete-review",
       "path": "skills/non-compete-review/SKILL.md",
-      "description": "竞业限制审查技能"
+      "description": "竞业限制审查编排入口：编排四个竞业限制子技能，覆盖人员范围到违约救济"
+    },
+    {
+      "name": "personnel-scope-confidentiality",
+      "path": "skills/non-compete-review/personnel-scope-confidentiality/SKILL.md",
+      "description": "竞业限制子技能：适用人员范围（高管/高技/保密义务人员）+ 保密义务审查"
+    },
+    {
+      "name": "term-and-compensation",
+      "path": "skills/non-compete-review/term-and-compensation/SKILL.md",
+      "description": "竞业限制子技能：期限合规（不超2年）+ 经济补偿标准（按月支付/地方指引）"
+    },
+    {
+      "name": "scope-enforceability",
+      "path": "skills/non-compete-review/scope-enforceability/SKILL.md",
+      "description": "竞业限制子技能：竞业范围合理性 + 可执行性审查（过宽范围的效力问题）"
+    },
+    {
+      "name": "breach-liability-remedy",
+      "path": "skills/non-compete-review/breach-liability-remedy/SKILL.md",
+      "description": "竞业限制子技能：违约责任（违约金标准）+ 救济路径（申请仲裁/申请行为保全）"
     },
     {
       "name": "leave-management",
       "path": "skills/leave-management/SKILL.md",
-      "description": "假期管理技能"
+      "description": "假期管理编排入口：编排四个假期子技能，覆盖年休假到考勤制度合规"
+    },
+    {
+      "name": "annual-leave",
+      "path": "skills/leave-management/annual-leave/SKILL.md",
+      "description": "假期管理子技能：年休假分档（5/10/15天）+ 折算规则 + 未休工资300%准确表述"
+    },
+    {
+      "name": "sick-leave-medical-period",
+      "path": "skills/leave-management/sick-leave-medical-period/SKILL.md",
+      "description": "假期管理子技能：医疗期分档 + 病假工资（不低于最低工资80%）+ 医疗期内禁止解除"
+    },
+    {
+      "name": "maternity-female-protection",
+      "path": "skills/leave-management/maternity-female-protection/SKILL.md",
+      "description": "假期管理子技能：产假98天/难产/多胞胎 + 三期（孕期产期哺乳期）特别保护"
+    },
+    {
+      "name": "statutory-leave-attendance",
+      "path": "skills/leave-management/statutory-leave-attendance/SKILL.md",
+      "description": "假期管理子技能：婚丧假/陪产假/停工留薪期 + 法定节假日加班费 + 考勤制度合法性"
+    },
+    {
+      "name": "labor-dispute-handling",
+      "path": "skills/labor-dispute-handling/SKILL.md",
+      "description": "劳动争议处理编排入口：编排四个争议子技能，覆盖时效核查到强制执行全链路"
+    },
+    {
+      "name": "dispute-classification-limitation",
+      "path": "skills/labor-dispute-handling/dispute-classification-limitation/SKILL.md",
+      "description": "争议处理子技能：劳动争议范围认定 + 仲裁时效1年（第27条已核实）+ 时效起算/中止/中断/特例"
+    },
+    {
+      "name": "mediation-path",
+      "path": "skills/labor-dispute-handling/mediation-path/SKILL.md",
+      "description": "争议处理子技能：调解组织选择（企业/基层/乡镇）+ 调解协议效力 + 支付令 + 时效保全"
+    },
+    {
+      "name": "arbitration-path",
+      "path": "skills/labor-dispute-handling/arbitration-path/SKILL.md",
+      "description": "争议处理子技能：仲裁前置 + 一裁终局识别（第47条已核实）+ 申请书要素/管辖/举证责任"
+    },
+    {
+      "name": "litigation-path",
+      "path": "skills/labor-dispute-handling/litigation-path/SKILL.md",
+      "description": "争议处理子技能：不服裁决起诉15日 + 一裁终局有限救济 + 用人单位30日撤销申请 + 强制执行"
     }
   ]
 }

@@ -1,7 +1,133 @@
 {
   "name": "regulatory-legal",
-  "version": "0.1.0",
-  "description": "监管动态监控、行政处罚应对",
+  "version": "0.2.0",
+  "description": "监管合规全流程辅助，涵盖五大模块二十个子技能加五个编排入口：冷启动访谈（身份与企业画像/合规立场与服务范围/风险与升级/文书风格与监管资源）初始化实践配置档案；监管动态监控（监管机关与规则源识别/动态抓取与分类/影响评估与合规差距/预警与台账）跟踪监管规则变化；行政处罚应对（处罚决定合法性审查/陈述申辩与听证/从轻减轻不予处罚争取/行政复议与诉讼衔接）依法应对处罚；合规体系建设（合规风险识别/合规制度与岗责/合规运行与培训/合规评估与改进）建设事前预防体系；监管报告起草（报告类型与监管要求识别/数据收集与事实梳理/报告结构与起草/合规声明与报送）如实客观报送。用于行政监管合规预防与依法应对，行政处罚法2021条号须用新条号标建议复核，行业监管规章描述规则待验证，涉及重大处罚或行刑衔接强制升级执业律师。",
   "author": { "name": "AI for China Legal Contributors" },
-  "skills": [{"name":"cold-start-interview","path":"skills/cold-start-interview/SKILL.md"},{"name":"regulatory-monitoring","path":"skills/regulatory-monitoring/SKILL.md"},{"name":"penalty-response","path":"skills/penalty-response/SKILL.md"}]
+  "skills": [
+    {
+      "name": "cold-start-interview",
+      "path": "skills/cold-start-interview/SKILL.md",
+      "description": "冷启动访谈编排入口，顺序调用四个访谈子技能（身份与企业画像→合规立场→风险与升级→文书风格与监管资源），初始化并填充 regulatory-legal/CLAUDE.md 实践配置档案（散文章节，非独立 YAML），支持单独触发任一子技能更新特定章节。"
+    },
+    {
+      "name": "identity-enterprise-profile",
+      "path": "skills/cold-start-interview/identity-enterprise-profile/SKILL.md",
+      "description": "访谈子技能一：采集执业角色（监管合规律师/企业合规官/企业法务/当事人）、主要服务事项与企业画像（所属行业·主管监管机关·规模·业务模式·是否涉外·历史受罚·重点监管风险领域），填充 CLAUDE.md「我们是谁/谁在使用」章节；所属行业与主管监管机关是核心变量须重点采集。"
+    },
+    {
+      "name": "compliance-stance-scope",
+      "path": "skills/cold-start-interview/compliance-stance-scope/SKILL.md",
+      "description": "访谈子技能二：采集整体服务立场（监管动态监控/行政处罚应对/合规体系建设/监管报告起草/混合）、合规严格度（保守/平衡/务实）、监管关系（主动合规/被动应对），填充 CLAUDE.md「合规与监管立场」章节；服务立场是监管合规工作核心变量。"
+    },
+    {
+      "name": "risk-escalation",
+      "path": "skills/cold-start-interview/risk-escalation/SKILL.md",
+      "description": "访谈子技能三：采集行政违法风险等级定义（🔴关键/🟠高/🟡中等/🟢低）、角色权限表、强制升级触发条件（重大处罚/吊销许可/行刑衔接/人身自由风险强制升级执业律师）及行政程序时限护栏，填充 CLAUDE.md「行政违法风险校准/升级矩阵」章节；行刑衔接强制升级与程序时限护栏不可被配置关闭。"
+    },
+    {
+      "name": "style-regulatory-resources",
+      "path": "skills/cold-start-interview/style-regulatory-resources/SKILL.md",
+      "description": "访谈子技能四：采集文书风格（监管简报/处罚应对文书/合规制度/监管报告）、主管监管机关·复议机关·行业协会·法规数据库资源、地方性法规与裁量基准差异（所在地），填充 CLAUDE.md「文书风格/可用集成/共享护栏地方提示」章节。"
+    },
+    {
+      "name": "regulatory-monitoring",
+      "path": "skills/regulatory-monitoring/SKILL.md",
+      "description": "监管动态监控编排入口，顺序调用四个子技能（监管机关与规则源识别→动态抓取与分类→影响评估与合规差距→预警与台账），跟踪适用于企业的监管规则变化；行政处罚法2021锚点标建议复核，行业监管规章描述规则待验证。"
+    },
+    {
+      "name": "authority-rule-source-identification",
+      "path": "skills/regulatory-monitoring/authority-rule-source-identification/SKILL.md",
+      "description": "监管动态监控子技能一：按企业所属行业识别主管监管机关（市场监管·网信办·金融监管·药监·生态环境·应急管理 等中央与地方两级）、规则源效力层级（法律→行政法规→部门规章→地方性法规→规范性文件）、官方发布渠道；行业监管规章描述规则不硬写文号。"
+    },
+    {
+      "name": "capture-classification",
+      "path": "skills/regulatory-monitoring/capture-classification/SKILL.md",
+      "description": "监管动态监控子技能二：监管动态抓取与分类（新规·修订·废止·征求意见稿），按效力层级与行业领域分类，提取生效日期与过渡期/施行日期，处理征求意见稿（标[征求意见稿 — 未生效，仅供预判]）；行业监管规章描述规则不硬写文号。"
+    },
+    {
+      "name": "impact-gap-assessment",
+      "path": "skills/regulatory-monitoring/impact-gap-assessment/SKILL.md",
+      "description": "监管动态监控子技能三：评估新规对企业的适用性与影响，提取合规义务，分析现状差距，输出整改优先级矩阵（紧迫度×风险等级）；从 CLAUDE.md 读取所属行业与合规严格度；引用行政处罚法2021处罚种类第9条·责令改正第28条（建议复核）。"
+    },
+    {
+      "name": "alert-register",
+      "path": "skills/regulatory-monitoring/alert-register/SKILL.md",
+      "description": "监管动态监控子技能四：整合前三步成果，输出监管动态简报（markdown 结构）与合规义务台账（多列结构），建立预警分级机制（红/橙/黄）与到期提醒；台账法律依据描述规则+来源标签+[待验证]；引用行政处罚法2021追责时效第36条（建议复核）。"
+    },
+    {
+      "name": "penalty-response",
+      "path": "skills/penalty-response/SKILL.md",
+      "description": "行政处罚应对编排入口，顺序调用四个子技能（处罚决定合法性审查→陈述申辩与听证→从轻减轻不予处罚争取→行政复议与诉讼衔接）；行政程序时限护栏贯穿（逾期失权），行刑衔接强制升级律师；行政处罚法2021锚点用新条号标建议复核。"
+    },
+    {
+      "name": "legality-review",
+      "path": "skills/penalty-response/legality-review/SKILL.md",
+      "description": "行政处罚应对子技能一：从主体·职权·事实证据·法律适用·程序合法性·裁量合理性六维度审查处罚决定，引用处罚法定第4条·处罚种类第9条·一事不再罚第29条·法制审核第58条（建议复核）；裁量基准描述规则不写裸数值标[地方 flagged]。"
+    },
+    {
+      "name": "statement-defense-hearing",
+      "path": "skills/penalty-response/statement-defense-hearing/SKILL.md",
+      "description": "行政处罚应对子技能二：行使陈述申辩权（第44/45条 建议复核）与申请听证（第63条 建议复核），不得因申辩加重处罚；陈述申辩书结构与听证准备清单；申请期限是程序时限护栏重点，逾期失权须强标；较大数额罚款标准属地方裁量描述规则。"
+    },
+    {
+      "name": "mitigation-no-penalty",
+      "path": "skills/penalty-response/mitigation-no-penalty/SKILL.md",
+      "description": "行政处罚应对子技能三：争取从轻减轻（第32条 建议复核）、不予处罚（第33条 建议复核：违法轻微/初次违法/无主观过错）、责令改正（第28条 建议复核）、追责时效抗辩（第36条 建议复核：一般2年·涉生命健康金融安全5年）；不予处罚举证清单详列。"
+    },
+    {
+      "name": "review-litigation-bridge",
+      "path": "skills/penalty-response/review-litigation-bridge/SKILL.md",
+      "description": "行政处罚应对子技能四：行政复议与行政诉讼路径选择，复议前置情形·起诉期限·举证责任倒置均描述规则+[待验证]绝不臆造条号期限；复议vs诉讼路径选择对照表；起诉期限与复议申请期限是程序时限护栏重点，逾期失权。"
+    },
+    {
+      "name": "compliance-system",
+      "path": "skills/compliance-system/SKILL.md",
+      "description": "合规体系建设编排入口，顺序调用四个子技能（合规风险识别→合规制度与岗责→合规运行与培训→合规评估与改进，PDCA循环）；企业合规管理体系国家标准编号待验证，行刑衔接情形强制升级律师；与 regulatory-monitoring/regulatory-report 衔接。"
+    },
+    {
+      "name": "compliance-risk-identification",
+      "path": "skills/compliance-system/compliance-risk-identification/SKILL.md",
+      "description": "合规体系建设子技能一：从业务·岗位·区域·行业监管维度全面行政合规风险梳理，构建合规风险地图（风险点/领域/违法情形/可能处罚/等级），重点合规领域速查（反垄断·数据·广告·产品质量·安全生产·环保·财税）；与 regulatory-monitoring 衔接。"
+    },
+    {
+      "name": "policy-duty-design",
+      "path": "skills/compliance-system/policy-duty-design/SKILL.md",
+      "description": "合规体系建设子技能二：合规政策与行为准则（总纲）、重点领域专项制度（反垄断·数据·广告·产品质量·安全生产·环保·财税）、合规审批流程与禁止性行为清单、合规岗责矩阵；行业监管规章合规义务描述规则不硬写文号。"
+    },
+    {
+      "name": "operation-training",
+      "path": "skills/compliance-system/operation-training/SKILL.md",
+      "description": "合规体系建设子技能三：合规组织架构（首席合规官·合规部门·业务合规员）、三道防线（业务一线·合规风控·内审）、合规流程嵌入业务（事前审批·事中监控·事后追责）、培训计划与考核、合规文化；企业合规管理体系国家标准运行控制要素标准号待验证。"
+    },
+    {
+      "name": "evaluation-improvement",
+      "path": "skills/compliance-system/evaluation-improvement/SKILL.md",
+      "description": "合规体系建设子技能四：合规有效性评估指标（参照企业合规管理体系国家标准 GB/T 描述规则标准号待验证）、定期审计与自查、问题整改闭环（PDCA）、持续改进（监管动态驱动制度更新衔接 regulatory-monitoring）；不臆造国家标准号。"
+    },
+    {
+      "name": "regulatory-report",
+      "path": "skills/regulatory-report/SKILL.md",
+      "description": "监管报告起草编排入口，顺序调用四个子技能（报告类型与监管要求识别→数据收集与事实梳理→报告结构与起草→合规声明与报送）；监管报告须如实客观，贯穿监管合规边界（拒绝瞒报漏报伪造），行刑衔接强制升级律师；与 compliance-system 衔接。"
+    },
+    {
+      "name": "report-type-requirement-identification",
+      "path": "skills/regulatory-report/report-type-requirement-identification/SKILL.md",
+      "description": "监管报告起草子技能一：识别报告类型（定期·专项·重大事项·整改·自查报告）与对应主管监管机关、法定报送要求（报送主体·频次·时限·格式 描述规则·待验证）、触发报送情形；行业监管规章报送义务描述规则不硬写文号与报送天数。"
+    },
+    {
+      "name": "data-fact-gathering",
+      "path": "skills/regulatory-report/data-fact-gathering/SKILL.md",
+      "description": "监管报告起草子技能二：数据口径界定与来源核验、事实时间线梳理、数据一致性校验（不同来源交叉核对）、留痕与可追溯；强调数据须真实可核绝不允许编造篡改；数据无法核实须标注而非臆造填充。"
+    },
+    {
+      "name": "structure-drafting",
+      "path": "skills/regulatory-report/structure-drafting/SKILL.md",
+      "description": "监管报告起草子技能三：报告结构设计（封面·概述·事实陈述·合规说明·问题与整改·结论附件）、各部分起草要点（客观准确不夸大不淡化）、语言术语规范；从 CLAUDE.md 读取监管报告文书风格；客观性自查清单。"
+    },
+    {
+      "name": "compliance-statement-submission",
+      "path": "skills/regulatory-report/compliance-statement-submission/SKILL.md",
+      "description": "监管报告起草子技能四：合规声明（声明报告真实准确完整）、签署盖章、报送渠道与方式（描述规则·待验证）、报送回执与归档、虚假报告法律风险提示（引用处罚种类第9条建议复核）；虚假报告·瞒报漏报·伪造数据需求一律拒绝标[合规边界 — 拒绝]。"
+    }
+  ]
 }

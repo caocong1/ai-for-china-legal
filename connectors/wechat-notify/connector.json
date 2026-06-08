@@ -1,0 +1,174 @@
+{
+  "name": "wechat-notify",
+  "version": "1.0.0",
+  "description": "企业微信/钉钉通知 MCP 连接器，提供消息发送、模板消息推送和用户信息查询功能",
+  "displayName": "企业微信/钉钉通知连接器",
+  "category": "notification",
+  "dataSources": [
+    {
+      "name": "企业微信 API",
+      "url": "https://qyapi.weixin.qq.com",
+      "type": "rest-api",
+      "description": "企业微信开放接口，用于消息推送"
+    },
+    {
+      "name": "钉钉 API",
+      "url": "https://oapi.dingtalk.com",
+      "type": "rest-api",
+      "description": "钉钉开放接口，用于消息推送（备用）"
+    }
+  ],
+  "authentication": {
+    "type": "oauth2",
+    "tokenUrl": "https://qyapi.weixin.qq.com/cgi-bin/gettoken",
+    "envVars": {
+      "corpId": "WECHAT_CORP_ID",
+      "secret": "WECHAT_SECRET"
+    }
+  },
+  "env": {
+    "WECHAT_CORP_ID": {
+      "description": "企业微信企业ID",
+      "required": true,
+      "secret": false
+    },
+    "WECHAT_AGENT_ID": {
+      "description": "企业微信应用ID",
+      "required": true,
+      "secret": false
+    },
+    "WECHAT_SECRET": {
+      "description": "企业微信应用密钥",
+      "required": true,
+      "secret": true
+    },
+    "NOTIFICATION_PROVIDER": {
+      "description": "通知服务提供商（wechat/dingtalk）",
+      "default": "wechat",
+      "required": false
+    },
+    "DINGTALK_APP_KEY": {
+      "description": "钉钉应用 AppKey（使用钉钉时必填）",
+      "required": false,
+      "secret": false
+    },
+    "DINGTALK_APP_SECRET": {
+      "description": "钉钉应用 AppSecret（使用钉钉时必填）",
+      "required": false,
+      "secret": true
+    },
+    "WECHAT_TIMEOUT_MS": {
+      "description": "请求超时时间（毫秒）",
+      "default": "10000",
+      "required": false
+    }
+  },
+  "tools": [
+    {
+      "name": "send_message",
+      "description": "发送文本/Markdown/图文消息通知",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "toUser": {
+            "type": "string",
+            "description": "接收人（用户ID，多个用 | 分隔）"
+          },
+          "toParty": {
+            "type": "string",
+            "description": "接收部门（部门ID，多个用 | 分隔）"
+          },
+          "toAll": {
+            "type": "boolean",
+            "default": false,
+            "description": "是否发送给所有人"
+          },
+          "msgType": {
+            "type": "string",
+            "enum": ["text", "markdown", "textcard", "news"],
+            "description": "消息类型"
+          },
+          "content": {
+            "type": "string",
+            "description": "消息内容"
+          },
+          "title": {
+            "type": "string",
+            "description": "消息标题（Markdown/图文类型必填）"
+          }
+        },
+        "required": ["msgType", "content"]
+      }
+    },
+    {
+      "name": "send_template",
+      "description": "发送预定义模板消息（监控报告、期限提醒、异常告警等）",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "templateId": {
+            "type": "string",
+            "enum": [
+              "case-law-report",
+              "regulation-report",
+              "deadline-alert",
+              "corporate-change-alert",
+              "error-notification",
+              "daily-summary"
+            ],
+            "description": "模板ID"
+          },
+          "toUser": {
+            "type": "string",
+            "description": "接收人"
+          },
+          "toParty": {
+            "type": "string",
+            "description": "接收部门"
+          },
+          "data": {
+            "type": "object",
+            "description": "模板数据（键值对）"
+          },
+          "urgency": {
+            "type": "string",
+            "enum": ["normal", "important", "urgent"],
+            "default": "normal",
+            "description": "紧急程度"
+          }
+        },
+        "required": ["templateId", "data"]
+      }
+    },
+    {
+      "name": "get_user_info",
+      "description": "获取企业微信用户信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "description": "用户ID"
+          }
+        },
+        "required": ["userId"]
+      }
+    }
+  ],
+  "rateLimit": {
+    "requestsPerMinute": 30,
+    "requestsPerDay": null,
+    "maxConcurrent": 10
+  },
+  "retry": {
+    "maxAttempts": 3,
+    "initialDelayMs": 1000,
+    "maxDelayMs": 10000,
+    "backoffMultiplier": 2,
+    "retryableStatusCodes": [429, 502, 503, 504]
+  },
+  "healthCheck": {
+    "endpoint": "/health",
+    "intervalSeconds": 300
+  }
+}

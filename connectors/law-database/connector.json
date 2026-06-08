@@ -1,0 +1,189 @@
+{
+  "name": "law-database",
+  "version": "1.0.0",
+  "description": "国家法律法规数据库 MCP 连接器，提供法律法规搜索、详情查询和关联案例分析功能",
+  "displayName": "法规数据库连接器",
+  "category": "legal-data",
+  "dataSources": [
+    {
+      "name": "国家法律法规数据库",
+      "url": "https://flk.npc.gov.cn",
+      "type": "rest-api",
+      "description": "全国人大常委会办公厅主办的法律法规公开平台"
+    },
+    {
+      "name": "国务院政策文件库",
+      "url": "https://www.gov.cn/zhengce/",
+      "type": "web-scrape",
+      "description": "国务院发布的行政法规和规范性文件"
+    },
+    {
+      "name": "最高人民法院司法解释",
+      "url": "https://www.court.gov.cn",
+      "type": "web-scrape",
+      "description": "最高人民法院发布的司法解释"
+    }
+  ],
+  "authentication": {
+    "type": "api-key",
+    "headerName": "Authorization",
+    "headerPrefix": "Bearer",
+    "envVar": "LAW_DB_API_KEY"
+  },
+  "env": {
+    "LAW_DB_API_URL": {
+      "description": "法规数据库 API 基础地址",
+      "default": "https://flk.npc.gov.cn/api",
+      "required": true
+    },
+    "LAW_DB_API_KEY": {
+      "description": "法规数据库 API 密钥",
+      "required": true,
+      "secret": true
+    },
+    "LAW_DB_TIMEOUT_MS": {
+      "description": "请求超时时间（毫秒）",
+      "default": "30000",
+      "required": false
+    },
+    "LAW_DB_MAX_RETRIES": {
+      "description": "最大重试次数",
+      "default": "3",
+      "required": false
+    },
+    "LAW_DB_CACHE_TTL_SECONDS": {
+      "description": "法规缓存有效期（秒）",
+      "default": "86400",
+      "required": false
+    }
+  },
+  "tools": [
+    {
+      "name": "search_laws",
+      "description": "根据关键词、法规类型、发布机构等条件搜索法律法规",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string",
+            "description": "搜索关键词"
+          },
+          "lawType": {
+            "type": "string",
+            "enum": ["法律", "行政法规", "部门规章", "地方性法规", "地方政府规章", "司法解释", "规范性文件"],
+            "description": "法规类型"
+          },
+          "issuingAuthority": {
+            "type": "string",
+            "description": "发布机构（如：全国人大、国务院、最高人民法院）"
+          },
+          "dateRange": {
+            "type": "object",
+            "properties": {
+              "start": { "type": "string", "format": "date" },
+              "end": { "type": "string", "format": "date" }
+            },
+            "description": "发布日期范围"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["现行有效", "已修改", "已废止", "尚未生效"],
+            "description": "法规状态"
+          },
+          "page": {
+            "type": "integer",
+            "default": 1,
+            "description": "页码"
+          },
+          "pageSize": {
+            "type": "integer",
+            "default": 20,
+            "description": "每页数量"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "get_law_detail",
+      "description": "根据法规文号获取法律法规全文及详细信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "documentNumber": {
+            "type": "string",
+            "description": "法规文号（如：主席令第XX号）"
+          },
+          "lawName": {
+            "type": "string",
+            "description": "法规名称"
+          },
+          "includeHistory": {
+            "type": "boolean",
+            "default": false,
+            "description": "是否包含修订历史"
+          },
+          "includeRelatedCases": {
+            "type": "boolean",
+            "default": false,
+            "description": "是否包含关联案例"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "search_cases_by_law",
+      "description": "根据法律法规查找引用该法规的裁判文书",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "lawName": {
+            "type": "string",
+            "description": "法规名称"
+          },
+          "documentNumber": {
+            "type": "string",
+            "description": "法规文号"
+          },
+          "articleNumber": {
+            "type": "string",
+            "description": "条文编号（如：第一百四十三条）"
+          },
+          "courtLevel": {
+            "type": "string",
+            "enum": ["基层", "中级", "高级", "最高"],
+            "description": "法院层级"
+          },
+          "page": {
+            "type": "integer",
+            "default": 1,
+            "description": "页码"
+          },
+          "pageSize": {
+            "type": "integer",
+            "default": 20,
+            "description": "每页数量"
+          }
+        },
+        "required": []
+      }
+    }
+  ],
+  "rateLimit": {
+    "requestsPerSecond": 5,
+    "requestsPerDay": 5000,
+    "maxConcurrent": 5
+  },
+  "retry": {
+    "maxAttempts": 3,
+    "initialDelayMs": 2000,
+    "maxDelayMs": 30000,
+    "backoffMultiplier": 2.5,
+    "retryableStatusCodes": [429, 502, 503, 504]
+  },
+  "healthCheck": {
+    "endpoint": "/health",
+    "intervalSeconds": 300
+  }
+}

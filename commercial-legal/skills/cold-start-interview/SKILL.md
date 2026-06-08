@@ -1,189 +1,113 @@
 ---
 name: cold-start-interview
 description: >
-  引导商事合同律师完成实践配置文件的初始化设置，包括审查立场、升级规则、文书风格和常用模板。
-  访谈结果写入实践配置文件，所有其他技能从中读取个性化配置。
+  商事合同冷启动访谈编排入口。按 identity-team → review-stance → escalation-rules →
+  document-style → jurisdiction-profile 顺序编排五个访谈子技能，完整初始化律师的实践配置文件
+  （commercial-legal/CLAUDE.md）。各子技能也可单独触发，只更新配置文件对应章节。
+  配置完成后，所有商事合同技能（contract-review、contract-drafting、liability-analysis 等）
+  自动从 commercial-legal/CLAUDE.md 读取个性化设置。
 argument-hint: ""
 ---
 
-# 冷启动访谈
+# 冷启动访谈（编排入口）
+
+> **迁移说明**：原访谈内容（五部分问题流、边界条件、错误处理）已深化拆分到五个访谈子技能。
+> 本文件为编排入口，负责访谈顺序和完整流程概览。子技能路径：
+> `commercial-legal/skills/cold-start-interview/<子技能名>/SKILL.md`
+>
+> 配置输出契约见：`commercial-legal/skills/_shared/practice-profile-schema.md`
+
+---
 
 ## 目的
 
-通过结构化的访谈流程，收集律师的执业立场、审查偏好、升级规则和文书风格，生成个性化的实践配置文件。这是所有其他技能读取配置的基础。
+通过结构化的五步访谈，收集律师的执业立场、审查偏好、升级规则、文书风格和管辖信息，
+完整初始化实践配置文件（`commercial-legal/CLAUDE.md`）。
 
-## 访谈流程
+配置完成后：
+- 所有商事合同技能根据配置文件提供个性化服务
+- 每个技能在配置缺失时提供「临时模式」作为无阻塞降级
+- 配置可随时重新运行整个访谈或单独更新某一部分
 
-### 第一部分：基本信息
+---
 
-1. **律师角色**
-   - 合伙人 / 资深律师 / 初级律师 / 法务
-   - 执业年限
-   - 主要执业领域（买卖合同、技术服务合同、租赁合同等）
+## 子技能编排顺序
 
-2. **团队结构**
-   - 是否有团队？（独立执业 / 小团队 / 大团队）
-   - 升级路径（初级→资深→合伙人）
-   - 审批权限（谁可以审批什么级别的合同）
+| 顺序 | 子技能 | 收集内容 | 子技能路径 | 单独触发 |
+|-----|-------|---------|----------|---------|
+| 1 | **identity-team** | 律师身份、执业环境、团队结构、可用集成 | `skills/cold-start-interview/identity-team/SKILL.md` | `/commercial-legal:identity-team` |
+| 2 | **review-stance** | 风险偏好（保守/平衡/进取）、甲乙方双立场六维度、交易破坏者、可接受备选 | `skills/cold-start-interview/review-stance/SKILL.md` | `/commercial-legal:review-stance` |
+| 3 | **escalation-rules** | 升级矩阵（金额阈值、风险等级触发、自动触发条件）、审批人信息 | `skills/cold-start-interview/escalation-rules/SKILL.md` | `/commercial-legal:escalation-rules` |
+| 4 | **document-style** | 输出格式偏好、文书语气、法条/案例引用偏好、双语需求、常用模板 | `skills/cold-start-interview/document-style/SKILL.md` | `/commercial-legal:document-style` |
+| 5 | **jurisdiction-profile** | 主要管辖法律、地方性法规、法院偏好（含四级法院）、经济特区/自贸区/港澳台、行业合规 | `skills/cold-start-interview/jurisdiction-profile/SKILL.md` | `/commercial-legal:jurisdiction-profile` |
 
-### 第二部分：审查立场
+**顺序说明**：身份在前（建立基础上下文）→ 审查立场第二（最核心配置）→ 升级规则第三（依赖前两步的团队层级和立场设置）→ 文书风格第四（独立性强，可分开）→ 管辖法律最后（补充地域和行业维度）。
 
-3. **风险偏好**
-   - 保守型（标记所有偏离，推动全面修改）
-   - 平衡型（标记重大偏离，推动核心条款修改）
-   - 进取型（仅标记交易破坏者，接受合理偏离）
+**单独触发**：律师可单独触发任一子技能，只更新配置文件对应章节，无需重跑整个访谈。例如：
+- 只更新审批人信息：`/commercial-legal:escalation-rules`
+- 只更新文书风格：`/commercial-legal:document-style`
+- 只更新管辖偏好（如开展新业务线）：`/commercial-legal:jurisdiction-profile`
 
-4. **甲方立场审查重点**（当客户是买方/接受服务方时）
-   - 责任限制（可接受的责任上限？例外清单？）
-   - 付款条款（预付款/分期付款/验收后付款？）
-   - 验收标准（客观标准还是主观标准？）
-   - 知识产权归属（委托开发成果归属？）
-   - 数据保护（个人信息处理要求？）
+---
 
-5. **乙方立场审查重点**（当客户是卖方/提供服务方时）
-   - 责任限制（希望设置的责任上限？）
-   - 付款保障（预付款比例？逾期付款违约金？）
-   - 服务范围界定（如何避免范围蔓延？）
-   - 知识产权保护（自有知识产权保留？）
-   - 合同终止权（什么情况下可以终止？）
+## 完整访谈流程概览
 
-6. **交易破坏者清单**
-   - 哪些条款是"绝不接受"的？
-   - 哪些情况会导致建议不签约？
-   - 示例：无限责任、数据训练权、不合理的竞业限制
+**预计时间**：约 5-10 分钟（完整访谈）；约 2-3 分钟（单个子技能）
 
-7. **可接受的备选方案**
-   - 对于每个审查重点，什么是"可以接受但不理想"的？
-   - 示例：责任上限可以是 12 个月费用（理想）或 6 个月费用（可接受）
+**第一步（identity-team）：** 收集律师基本身份、团队层级、执业环境（律所/公司法务）、合同管理系统集成状态。独立执业时简化问题流（跳过团队层级细节）。
 
-### 第三部分：升级规则
+**第二步（review-stance）：** 最深的子技能。覆盖整体风险偏好以及甲方/乙方双立场的六大维度（责任限制/违约金/知识产权/数据保护/期限终止/管辖争议），逐维度收集「标准立场」「可接受备选」「绝不接受」。
 
-8. **升级矩阵**
-   - 基于合同金额的升级阈值（如：>¥500K 需要合伙人审批）
-   - 基于风险等级的升级规则（如：任何🔴关键问题需要合伙人审批）
-   - 自动升级触发条件（如：无限责任、知识产权转让、数据出境）
+**第三步（escalation-rules）：** 配置升级矩阵：基于金额的分级阈值、基于风险等级的触发规则、自动升级触发条件清单、审批人姓名/角色/联系方式。
 
-9. **审批人信息**
-   - 审批人姓名/角色
-   - 联系方式（邮箱、微信等）
-   - 审批权限范围
+**第四步（document-style）：** 配置输出偏好：完整备忘录/管理层摘要/修订文档/组合输出；修订语气（强硬/温和/协商式）；法条引用偏好；案例引用偏好（最高院指导性案例/典型裁判观点）；双语需求；工作产物存放位置。
 
-### 第四部分：文书风格
+**第五步（jurisdiction-profile）：** 配置管辖信息：主要法律体系、业务地域分布（识别经济特区/自贸区/民族自治地方）、法院管辖偏好（四级法院层级）或仲裁机构偏好、港澳台处理方式、行业监管特色（网信办/金监局/市场监管总局等）。
 
-10. **输出格式偏好**
-    - 完整备忘录（详细分析）
-    - 微信群摘要（简短要点）
-    - 修订文档（带修订标记的 .docx）
-    - 默认输出类型
+---
 
-11. **文书风格**
-    - 正式/半正式/简洁
-    - 是否需要在输出中包含法条引用？
-    - 是否需要在输出中包含案例引用？
-    - 是否需要中英文双语输出？
+## 输出契约
 
-12. **常用模板**
-    - 是否有常用的合同模板？
-    - 是否有常用的审查清单？
-    - 是否有常用的修改建议语言库？
+本访谈的所有子技能共同填充 `commercial-legal/CLAUDE.md`（唯一真相来源）。
 
-### 第五部分：管辖法律
+完整配置示意（子技能填充后的 CLAUDE.md 各章节对应关系）：
 
-13. **主要管辖法律**
-    - 主要适用的管辖法律（中国大陆/其他）
-    - 是否需要特别关注某些地方性法规？
-    - 是否有特定的法院管辖偏好？
+| CLAUDE.md 章节 | 由哪个子技能填充 |
+|--------------|--------------|
+| `## 我们是谁` | identity-team |
+| `## 谁在使用` | identity-team |
+| `## 可用集成` | identity-team |
+| `## 审查立场`（甲方+乙方全维度） | review-stance |
+| `## 升级矩阵` | escalation-rules |
+| `## 文书风格` | document-style |
+| `## 输出`（风格偏好补充） | document-style |
+| `## 共享护栏` → `### 管辖识别` | jurisdiction-profile |
 
-14. **特殊要求**
-    - 是否有行业特殊要求？（如金融、医疗、教育）
-    - 是否有客户特殊要求？
-    - 是否有合规特殊要求？
+**字段映射、技能读取契约、重跑/编辑/版本控制规则、法律事实合理性检查规则详见：**
+`commercial-legal/skills/_shared/practice-profile-schema.md`
 
-## 输出
-
-访谈完成后，生成实践配置文件：
-
-```yaml
-# 实践配置文件 - commercial-legal
-version: "1.0"
-created: "[日期]"
-last_updated: "[日期]"
-
-# 基本信息
-lawyer:
-  role: "[律师角色]"
-  years_of_practice: "[执业年限]"
-  primary_areas: "[主要执业领域]"
-  team_structure: "[团队结构]"
-
-# 审查立场
-review_stance:
-  risk_preference: "[风险偏好]"
-  party_a_stance:
-    liability_cap: "[责任限制立场]"
-    payment_terms: "[付款条款立场]"
-    acceptance_criteria: "[验收标准立场]"
-    ip_ownership: "[知识产权归属立场]"
-    data_protection: "[数据保护立场]"
-  party_b_stance:
-    liability_cap: "[责任限制立场]"
-    payment_protection: "[付款保障立场]"
-    scope_definition: "[服务范围界定立场]"
-    ip_protection: "[知识产权保护立场]"
-    termination_rights: "[合同终止权立场]"
-  deal_breakers:
-    - "[交易破坏者 1]"
-    - "[交易破坏者 2]"
-  acceptable_alternatives:
-    liability_cap:
-      ideal: "[理想方案]"
-      acceptable: "[可接受方案]"
-    # ... 其他类别
-
-# 升级规则
-escalation:
-  matrix:
-    amount_thresholds:
-      - threshold: "[金额阈值]"
-        approver: "[审批人]"
-    risk_thresholds:
-      - risk_level: "[风险等级]"
-        approver: "[审批人]"
-    auto_triggers:
-      - "[自动升级触发条件 1]"
-      - "[自动升级触发条件 2]"
-  approvers:
-    - name: "[审批人姓名]"
-      role: "[角色]"
-      contact: "[联系方式]"
-      authority: "[审批权限范围]"
-
-# 文书风格
-output:
-  default_format: "[默认输出格式]"
-  style: "[文书风格]"
-  include_legal_citations: "[是否包含法条引用]"
-  include_case_citations: "[是否包含案例引用]"
-  bilingual: "[是否中英双语]"
-
-# 常用模板
-templates:
-  contract_templates: "[常用合同模板]"
-  review_checklists: "[常用审查清单]"
-  suggested_language: "[常用修改建议语言库]"
-
-# 管辖法律
-governing_law:
-  primary: "[主要管辖法律]"
-  local_regulations: "[地方性法规]"
-  court_preference: "[法院管辖偏好]"
-  special_requirements: "[特殊要求]"
-```
+---
 
 ## 后续
 
-配置文件生成后：
-- 所有其他技能自动读取此配置
-- 用户可以随时运行 `/commercial-legal:cold-start-interview` 重新配置
-- 配置文件版本控制，支持回滚
-- 配置文件可以导出/导入
+配置文件初始化完成后：
+
+### 重跑访谈
+
+- **完整重跑**：运行 `/commercial-legal:cold-start-interview`，按顺序重新执行全部五个子技能
+- **部分更新**：单独触发对应子技能（见上方编排顺序表），只更新需要变更的章节
+
+### 直接编辑
+
+律师可直接编辑 `commercial-legal/CLAUDE.md`，无需重跑访谈。编辑后即时生效。
+
+### 版本控制
+
+配置文件纳入版本控制（与代码同仓库）：
+- 查看历史：`git log --oneline commercial-legal/CLAUDE.md`
+- 查看变更：`git diff HEAD~1 commercial-legal/CLAUDE.md`
+- 回滚：`git checkout <commit-hash> -- commercial-legal/CLAUDE.md`
+
+### 导出与迁移
+
+将 `commercial-legal/CLAUDE.md` 复制到其他项目或同事的工作目录，即可完成配置迁移。

@@ -1,0 +1,170 @@
+{
+  "name": "trademark",
+  "version": "1.0.0",
+  "description": "国家知识产权局商标查询 MCP 连接器，提供商标检索、详情查询和近似比对功能",
+  "displayName": "商标查询连接器",
+  "category": "legal-data",
+  "dataSources": [
+    {
+      "name": "国家知识产权局商标局",
+      "url": "https://sbj.cnipa.gov.cn",
+      "type": "rest-api",
+      "description": "国家知识产权局商标局官方查询系统"
+    },
+    {
+      "name": "中国商标网",
+      "url": "https://wcjs.sbj.cnipa.gov.cn",
+      "type": "web-scrape",
+      "description": "商标网上查询系统"
+    }
+  ],
+  "authentication": {
+    "type": "api-key",
+    "headerName": "Authorization",
+    "headerPrefix": "Bearer",
+    "envVar": "TRADEMARK_API_KEY"
+  },
+  "env": {
+    "TRADEMARK_API_URL": {
+      "description": "商标查询 API 基础地址",
+      "default": "https://sbj.cnipa.gov.cn/api",
+      "required": true
+    },
+    "TRADEMARK_API_KEY": {
+      "description": "商标查询 API 密钥",
+      "required": false,
+      "secret": true
+    },
+    "TRADEMARK_TIMEOUT_MS": {
+      "description": "请求超时时间（毫秒）",
+      "default": "30000",
+      "required": false
+    },
+    "TRADEMARK_MAX_RETRIES": {
+      "description": "最大重试次数",
+      "default": "3",
+      "required": false
+    }
+  },
+  "tools": [
+    {
+      "name": "search_trademark",
+      "description": "根据商标名称、注册号、分类、申请人等条件查询商标信息",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "trademarkName": {
+            "type": "string",
+            "description": "商标名称"
+          },
+          "registrationNumber": {
+            "type": "string",
+            "description": "商标注册号"
+          },
+          "niceClassification": {
+            "type": "integer",
+            "description": "尼斯分类号（1-45）"
+          },
+          "applicant": {
+            "type": "string",
+            "description": "申请人名称"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["注册", "初审公告", "申请中", "驳回复审", "无效", "撤销", "续展"],
+            "description": "商标状态"
+          },
+          "trademarkType": {
+            "type": "string",
+            "enum": ["文字", "图形", "组合", "立体", "颜色", "声音"],
+            "description": "商标类型"
+          },
+          "page": {
+            "type": "integer",
+            "default": 1,
+            "description": "页码"
+          },
+          "pageSize": {
+            "type": "integer",
+            "default": 20,
+            "description": "每页数量"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "get_trademark_detail",
+      "description": "根据商标注册号获取商标详细信息（公告、异议、撤销等全流程信息）",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "registrationNumber": {
+            "type": "string",
+            "description": "商标注册号"
+          },
+          "includeHistory": {
+            "type": "boolean",
+            "default": true,
+            "description": "是否包含商标流程历史"
+          },
+          "includeSimilar": {
+            "type": "boolean",
+            "default": false,
+            "description": "是否包含近似商标信息"
+          }
+        },
+        "required": ["registrationNumber"]
+      }
+    },
+    {
+      "name": "check_similarity",
+      "description": "对指定商标进行近似比对分析，返回相似商标列表及近似度评分",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "trademarkName": {
+            "type": "string",
+            "description": "待检查的商标名称"
+          },
+          "trademarkImage": {
+            "type": "string",
+            "description": "待检查的商标图片（Base64 编码）"
+          },
+          "niceClassification": {
+            "type": "integer",
+            "description": "尼斯分类号"
+          },
+          "similarityThreshold": {
+            "type": "number",
+            "default": 0.7,
+            "description": "近似度阈值（0-1）"
+          },
+          "checkType": {
+            "type": "string",
+            "enum": ["文字", "图形", "综合"],
+            "default": "综合",
+            "description": "检查类型"
+          }
+        },
+        "required": []
+      }
+    }
+  ],
+  "rateLimit": {
+    "requestsPerSecond": 2,
+    "requestsPerDay": 2000,
+    "maxConcurrent": 3
+  },
+  "retry": {
+    "maxAttempts": 3,
+    "initialDelayMs": 2000,
+    "maxDelayMs": 30000,
+    "backoffMultiplier": 2.5,
+    "retryableStatusCodes": [429, 502, 503, 504]
+  },
+  "healthCheck": {
+    "endpoint": "/health",
+    "intervalSeconds": 300
+  }
+}

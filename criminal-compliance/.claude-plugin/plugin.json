@@ -1,7 +1,133 @@
 {
   "name": "criminal-compliance",
-  "version": "0.1.0",
-  "description": "风险评估、合规不起诉、单位犯罪预防",
+  "version": "0.2.0",
+  "description": "刑事合规全流程辅助，涵盖五大模块二十个子技能加五个编排入口：冷启动访谈（身份与企业画像/合规立场与服务范围/风险与升级矩阵/文书风格与监管资源）初始化实践配置档案；刑事风险评估（行业高发罪名识别/岗位与行为风险点/风险等级与可能性评估/风险清单与控制建议输出）全面梳理刑事合规风险敞口；合规不起诉方案（适用条件评估/合规计划制定/第三方监督评估配合/不起诉申请与听证）协助企业争取从宽处理；单位犯罪预防（单位犯罪构成识别/常见单位犯罪类型/内控与防范机制/涉案应对）防范双罚制风险；刑事合规体系建设（合规风险识别/合规制度与流程设计/合规组织与培训/合规有效性评估与整改）建设事前预防体系。用于合规预防与辩护研究，具体罪名条号一律待验证，涉刑情形强制升级执业刑事辩护律师。",
   "author": { "name": "AI for China Legal Contributors" },
-  "skills": [{"name":"cold-start-interview","path":"skills/cold-start-interview/SKILL.md"},{"name":"risk-assessment","path":"skills/risk-assessment/SKILL.md"},{"name":"non-prosecution","path":"skills/non-prosecution/SKILL.md"},{"name":"corporate-crime","path":"skills/corporate-crime/SKILL.md"}]
+  "skills": [
+    {
+      "name": "cold-start-interview",
+      "path": "skills/cold-start-interview/SKILL.md",
+      "description": "冷启动访谈编排入口，顺序调用四个访谈子技能（身份与企业画像→合规立场→风险矩阵→文书风格），初始化并填充 criminal-compliance/CLAUDE.md 实践配置档案（散文章节，非独立 YAML），支持单独触发任一子技能更新特定章节。"
+    },
+    {
+      "name": "identity-enterprise-profile",
+      "path": "skills/cold-start-interview/identity-enterprise-profile/SKILL.md",
+      "description": "访谈子技能一：采集执业角色（律师/合规官/法务/当事人本人）、服务对象与企业画像（行业·规模·业务模式·是否涉外·历史涉案情况·重点刑事风险领域）、团队与检察公安监管第三方监督评估资源，填充 CLAUDE.md「我们是谁/谁在使用/可用集成」章节；识别已涉案迹象触发强制升级。"
+    },
+    {
+      "name": "compliance-stance-scope",
+      "path": "skills/cold-start-interview/compliance-stance-scope/SKILL.md",
+      "description": "访谈子技能二：采集整体服务立场（事前合规体系建设/刑事风险评估/涉案企业合规不起诉/单位犯罪预防与辩护研究）、合规严格度（保守/平衡/务实）、是否已涉案（纯预防/有苗头/已立案或强制措施），填充 CLAUDE.md「合规与服务立场」章节；是否已涉案字段直接驱动全局涉刑强制升级护栏。"
+    },
+    {
+      "name": "risk-escalation",
+      "path": "skills/cold-start-interview/risk-escalation/SKILL.md",
+      "description": "访谈子技能三：采集刑事风险等级定义（🔴关键/🟠高/🟡中等/🟢低）、角色权限表、六条强制升级触发条件（已立案/强制措施/侦查传唤/具体罪名风险/重大涉案/人身自由风险强制升级执业刑事辩护律师）及涉案应对合规边界（绝不规避侦查/伪造证据/串供/转移资产），填充 CLAUDE.md「刑事风险校准/升级矩阵/共享护栏」章节。"
+    },
+    {
+      "name": "style-regulatory-resources",
+      "path": "skills/cold-start-interview/style-regulatory-resources/SKILL.md",
+      "description": "访谈子技能四：采集文书风格（刑事风险评估报告/合规制度文本/合规不起诉申请与整改报告/辩护研究）、检察公安行业监管第三方监督评估本地资源、地方涉案企业合规试点口径与偏好（各地口径差异标地方 flagged 待验证），填充 CLAUDE.md「文书风格/输出/共享护栏地方试点提示」章节。"
+    },
+    {
+      "name": "risk-assessment",
+      "path": "skills/risk-assessment/SKILL.md",
+      "description": "刑事风险评估编排入口，顺序调用四个子技能（行业高发罪名识别→岗位与行为风险点→风险等级与可能性评估→风险清单与控制建议输出），面向单次事件触发的刑事风险评估；具体罪名条号待验证，涉案情形强制升级刑事辩护律师。"
+    },
+    {
+      "name": "industry-crime-identification",
+      "path": "skills/risk-assessment/industry-crime-identification/SKILL.md",
+      "description": "风险评估子技能一：识别企业所在行业的高发刑事罪名，按税收/金融/商业贿赂/职务/环境安全/扰乱市场秩序等类别梳理构成要件（条号一律待验证），结合行业监管特点与行刑衔接路径，输出行业高发罪名清单。"
+    },
+    {
+      "name": "position-conduct-risk",
+      "path": "skills/risk-assessment/position-conduct-risk/SKILL.md",
+      "description": "风险评估子技能二：分析企业关键岗位（法定代表人/财务/采购/销售/安全生产等）的日常行为风险点，识别直接负责主管人员与其他直接责任人员的单位犯罪双罚制风险（刑法第30/31条建议复核），具体罪名构成要件描述+条号待验证。"
+    },
+    {
+      "name": "risk-level-likelihood",
+      "path": "skills/risk-assessment/risk-level-likelihood/SKILL.md",
+      "description": "风险评估子技能三：综合评估各刑事风险点的等级（🔴关键/🟠高/🟡中等/🟢低）与现实化可能性，结合已涉案状态（已涉案强制升级刑事辩护律师）、合规控制现状、监管执法趋势，输出风险优先级排序与处置建议。"
+    },
+    {
+      "name": "risk-list-control-output",
+      "path": "skills/risk-assessment/risk-list-control-output/SKILL.md",
+      "description": "风险评估子技能四：整合前三步评估结论，输出结构化风险清单（风险点/罪名构成要件描述/等级/控制建议），提供可操作的合规控制措施建议，衔接合规体系建设技能；数额标准描述规则待验证，不写裸数额。"
+    },
+    {
+      "name": "non-prosecution",
+      "path": "skills/non-prosecution/SKILL.md",
+      "description": "合规不起诉编排入口，顺序调用四个子技能（适用条件评估→合规整改计划→第三方监督评估配合→不起诉申请与听证），协助已被追诉企业争取通过合规整改获得检察机关不起诉处理（须律师主导）；涉案企业合规规范性文件快速演进，描述规则待验证。"
+    },
+    {
+      "name": "applicability-assessment",
+      "path": "skills/non-prosecution/applicability-assessment/SKILL.md",
+      "description": "合规不起诉子技能一：评估企业是否满足涉案企业合规不起诉适用条件（认罪认罚/合规整改可行性/适用罪名范围），结合刑诉法第177条酌定相对不起诉与认罪认罚从宽第15条（建议复核），涉案企业合规规范性文件快速演进标待验证。"
+    },
+    {
+      "name": "compliance-plan",
+      "path": "skills/non-prosecution/compliance-plan/SKILL.md",
+      "description": "合规不起诉子技能二：制定针对已被追诉具体问题的涉案专项合规整改计划（事后整改，与 compliance-system-building 事前体系建设互补），整改方案须可验证、真实客观，配合第三方监督评估；须律师主导，有效合规认定标准待验证。"
+    },
+    {
+      "name": "third-party-monitoring",
+      "path": "skills/non-prosecution/third-party-monitoring/SKILL.md",
+      "description": "合规不起诉子技能三：配合企业合规第三方监督评估机制（管理委员会统筹/评估组织具体负责），梳理考察期内合规整改进度，准备评估组织所需材料；第三方评估机制规范性文件快速演进，须核实现行版本待验证，须律师审核外部提交材料。"
+    },
+    {
+      "name": "application-hearing",
+      "path": "skills/non-prosecution/application-hearing/SKILL.md",
+      "description": "合规不起诉子技能四：协助起草合规不起诉申请书与拟不起诉公开听证材料，结合认罪认罚/自首/立功/合规整改从宽情节（中度把握锚点建议复核），须执业刑事律师审核签署，向检察机关提交材料前须律师确认。"
+    },
+    {
+      "name": "corporate-crime",
+      "path": "skills/corporate-crime/SKILL.md",
+      "description": "单位犯罪预防编排入口，顺序调用四个子技能（单位犯罪构成识别→常见单位犯罪类型→内控与防范机制→涉案应对），防范单位犯罪构成（刑法第30/31条双罚制，建议复核）与直接负责主管人员个人刑事责任；涉案情形强制升级刑事辩护律师。"
+    },
+    {
+      "name": "unit-crime-constitution",
+      "path": "skills/corporate-crime/unit-crime-constitution/SKILL.md",
+      "description": "单位犯罪子技能一：分析单位犯罪构成要件（刑法第30条定义/第31条双罚制，建议复核），识别单位犯罪与自然人犯罪的区分标准（单位名义/单位利益/违法所得归单位），梳理直接负责主管人员与其他直接责任人员的认定规则（司法解释待验证）。"
+    },
+    {
+      "name": "common-unit-crime-types",
+      "path": "skills/corporate-crime/common-unit-crime-types/SKILL.md",
+      "description": "单位犯罪子技能二：梳理高发单位犯罪类型（商业贿赂/虚开增值税专用发票/非法集资/职务侵占/挪用资金/逃税/串通投标等），以构成要件描述呈现各罪名的单位犯罪适用性，条号一律待验证，数额标准描述规则待验证。"
+    },
+    {
+      "name": "internal-control-prevention",
+      "path": "skills/corporate-crime/internal-control-prevention/SKILL.md",
+      "description": "单位犯罪子技能三：设计针对单位犯罪构成要件的内部控制与防范机制（关键决策审批/双签制度/异常交易监控/合规审批节点/高管授权边界），结合三重一大决策制度，防范直接负责主管人员的刑事责任风险。"
+    },
+    {
+      "name": "incident-response",
+      "path": "skills/corporate-crime/incident-response/SKILL.md",
+      "description": "单位犯罪子技能四：涉案应对研究（已面临单位犯罪追诉），分析认罪认罚/自首/立功/合规整改从宽情节（中度把握锚点建议复核），须执业刑事辩护律师主导；绝不提供规避侦查/伪造证据/串供方法，涉案情形已触发强制升级。"
+    },
+    {
+      "name": "compliance-system-building",
+      "path": "skills/compliance-system-building/SKILL.md",
+      "description": "刑事合规体系建设编排入口，顺序调用四个子技能（合规风险识别→合规制度与流程设计→合规组织与培训→合规有效性评估与整改），用于事前合规体系建设（与 non-prosecution 涉案后整改互补）；有效合规认定标准待验证，涉案情形强制升级刑事辩护律师。"
+    },
+    {
+      "name": "compliance-risk-identification",
+      "path": "skills/compliance-system-building/compliance-risk-identification/SKILL.md",
+      "description": "合规体系建设子技能一：从业务/岗位/区域/关联方四维度全面梳理企业刑事合规风险，构建合规风险地图（重点领域/风险敞口/优先级），与 risk-assessment 分工（本技能=体系化风险底图；risk-assessment=单次事件评估），具体罪名构成要件描述+条号待验证。"
+    },
+    {
+      "name": "policy-process-design",
+      "path": "skills/compliance-system-building/policy-process-design/SKILL.md",
+      "description": "合规体系建设子技能二：制定合规政策与行为准则（Tone at the Top）、重点领域专项合规制度（反商业贿赂/反垄断/数据/安全生产/财税）、合规审批与禁止性清单（刑事红线行为一律禁止）、合规控制点嵌入业务流程；制度须律师审查，绝不为规避侦查留口子。"
+    },
+    {
+      "name": "organization-training",
+      "path": "skills/compliance-system-building/organization-training/SKILL.md",
+      "description": "合规体系建设子技能三：设计合规组织架构（首席合规官/合规部门独立性/业务合规员）、三道防线职责分工（业务部门一道/合规风控法律二道/内审外审三道）、分层分类培训计划（高管/业务岗/全员）与合规考核问责；单位犯罪双罚制第30/31条建议复核，有效合规组织保障要点待验证。"
+    },
+    {
+      "name": "effectiveness-evaluation",
+      "path": "skills/compliance-system-building/effectiveness-evaluation/SKILL.md",
+      "description": "合规体系建设子技能四：建立合规体系有效性评估指标（制度健全性/执行有效性/监测发现能力/响应整改能力）、定期审计与自查计划、问题整改闭环管理，并说明有效合规衔接合规不起诉的积极作用（有效合规认定标准属规范性文件，快速演进，一律描述规则待验证，不硬写文号）；涉案强制升级并路由 non-prosecution。"
+    }
+  ]
 }
