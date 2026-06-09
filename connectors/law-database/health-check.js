@@ -19,7 +19,7 @@ const API_KEY = process.env.LAW_DB_API_KEY;
 
 console.log("[law-database] Health check starting...");
 console.log(`  API URL: ${API_URL}`);
-console.log(`  API Key: ${API_KEY ? "configured (" + API_KEY.slice(0, 4) + "...)" : "NOT SET"}`);
+console.log(`  API Key: ${API_KEY ? "configured" : "NOT SET"}`);
 
 if (!API_KEY) {
   console.error("[law-database] FAIL: LAW_DB_API_KEY is not set.");

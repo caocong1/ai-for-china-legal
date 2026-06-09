@@ -16,7 +16,7 @@ AI for China Legal 是一套模块化的法律 AI 插件套件，面向中国大
 | **Skills (技能)** | 领域专业知识，通过斜杠命令调用或自动触发 |
 | **Agents (代理)** | 定时或事件驱动的工作流（如裁判文书监控、法规动态监控），在后台运行 |
 | **实践配置文件** | 通过"冷启动访谈"生成的个性化配置，描述团队的审查立场、升级规则和文书风格 |
-| **Connectors (连接器)** | 基于 MCP 协议的服务器，连接外部数据源（规划中） |
+| **Connectors (连接器)** | 基于 MCP 协议的服务器，连接外部数据源（6 个已定义规格，law-database 已实现原型） |
 
 ## 安装（Qwen Code）
 
@@ -24,7 +24,7 @@ AI for China Legal 是一套模块化的法律 AI 插件套件，面向中国大
 
 ```bash
 cd /path/to/ai-for-china-legal
-bash scripts/setup-skills.sh    # 注册 55 个 skill
+bash scripts/setup-skills.sh    # 注册 67 个 skill（66 插件 + 1 共享）
 bash scripts/cleanup-skills.sh  # 卸载
 ```
 
@@ -37,38 +37,38 @@ bash scripts/cleanup-skills.sh  # 卸载
 | 插件 | 说明 | Skills 数量 |
 |------|------|------------|
 | [商事合同](commercial-legal/README.md) | 买卖合同、技术服务合同、租赁合同审查，含主体资格预检 | 4 |
-| [数据合规](data-compliance/README.md) | 个保法/数据安全法合规、PIA、数据出境 | 3 |
-| [劳动人事](employment-legal/README.md) | 劳动合同、竞业限制、裁员方案 | 5 |
-| [知识产权](ip-legal/README.md) | 商标/专利/著作权初步筛查 | 4 |
-| [AI 治理](ai-governance/README.md) | 深度合成备案、算法备案、生成式 AI 合规 | 4 |
-| [监管合规](regulatory-legal/README.md) | 监管动态监控、行政处罚应对 | 3 |
+| [数据合规](data-compliance/README.md) | 个保法/数据安全法合规、PIA、数据出境 | 5 |
+| [劳动人事](employment-legal/README.md) | 劳动合同、竞业限制、裁员方案 | 6 |
+| [知识产权](ip-legal/README.md) | 商标/专利/著作权初步筛查 | 5 |
+| [AI 治理](ai-governance/README.md) | 深度合成备案、算法备案、生成式 AI 合规 | 5 |
+| [监管合规](regulatory-legal/README.md) | 监管动态监控、行政处罚应对 | 5 |
 
 ### 诉讼类
 
 | 插件 | 说明 | Skills 数量 |
 |------|------|------------|
-| [诉讼仲裁](litigation-legal/README.md) | 案件管理、证据目录、答辩状、代理词起草 | 5 |
+| [诉讼仲裁](litigation-legal/README.md) | 案件管理、证据目录、答辩状、代理词起草 | 6 |
 
 ### 中国特有领域
 
 | 插件 | 说明 | Skills 数量 |
 |------|------|------------|
-| [建设工程](construction-legal/README.md) | 施工合同、工程款争议、商品房买卖 | 4 |
-| [婚姻家事](family-legal/README.md) | 离婚协议、遗嘱、继承 | 4 |
-| [刑事合规](criminal-compliance/README.md) | 刑事风险评估、合规不起诉 | 4 |
+| [建设工程](construction-legal/README.md) | 施工合同、工程款争议、商品房买卖 | 5 |
+| [婚姻家事](family-legal/README.md) | 离婚协议、遗嘱、继承 | 5 |
+| [刑事合规](criminal-compliance/README.md) | 刑事风险评估、合规不起诉 | 5 |
 
 ### 学习与实务类
 
 | 插件 | 说明 | Skills 数量 |
 |------|------|------------|
-| [法考培训](law-student/README.md) | 法考刷题、案例研习 | 4 |
-| [法律援助](legal-aid/README.md) | 法援案件管理、客户 intake | 4 |
+| [法考培训](law-student/README.md) | 法考刷题、案例研习 | 5 |
+| [法律援助](legal-aid/README.md) | 法援案件管理、客户 intake | 5 |
 
 ### 生态系统
 
 | 插件 | 说明 | Skills 数量 |
 |------|------|------------|
-| [法律技能中心](legal-builder-hub/README.md) | 社区技能发现、安装、安全审查 | 4 |
+| [法律技能中心](legal-builder-hub/README.md) | 社区技能发现、安装、安全审查 | 5 |
 
 ## 共享法律研究基础设施
 
@@ -160,10 +160,10 @@ ai-for-china-legal/
 | Phase 2-6 | 核心插件开发 (商事/诉讼/劳动/数据/知产) | ✅ 完成 |
 | Phase 7-14 | 扩展插件 (建设工程/婚姻家事/刑事合规/AI治理/监管合规/法考/法援/技能中心) | ✅ 完成 |
 | Phase 15 | 定时 Agent 开发 | ✅ 完成 |
-| Phase 16 | MCP 连接器开发 | ✅ 完成 |
+| Phase 16 | MCP 连接器规格定义（6 个 connector.json，law-database 已实现原型） | ✅ 完成 |
 | Phase 17 | 跨平台适配 | ✅ 完成 |
 | **v1.1** | **共享法律研究基础设施** — 研究闸门、质量闸门、搜索策略、真实案例测试框架 | ✅ 完成 |
-| 后续 | 各插件 skill 内容完善、MCP 连接器实现、定时 Agent 运行时 | 规划中 |
+| 后续 | 各插件 skill 内容完善、其余 5 个连接器实现、定时 Agent 运行时完善 | 规划中 |
 
 ## 许可证
 

@@ -22,11 +22,12 @@
  */
 
 import { readFileSync, existsSync, mkdirSync, appendFileSync } from "node:fs";
-import { resolve, dirname } from "node:path";
+import { resolve, dirname, basename } from "node:path";
+import { fileURLToPath } from "node:url";
 import { parse } from "yaml";
 import "dotenv/config";
 
-const __dirname = dirname(new URL(import.meta.url).pathname);
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const COOKBOOKS_DIR = resolve(__dirname, "managed-agent-cookbooks");
 const LOGS_DIR = resolve(__dirname, "logs");
 
@@ -73,15 +74,48 @@ function log(agent, level, message) {
 // --- Agent loading ---
 
 function loadAgentConfig(name) {
-  const yamlPath = resolve(COOKBOOKS_DIR, `${name}.yaml`);
+  const safe = basename(name);
+  if (safe !== name || name.includes("..")) {
+    throw new Error(`Invalid agent name: ${name}`);
+  }
+  const yamlPath = resolve(COOKBOOKS_DIR, `${safe}.yaml`);
   if (!existsSync(yamlPath)) {
-    throw new Error(`Agent config not found: ${yamlPath}`);
+    throw new Error(`Agent config not found: ${safe}.yaml`);
   }
   const raw = readFileSync(yamlPath, "utf-8");
-  return parse(raw);
+
+  // Support both pure YAML and Markdown with embedded ```yaml fenced block
+  let yamlContent = raw;
+  const fenceMatch = raw.match(/```ya?ml\n([\s\S]*?)```/);
+  if (fenceMatch) {
+    yamlContent = fenceMatch[1];
+  }
+
+  return parse(yamlContent);
 }
 
 // --- Schedule checking ---
+
+function cronFieldMatches(field, value) {
+  for (const part of field.split(",")) {
+    const stepParts = part.split("/");
+    const range = stepParts[0];
+    const step = stepParts[1] ? parseInt(stepParts[1], 10) : 1;
+
+    if (range === "*") {
+      if (step === 1) return true;
+      if (value % step === 0) return true;
+      continue;
+    }
+
+    const dashParts = range.split("-");
+    const lo = parseInt(dashParts[0], 10);
+    const hi = dashParts.length > 1 ? parseInt(dashParts[1], 10) : lo;
+
+    if (value >= lo && value <= hi && (value - lo) % step === 0) return true;
+  }
+  return false;
+}
 
 function shouldRunNow(config) {
   if (flags.force) return true;
@@ -89,21 +123,17 @@ function shouldRunNow(config) {
   const schedule = config.schedule;
   if (!schedule) return true;
 
-  // Simple cron parsing for common patterns
   const parts = schedule.split(/\s+/);
   if (parts.length < 5) return true;
 
   const now = new Date();
   const [minute, hour, dayOfMonth, month, dayOfWeek] = parts;
 
-  if (minute !== "*" && parseInt(minute) !== now.getMinutes()) return false;
-  if (hour !== "*" && parseInt(hour) !== now.getHours()) return false;
-  if (dayOfMonth !== "*" && parseInt(dayOfMonth) !== now.getDate()) return false;
-  if (month !== "*" && parseInt(month) !== now.getMonth() + 1) return false;
-  if (dayOfWeek !== "*") {
-    const dow = parseInt(dayOfWeek);
-    if (dow !== now.getDay()) return false;
-  }
+  if (!cronFieldMatches(minute, now.getMinutes())) return false;
+  if (!cronFieldMatches(hour, now.getHours())) return false;
+  if (!cronFieldMatches(dayOfMonth, now.getDate())) return false;
+  if (!cronFieldMatches(month, now.getMonth() + 1)) return false;
+  if (!cronFieldMatches(dayOfWeek, now.getDay())) return false;
 
   return true;
 }
@@ -167,7 +197,7 @@ async function executeAgent(config) {
         try {
           const connectorFactory = resolveConnector(source.connector);
           if (connectorFactory) {
-            const connector = await connectorFactory;
+            const connector = await connectorFactory();
             log(name, "INFO", `  Connector ${source.connector} loaded`);
 
             // Execute search based on agent type

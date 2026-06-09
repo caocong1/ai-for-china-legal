@@ -237,6 +237,9 @@ function processSkills(skillFiles, inputBase, converter, outputBase) {
     if (result.manifestEntry) {
       manifestEntries.push(result.manifestEntry);
     }
+    if (result.pluginEntry) {
+      manifestEntries.push(result.pluginEntry);
+    }
   }
 
   return manifestEntries;

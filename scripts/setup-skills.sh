@@ -46,7 +46,7 @@ for plugin in "$PROJECT_DIR"/*/; do
       echo "  [已存在] $link_name"
     else
       # 使用相对于 .qwen/skills/ 的路径
-      rel_path="../../../${plugin_name}/skills/${skill_name}"
+      rel_path="../../${plugin_name}/skills/${skill_name}"
       ln -sf "$rel_path" "$link_path"
       echo "  [已注册] $link_name -> $rel_path"
     fi

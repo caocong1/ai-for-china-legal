@@ -29,18 +29,18 @@
 | 你是… | 安装… | 第一个命令 |
 |---|---|---|
 | 商事合同律师 / 法务 | `commercial-legal` | `/commercial-legal:cold-start-interview` |
-| 诉讼律师 / 法务 | `litigation-legal` | `/litigation-legal:matter-intake` |
-| 劳动法律师 / HR 法务 | `employment-legal` | `/employment-legal:hiring-review` |
-| 数据合规律师 / DPO | `data-compliance` | `/data-compliance:pia-generation` |
-| 知识产权律师 | `ip-legal` | `/ip-legal:clearance` |
-| 建设工程律师 | `construction-legal` | `/construction-legal:contract-review` |
-| 婚姻家事律师 | `family-legal` | `/family-legal:divorce-agreement` |
-| 刑事合规律师 | `criminal-compliance` | `/criminal-compliance:risk-assessment` |
-| 监管合规律师 | `regulatory-legal` | `/regulatory-legal:reg-feed-watcher` |
-| AI 治理负责人 | `ai-governance` | `/ai-governance:use-case-triage` |
-| 法学生 / 法考备考 | `law-student` | `/law-student:case-brief` |
-| 法律援助律师 | `legal-aid` | `/legal-aid:client-intake` |
-| 法律运营 / 寻找技能 | `legal-builder-hub` | `/legal-builder-hub:registry-browser` |
+| 诉讼律师 / 法务 | `litigation-legal` | `/litigation-legal:cold-start-interview` |
+| 劳动法律师 / HR 法务 | `employment-legal` | `/employment-legal:cold-start-interview` |
+| 数据合规律师 / DPO | `data-compliance` | `/data-compliance:cold-start-interview` |
+| 知识产权律师 | `ip-legal` | `/ip-legal:cold-start-interview` |
+| 建设工程律师 | `construction-legal` | `/construction-legal:cold-start-interview` |
+| 婚姻家事律师 | `family-legal` | `/family-legal:cold-start-interview` |
+| 刑事合规律师 | `criminal-compliance` | `/criminal-compliance:cold-start-interview` |
+| 监管合规律师 | `regulatory-legal` | `/regulatory-legal:cold-start-interview` |
+| AI 治理负责人 | `ai-governance` | `/ai-governance:cold-start-interview` |
+| 法学生 / 法考备考 | `law-student` | `/law-student:cold-start-interview` |
+| 法律援助律师 | `legal-aid` | `/legal-aid:cold-start-interview` |
+| 法律运营 / 寻找技能 | `legal-builder-hub` | `/legal-builder-hub:cold-start-interview` |
 
 ## 你安装的是什么
 

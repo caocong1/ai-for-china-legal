@@ -12,12 +12,13 @@ AI for China Legal 指导文件。本项目是一个法律 AI 插件套件，包
   .claude-plugin/plugin.json      # 插件元数据
   CLAUDE.md                       # 实践配置文件模板
   README.md                       # 插件说明
-  skills/<name>/SKILL.md          # 技能定义
-  agents/<name>.md                # 子代理
-  hooks/hooks.json                # 钩子配置
-managed-agent-cookbooks/<name>/   # 定时 Agent 配置
+  skills/<name>/SKILL.md          # 技能定义（编排入口 + 子技能）
+  skills/_shared/                 # 领域共享引用（法条规范、配置 schema）
+managed-agent-cookbooks/          # 定时 Agent 配置 (YAML)
+shared/                           # 共享法律研究基础设施
+  research-gate/SKILL.md          # 研究闸门
+  references/                     # 共享模板和 playbook
 scripts/                          # 验证和部署脚本
-references/                       # 共享模板
 connectors/                       # MCP 连接器
 ```
 

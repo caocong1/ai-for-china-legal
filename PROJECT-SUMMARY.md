@@ -1,164 +1,108 @@
 # 项目总结 — AI for China Legal
 
-> 生成日期: 2026-06-03
+> 更新日期: 2026-06-08
 > 参考项目: https://github.com/anthropics/claude-for-legal
 
 ---
+
+## 项目现状
+
+AI for China Legal 是一套模块化的法律 AI 插件套件，面向中国大陆法律体系、执业环境和监管要求进行中国化适配。
+
+当前处于 **SKILL.md 定义完成 + 基础设施初步建成** 阶段。
 
 ## 已完成的工作
 
 ### 1. 研究与解析
 
-- ✅ 克隆了 `claude-for-legal` 项目到 `workspace/claude-for-legal-study/`
-- ✅ 生成了详细的 [ROADMAP.md](../claude-for-legal-study/ROADMAP.md) 解析报告，包含：
-  - 项目总览和四层架构模型
-  - 12 个插件的详细功能解析
-  - SKILL.md 格式规范
-  - 实践配置文件结构
-  - Managed Agent 架构和安全分层模型
-  - 17+ MCP 连接器映射
-  - 信任层机制
-  - 对中国法律工具的启示和适配建议
+- ✅ 克隆并深度解析了 Anthropic `claude-for-legal` 参考项目
+- ✅ 生成详细的 ROADMAP.md 解析报告（12 个插件、SKILL.md 格式、MCP 连接器、安全分层）
 
-### 2. 新项目骨架创建
+### 2. 13 个法律插件（全部完成）
 
-在 `workspace/ai-for-china-legal/` 下创建了完整的项目骨架：
+| 类别 | 插件 | 顶层 Skills | 含子技能 SKILL.md |
+|------|------|------------|-------------------|
+| 交易与咨询 | 商事合同 (commercial-legal) | 4 | 23 |
+| 交易与咨询 | 数据合规 (data-compliance) | 5 | 25 |
+| 交易与咨询 | 劳动人事 (employment-legal) | 6 | 31 |
+| 交易与咨询 | 知识产权 (ip-legal) | 5 | 25 |
+| 交易与咨询 | AI 治理 (ai-governance) | 5 | 25 |
+| 交易与咨询 | 监管合规 (regulatory-legal) | 5 | 25 |
+| 诉讼 | 诉讼仲裁 (litigation-legal) | 6 | 32 |
+| 中国特有 | 建设工程 (construction-legal) | 5 | 25 |
+| 中国特有 | 婚姻家事 (family-legal) | 5 | 25 |
+| 中国特有 | 刑事合规 (criminal-compliance) | 5 | 25 |
+| 学习与实务 | 法考培训 (law-student) | 5 | 25 |
+| 学习与实务 | 法律援助 (legal-aid) | 5 | 25 |
+| 生态系统 | 法律技能中心 (legal-builder-hub) | 5 | 25 |
+| **合计** | | **66** | **336** |
 
-```
-ai-for-china-legal/
-├── .claude-plugin/marketplace.json     # 市场清单 (13 个插件)
-├── CLAUDE.md                           # 全局配置模板
-├── README.md                           # 项目说明文档
-├── QUICKSTART.md                       # 快速开始指南
-├── CONNECTORS.md                       # MCP 连接器说明
-│
-├── commercial-legal/                   # 商事合同插件 ✅
-│   ├── .claude-plugin/plugin.json
-│   ├── CLAUDE.md                       # 中国化实践配置模板
-│   ├── README.md
-│   └── skills/contract-review/SKILL.md  # 合同审查技能
-│
-├── litigation-legal/                   # 诉讼仲裁插件 ✅
-│   ├── .claude-plugin/plugin.json
-│   ├── CLAUDE.md                       # 中国化实践配置模板
-│   ├── README.md
-│   └── skills/matter-intake/SKILL.md    # 案件录入技能
-│
-├── employment-legal/                   # 劳动人事插件 ✅
-│   ├── .claude-plugin/plugin.json
-│   ├── CLAUDE.md                       # 中国化实践配置模板
-│   ├── README.md
-│   └── skills/hiring-review/SKILL.md    # 雇佣审查技能
-│
-├── data-compliance/                    # 数据合规插件 (待开发)
-├── ip-legal/                           # 知识产权插件 (待开发)
-├── regulatory-legal/                   # 监管合规插件 (待开发)
-├── ai-governance/                      # AI 治理插件 (待开发)
-├── construction-legal/                 # 建设工程插件 (待开发)
-├── family-legal/                       # 婚姻家事插件 (待开发)
-├── criminal-compliance/                # 刑事合规插件 (待开发)
-├── law-student/                        # 法考培训插件 (待开发)
-├── legal-aid/                          # 法律援助插件 (待开发)
-├── legal-builder-hub/                  # 法律技能中心 (待开发)
-│
-├── managed-agent-cookbooks/            # 定时 Agent 配方 (待开发)
-├── connectors/                         # MCP 连接器 (待开发)
-├── scripts/                            # 验证脚本 (待开发)
-└── references/                         # 共享模板 (待开发)
-```
+每个插件包含：
+- `.claude-plugin/plugin.json` — 插件元数据
+- `CLAUDE.md` — 实践配置文件模板
+- `README.md` — 插件说明
+- `skills/` — SKILL.md 技能定义（含编排入口 + 子技能）
+- `skills/_shared/` — 领域法条引用规范、实践配置 schema
 
-### 3. 中国化适配要点
+### 3. 共享法律研究基础设施 (v1.1)
 
-#### 法律体系适配
+- ✅ **研究闸门** (`shared/research-gate/SKILL.md`) — 所有法律文书生成前的强制检索前置机制
+- ✅ **质量闸门** (`shared/research-gate/references/quality-gates.md`)
+- ✅ **搜索策略** (`shared/research-gate/references/search-playbooks.md`) — 保函、管辖、主体资格等专项 playbook
+- ✅ **来源分级** (`shared/research-gate/references/source-policy.md`) — L1-L5 来源分层策略
+- ✅ **权威来源** (`shared/research-gate/references/authoritative-sources.md`) — 实测可访问 URL 及抓取方式
+- ✅ **文书结构模板** (`shared/references/document-structures.md`)
+- ✅ **担保案件 playbook** (`shared/references/guarantee-bond-playbook.md`)
+- ✅ **主体资格陷阱** (`shared/references/subject-qualification-traps.md`)
+- ✅ **跨平台格式文档** (`shared/cross-platform/`) — 4 个平台的 SKILL-FORMAT.md
 
-| 美国原版 | 中国化 |
-|----------|--------|
-| 联邦/州法院 | 基层/中级/高级/最高法院四级体系 |
-| 判例法 | 成文法为主，指导性案例参考 |
-| UCC/普通法 | 民法典合同编及相关司法解释 |
-| GDPR/CCPA | 个保法/数据安全法/网络安全法 |
-| FMLA/ADA | 劳动合同法/年休假条例 |
-| Federal Register | 国务院公报/部委规章 |
-| EU AI Act | 深度合成规定/生成式 AI 办法 |
+### 4. 真实案例测试框架
 
-#### 审查立场适配
+- ✅ 国航重庆诉重庆双业担保案 — 9 份案件材料、10 维度评估标准 (gold-rubric)、前向测试模板、最小提示词集
 
-- **责任限制** → 民法典第 506 条（免责条款无效情形）、第 585 条（违约金调整）
-- **违约金** → 中国法下仅劳动合同和竞业限制可约定违约金（特定情形）
-- **竞业限制** → 劳动合同法第 23-24 条（期限≤2年、需经济补偿）
-- **管辖法律** → 中国法院管辖 vs 仲裁机构选择
+### 5. MCP 连接器
 
-####  MCP 连接器设想
+- ✅ `law-database` — 完整实现（HTTP client + MCP server + 缓存 + 健康检查 + 熔断/重试/限流）
+- 📋 `wenshu` / `gsxt` / `trademark` / `patent` / `wechat-notify` — connector.json 规格定义完成，待实现
 
-- 裁判文书网 (wenshu.court.gov.cn)
-- 国家企业信用信息公示系统 (gsxt.gov.cn)
-- 中国商标网 (sbj.cnipa.gov.cn)
-- 中国执行信息公开网 (zxgk.court.gov.cn)
-- 北大法宝/威科先行
-- 企业微信/钉钉
+### 6. 定时 Agent
 
----
+- ✅ 4 个 Agent YAML 配方：法规监控、裁判文书监控、企业变更监控、时效监控
+- ✅ `run-agent.js` Agent 运行器（调度检查 + 数据收集 + 报告生成 + 通知）
 
-## 后续开发路线图
+### 7. 跨平台与部署
 
-### Phase 2: 核心插件完善 (建议下一步)
-
-- [ ] 完成商事合同插件的冷启动访谈 SKILL.md
-- [ ] 完成诉讼仲裁插件的其他技能（答辩状起草、证据目录等）
-- [ ] 完成劳动人事插件的其他技能（解雇审查、竞业限制等）
-- [ ] 为各插件创建 `.mcp.json` 连接器配置
-
-### Phase 3: 新增插件开发
-
-- [ ] 数据合规插件（个保法 PIA、数据出境评估）
-- [ ] 知识产权插件（商标查询、专利侵权初步分析）
-- [ ] 建设工程插件（施工合同审查、工程款争议）
-- [ ] 婚姻家事插件（离婚协议、遗嘱起草）
-- [ ] 刑事合规插件（风险评估、合规不起诉）
-
-### Phase 4: 定时 Agent 开发
-
-- [ ] 裁判文书监控器（新判例推送）
-- [ ] 法规动态监控器（国务院/部委规章更新）
-- [ ] 诉讼时效/举证期限提醒
-- [ ] 企业工商变更监控
-
-### Phase 5: MCP 连接器实现
-
-- [ ] 裁判文书网连接器
-- [ ] 企业信用信息公示系统连接器
-- [ ] 法规数据库连接器
-- [ ] 微信/钉钉通知连接器
-
-### Phase 6: 跨平台适配
-
-- [ ] Qwen Code Skill 格式适配
-- [ ] Kimi Code 格式适配
-- [ ] OpenCode 格式适配
-- [ ] 独立 Agent 开发
-
----
+- ✅ `scripts/setup-skills.sh` — Qwen Code skill 符号链接注册
+- ✅ `scripts/convert-skills.js` — SKILL.md → Kimi Code / OpenCode / Standalone Agent 格式转换
+- ✅ `scripts/cleanup-skills.sh` — 卸载脚本
 
 ## 文件统计
 
 | 类型 | 数量 |
 |------|------|
-| 插件目录 | 13 个 |
-| plugin.json | 13 个 |
-| README.md | 13 个 |
-| CLAUDE.md | 4 个 (全局 + 3 个核心插件) |
-| SKILL.md | 3 个 |
-| 其他 | marketplace.json, CLAUDE.md, README.md, QUICKSTART.md, CONNECTORS.md |
-| **总计** | **~40 个文件** |
+| 插件目录 | 13 |
+| plugin.json | 13 |
+| CLAUDE.md（插件级） | 13 |
+| README.md（插件级） | 13 |
+| SKILL.md（总计） | 337（含 shared/ 1 个） |
+| 顶层 skill 模块 | 66 |
+| 连接器（有代码） | 1 |
+| 连接器（仅规格） | 5 |
+| Agent YAML | 4 |
+| 共享参考文档 | 8 |
+| **项目总文件数** | **约 500+** |
 
----
+## 待完成工作
+
+| 优先级 | 事项 | 说明 |
+|--------|------|------|
+| P0 | 5 个连接器实现 | wenshu / gsxt / trademark / patent / wechat-notify 目前仅有 connector.json |
+| P1 | Agent 运行时完善 | run-agent.js cron 解析器需支持完整 cron 语法；通知渠道需实际对接 |
+| P1 | 测试框架 | 缺少自动化测试，convert-skills.js 和 run-agent.js 无测试覆盖 |
+| P2 | 跨平台验证 | convert-skills.js 输出未在 Kimi Code / OpenCode 上实际验证 |
+| P2 | AI 治理插件内容充实 | SKILL.md 行数偏少（~118 行 vs 平均 ~250 行） |
 
 ## 项目位置
 
 - **参考项目**: `workspace/claude-for-legal-study/`
-- **解析报告**: `workspace/claude-for-legal-study/ROADMAP.md`
 - **新项目**: `workspace/ai-for-china-legal/`
-
----
-
-*项目骨架已就绪，可以开始逐步开发各个插件的详细功能。*

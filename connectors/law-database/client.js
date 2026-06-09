@@ -73,7 +73,8 @@ export class LawDatabaseClient {
     this._checkCircuitBreaker();
     await this._waitForRateLimit();
 
-    const url = new URL(path, this.baseUrl);
+    const cleanPath = path.replace(/^\/+/, "");
+    const url = new URL(cleanPath, this.baseUrl + "/");
     if (params) {
       for (const [key, value] of Object.entries(params)) {
         if (value !== undefined && value !== null) {
@@ -84,9 +85,10 @@ export class LawDatabaseClient {
 
     let lastError;
     for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
+      let timer;
       try {
         const controller = new AbortController();
-        const timer = setTimeout(() => controller.abort(), this.timeoutMs);
+        timer = setTimeout(() => controller.abort(), this.timeoutMs);
 
         const headers = {
           Authorization: `Bearer ${this.apiKey}`,
@@ -101,8 +103,6 @@ export class LawDatabaseClient {
           signal: controller.signal,
         });
 
-        clearTimeout(timer);
-
         if (response.ok) {
           this._recordSuccess();
           return await response.json();
@@ -112,12 +112,16 @@ export class LawDatabaseClient {
 
         if (status === 401 || status === 403) {
           this._recordFailure();
-          throw new Error(`Authentication failed (HTTP ${status}). Check LAW_DB_API_KEY.`);
+          const err = new Error(`Authentication failed (HTTP ${status}). Check LAW_DB_API_KEY.`);
+          err._noRetry = true;
+          throw err;
         }
 
         if (status === 400) {
           const errorBody = await response.json().catch(() => ({}));
-          throw new Error(`Bad request (HTTP 400): ${JSON.stringify(errorBody)}`);
+          const err = new Error(`Bad request (HTTP 400): ${JSON.stringify(errorBody)}`);
+          err._noRetry = true;
+          throw err;
         }
 
         if (status === 404) {
@@ -128,8 +132,9 @@ export class LawDatabaseClient {
         if (RETRYABLE_STATUS_CODES.includes(status) && attempt < this.maxRetries) {
           const retryAfter = response.headers.get("Retry-After");
           const baseDelay = 2000 * Math.pow(2.5, attempt);
-          const delay = retryAfter
-            ? parseInt(retryAfter, 10) * 1000
+          const retrySeconds = retryAfter ? Number(retryAfter) : NaN;
+          const delay = Number.isFinite(retrySeconds)
+            ? Math.min(retrySeconds * 1000, 30000)
             : Math.min(baseDelay, 30000);
 
           await new Promise((resolve) => setTimeout(resolve, delay));
@@ -137,7 +142,9 @@ export class LawDatabaseClient {
         }
 
         this._recordFailure();
-        throw new Error(`HTTP ${status}: ${await response.text()}`);
+        const err = new Error(`HTTP ${status}: ${await response.text()}`);
+        err._noRetry = true;
+        throw err;
       } catch (error) {
         lastError = error;
 
@@ -145,7 +152,12 @@ export class LawDatabaseClient {
           lastError = new Error(`Request timeout after ${this.timeoutMs}ms`);
         }
 
-        if (attempt < this.maxRetries && !error.message.includes("Authentication failed")) {
+        if (error._noRetry || lastError._noRetry) {
+          this._recordFailure();
+          throw lastError;
+        }
+
+        if (attempt < this.maxRetries) {
           const delay = 2000 * Math.pow(2.5, attempt);
           await new Promise((resolve) => setTimeout(resolve, Math.min(delay, 30000)));
           continue;
@@ -153,6 +165,8 @@ export class LawDatabaseClient {
 
         this._recordFailure();
         throw lastError;
+      } finally {
+        clearTimeout(timer);
       }
     }
 

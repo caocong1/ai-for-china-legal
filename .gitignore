@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+
+# Environment variables (may contain API keys)
+.env
+.env.local
+
+# Build output
+dist/
+
+# Logs
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Debug logs
+npm-debug.log*
+
+# Coverage
+coverage/
+
+# Generated skill symlinks (created by scripts/setup-skills.sh)
+# Only ignore symlink files, not real skill subdirectories
+.qwen/skills/*
+!.qwen/skills/backfill-phase-tracking/
+!.qwen/skills/evaluate-ai-coding-framework/
+!.qwen/skills/implement-mcp-connector/
+!.qwen/skills/integrate-external-skill/
+!.qwen/skills/parallel-ai-code-review/
+!.qwen/skills/project-status/
+!.qwen/skills/recover-uncommitted-work/
