@@ -72,7 +72,7 @@ bash scripts/cleanup-skills.sh  # 卸载
 
 ## 共享法律研究基础设施
 
-v1.1 新增。从 `cn-lawyer-docs-skill` 项目汲取经过真实案例（国航重庆诉重庆双业担保）测试验证的能力：
+v1.1 新增。从既有实务验证经验中沉淀共享研究能力：
 
 | 目录 | 说明 |
 |------|------|
@@ -86,7 +86,7 @@ v1.1 新增。从 `cn-lawyer-docs-skill` 项目汲取经过真实案例（国航
 
 | 目录 | 说明 |
 |------|------|
-| [learning-materials/guohang-chongqing-shuangye/](learning-materials/guohang-chongqing-shuangye/README.md) | 国航重庆分公司诉重庆双业担保公司测试案例。含 10 维度评估标准（gold-rubric.md）、前向测试记录模板、最小/诊断型提示词集合 |
+| `learning-materials/` | 内部验证材料目录。具体案件材料不随公开文档引用。 |
 
 ## 项目结构
 
@@ -112,8 +112,8 @@ ai-for-china-legal/
 │       └── subject-qualification-traps.md
 │
 ├── learning-materials/           # 真实案例测试框架 (v1.1 新增)
-│   └── guohang-chongqing-shuangye/
-│       ├── evaluation/gold-rubric.md
+│   └── <case>/
+│       ├── evaluation/
 │       ├── forward-tests/
 │       └── prompts/
 │
