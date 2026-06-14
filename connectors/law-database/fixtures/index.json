@@ -1,0 +1,12 @@
+[
+  {
+    "urlIncludes": "law-search/search/list",
+    "bodyIncludes": "触发降级",
+    "file": "search-list-degraded.json"
+  },
+  {
+    "urlIncludes": "law-search/search/list",
+    "bodyIncludes": "民法典",
+    "file": "search-list-minfadian.json"
+  }
+]
