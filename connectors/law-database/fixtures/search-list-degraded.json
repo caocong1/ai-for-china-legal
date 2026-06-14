@@ -1,0 +1,8 @@
+{
+  "comment": "模拟降级路径: 403 + 验证码页面（触发 http.js 的 DegradedError）",
+  "status": 403,
+  "headers": {
+    "content-type": "text/html"
+  },
+  "body": "<html><head><title>安全验证</title></head><body>请输入验证码完成安全验证后再访问。请先登录。</body></html>"
+}

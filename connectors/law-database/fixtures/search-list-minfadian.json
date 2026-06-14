@@ -1,0 +1,187 @@
+{
+  "comment": "真实抓取于 2026-06-12: POST https://flk.npc.gov.cn/law-search/search/list searchContent=民法典 searchType=1 pageSize=5",
+  "status": 200,
+  "headers": {
+    "content-type": "application/json"
+  },
+  "json": {
+    "total": 32,
+    "rows": [
+      {
+        "bbbs": "ff808081729d1efe01729d50b5c500bf",
+        "title": "中华人民共和国<em class='highlight'>民</em><em class='highlight'>法</em><em class='highlight'>典</em>",
+        "gbrq": "2020-05-28",
+        "sxrq": "2021-01-01",
+        "sxx": 3,
+        "zdjgName": "全国人民代表大会",
+        "xgzlHighLight": null,
+        "flxz": "法律",
+        "zdjgCodeId": 100,
+        "flfgCodeId": 120,
+        "titleHightLightList": [
+          {
+            "value": "中华人民共和国",
+            "highLight": false
+          },
+          {
+            "value": "民",
+            "highLight": true
+          },
+          {
+            "value": "法",
+            "highLight": true
+          },
+          {
+            "value": "典",
+            "highLight": true
+          }
+        ],
+        "score": 22.505499
+      },
+      {
+        "bbbs": "ff80808172b5f24f0172e04ea74b16ef",
+        "title": "云南省人民代表大会常务委员会关于深入学习宣传和实施《中华人民共和国<em class='highlight'>民</em><em class='highlight'>法</em><em class='highlight'>典</em>》的决定",
+        "gbrq": "2020-06-11",
+        "sxrq": "2020-06-11",
+        "sxx": 3,
+        "zdjgName": "云南省人民代表大会常务委员会",
+        "xgzlHighLight": null,
+        "flxz": "地方法规",
+        "zdjgCodeId": 410,
+        "flfgCodeId": 230,
+        "titleHightLightList": [
+          {
+            "value": "云南省人民代表大会常务委员会关于深入学习宣传和实施《中华人民共和国",
+            "highLight": false
+          },
+          {
+            "value": "民",
+            "highLight": true
+          },
+          {
+            "value": "法",
+            "highLight": true
+          },
+          {
+            "value": "典",
+            "highLight": true
+          },
+          {
+            "value": "》的决定",
+            "highLight": false
+          }
+        ],
+        "score": 12.328518
+      },
+      {
+        "bbbs": "ff80818181a938250181c87460665d52",
+        "title": "凉山彝族自治州施行《中华人民共和国<em class='highlight'>民</em><em class='highlight'>法</em><em class='highlight'>典</em>》婚姻家庭编的变通规定",
+        "gbrq": "2022-04-01",
+        "sxrq": "2022-05-01",
+        "sxx": 3,
+        "zdjgName": "凉山彝族自治州人民代表大会",
+        "xgzlHighLight": null,
+        "flxz": "地方法规",
+        "zdjgCodeId": 390,
+        "flfgCodeId": 270,
+        "titleHightLightList": [
+          {
+            "value": "凉山彝族自治州施行《中华人民共和国",
+            "highLight": false
+          },
+          {
+            "value": "民",
+            "highLight": true
+          },
+          {
+            "value": "法",
+            "highLight": true
+          },
+          {
+            "value": "典",
+            "highLight": true
+          },
+          {
+            "value": "》婚姻家庭编的变通规定",
+            "highLight": false
+          }
+        ],
+        "score": 14.425222
+      },
+      {
+        "bbbs": "ff80808177e75f880178fda6033c5189",
+        "title": "阿坝藏族羌族自治州施行《中华人民共和国<em class='highlight'>民</em><em class='highlight'>法</em><em class='highlight'>典</em>》继承编的变通规定",
+        "gbrq": "2021-04-08",
+        "sxrq": "2021-04-08",
+        "sxx": 3,
+        "zdjgName": "阿坝藏族羌族自治州人民代表大会",
+        "xgzlHighLight": null,
+        "flxz": "地方法规",
+        "zdjgCodeId": 390,
+        "flfgCodeId": 270,
+        "titleHightLightList": [
+          {
+            "value": "阿坝藏族羌族自治州施行《中华人民共和国",
+            "highLight": false
+          },
+          {
+            "value": "民",
+            "highLight": true
+          },
+          {
+            "value": "法",
+            "highLight": true
+          },
+          {
+            "value": "典",
+            "highLight": true
+          },
+          {
+            "value": "》继承编的变通规定",
+            "highLight": false
+          }
+        ],
+        "score": 14.425222
+      },
+      {
+        "bbbs": "ff80808177e75f880178fda062755108",
+        "title": "阿坝藏族羌族自治州施行《中华人民共和国<em class='highlight'>民</em><em class='highlight'>法</em><em class='highlight'>典</em>》婚姻家庭编的补充规定",
+        "gbrq": "2021-04-08",
+        "sxrq": "2021-04-08",
+        "sxx": 3,
+        "zdjgName": "阿坝藏族羌族自治州人民代表大会",
+        "xgzlHighLight": null,
+        "flxz": "地方法规",
+        "zdjgCodeId": 390,
+        "flfgCodeId": 270,
+        "titleHightLightList": [
+          {
+            "value": "阿坝藏族羌族自治州施行《中华人民共和国",
+            "highLight": false
+          },
+          {
+            "value": "民",
+            "highLight": true
+          },
+          {
+            "value": "法",
+            "highLight": true
+          },
+          {
+            "value": "典",
+            "highLight": true
+          },
+          {
+            "value": "》婚姻家庭编的补充规定",
+            "highLight": false
+          }
+        ],
+        "score": 13.8999
+      }
+    ],
+    "code": 200,
+    "msg": "查询成功",
+    "searchType": 1,
+    "searchContent": "民法典"
+  }
+}
