@@ -83,7 +83,7 @@
 
 | 项 | 说明 |
 |----|------|
-| 反问 UI | 解析 `mode=intake` JSON，渲染可填写的追问卡片 |
+| 反问 UI | 解析 `ask_user` 澄清卡片；支持每题 `allow_multiple` 单选/多选切换 |
 | 建议提示 UI | 解析 `suggested_prompts`，渲染为输入框上方芯片，点击即发送 |
 | 进度持久化 | 已修复：`draftWorkflowActive` 在解析完成前保持五步可见 |
 | 系统提示冲突 | `router.rs` 中「禁止过程说明、直接输出 JSON」需与 intake 闸门 **分模式** 切换 |
