@@ -1,0 +1,25 @@
+{
+  "status": 200,
+  "headers": { "content-type": "application/json" },
+  "json": {
+    "status": "success",
+    "code": 200,
+    "message": "请求成功",
+    "data": {
+      "id": "fg-abc123",
+      "fgid": "fg-abc123",
+      "url": "/zxt/statuteDetail/detailPage/fg-abc123",
+      "type": "法规",
+      "fgmc": "中华人民共和国民法典",
+      "xljb_1": "法律",
+      "xljb_2": "",
+      "sxx": "现行有效",
+      "fbrq": "2020-05-28",
+      "ssrq": "2021-01-01",
+      "fwzh": "主席令第45号",
+      "fbbm": "全国人民代表大会",
+      "content": "中华人民共和国民法典\n（2020年5月28日第十三届全国人民代表大会第三次会议通过）\n第一编 总则\n第一百八十八条 向人民法院请求保护民事权利的诉讼时效期间为三年。法律另有规定的，依照其规定。\n第一百八十九条 当事人约定同一债务分期履行的，诉讼时效期间自最后一期履行期限届满之日起计算。",
+      "fj": []
+    }
+  }
+}

@@ -164,6 +164,7 @@
 - 最高人民法院官网：https://www.court.gov.cn
 - 中国裁判文书网：https://wenshu.court.gov.cn
 - 北大法宝（如已接入）
+- 元典开放平台（如已配置 yuandian MCP 连接器；需 API Key，首次调用时按提示提供）：https://open.chineselaw.com
 
 ---
 

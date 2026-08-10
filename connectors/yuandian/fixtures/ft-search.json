@@ -1,0 +1,27 @@
+{
+  "status": 200,
+  "headers": { "content-type": "application/json" },
+  "json": {
+    "status": "success",
+    "code": 200,
+    "message": "请求成功",
+    "data": [
+      {
+        "id": "ft-001",
+        "ftmc": "中华人民共和国民法典第一百八十八条",
+        "title": "中华人民共和国民法典第一百八十八条",
+        "fgid": "fg-abc123",
+        "tid": "188",
+        "url": "/zxt/statuteDetail/detailPage/fg-abc123?text=188",
+        "content": "向人民法院请求保护民事权利的诉讼时效期间为三年。法律另有规定的，依照其规定。",
+        "fgmc": "中华人民共和国民法典",
+        "ft_num": "第一百八十八条",
+        "sxx": "现行有效",
+        "xljb_1": "法律",
+        "ssrq": "2021-01-01",
+        "fbrq": "2020-05-28",
+        "fbbm": "全国人民代表大会"
+      }
+    ]
+  }
+}

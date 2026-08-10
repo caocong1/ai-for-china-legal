@@ -1,0 +1,249 @@
+{
+  "name": "yuandian",
+  "version": "1.0.0",
+  "description": "元典开放平台 MCP 连接器，提供法律法规检索、法条检索、案例检索和法律引用幻觉校验功能",
+  "displayName": "元典开放平台连接器",
+  "category": "legal-data",
+  "dataSources": [
+    {
+      "name": "元典开放平台",
+      "url": "https://open.chineselaw.com",
+      "type": "rest-api",
+      "description": "元典智库对外开放平台，提供法律法规、案例文书、企业信息等 API（X-API-Key 认证，按调用计点）"
+    }
+  ],
+  "authentication": {
+    "type": "api-key",
+    "headerName": "X-API-Key",
+    "envVar": "YUANDIAN_API_KEY",
+    "note": "密钥也可在首次工具调用时由用户口头提供（apiKey 参数），连接器会临时保存到系统临时目录（0600 权限），后续调用无需重复提供"
+  },
+  "env": {
+    "YUANDIAN_API_KEY": {
+      "description": "元典开放平台 API 密钥（可选；不配置时首次调用会提示向用户索取并临时保存）",
+      "required": false,
+      "secret": true
+    },
+    "YUANDIAN_BASE_URL": {
+      "description": "元典开放平台基础地址",
+      "default": "https://open.chineselaw.com",
+      "required": false
+    },
+    "YUANDIAN_TIMEOUT_MS": {
+      "description": "请求超时时间（毫秒）",
+      "default": "30000",
+      "required": false
+    }
+  },
+  "tools": [
+    {
+      "name": "search_laws",
+      "description": "检索法规列表（元典智库）。支持关键词、法规名称、时效性、地域、效力级别、发布部门、发布/实施日期过滤。返回法规摘要列表；全文请用 get_law_detail。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "keyword": { "type": "string", "description": "法规内容关键词，空格分词" },
+          "searchMode": { "type": "string", "enum": ["AND", "OR"], "description": "关键词拼接模式，默认 AND" },
+          "lawName": { "type": "string", "description": "法规名称过滤（空格拆分后标题需全部命中）" },
+          "validity": { "type": "string", "description": "时效性过滤，可选值：现行有效、失效、已被修改、部分失效、尚未生效（空格分隔多值）" },
+          "region": { "type": "string", "description": "地域过滤，如：中央、北京、广东（空格分隔多值）" },
+          "effectLevel": { "type": "string", "description": "效力级别过滤，如：法律、司法解释、行政法规、部门规章、地方性法规（空格分隔多值）" },
+          "issuingAuthority": { "type": "string", "description": "发布部门过滤（子串命中）" },
+          "publishStart": { "type": "string", "format": "date", "description": "发布日期起 yyyy-MM-dd" },
+          "publishEnd": { "type": "string", "format": "date", "description": "发布日期止 yyyy-MM-dd" },
+          "effectiveStart": { "type": "string", "format": "date", "description": "实施日期起 yyyy-MM-dd" },
+          "effectiveEnd": { "type": "string", "format": "date", "description": "实施日期止 yyyy-MM-dd" },
+          "topK": { "type": "integer", "default": 10, "description": "返回条数上限，最大 50" },
+          "apiKey": { "type": "string", "description": "元典 API Key；仅在连接器提示需要时由用户提供，传入后临时保存，之后可省略" }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "search_law_articles",
+      "description": "按关键词检索法条（条文级）。返回法条内容、条号、所属法规及时效性。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "keyword": { "type": "string", "description": "法条内容关键词（必填），空格分词" },
+          "searchMode": { "type": "string", "enum": ["AND", "OR"], "description": "关键词拼接模式，默认 AND" },
+          "lawName": { "type": "string", "description": "所属法规名称过滤" },
+          "validity": { "type": "string", "description": "时效性过滤（空格分隔多值）" },
+          "region": { "type": "string", "description": "地域过滤（空格分隔多值）" },
+          "effectLevel": { "type": "string", "description": "效力级别过滤（空格分隔多值）" },
+          "issuingAuthority": { "type": "string", "description": "发布部门过滤" },
+          "publishStart": { "type": "string", "format": "date", "description": "发布日期起 yyyy-MM-dd" },
+          "publishEnd": { "type": "string", "format": "date", "description": "发布日期止 yyyy-MM-dd" },
+          "effectiveStart": { "type": "string", "format": "date", "description": "实施日期起 yyyy-MM-dd" },
+          "effectiveEnd": { "type": "string", "format": "date", "description": "实施日期止 yyyy-MM-dd" },
+          "topK": { "type": "integer", "default": 10, "description": "返回条数上限，最大 50" },
+          "apiKey": { "type": "string", "description": "元典 API Key；仅在连接器提示需要时由用户提供，传入后临时保存，之后可省略" }
+        },
+        "required": ["keyword"]
+      }
+    },
+    {
+      "name": "semantic_search_laws",
+      "description": "用自然语言做法条级语义检索（向量检索）。适合用语义化的问题描述找适用法条。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": { "type": "string", "description": "自然语言检索问题（必填）" },
+          "rewrite": { "type": "boolean", "default": true, "description": "是否对查询做改写" },
+          "validity": { "type": "array", "items": { "type": "string" }, "description": "时效性过滤数组，如 [\"现行有效\"]" },
+          "effectLevel": { "type": "array", "items": { "type": "string" }, "description": "一级效力级别数组，如 [\"法律\",\"司法解释\"]" },
+          "effectiveStart": { "type": "string", "format": "date", "description": "实施日期起 yyyy-MM-dd" },
+          "effectiveEnd": { "type": "string", "format": "date", "description": "实施日期止 yyyy-MM-dd" },
+          "returnNum": { "type": "integer", "default": 10, "description": "返回法条数量，最大 45" },
+          "apiKey": { "type": "string", "description": "元典 API Key；仅在连接器提示需要时由用户提供，传入后临时保存，之后可省略" }
+        },
+        "required": ["query"]
+      }
+    },
+    {
+      "name": "get_law_detail",
+      "description": "按法规 ID 或法规名称获取法规详情与全文（可指定参考日期定位历史版本）。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "description": "法规 ID（search_laws 返回）；与 lawName 至少传一个" },
+          "lawName": { "type": "string", "description": "法规名称，如「中华人民共和国民法典」" },
+          "referDate": { "type": "string", "format": "date", "description": "参考日期 yyyy-MM-dd，定位当时生效版本；不传返回当前有效版本" },
+          "apiKey": { "type": "string", "description": "元典 API Key；仅在连接器提示需要时由用户提供，传入后临时保存，之后可省略" }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "get_article_detail",
+      "description": "查询单条法条详情（按法条 ID，或法规名称+条号，如「第一百八十八条」）。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "description": "法条文档 ID；与 lawName+articleNumber 二选一" },
+          "lawName": { "type": "string", "description": "法规名称" },
+          "articleNumber": { "type": "string", "description": "法条号（中文格式，如「第一百八十八条」）" },
+          "referDate": { "type": "string", "format": "date", "description": "参考日期 yyyy-MM-dd" },
+          "apiKey": { "type": "string", "description": "元典 API Key；仅在连接器提示需要时由用户提供，传入后临时保存，之后可省略" }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "search_cases",
+      "description": "检索普通裁判案例列表。支持案号、标题、涉诉企业、案由、法院、地域、文书种类、案件类别、裁判日期、全文关键词、援引法条等过滤。返回摘要片段；详情请用 get_case_detail。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "caseNumber": { "type": "string", "description": "案号" },
+          "title": { "type": "string", "description": "标题检索（空格拆分后标题需全部命中）" },
+          "enterprise": { "type": "string", "description": "涉诉企业（企业当事人名称子串）" },
+          "causeOfAction": { "type": "array", "items": { "type": "string" }, "description": "案由数组，如 [\"买卖合同纠纷\"]，或关系" },
+          "courts": { "type": "array", "items": { "type": "string" }, "description": "经办法院数组，或关系" },
+          "provinces": { "type": "array", "items": { "type": "string" }, "description": "省级行政区数组，如 [\"北京\",\"最高\"]" },
+          "docTypes": { "type": "array", "items": { "type": "string" }, "description": "文书种类数组：判决书、裁定书、调解书、决定书" },
+          "caseType": { "type": "string", "description": "案件类别：刑事案件、民事案件、行政案件、执行案件等" },
+          "decisionStart": { "type": "string", "format": "date", "description": "裁判/结案日期起 yyyy-MM-dd" },
+          "decisionEnd": { "type": "string", "format": "date", "description": "裁判/结案日期止 yyyy-MM-dd" },
+          "fulltext": { "type": "string", "description": "全文关键词（空格分词）" },
+          "analysis": { "type": "string", "description": "分析过程关键词（空格分词）" },
+          "searchMode": { "type": "string", "enum": ["AND", "OR"], "description": "关键词拼接模式，默认 AND" },
+          "citedArticles": { "type": "array", "items": { "type": "string" }, "description": "援引法条数组，形如「中华人民共和国刑法第二条」（条号为中文格式）" },
+          "topK": { "type": "integer", "default": 10, "description": "返回条数上限，最大 50" },
+          "apiKey": { "type": "string", "description": "元典 API Key；仅在连接器提示需要时由用户提供，传入后临时保存，之后可省略" }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "search_authoritative_cases",
+      "description": "检索权威/典型/参考类案例（指导性案例、公报案例、典型案例等）。支持案号、标题、案由、法院、来源、地域、文书种类、裁判日期、全文关键词过滤。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "caseNumber": { "type": "string", "description": "案号" },
+          "title": { "type": "string", "description": "标题检索" },
+          "causeOfAction": { "type": "array", "items": { "type": "string" }, "description": "案由数组，或关系" },
+          "courts": { "type": "array", "items": { "type": "string" }, "description": "经办法院数组，或关系" },
+          "sources": { "type": "array", "items": { "type": "string" }, "description": "案例来源数组：典型案例、参考案例、公报案例、解纷案例、参阅案例、刑事参考案例、指导性案例、检指导案例" },
+          "provinces": { "type": "array", "items": { "type": "string" }, "description": "省级行政区数组" },
+          "docTypes": { "type": "array", "items": { "type": "string" }, "description": "文书种类数组：判决书、裁定书、调解书、决定书" },
+          "caseType": { "type": "string", "description": "案件类别" },
+          "decisionStart": { "type": "string", "format": "date", "description": "裁判日期起 yyyy-MM-dd" },
+          "decisionEnd": { "type": "string", "format": "date", "description": "裁判日期止 yyyy-MM-dd" },
+          "fulltext": { "type": "string", "description": "全文关键词（空格分词）" },
+          "searchMode": { "type": "string", "enum": ["AND", "OR"], "description": "关键词拼接模式，默认 AND" },
+          "topK": { "type": "integer", "default": 10, "description": "返回条数上限，最大 50" },
+          "apiKey": { "type": "string", "description": "元典 API Key；仅在连接器提示需要时由用户提供，传入后临时保存，之后可省略" }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "semantic_search_cases",
+      "description": "用自然语言在案例库中做语义相似度检索，默认覆盖普通+权威案例，返回整理后的案例内容及相似度评分。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": { "type": "string", "description": "自然语言检索问题（必填）" },
+          "rewrite": { "type": "boolean", "default": true, "description": "是否对查询做改写" },
+          "caseType": { "type": "string", "description": "案件类别：刑事案件、民事案件、行政案件、执行案件等" },
+          "causeOfAction": { "type": "array", "items": { "type": "string" }, "description": "案由数组（完整案由名称），或关系" },
+          "docTypes": { "type": "array", "items": { "type": "string" }, "description": "文书种类数组" },
+          "decisionStart": { "type": "string", "format": "date", "description": "结案日期起 yyyy-MM-dd" },
+          "decisionEnd": { "type": "string", "format": "date", "description": "结案日期止 yyyy-MM-dd" },
+          "authoritativeOnly": { "type": "boolean", "default": false, "description": "true 时仅检索权威案例库" },
+          "courts": { "type": "array", "items": { "type": "string" }, "description": "法院数组（完整法院名称），或关系" },
+          "sources": { "type": "array", "items": { "type": "string" }, "description": "权威案例来源数组（仅对权威案例生效）" },
+          "courtLevel": { "type": "string", "enum": ["基层", "中级", "高级", "最高"], "description": "法院层级" },
+          "province": { "type": "string", "description": "省份，如：北京" },
+          "returnNum": { "type": "integer", "default": 10, "description": "返回案例数量，最大 45" },
+          "apiKey": { "type": "string", "description": "元典 API Key；仅在连接器提示需要时由用户提供，传入后临时保存，之后可省略" }
+        },
+        "required": ["query"]
+      }
+    },
+    {
+      "name": "get_case_detail",
+      "description": "按案例 ID 或案号查询案例详情（普通案例 ptal / 权威案例 qwal）。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "description": "案例 ID（search_cases 返回）；与 caseNumber 至少传一个" },
+          "caseNumber": { "type": "string", "description": "案号" },
+          "type": { "type": "string", "enum": ["ptal", "qwal"], "description": "ptal=普通案例，qwal=权威案例；不传则不筛选" },
+          "apiKey": { "type": "string", "description": "元典 API Key；仅在连接器提示需要时由用户提供，传入后临时保存，之后可省略" }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "verify_legal_citations",
+      "description": "法律幻觉校验：抽取文本中引用的法规/法条和案号，与元典智库比对语义一致性并核验法规时效性，输出一致/不一致/未命中判定及权威原文。用于复核 AI 起草的法律文书引用。平均耗时约 15 秒。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "text": { "type": "string", "description": "待校验的原文文本（必填），如包含法律引用的法律文书段落" },
+          "apiKey": { "type": "string", "description": "元典 API Key；仅在连接器提示需要时由用户提供，传入后临时保存，之后可省略" }
+        },
+        "required": ["text"]
+      }
+    }
+  ],
+  "rateLimit": {
+    "requestsPerSecond": 5,
+    "requestsPerDay": 5000,
+    "maxConcurrent": 5
+  },
+  "retry": {
+    "maxAttempts": 3,
+    "initialDelayMs": 2000,
+    "maxDelayMs": 30000,
+    "backoffMultiplier": 2.5,
+    "retryableStatusCodes": [429, 502, 503, 504]
+  },
+  "healthCheck": {
+    "endpoint": "/api/apis?pageNum=1&pageSize=1",
+    "intervalSeconds": 300
+  }
+}

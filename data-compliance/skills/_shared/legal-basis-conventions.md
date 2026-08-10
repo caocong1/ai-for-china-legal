@@ -268,6 +268,7 @@
 - 中国人民代表大会网：http://www.npc.gov.cn
 - 中国裁判文书网：https://wenshu.court.gov.cn
 - 北大法宝（如已接入）
+- 元典开放平台（如已配置 yuandian MCP 连接器；需 API Key，首次调用时按提示提供）：https://open.chineselaw.com
 - 工业和信息化部官网：https://www.miit.gov.cn
 
 ---

@@ -1,0 +1,37 @@
+[
+  {
+    "urlIncludes": "/open/rh_fg_search",
+    "bodyIncludes": "民法典",
+    "file": "fg-search.json"
+  },
+  {
+    "urlIncludes": "/open/rh_ft_search",
+    "file": "ft-search.json"
+  },
+  {
+    "urlIncludes": "/open/rh_fg_detail",
+    "file": "fg-detail.json"
+  },
+  {
+    "urlIncludes": "/open/hall_detect",
+    "bodyIncludes": "VIP测试",
+    "file": "hall-detect-403.json"
+  },
+  {
+    "urlIncludes": "/open/hall_detect",
+    "file": "hall-detect.json"
+  },
+  {
+    "urlIncludes": "/open/rh_ptal_search",
+    "bodyIncludes": "触发401",
+    "file": "auth-401.json"
+  },
+  {
+    "urlIncludes": "/open/rh_case_details",
+    "file": "case-detail.json"
+  },
+  {
+    "urlIncludes": "/api/apis",
+    "file": "catalog.json"
+  }
+]

@@ -1,0 +1,13 @@
+{
+  "comment": "测试用：search/list 零命中",
+  "status": 200,
+  "headers": {
+    "content-type": "application/json"
+  },
+  "json": {
+    "total": 0,
+    "rows": [],
+    "code": 200,
+    "msg": "查询成功"
+  }
+}

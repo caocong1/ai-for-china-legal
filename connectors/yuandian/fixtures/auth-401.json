@@ -1,0 +1,8 @@
+{
+  "comment": "测试用：无效 Key 返回 401（真实响应结构）",
+  "status": 401,
+  "headers": { "content-type": "application/json" },
+  "json": {
+    "error": "Unauthorized: Invalid X-API-Key"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "status": 200,
+  "headers": { "content-type": "application/json" },
+  "json": {
+    "status": "success",
+    "code": 200,
+    "message": "请求成功",
+    "data": [
+      {
+        "type": "普通案例",
+        "id": "case-001",
+        "ah": "（2021）京01民终1234号",
+        "title": "张某诉李某买卖合同纠纷二审民事判决书",
+        "jbdw": "北京市第一中级人民法院",
+        "ajlb": "民事案件",
+        "spcx": "二审",
+        "wszl": "判决书",
+        "ay": "买卖合同纠纷",
+        "cprq": "2021-06-15",
+        "xzqh_p": "北京",
+        "yyft": "中华人民共和国民法典第一百八十八条",
+        "content": "本院认为，向人民法院请求保护民事权利的诉讼时效期间为三年……",
+        "url": "/ydzk/caseDetail/case/case-001"
+      }
+    ]
+  }
+}

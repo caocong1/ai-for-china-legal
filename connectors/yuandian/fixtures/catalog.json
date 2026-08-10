@@ -1,0 +1,9 @@
+{
+  "status": 200,
+  "headers": { "content-type": "application/json" },
+  "json": {
+    "code": 200,
+    "msg": "success",
+    "data": { "total": 37, "list": [{ "id": 10, "name": "法规关键词检索接口" }] }
+  }
+}

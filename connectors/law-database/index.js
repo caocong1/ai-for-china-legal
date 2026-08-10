@@ -142,6 +142,87 @@ const TOOLS = [
       required: [],
     },
   },
+  {
+    name: 'search_law_articles',
+    description:
+      '法条级检索：按关键词检索法规正文，并对命中度最高的前几部法规抓全文、定位到具体条文。返回条文原文、所属法规及时效性。',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        keyword: {
+          type: 'string',
+          description: '法条正文关键词（必填），空格分隔多个词时按 AND 匹配',
+        },
+        lawType: {
+          type: 'string',
+          enum: ['法律', '行政法规', '部门规章', '地方性法规', '地方政府规章', '司法解释', '规范性文件'],
+          description: '法规类型（flk 仅收录法律/行政法规/地方性法规/司法解释等，部门规章请查国家规章库）',
+        },
+        status: {
+          type: 'string',
+          enum: ['现行有效', '已修改', '已废止', '尚未生效'],
+          description: '法规状态',
+        },
+        dateRange: {
+          type: 'object',
+          properties: {
+            start: { type: 'string', format: 'date' },
+            end: { type: 'string', format: 'date' },
+          },
+          description: '发布日期范围',
+        },
+        effectiveDateRange: {
+          type: 'object',
+          properties: {
+            start: { type: 'string', format: 'date' },
+            end: { type: 'string', format: 'date' },
+          },
+          description: '施行日期范围',
+        },
+        expandTop: {
+          type: 'integer',
+          default: 3,
+          description: '对命中度最高的前 N 部法规抓全文并展开命中条文（0-5，0 表示只返回法规列表）',
+        },
+        page: { type: 'integer', default: 1, description: '页码' },
+        pageSize: { type: 'integer', default: 10, description: '每页数量' },
+      },
+      required: ['keyword'],
+    },
+  },
+  {
+    name: 'get_article_detail',
+    description: '按法规名称+条号查询单条法条原文（数据来自国家法律法规数据库全文）。条号支持「188」「第188条」「第一百八十八条」等写法。',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        lawName: {
+          type: 'string',
+          description: '法规名称，如「中华人民共和国民法典」（可带（2023年修订）等版本括号，未命中时自动去括号重试）',
+        },
+        articleNumber: {
+          type: 'string',
+          description: '条号，如「第一百八十八条」「第188条」「188」',
+        },
+      },
+      required: ['lawName', 'articleNumber'],
+    },
+  },
+  {
+    name: 'verify_citations',
+    description:
+      '法律引用核验：从文本中抽取《法规名》第X条引用与案号，逐条对照国家法律法规数据库核验法规存在性、时效性和条文是否存在，并给出权威原文供语义比对。案号无法经 flk 在线核验，会如实标注并给出核查建议。用于文书定稿前的幻觉排查。',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        text: {
+          type: 'string',
+          description: '待核验的文书文本（含《法规名》第X条形式的引用）',
+        },
+      },
+      required: ['text'],
+    },
+  },
 ];
 
 // ---------------------------------------------------------------------------
@@ -209,6 +290,7 @@ async function searchLaws(args, deadline) {
       lawType: args.lawType,
       status: args.status,
       dateRange: args.dateRange,
+      effectiveDateRange: args.effectiveDateRange,
       pageNum,
       pageSize,
       searchType: 1,
@@ -221,6 +303,7 @@ async function searchLaws(args, deadline) {
         lawType: args.lawType,
         status: args.status,
         dateRange: args.dateRange,
+        effectiveDateRange: args.effectiveDateRange,
         pageNum,
         pageSize,
         searchType: 2,
@@ -280,7 +363,7 @@ const GOLD_DOCS = [
   },
 ];
 
-const ARTICLE_SPLIT_RE = /(?=第[一二三四五六七八九十百千零〇0-9]+条)/;
+const ARTICLE_SPLIT_RE = /(?=^第[一二两三四五六七八九十百千零〇0-9]+条)/m;
 
 function htmlToText(html) {
   return html
@@ -542,6 +625,389 @@ async function searchCasesByLaw(args, deadline) {
 }
 
 // ---------------------------------------------------------------------------
+// 条文定位 helpers（search_law_articles / get_article_detail / verify_citations 共用）
+// 设计参考元典 rh_ft_search / rh_ft_detail / hall_detect，数据全部来自 flk（A 级官方源）。
+// ---------------------------------------------------------------------------
+
+/** 阿拉伯数字 -> 中文条号数字（1-9999，覆盖全部法规条号范围）。 */
+function numToCn(n) {
+  const d = '零一二三四五六七八九';
+  const s = String(n);
+  if (!/^\d{1,4}$/.test(s) || Number(n) === 0) return null;
+  const u = ['', '十', '百', '千'];
+  let out = '';
+  for (let i = 0; i < s.length; i++) {
+    const digit = Number(s[i]);
+    const pos = s.length - 1 - i;
+    out += digit === 0 ? '零' : d[digit] + u[pos];
+  }
+  out = out.replace(/零+/g, '零').replace(/零$/, '');
+  if (Number(n) >= 10 && Number(n) < 20) out = out.replace(/^一十/, '十');
+  return out;
+}
+
+const CN_NUM = '[零〇一二两三四五六七八九十百千]+';
+
+/** 条号归一化为「第一百八十八条」（可带「之X」后缀）；无法识别返回 null。 */
+function normalizeArticleNumber(input) {
+  const s = String(input || '').trim().replace(/\s+/g, '');
+  if (!s) return null;
+  const re = new RegExp(`^(?:第)?(\\d{1,4}|${CN_NUM})(?:之(\\d{1,2}|${CN_NUM}))?条?$`);
+  const m = s.match(re);
+  if (!m) return null;
+  const conv = (v) => (/^\d+$/.test(v) ? numToCn(v) : v.replace(/两/g, '二'));
+  const main = conv(m[1]);
+  if (!main) return null;
+  const sub = m[2] ? conv(m[2]) : null;
+  return '第' + main + '条' + (sub ? '之' + sub : '');
+}
+
+/**
+ * 把法规全文按"条"切分为 [{num, text}]。
+ * 条号只在行首识别（docx 提取的正文每条独占一段），避免正文内的援引
+ * （如"依照本法第一百八十八条规定"）被误切为条文起点。
+ */
+function splitArticles(fullText) {
+  const headRe = new RegExp(`^第(\\d{1,4}|${CN_NUM})条(之(?:\\d{1,2}|${CN_NUM}))?`);
+  const conv = (v) => (/^\d+$/.test(v) ? numToCn(v) : v.replace(/两/g, '二'));
+  const articles = [];
+  let cur = null;
+  for (const line of String(fullText || '').split('\n')) {
+    const m = line.trimStart().match(headRe);
+    if (m) {
+      if (cur) {
+        cur.text = cur.text.trimEnd();
+        articles.push(cur);
+      }
+      cur = { num: '第' + conv(m[1]) + '条' + (m[2] || '').replace(/两/g, '二'), text: line.trim() };
+    } else if (cur) {
+      cur.text += '\n' + line;
+    }
+  }
+  if (cur) {
+    cur.text = cur.text.trimEnd();
+    articles.push(cur);
+  }
+  return articles.filter((a) => a.num.indexOf('null') === -1);
+}
+
+/** 精确→模糊两轮检索并挑选最佳匹配法规；找不到返回 null。 */
+async function findBestLaw(term, deadline) {
+  let resp = await flk.searchList({ keyword: term, pageNum: 1, pageSize: 10, searchType: 1, deadline });
+  if (resp.rows.length === 0) {
+    resp = await flk.searchList({ keyword: term, pageNum: 1, pageSize: 10, searchType: 2, deadline });
+  }
+  return pickBestRow(resp.rows, term);
+}
+
+const FLK_COVERAGE_NOTE =
+  '（flk 覆盖宪法/法律/行政法规/监察法规/地方法规/司法解释；部门规章、地方政府规章请查国家规章库 https://xzfg.moj.gov.cn ）';
+
+// ---------------------------------------------------------------------------
+// search_law_articles — 法条级检索（正文搜索 + 命中条文提取）
+// ---------------------------------------------------------------------------
+async function searchLawArticles(args, deadline) {
+  const keyword = String(args.keyword || '').trim();
+  if (!keyword) {
+    return { text: '请提供 keyword 参数（法条正文关键词），例如 {"keyword":"诉讼时效 三年"}。', cacheable: false };
+  }
+  const pageNum = Math.max(1, parseInt(args.page, 10) || 1);
+  const pageSize = clamp(parseInt(args.pageSize, 10) || 10, 1, 20);
+  const expandTop = clamp(parseInt(args.expandTop, 10) || 3, 0, 5);
+  const tokens = keyword.split(/\s+/).filter(Boolean);
+
+  const notes = [];
+  if (args.lawType && !flk.LAW_TYPE_TO_FLFG[args.lawType]) {
+    notes.push(
+      `注意: flk 不收录「${args.lawType}」，本次按全部类别搜索${FLK_COVERAGE_NOTE}`
+    );
+  }
+
+  try {
+    const baseQuery = {
+      keyword,
+      lawType: args.lawType,
+      status: args.status,
+      dateRange: args.dateRange,
+      effectiveDateRange: args.effectiveDateRange,
+      pageNum,
+      pageSize,
+      searchRange: 2, // 正文检索
+      deadline,
+    };
+    let mode = '精确';
+    let resp = await flk.searchList(Object.assign({ searchType: 1 }, baseQuery));
+    if (resp.rows.length === 0) {
+      mode = '模糊';
+      resp = await flk.searchList(Object.assign({ searchType: 2 }, baseQuery));
+    }
+    const rows = resp.rows;
+    if (rows.length === 0) {
+      return {
+        text: `国家法律法规数据库未找到正文包含「${keyword}」的法规（已尝试精确与模糊匹配）${FLK_COVERAGE_NOTE}`,
+        cacheable: true,
+      };
+    }
+
+    // 对前 expandTop 部法规抓全文并定位命中条文；其余按法规级列出
+    const expandedBlocks = [];
+    const restRows = [];
+    for (let i = 0; i < rows.length; i++) {
+      const row = rows[i];
+      if (i < expandTop && deadline - Date.now() > 8000) {
+        try {
+          const fullText = await flk.fetchLawText(row.bbbs, deadline);
+          const hits = splitArticles(fullText).filter((a) => tokens.every((t) => a.text.includes(t)));
+          const title = flk.stripTags(row.title);
+          const head =
+            `【${i + 1}】《${title}》（${row.flxz || '未知'} | ${sxxLabel(row.sxx)} | 施行: ${row.sxrq || '未知'}）\n` +
+            (hits.length
+              ? `命中条文 ${hits.length} 条，显示前 ${Math.min(3, hits.length)} 条：`
+              : '未能在全文中按"条"定位命中段落（关键词可能出现在题注/目录等非条文段落）。');
+          const artLines = hits
+            .slice(0, 3)
+            .map((a) => '▪ ' + (a.text.length > 400 ? a.text.slice(0, 400) + '……' : a.text));
+          expandedBlocks.push(
+            [head, ...artLines].join('\n') +
+              '\n' +
+              provenanceBlock({
+                tier: TIER.L1_REGULATION,
+                channel: getSource('flk').channel_level,
+                url: flk.detailPageUrl(row.bbbs),
+                method: METHOD.FLK_API,
+                validity: validityFromSxx(row.sxx),
+              })
+          );
+          continue;
+        } catch (e) {
+          console.error(`[search_law_articles] expand failed for ${row.bbbs}:`, e.message);
+        }
+      }
+      restRows.push(row);
+    }
+
+    const header =
+      `国家法律法规数据库（flk.npc.gov.cn）正文检索「${keyword}」${mode}匹配: 共 ${resp.total} 部法规命中，` +
+      `第 ${pageNum} 页 ${rows.length} 部，已展开前 ${expandedBlocks.length} 部的命中条文。`;
+    let text = [header, ...notes].join('\n') + '\n\n' + expandedBlocks.join('\n\n');
+    if (restRows.length) {
+      text +=
+        '\n\n其余命中法规（未展开条文，可用 get_article_detail 定位具体条文）:\n\n' +
+        restRows.map(flkHitBlock).join('\n\n');
+    }
+    return { text, cacheable: true };
+  } catch (err) {
+    console.error('[search_law_articles] degraded:', (err && err.stack) || err);
+    return { text: flkDegradeText('法条检索', err), cacheable: false };
+  }
+}
+
+// ---------------------------------------------------------------------------
+// get_article_detail — 单条法条查询（法规名 + 条号）
+// ---------------------------------------------------------------------------
+async function getArticleDetail(args, deadline) {
+  const termRaw = String(args.lawName || '').trim().replace(/[《》]/g, '');
+  const articleNum = normalizeArticleNumber(args.articleNumber);
+  if (!termRaw) return { text: '请提供 lawName（法规名称），如「中华人民共和国民法典」。', cacheable: false };
+  if (!articleNum) {
+    return {
+      text: `无法识别 articleNumber「${args.articleNumber || ''}」。请使用「第一百八十八条」「第188条」或「188」等写法。`,
+      cacheable: false,
+    };
+  }
+
+  // 名称中可能带（2023年修订）等版本括号：先按原样检索，未命中再去括号重试
+  const candidates = [termRaw, termRaw.replace(/[（(][^）)]*[）)]/g, '').trim()].filter(
+    (v, i, a) => v && a.indexOf(v) === i
+  );
+  let best = null;
+  try {
+    for (const t of candidates) {
+      best = await findBestLaw(t, deadline);
+      if (best) break;
+    }
+  } catch (err) {
+    console.error('[get_article_detail] degraded:', (err && err.stack) || err);
+    return { text: flkDegradeText('法条查询', err), cacheable: false };
+  }
+  if (!best) {
+    return {
+      text:
+        `国家法律法规数据库未收录名称为「${termRaw}」的法规${FLK_COVERAGE_NOTE}\n` +
+        '请核对法规名称（精确名称命中率更高）。',
+      cacheable: true,
+    };
+  }
+
+  try {
+    const title = flk.stripTags(best.title);
+    const fullText = await flk.fetchLawText(best.bbbs, deadline);
+    const articles = splitArticles(fullText);
+    const hit = articles.find((a) => a.num === articleNum);
+    const meta =
+      [
+        `法规: 《${title}》`,
+        `类型: ${best.flxz || '未知'} | 制定机关: ${best.zdjgName || '未知'}`,
+        `公布日期: ${best.gbrq || '未知'} | 施行日期: ${best.sxrq || '未知'} | 法规状态: ${sxxLabel(best.sxx)}`,
+      ].join('\n') +
+      '\n' +
+      provenanceBlock({
+        tier: TIER.L1_REGULATION,
+        channel: getSource('flk').channel_level,
+        url: flk.detailPageUrl(best.bbbs),
+        method: METHOD.FLK_API,
+        validity: validityFromSxx(best.sxx),
+      });
+
+    if (!hit) {
+      const range = articles.length
+        ? `该版本共识别 ${articles.length} 条（${articles[0].num} 至 ${articles[articles.length - 1].num}）`
+        : '未能从全文中识别条文结构';
+      return {
+        text:
+          meta +
+          `\n\n未在《${title}》当前版本中找到「${articleNum}」。${range}。\n` +
+          '请核对条号，或确认所引用的是否为现行版本（法规修订可能导致条号变化）。',
+        cacheable: true,
+      };
+    }
+    return { text: meta + `\n\n条文:\n${hit.text}`, cacheable: true };
+  } catch (err) {
+    console.error('[get_article_detail] degraded:', (err && err.stack) || err);
+    return { text: flkDegradeText('法条查询', err), cacheable: false };
+  }
+}
+
+// ---------------------------------------------------------------------------
+// verify_citations — 法律引用核验（法规引用对照 flk 官方全文；案号如实标注）
+// ---------------------------------------------------------------------------
+const CITATION_LAW_LIMIT = 5;
+const CITATION_FULLTEXT_LIMIT = 3;
+
+/** 从文本中抽取《法规名》第X条引用；无法条号时按法规级引用处理。 */
+function extractCitations(text) {
+  const re =
+    /《([^》\n]{2,40})》\s*(?:（[^）\n]{0,40}）)?\s*((?:第[\d零〇一二两三四五六七八九十百千]+条(?:之[\d零〇一二两三四五六七八九十]+)?[、，,和及与]?\s*)*)/g;
+  const map = new Map();
+  let m;
+  while ((m = re.exec(text)) !== null) {
+    const law = m[1].trim();
+    const arts =
+      (m[2] || '').match(/第[\d零〇一二两三四五六七八九十百千]+条(?:之[\d零〇一二两三四五六七八九十]+)?/g) || [];
+    if (arts.length === 0) {
+      if (!map.has(law + '|')) map.set(law + '|', { law, article: null });
+    } else {
+      for (const a of arts) {
+        const norm = normalizeArticleNumber(a) || a;
+        const key = law + '|' + norm;
+        if (!map.has(key)) map.set(key, { law, article: norm });
+      }
+    }
+  }
+  return [...map.values()];
+}
+
+function extractCaseNumbers(text) {
+  const re = /（\d{4}）[^\s，。；、（）《》]{2,25}?号/g;
+  return [...new Set(text.match(re) || [])];
+}
+
+async function verifyLegalCitations(args, deadline) {
+  const text = String(args.text || '').trim();
+  if (!text) return { text: '请提供 text 参数（待核验的文书文本）。', cacheable: false };
+
+  const citations = extractCitations(text);
+  const caseNumbers = extractCaseNumbers(text);
+  if (citations.length === 0 && caseNumbers.length === 0) {
+    return { text: '未从文本中抽取到《法规名》或（年份）案号形式的法律引用。', cacheable: true };
+  }
+
+  const out = [
+    '法律引用核验报告（数据源: 国家法律法规数据库 flk.npc.gov.cn，A 级官方源）',
+    `抽取结果: 法规引用 ${citations.length} 条（本次核验前 ${Math.min(citations.length, CITATION_LAW_LIMIT)} 条）、案号 ${caseNumbers.length} 个。`,
+    '说明: 本工具核验法规存在性/时效性/条文是否存在并给出权威原文；引用内容与原文的语义一致性请对照权威原文判断。部门规章、地方政府规章不在 flk 收录范围，未命中不等于不存在。',
+  ];
+
+  const lawTextCache = new Map(); // bbbs -> fullText
+  let fulltextFetches = 0;
+  const blocks = [];
+
+  for (let idx = 0; idx < Math.min(citations.length, CITATION_LAW_LIMIT); idx++) {
+    const c = citations[idx];
+    const label = `《${c.law}》${c.article || ''}`;
+    try {
+      const term = c.law.replace(/[（(][^）)]*[）)]/g, '').trim() || c.law;
+      const best = await findBestLaw(term, deadline);
+      if (!best) {
+        blocks.push(
+          `${idx + 1}. ${label}\n   核验结论: ❓ 未命中 — flk 未收录该名称的法规（可能名称有误、属部门规章等 flk 未收录类别，或已失效被移出），建议人工核查`
+        );
+        continue;
+      }
+      const title = flk.stripTags(best.title);
+      const sxx = Number(best.sxx);
+      const statusLabel = sxxLabel(best.sxx);
+      let verdict;
+      if (sxx === 1) verdict = '❌ 已废止 — 引用了已废止法规';
+      else if (sxx === 2) verdict = '⚠️ 已修改 — 请确认引用的是现行版本';
+      else if (sxx === 4) verdict = '⏳ 尚未生效 — 该法规尚未施行';
+      else verdict = '✅ 法规现行有效';
+
+      const lines = [`${idx + 1}. ${label}`, `   核验结论: ${verdict}（flk 收录名：《${title}》，${statusLabel}）`];
+
+      if (c.article && sxx !== 1) {
+        if (fulltextFetches < CITATION_FULLTEXT_LIMIT && deadline - Date.now() > 8000) {
+          try {
+            if (!lawTextCache.has(best.bbbs)) {
+              lawTextCache.set(best.bbbs, await flk.fetchLawText(best.bbbs, deadline));
+              fulltextFetches++;
+            }
+            const articles = splitArticles(lawTextCache.get(best.bbbs));
+            const hit = articles.find((a) => a.num === c.article);
+            if (hit) {
+              lines.push('   条文核验: ✅ 现行版本中存在该条');
+              lines.push(`   权威原文: ${hit.text.length > 500 ? hit.text.slice(0, 500) + '……' : hit.text}`);
+            } else {
+              const range = articles.length
+                ? `（该版本共识别 ${articles.length} 条：${articles[0].num} 至 ${articles[articles.length - 1].num}）`
+                : '';
+              lines.push(`   条文核验: ⚠️ 现行版本中未找到「${c.article}」${range} — 条号可能有误或所引为旧版本`);
+            }
+          } catch (e) {
+            console.error('[verify_citations] fulltext fetch failed:', e.message);
+            lines.push('   条文核验: （全文获取失败，条文存在性未核验）');
+          }
+        } else {
+          lines.push('   条文核验: （超出单次全文核验预算，条文存在性未核验）');
+        }
+      }
+      lines.push(`   链接: ${flk.detailPageUrl(best.bbbs)} | 来源层级: L1-法规 | 渠道等级: A | 获取方式: flk-api`);
+      blocks.push(lines.join('\n'));
+    } catch (err) {
+      console.error('[verify_citations] degraded:', (err && err.stack) || err);
+      blocks.push(
+        `${idx + 1}. ${label}\n   核验结论: ⚠️ 核验失败（flk 不可达：${(err && err.message) || err}）— 请稍后重试或人工核查`
+      );
+    }
+  }
+  if (citations.length > CITATION_LAW_LIMIT) {
+    blocks.push(`（另有 ${citations.length - CITATION_LAW_LIMIT} 条法规引用未在本次核验，请分批核验）`);
+  }
+
+  out.push('', '■ 法规引用', blocks.join('\n'));
+  if (caseNumbers.length) {
+    out.push('', '■ 案号（裁判文书网维护中，无法经 flk 在线核验）');
+    caseNumbers.slice(0, 10).forEach((n, i) => {
+      out.push(
+        `${i + 1}. ${n} — ⚠️ 需经案例渠道核查：yuandian 连接器 get_case_detail / search_cases（如已配置），或 search_cases_by_law、WebSearch`
+      );
+    });
+    if (caseNumbers.length > 10) out.push(`（另有 ${caseNumbers.length - 10} 个案号未列出）`);
+  }
+  return { text: out.join('\n'), cacheable: true };
+}
+
+// ---------------------------------------------------------------------------
 // dispatch
 // ---------------------------------------------------------------------------
 async function callTool(name, args) {
@@ -555,8 +1021,16 @@ async function callTool(name, args) {
       return cache.withCache(SERVER, name, args, () => getLawDetail(args, deadline));
     case 'search_cases_by_law':
       return cache.withCache(SERVER, name, args, () => searchCasesByLaw(args, deadline));
+    case 'search_law_articles':
+      return cache.withCache(SERVER, name, args, () => searchLawArticles(args, deadline));
+    case 'get_article_detail':
+      return cache.withCache(SERVER, name, args, () => getArticleDetail(args, deadline));
+    case 'verify_citations':
+      return cache.withCache(SERVER, name, args, () => verifyLegalCitations(args, deadline));
     default:
-      throw new Error(`未知工具: ${name}（可用: search_laws, get_law_detail, search_cases_by_law）`);
+      throw new Error(
+        `未知工具: ${name}（可用: search_laws, get_law_detail, search_cases_by_law, search_law_articles, get_article_detail, verify_citations）`
+      );
   }
 }
 

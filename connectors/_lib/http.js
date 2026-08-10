@@ -6,7 +6,10 @@
 //   - retry per connector.json retry config (only on 429/502/503/504,
 //     exponential backoff, max 3 attempts)
 //   - simple per-host token bucket (default 5 rps)
-//   - captcha/login wall detection -> typed DegradedError (NEVER bypass)
+//   - captcha/login wall detection -> typed DegradedError (NEVER bypass).
+//     同一条红线同样适用于浏览器自动化连接器（如 wenshu）：登录/验证码
+//     挑战一律交还给用户在【可见浏览器窗口】中本人完成，绝不自动破解；
+//     允许的只是"用用户自己的会话、按人速操作"的办公自动化。
 //   - optional deadline (ms epoch) so a tool call stays inside its time budget
 //   - fixtures mode: env FIXTURES_DIR set -> all fetches resolve from fixture
 //     files instead of the network (see resolveFixture below)
@@ -93,7 +96,7 @@ function checkWall(status, textSnippet, url) {
   if (status === 401 || status === 403) {
     throw new DegradedError(
       `访问受限（HTTP ${status}）：${url} 可能要求登录或触发了风控，已按降级策略停止（不尝试绕过）`,
-      { status, url }
+      { status, url, bodySnippet: (textSnippet || '').slice(0, 300) }
     );
   }
   if (textSnippet && WALL_RE.test(textSnippet)) {

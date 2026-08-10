@@ -1,6 +1,7 @@
 'use strict';
 // sources.js — registry of authoritative Chinese legal data sources.
-// Channel levels: A (official primary) ... E (unverified aggregator).
+// Channel levels: A (official primary), B (licensed commercial legal
+// database, e.g. 元典智库) ... E (unverified aggregator).
 // access: "json-api" (machine endpoint) | "html-fetch" (page scraping).
 
 const SOURCES = [
@@ -75,6 +76,15 @@ const SOURCES = [
     doc_types: ['裁判文书'],
     access: 'html-fetch',
     health_url: 'https://wenshu.court.gov.cn',
+  },
+  {
+    id: 'yuandian',
+    name: '元典开放平台（元典智库）',
+    base_url: 'https://open.chineselaw.com',
+    channel_level: 'B',
+    doc_types: ['法律', '行政法规', '部门规章', '地方性法规', '司法解释', '法条', '裁判文书', '指导性案例', '典型案例'],
+    access: 'json-api',
+    health_url: 'https://open.chineselaw.com/api/apis?pageNum=1&pageSize=1',
   },
 ];
 

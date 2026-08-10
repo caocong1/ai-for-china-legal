@@ -14,7 +14,7 @@
 | L1(备份) | 法律法规 | `flk.npc.gov.cn` | ❌ 不可直接抓 | 动态 SPA |
 | L2 | 入库案例 | `rmfyalk.court.gov.cn` | WebFetch 首页✅ | ⚠️ 详情页待测 |
 | L2 | 指导/公报/典型案例 | `www.court.gov.cn/shenpan/gengduo/` 等 | WebFetch | ✅ |
-| L3 | 裁判文书网 | `wenshu.court.gov.cn` | ❌ 维护中 | 转地方法院 |
+| L3 | 裁判文书网 | `wenshu.court.gov.cn` | ⚠️ 检索需登录 | wenshu 浏览器连接器（实验性：本人扫码登录后人速检索）或转地方法院 |
 | L3(替代) | 地方法院公开判决 | 各省高院/中院/金融法院官网 | WebFetch + site: | ✅ |
 | L4 | 监管文件 | `www.gov.cn`、各监管局 | WebFetch + site: | ✅ |
 | L5 | 律所文章 | zhonglun.com, junhe.com, grandall.com.cn | WebFetch | ⚠️ 部分 timeout |
@@ -58,7 +58,30 @@
 | 康达 | kangdalawyers.com |
 | 天同 | tiantonglaw.com |
 
-## 6. 重测信号
+## 6. MCP 连接器能力（如已配置）
+
+### 6.1 law-database（flk 官方源，A 级，无需 Key）
+
+直连国家法律法规数据库，**法规检索首选**：
+
+| 能力 | 工具 | 说明 |
+|------|------|------|
+| 法规检索 | `search_laws` | 列表检索，支持类别/状态/发布/施行日期过滤 |
+| 法条级检索 | `search_law_articles` | 正文关键词检索，对高命中法规抓全文并展开命中条文原文 |
+| 法规全文 | `get_law_detail` | docx 全文，按"条"截断 |
+| 单条法条 | `get_article_detail` | 法规名+条号定位条文（支持「188」「第一百八十八条」写法） |
+| 引用核验 | `verify_citations` | 抽取《法规》第X条引用，核验存在性/时效性/条文并给出权威原文；案号如实标注无法在线核验 |
+| 关联案例 | `search_cases_by_law` | 最高法指导/典型案例标题匹配 |
+
+局限：flk 不收录部门规章/地方政府规章（转国家规章库 xzfg.moj.gov.cn）；无案例库。
+
+### 6.2 yuandian（元典智库，B 级商业库，需 API Key）
+
+**定位：案例检索替代渠道**。裁判文书网维护中不可达，元典（厂商宣称 1.7 亿+ 文书库）提供普通/权威案例关键词检索、案例语义检索、按案号查详情，其幻觉校验接口可核验案号真实性。法规检索仍以 flk 官方源（6.1）优先，元典法规接口作兜底。
+
+**API Key**：未配置 `YUANDIAN_API_KEY` 时首次调用返回「需要元典 API Key」提示——向用户索取后以 `apiKey` 参数重试，连接器临时保存到系统临时目录（0600），后续调用免带。
+
+## 7. 重测信号
 
 以下信号出现时，应重测并更新验证日期：
 

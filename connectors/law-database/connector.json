@@ -85,6 +85,14 @@
             },
             "description": "发布日期范围"
           },
+          "effectiveDateRange": {
+            "type": "object",
+            "properties": {
+              "start": { "type": "string", "format": "date" },
+              "end": { "type": "string", "format": "date" }
+            },
+            "description": "施行日期范围"
+          },
           "status": {
             "type": "string",
             "enum": ["现行有效", "已修改", "已废止", "尚未生效"],
@@ -167,6 +175,85 @@
           }
         },
         "required": []
+      }
+    },
+    {
+      "name": "search_law_articles",
+      "description": "法条级检索：按关键词检索法规正文，并对命中度最高的前几部法规抓全文、定位到具体条文。返回条文原文、所属法规及时效性。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string",
+            "description": "法条正文关键词（必填），空格分隔多个词时按 AND 匹配"
+          },
+          "lawType": {
+            "type": "string",
+            "enum": ["法律", "行政法规", "部门规章", "地方性法规", "地方政府规章", "司法解释", "规范性文件"],
+            "description": "法规类型（flk 仅收录法律/行政法规/地方性法规/司法解释等，部门规章请查国家规章库）"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["现行有效", "已修改", "已废止", "尚未生效"],
+            "description": "法规状态"
+          },
+          "dateRange": {
+            "type": "object",
+            "properties": {
+              "start": { "type": "string", "format": "date" },
+              "end": { "type": "string", "format": "date" }
+            },
+            "description": "发布日期范围"
+          },
+          "effectiveDateRange": {
+            "type": "object",
+            "properties": {
+              "start": { "type": "string", "format": "date" },
+              "end": { "type": "string", "format": "date" }
+            },
+            "description": "施行日期范围"
+          },
+          "expandTop": {
+            "type": "integer",
+            "default": 3,
+            "description": "对命中度最高的前 N 部法规抓全文并展开命中条文（0-5，0 表示只返回法规列表）"
+          },
+          "page": { "type": "integer", "default": 1, "description": "页码" },
+          "pageSize": { "type": "integer", "default": 10, "description": "每页数量" }
+        },
+        "required": ["keyword"]
+      }
+    },
+    {
+      "name": "get_article_detail",
+      "description": "按法规名称+条号查询单条法条原文（数据来自国家法律法规数据库全文）。条号支持「188」「第188条」「第一百八十八条」等写法。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "lawName": {
+            "type": "string",
+            "description": "法规名称，如「中华人民共和国民法典」（可带（2023年修订）等版本括号，未命中时自动去括号重试）"
+          },
+          "articleNumber": {
+            "type": "string",
+            "description": "条号，如「第一百八十八条」「第188条」「188」"
+          }
+        },
+        "required": ["lawName", "articleNumber"]
+      }
+    },
+    {
+      "name": "verify_citations",
+      "description": "法律引用核验：从文本中抽取《法规名》第X条引用与案号，逐条对照国家法律法规数据库核验法规存在性、时效性和条文是否存在，并给出权威原文供语义比对。案号无法经 flk 在线核验，会如实标注并给出核查建议。用于文书定稿前的幻觉排查。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "待核验的文书文本（含《法规名》第X条形式的引用）"
+          }
+        },
+        "required": ["text"]
       }
     }
   ],

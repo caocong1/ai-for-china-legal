@@ -110,6 +110,7 @@ async function searchList(opts) {
     lawType,
     status,
     dateRange,
+    effectiveDateRange,
     pageNum = 1,
     pageSize = 10,
     searchType = 1,
@@ -119,7 +120,10 @@ async function searchList(opts) {
 
   const payload = {
     searchRange,
-    sxrq: [],
+    sxrq:
+      effectiveDateRange && effectiveDateRange.start && effectiveDateRange.end
+        ? [effectiveDateRange.start, effectiveDateRange.end]
+        : [],
     gbrq:
       dateRange && dateRange.start && dateRange.end
         ? [dateRange.start, dateRange.end]

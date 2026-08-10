@@ -182,3 +182,4 @@ AI 治理领域法规均为 2021-2023 年新近颁布，配套细则、备案实
 - **中国信通院**：https://www.caict.ac.cn
 - **国家标准全文公开系统**：https://openstd.samr.gov.cn
 - **中国裁判文书网**：https://wenshu.court.gov.cn
+- **元典开放平台**（如已配置 yuandian MCP 连接器；需 API Key，首次调用时按提示提供）：https://open.chineselaw.com

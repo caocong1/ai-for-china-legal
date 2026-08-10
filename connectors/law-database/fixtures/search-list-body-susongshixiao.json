@@ -1,0 +1,28 @@
+{
+  "comment": "测试用：POST law-search/search/list searchRange=2（正文）searchContent=诉讼时效",
+  "status": 200,
+  "headers": {
+    "content-type": "application/json"
+  },
+  "json": {
+    "total": 1,
+    "rows": [
+      {
+        "bbbs": "ff808081729d1efe01729d50b5c500bf",
+        "title": "中华人民共和国民法典",
+        "gbrq": "2020-05-28",
+        "sxrq": "2021-01-01",
+        "sxx": 3,
+        "zdjgName": "全国人民代表大会",
+        "flxz": "法律",
+        "zdjgCodeId": 100,
+        "flfgCodeId": 120,
+        "score": 30.1
+      }
+    ],
+    "code": 200,
+    "msg": "查询成功",
+    "searchType": 1,
+    "searchContent": "诉讼时效"
+  }
+}

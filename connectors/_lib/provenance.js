@@ -22,6 +22,7 @@ const METHOD = {
   XZFG: 'xzfg',
   COURT_FETCH: 'court-fetch',
   GOV_FETCH: 'gov-fetch',
+  YUANDIAN_API: 'yuandian-api',
   CACHED: '缓存',
   NO_FULLTEXT: '未获全文',
 };

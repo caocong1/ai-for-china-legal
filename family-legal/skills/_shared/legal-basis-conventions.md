@@ -294,6 +294,7 @@
 - 民政部：https://www.mca.gov.cn
 - 中国裁判文书网：https://wenshu.court.gov.cn
 - 北大法宝（如已接入）
+- 元典开放平台（如已配置 yuandian MCP 连接器；需 API Key，首次调用时按提示提供）：https://open.chineselaw.com
 
 **不在本文件放完整法条正文**——本文件是引用规范，不是法条库。
 

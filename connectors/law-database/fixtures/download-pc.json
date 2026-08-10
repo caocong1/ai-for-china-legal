@@ -1,0 +1,14 @@
+{
+  "comment": "测试用：GET law-search/download/pc 返回预签名 docx 地址（指向 fixture.local 占位域名）",
+  "status": 200,
+  "headers": {
+    "content-type": "application/json"
+  },
+  "json": {
+    "code": 200,
+    "msg": "success",
+    "data": {
+      "url": "https://fixture.local/minfadian.docx"
+    }
+  }
+}

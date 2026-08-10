@@ -6,7 +6,25 @@
   },
   {
     "urlIncludes": "law-search/search/list",
+    "bodyIncludes": "诉讼时效",
+    "file": "search-list-body-susongshixiao.json"
+  },
+  {
+    "urlIncludes": "law-search/search/list",
+    "bodyIncludes": "幻想",
+    "file": "search-list-empty.json"
+  },
+  {
+    "urlIncludes": "law-search/search/list",
     "bodyIncludes": "民法典",
     "file": "search-list-minfadian.json"
+  },
+  {
+    "urlIncludes": "law-search/download/pc",
+    "file": "download-pc.json"
+  },
+  {
+    "urlIncludes": "fixture.local",
+    "file": "minfadian-docx.json"
   }
 ]

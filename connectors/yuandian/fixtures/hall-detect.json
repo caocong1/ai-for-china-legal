@@ -1,0 +1,36 @@
+{
+  "status": 200,
+  "headers": { "content-type": "application/json" },
+  "json": {
+    "regulations": [
+      {
+        "name": "《中华人民共和国民法典》",
+        "clause": "第一百八十八条",
+        "content": "民法典第一百八十八条规定诉讼时效期间为三年",
+        "extract_reg_id": "uuid-1",
+        "url": "/zxt/statuteDetail/detailPage/fg-abc123?text=188",
+        "think_tank_content": "向人民法院请求保护民事权利的诉讼时效期间为三年。法律另有规定的，依照其规定。",
+        "source_no_specific_clause": false,
+        "publish_date": "2020-05-28",
+        "implement_date": "2021-01-01",
+        "validity_status": "现行有效",
+        "document_number": "主席令第45号",
+        "semantic_compare": { "结论": "一致", "语义相似度": 0.95, "说明": "转述与原文一致", "要点": [] }
+      }
+    ],
+    "cases": [
+      {
+        "name": "张某诉李某买卖合同纠纷案",
+        "case_number": "（2021）京01民终1234号",
+        "content": "参考（2021）京01民终1234号",
+        "url": "",
+        "think_tank_content": "",
+        "case_type": "",
+        "court": ""
+      }
+    ],
+    "highlighted_text": "<span>民法典第一百八十八条</span>……",
+    "chat_model": "fixture-model",
+    "request_id": "req-fixture-1"
+  }
+}

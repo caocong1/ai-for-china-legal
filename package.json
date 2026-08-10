@@ -10,6 +10,10 @@
   "scripts": {
     "connector:law-database": "node connectors/law-database/index.js",
     "connector:health:law-database": "node connectors/law-database/health-check.js",
+    "connector:yuandian": "node connectors/yuandian/index.js",
+    "connector:health:yuandian": "node connectors/yuandian/health-check.js",
+    "connector:wenshu": "node connectors/wenshu/index.js",
+    "connector:wenshu:login": "node connectors/wenshu/login.js",
     "agent": "node run-agent.js",
     "agent:dry-run": "node run-agent.js --dry-run",
     "setup:skills": "bash scripts/setup-skills.sh",
@@ -20,9 +24,11 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.1",
-    "yaml": "^2.7.0",
     "dotenv": "^16.4.7",
+    "yaml": "^2.7.0",
     "zod": "^3.24.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "playwright-core": "^1.62.1"
+  }
 }

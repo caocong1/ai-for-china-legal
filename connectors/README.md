@@ -36,9 +36,10 @@ MCP（Model Context Protocol）连接器是本项目与外部法律数据源之�
 
 | 连接器 | 目录 | 数据源 | 状态 |
 |-------|------|--------|------|
-| 裁判文书网 | `wenshu/` | wenshu.court.gov.cn | 配置完成 |
+| 裁判文书网 | `wenshu/` | wenshu.court.gov.cn | ✅ 浏览器自动化实现（实验性，需用户本人扫码登录） |
 | 企业信用系统 | `gsxt/` | gsxt.gov.cn | 配置完成 |
 | 法规数据库 | `law-database/` | flk.npc.gov.cn | ✅ 原型已实现（MCP server + health check） |
+| 元典开放平台 | `yuandian/` | open.chineselaw.com | ✅ 原型已实现（MCP server + health check，API Key 支持调用时询问并临时保存） |
 | 微信/钉钉通知 | `wechat-notify/` | 企业微信/钉钉 API | 配置完成 |
 | 商标查询 | `trademark/` | sbj.cnipa.gov.cn | 配置完成 |
 | 专利查询 | `patent/` | pss-system.cnipa.gov.cn | 配置完成 |
@@ -222,6 +223,7 @@ circuit_breaker:
        "wenshu": { "command": "node", "args": ["connectors/wenshu/index.js"] },
        "gsxt": { "command": "node", "args": ["connectors/gsxt/index.js"] },
        "law-database": { "command": "node", "args": ["connectors/law-database/index.js"] },
+       "yuandian": { "command": "node", "args": ["connectors/yuandian/index.js"] },
        "wechat-notify": { "command": "node", "args": ["connectors/wechat-notify/index.js"] },
        "trademark": { "command": "node", "args": ["connectors/trademark/index.js"] },
        "patent": { "command": "node", "args": ["connectors/patent/index.js"] }
@@ -250,7 +252,7 @@ circuit_breaker:
 
 ### 裁判文书网连接器
 
-配置文件：`wenshu/connector.json`
+配置文件：`wenshu/connector.json`（浏览器自动化实现，无公开 API，检索需登录）
 
 ```json
 {
@@ -259,24 +261,29 @@ circuit_breaker:
       "command": "node",
       "args": ["connectors/wenshu/index.js"],
       "env": {
-        "WENSHU_API_URL": "https://wenshu.court.gov.cn/api",
-        "WENSHU_API_KEY": "${WENSHU_API_KEY}"
+        "WENSHU_PROFILE_DIR": "~/.cache/com.sorawatcher.inkstatute/wenshu-profile"
       },
       "tools": [
+        "open_login_window",
+        "check_session",
         "search_cases",
         "get_case_detail",
-        "get_case_statistics"
+        "close_browser"
       ]
     }
   }
 }
 ```
 
+首次使用前登录：`node connectors/wenshu/login.js`（可见窗口，本人支付宝扫码，一次即可）。
+
 | 工具 | 描述 | 参数 |
 |------|------|------|
-| search_cases | 搜索裁判文书 | 关键词、案由、法院、日期范围 |
-| get_case_detail | 获取案件详情 | 案号 |
-| get_case_statistics | 获取案件统计 | 案由、法院、时间范围 |
+| open_login_window | 打开可见窗口由用户本人登录/过验证 | 无 |
+| check_session | 检查登录状态 | 无 |
+| search_cases | 搜索裁判文书 | 关键词、案件类型（高级筛选待实现） |
+| get_case_detail | 获取文书全文 | docId 或案号 |
+| close_browser | 关闭浏览器释放资源 | 无 |
 
 ### 企业信用信息公示系统连接器
 
@@ -325,7 +332,10 @@ circuit_breaker:
       "tools": [
         "search_laws",
         "get_law_detail",
-        "search_cases_by_law"
+        "search_cases_by_law",
+        "search_law_articles",
+        "get_article_detail",
+        "verify_citations"
       ]
     }
   }
@@ -334,9 +344,12 @@ circuit_breaker:
 
 | 工具 | 描述 | 参数 |
 |------|------|------|
-| search_laws | 搜索法律法规 | 关键词、法规类型、发布机构、日期范围 |
+| search_laws | 搜索法律法规 | 关键词、法规类型、发布机构、发布/施行日期范围 |
 | get_law_detail | 获取法规详情 | 法规文号 |
 | search_cases_by_law | 根据法规搜索相关案例 | 法规名称/文号 |
+| search_law_articles | 法条级检索（正文搜索+命中条文展开） | 关键词、法规类型、状态、日期范围、expandTop |
+| get_article_detail | 单条法条查询 | 法规名称、条号（支持「188」「第一百八十八条」） |
+| verify_citations | 法律引用核验（法规存在性/时效性/条文核验+权威原文） | 待核验文本 |
 
 ### 微信/钉钉通知连接器
 
