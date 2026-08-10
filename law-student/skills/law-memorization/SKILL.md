@@ -1,5 +1,5 @@
 ---
-name: law-memorization
+name: law-student-law-memorization
 description: >
   法条记忆编排入口。编排四个法条记忆子技能（法律体系图谱 → 重点法条识别 →
   记忆技巧应用 → 间隔复习自测），系统训练学习者高效记忆法考核心法条。

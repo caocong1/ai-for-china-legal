@@ -1,5 +1,5 @@
 ---
-name: installation
+name: legal-builder-hub-installation
 description: 安装向导编排入口——协调四个子技能（兼容性检查/安装执行/安装后配置/更新与卸载）完成技能的安全安装和生命周期管理
 argument-hint: "[技能名称或路径，如：contract-review@1.2.0 或本地路径]"
 ---

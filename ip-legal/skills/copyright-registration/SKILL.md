@@ -1,5 +1,5 @@
 ---
-name: copyright-registration
+name: ip-copyright-registration
 description: >
   著作权登记编排入口。编排四个子技能（作品类型认定 → 权属判定 → 登记材料准备 → 登记流程），
   对照中国著作权法与登记办法完成著作权登记全流程。自愿登记原则：著作权自动产生，登记证书具有

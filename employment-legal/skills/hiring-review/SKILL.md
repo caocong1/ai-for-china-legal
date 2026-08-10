@@ -1,5 +1,5 @@
 ---
-name: hiring-review
+name: employment-hiring-review
 description: >
   雇佣审查编排入口。编排五个审查子技能（文件定位与必备条款 → 试用期与工时合规 →
   社保公积金与劳动报酬 → 服务期与违约金合法性 → 雇佣审查装配），对照《劳动合同法》

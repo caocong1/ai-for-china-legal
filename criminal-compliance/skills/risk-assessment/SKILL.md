@@ -1,5 +1,5 @@
 ---
-name: risk-assessment
+name: criminal-compliance-risk-assessment
 description: 刑事风险评估编排入口 — 将刑事风险评估拆分为四个可独立触发的子技能（行业高发罪名识别/岗位与行为风险点/风险等级与可能性评估/风险清单与控制建议输出），可完整流程运行，也可单独触发任一子技能
 ---
 

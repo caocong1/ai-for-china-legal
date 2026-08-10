@@ -1,5 +1,5 @@
 ---
-name: corporate-crime
+name: criminal-compliance-corporate-crime
 description: >
   单位犯罪预防编排入口。编排四个子技能（单位犯罪构成识别 → 常见单位犯罪类型 → 内控与防范机制 → 涉案应对），
   覆盖单位犯罪构成（刑法第30/31条）与个人犯罪区分、七大类常见单位犯罪类型与构成要件、

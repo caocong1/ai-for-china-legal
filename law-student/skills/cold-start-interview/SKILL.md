@@ -1,5 +1,5 @@
 ---
-name: cold-start-interview
+name: law-student-cold-start-interview
 description: >
   冷启动访谈编排入口。编排四个访谈子技能（身份与学习画像 → 学习立场与目标 →
   薄弱环节与升级 → 学习风格与资源），将访谈结果写入 law-student/CLAUDE.md

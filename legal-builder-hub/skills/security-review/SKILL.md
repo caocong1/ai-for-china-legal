@@ -1,5 +1,5 @@
 ---
-name: security-review
+name: legal-builder-hub-security-review
 description: 安全审查编排入口——协调四个子技能（静态分析与代码扫描/权限范围审查/数据隐私评估/审查报告与认证）完成技能安装前的全面安全审查
 argument-hint: "[技能名称或路径，如：contract-review@1.2.0 或本地路径]"
 ---

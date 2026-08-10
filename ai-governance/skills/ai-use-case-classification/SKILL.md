@@ -1,5 +1,5 @@
 ---
-name: ai-use-case-classification
+name: ai-governance-ai-use-case-classification
 description: >
   AI 使用案例分类编排入口 — 将 AI 使用案例分类拆分为四个可独立触发的子技能
   （应用场景盘点/风险等级分类/合规要求映射/分类报告输出），

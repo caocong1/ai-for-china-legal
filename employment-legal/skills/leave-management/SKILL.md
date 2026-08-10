@@ -1,5 +1,5 @@
 ---
-name: leave-management
+name: employment-leave-management
 description: >
   假期管理编排入口。编排四个假期子技能（年休假合规 → 病假与医疗期 → 生育假与女职工保护 → 其他法定假期与考勤制度），
   覆盖从年休假折算到考勤制度合法性的完整假期合规审查。支持单独触发任一子技能。

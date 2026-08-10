@@ -1,5 +1,5 @@
 ---
-name: representation-drafting
+name: litigation-representation-drafting
 description: >
   代理词起草编排入口：统筹争议焦点梳理、事实论证、法律论证与法条适用、代理词装配四个子技能，
   输出完整代理词、辩论提纲和法庭陈述材料。必须先运行研究闸门（shared/research-gate/SKILL.md）。

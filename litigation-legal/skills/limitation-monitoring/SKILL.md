@@ -1,5 +1,5 @@
 ---
-name: limitation-monitoring
+name: litigation-limitation-monitoring
 description: >
   诉讼时效监控编排入口：统筹时效期间识别、起算点判定、中止中断事由分析、监控台账与预警
   四个子技能，对案件中每个请求权进行完整的时效深度分析并建立持续监控台账。

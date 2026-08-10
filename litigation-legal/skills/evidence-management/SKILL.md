@@ -1,5 +1,5 @@
 ---
-name: evidence-management
+name: litigation-evidence-management
 description: >
   证据管理编排入口。编排四个子技能（证据收集与保管链 → 三性审查 → 三大类证据目录编制 →
   举证期限与证据交换），对照实践配置文件管理诉讼案件证据，包含研究闸门前置、

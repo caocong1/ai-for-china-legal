@@ -1,5 +1,5 @@
 ---
-name: non-prosecution
+name: criminal-compliance-non-prosecution
 description: >
   合规不起诉方案编排入口。编排四个子技能（适用条件评估 → 合规计划制定 → 第三方监督评估配合 → 不起诉申请与听证），
   覆盖涉案企业合规适用范围与条件、不起诉类型（法定/酌定/存疑，刑诉法第177条）、认罪认罚从宽（第15条）、专项合规整改计划、

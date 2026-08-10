@@ -1,5 +1,5 @@
 ---
-name: commercial-housing-review
+name: construction-commercial-housing-review
 description: 商品房买卖合同审查编排入口 — 面向预售/现售合同的合规审查与购房人风险识别，编排四个可独立触发的子技能（预售许可与主体核查 → 定金与认购书 → 交付与违约 含逾期交房办证与面积误差3% → 贷款解除与风险），也可单独触发任一子技能
 argument-hint: 请提供商品房买卖合同/预售合同/认购书，说明代理立场（购房人侧/开发商侧/中立）；如只需审查特定方面，可直接触发对应子技能。
 ---

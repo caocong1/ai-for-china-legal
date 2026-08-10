@@ -1,5 +1,5 @@
 ---
-name: defense-drafting
+name: litigation-defense-drafting
 description: >
   答辩状起草编排入口。编排五个子技能（答辩策略选择 → 管辖权异议（如适用）→
   实体抗辩起草 → 程序抗辩与时效抗辩 → 答辩状装配），

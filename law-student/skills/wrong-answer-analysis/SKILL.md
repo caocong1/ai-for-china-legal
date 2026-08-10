@@ -1,5 +1,5 @@
 ---
-name: wrong-answer-analysis
+name: law-student-wrong-answer-analysis
 description: >
   错题分析编排入口（新增技能）。编排四个错题分析子技能（错误模式识别 →
   知识薄弱点诊断 → 针对性补强方案 → 进步追踪），系统化分析学习者的错题，

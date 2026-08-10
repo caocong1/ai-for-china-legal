@@ -1,5 +1,5 @@
 ---
-name: cold-start-interview
+name: employment-cold-start-interview
 description: >
   冷启动访谈编排入口。编排四个访谈子技能（身份与团队 → 审查立场 → 风险与升级 → 文书风格与地方性规定），
   将访谈结果写入 employment-legal/CLAUDE.md 对应章节，使所有劳动人事技能可按个性化配置运行。

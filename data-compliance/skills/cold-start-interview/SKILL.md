@@ -1,5 +1,5 @@
 ---
-name: cold-start-interview
+name: data-compliance-cold-start-interview
 description: 冷启动访谈编排入口——顺序调用四个访谈子技能，将数据处理者画像/合规立场/风险升级规则/文书风格收集结果填充到 data-compliance/CLAUDE.md，完成数据合规实践档案初始化
 argument-hint: "[留空运行完整访谈，或说明只需更新哪个部分：身份/合规立场/风险升级/文书风格]"
 ---

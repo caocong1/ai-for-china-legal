@@ -1,5 +1,5 @@
 ---
-name: cold-start-interview
+name: construction-cold-start-interview
 description: 建设工程冷启动访谈编排入口 — 顺序调用四个访谈子技能，初始化或更新 construction-legal/CLAUDE.md 实践配置档案（主体画像与项目组合/审查与争议立场/风险校准与升级矩阵/文书风格与地方规定），支持完整运行或单独触发某一子技能
 argument-hint: 直接运行开始完整访谈，或说明只需更新某部分（如「只更新审查立场」）。
 ---

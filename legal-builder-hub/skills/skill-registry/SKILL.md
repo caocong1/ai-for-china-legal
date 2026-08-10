@@ -1,5 +1,5 @@
 ---
-name: skill-registry
+name: legal-builder-hub-skill-registry
 description: 技能注册表编排入口——协调四个子技能（技能清单管理/版本发布管理/依赖解析/注册表查询与发布）完成技能的注册、版本管理和发布
 argument-hint: "[操作类型：查询/发布/版本管理/依赖检查，及技能名称]"
 ---

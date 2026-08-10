@@ -1,5 +1,5 @@
 ---
-name: cold-start-interview
+name: regulatory-cold-start-interview
 description: 监管合规冷启动访谈编排入口——按顺序调用四个子技能，将访谈结果写入 regulatory-legal/CLAUDE.md 各章节
 ---
 

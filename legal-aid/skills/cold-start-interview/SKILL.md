@@ -1,5 +1,5 @@
 ---
-name: cold-start-interview
+name: legal-aid-cold-start-interview
 description: >
   法律援助冷启动访谈编排入口。按 identity-role-profile → service-stance-scope →
   quality-escalation → style-local-resources 顺序编排四个访谈子技能，

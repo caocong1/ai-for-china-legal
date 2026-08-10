@@ -1,5 +1,5 @@
 ---
-name: data-security-compliance
+name: data-compliance-data-security-compliance
 description: 数据安全法合规检查编排入口——依据《数据安全法》（2021年），协调四个子技能（数据分类分级 / 重要数据识别与处理 / 数据安全管理制度 / 风险评估与报告）完成全面的数据安全合规审查
 argument-hint: "[合规检查场景，如：新业务数据安全合规审查 / 年度数据安全合规自查 / 监管检查准备]"
 ---

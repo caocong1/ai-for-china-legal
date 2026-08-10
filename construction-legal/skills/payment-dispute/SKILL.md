@@ -1,5 +1,5 @@
 ---
-name: payment-dispute
+name: construction-payment-dispute
 description: 工程款争议处理编排入口 — 编排四个子技能（工程价款优先受偿权 / 结算依据与黑白合同 / 质量抗辩与反索赔 / 工程款利息与垫资），可整体运行或按争议焦点单独触发子技能
 argument-hint: "[工程款争议 — 优先受偿权/结算/质量抗辩/利息垫资]"
 ---

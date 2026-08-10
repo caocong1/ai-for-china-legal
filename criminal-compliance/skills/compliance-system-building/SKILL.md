@@ -1,5 +1,5 @@
 ---
-name: compliance-system-building
+name: criminal-compliance-compliance-system-building
 description: 刑事合规体系建设——编排入口，顺序调用四个子技能（合规风险识别→合规制度与流程设计→合规组织与培训→合规有效性评估与整改），也可单独触发任一子技能，用于事前合规体系建设。涉案情形强制升级刑事辩护律师。
 argument-hint: "[企业名称或合规体系建设需求说明，可附行业与规模说明]"
 ---

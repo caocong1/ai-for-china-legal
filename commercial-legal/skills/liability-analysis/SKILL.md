@@ -1,5 +1,5 @@
 ---
-name: liability-analysis
+name: commercial-liability-analysis
 description: >
   违约责任分析编排入口。将四个可独立触发的子技能（责任限制分析 / 违约金评估 /
   赔偿范围界定 / 例外清单审查）按顺序编排，也支持直接触发单一子技能。适用于

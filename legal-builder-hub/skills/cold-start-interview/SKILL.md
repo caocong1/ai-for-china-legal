@@ -1,5 +1,5 @@
 ---
-name: cold-start-interview
+name: legal-builder-hub-cold-start-interview
 description: 冷启动访谈编排入口——顺序调用四个访谈子技能，将用户画像/偏好范围/安全策略/风格资源配置填充到 legal-builder-hub/CLAUDE.md，完成法律技能中心实践档案初始化
 argument-hint: "[留空运行完整访谈，或说明只需更新哪个部分：身份/偏好/安全/风格]"
 ---

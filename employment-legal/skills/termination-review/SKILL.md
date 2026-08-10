@@ -1,5 +1,5 @@
 ---
-name: termination-review
+name: employment-termination-review
 description: >
   解雇审查编排入口。编排四个解雇审查子技能（解除事由合法性 → 经济补偿与赔偿金计算 →
   解除程序合规 → 违法解除救济与风险预防），对照团队实践配置文件审查解雇方案，

@@ -1,5 +1,5 @@
 ---
-name: cold-start-interview
+name: criminal-compliance-cold-start-interview
 description: 刑事合规冷启动访谈——编排入口，顺序调用四个访谈子技能（身份与企业画像→合规立场与服务范围→风险与升级矩阵→文书风格与监管资源），初始化并填充 criminal-compliance/CLAUDE.md 对应散文章节（非独立 YAML）。也可单独触发任一子技能更新特定章节。
 argument-hint: "[可选：企业名称或业务简述，访谈将系统采集所有配置]"
 ---

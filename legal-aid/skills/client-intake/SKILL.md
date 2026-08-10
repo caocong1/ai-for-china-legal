@@ -1,5 +1,5 @@
 ---
-name: client-intake
+name: legal-aid-client-intake
 description: >
   客户 intake 编排入口。编排四个子技能（当事人身份核实 → 案件事实收集 → 法援资格初评 → 利益冲突审查与分流），
   完成法援案件当事人的信息收集与初步筛选。

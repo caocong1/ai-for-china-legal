@@ -1,5 +1,5 @@
 ---
-name: contract-review
+name: commercial-contract-review
 description: >
   合同审查编排入口。编排五个审查子技能（风险识别 → 法律依据 → 条款修改建议 → 谈判要点 → 输出格式化），
   对照团队实践配置文件审查 inbound 合同，生成具体的修改建议语言并路由到合适的审批人。

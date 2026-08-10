@@ -1,5 +1,5 @@
 ---
-name: cold-start-interview
+name: commercial-cold-start-interview
 description: >
   商事合同冷启动访谈编排入口。按 identity-team → review-stance → escalation-rules →
   document-style → jurisdiction-profile 顺序编排五个访谈子技能，完整初始化律师的实践配置文件

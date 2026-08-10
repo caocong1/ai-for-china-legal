@@ -1,5 +1,5 @@
 ---
-name: legal-aid-application
+name: legal-aid-legal-aid-application
 description: >
   法律援助申请编排入口。编排四个子技能（援助条件评估 → 申请材料准备 → 申请提交与审查跟踪 → 审查结果应对），
   覆盖法律援助申请全流程。

@@ -1,5 +1,5 @@
 ---
-name: patent-analysis
+name: ip-patent-analysis
 description: >
   专利侵权初步分析编排入口。编排四个子技能（技术特征比对与权利要求解读 → 全面覆盖原则 →
   等同原则 → 现有技术抗辩与不侵权抗辩），对照中国专利法与专利侵权司法解释完成专利侵权初步分析。

@@ -1,5 +1,5 @@
 ---
-name: document-templates
+name: legal-aid-document-templates
 description: >
   法律文书模板编排入口。编排四个子技能（法律援助申请书 → 委托代理协议/指定辩护函 → 诉讼文书起草 → 结案报告与质量自查），
   覆盖法援常用文书的起草与审核。

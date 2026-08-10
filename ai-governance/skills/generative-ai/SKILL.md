@@ -1,5 +1,5 @@
 ---
-name: generative-ai
+name: ai-governance-generative-ai
 description: >
   生成式 AI 合规编排入口 — 将生成式 AI 合规拆分为四个可独立触发的子技能
   （服务类型与合规要求识别/训练数据合规/内容安全机制建设/用户保护与备案管理），

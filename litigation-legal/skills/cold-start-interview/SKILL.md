@@ -1,5 +1,5 @@
 ---
-name: cold-start-interview
+name: litigation-cold-start-interview
 description: >
   冷启动访谈编排入口：初始化诉讼仲裁实践配置文件（litigation-legal/CLAUDE.md），
   按四步子技能顺序收集身份与团队、风险校准、案件管理、文书风格配置。

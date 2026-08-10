@@ -1,5 +1,5 @@
 ---
-name: matter-intake
+name: litigation-matter-intake
 description: >
   案件录入编排入口——按顺序调用五个子技能完成新案件录入，
   也可直接触发任意单个子技能。深度内容已拆分至子技能，本文件为编排层入口。

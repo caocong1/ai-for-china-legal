@@ -1,5 +1,5 @@
 ---
-name: cold-start-interview
+name: family-cold-start-interview
 description: 冷启动访谈编排入口——顺序调用四个访谈子技能，将婚姻家事实践配置填充到 family-legal/CLAUDE.md；子技能可单独触发实现单独更新；访谈结果写入 family-legal/CLAUDE.md 对应章节（非独立 YAML）；贯穿婚姻家事敏感护栏（情绪/家暴/未成年人/强制升级），配置不可省略
 argument-hint: "[律所/当事人描述，或直接开始访谈]"
 ---

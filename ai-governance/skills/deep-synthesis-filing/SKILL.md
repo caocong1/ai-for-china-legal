@@ -1,5 +1,5 @@
 ---
-name: deep-synthesis-filing
+name: ai-governance-deep-synthesis-filing
 description: >
   深度合成备案编排入口 — 将深度合成备案拆分为四个可独立触发的子技能
   （深度合成服务识别与分类/备案材料准备/安全评估与备案提交/备案后合规管理），

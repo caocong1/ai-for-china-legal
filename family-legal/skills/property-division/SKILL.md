@@ -1,5 +1,5 @@
 ---
-name: property-division
+name: family-property-division
 description: 财产分割方案编排入口——编排共同财产认定、特殊财产分割（房产/股权/知识产权）、分割原则与照顾（照顾子女/女方/无过错方/家务补偿/损害赔偿）、隐藏转移财产救济四个子技能；面向离婚财产的法律性质认定、估值与分割方案设计及救济，与 divorce-agreement/property-division-clauses（协议条款拟定）分工；入口级护栏含代理立场确认、敏感情形识别（家暴/隐匿财产/涉刑/未成年人）强制升级、当事人情绪护栏
 argument-hint: "[财产清单/分割争议/隐匿财产线索]"
 ---

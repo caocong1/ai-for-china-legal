@@ -1,5 +1,5 @@
 ---
-name: contract-review
+name: construction-contract-review
 description: 施工合同审查编排入口 — 按顺序编排四个可独立触发的子技能（主体资质与合同效力 → 工期与质量 → 价款与结算 → 违约与解除），也可单独触发任一子技能
 argument-hint: 请提供施工合同文本，说明代理立场（发包人侧/承包人侧/中立）；如只需审查特定方面，可直接触发对应子技能。
 ---

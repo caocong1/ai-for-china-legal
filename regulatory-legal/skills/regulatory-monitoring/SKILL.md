@@ -1,5 +1,5 @@
 ---
-name: regulatory-monitoring
+name: regulatory-regulatory-monitoring
 description: >
   监管动态监控编排入口 — 将监管动态监控拆分为四个可独立触发的子技能
   （监管机关与规则源识别/动态抓取与分类/影响评估与合规差距/预警与台账），

@@ -1,5 +1,5 @@
 ---
-name: labor-dispute-handling
+name: employment-labor-dispute-handling
 description: >
   劳动争议处理编排入口。编排四个争议子技能（争议定性与时效 → 调解路径 → 仲裁路径 → 诉讼路径与衔接），
   覆盖从时效核查到强制执行的完整劳动争议解决路径。支持单独触发任一子技能。

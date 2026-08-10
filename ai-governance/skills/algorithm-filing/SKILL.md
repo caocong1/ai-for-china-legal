@@ -1,5 +1,5 @@
 ---
-name: algorithm-filing
+name: ai-governance-algorithm-filing
 description: >
   算法备案编排入口 — 将算法备案拆分为四个可独立触发的子技能
   （算法类型识别与分类/备案要求分析/备案材料准备与提交/备案后变更管理），

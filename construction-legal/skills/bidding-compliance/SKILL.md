@@ -1,5 +1,5 @@
 ---
-name: bidding-compliance
+name: construction-bidding-compliance
 description: 建设工程招投标合规编排入口 — 编排四个子技能（必须招标范围与方式 / 招标投标程序 / 串通投标与虚假招标 / 中标无效与异议投诉），可整体运行或按合规目的单独触发子技能
 argument-hint: "[招投标合规 — 必须招标/程序/串通投标/中标无效]"
 ---

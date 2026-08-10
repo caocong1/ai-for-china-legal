@@ -1,5 +1,5 @@
 ---
-name: compliance-system
+name: regulatory-compliance-system
 description: >
   合规体系建设编排入口 — 将合规体系建设拆分为四个可独立触发的子技能
   （合规风险识别/合规制度与岗责/合规运行与培训/合规评估与改进），

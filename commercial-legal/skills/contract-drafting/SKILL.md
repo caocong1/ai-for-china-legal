@@ -1,5 +1,5 @@
 ---
-name: contract-drafting
+name: commercial-contract-drafting
 description: >
   合同起草编排入口。将五个可独立触发的子技能（需求收集 / 框架设计 / 条款起草 /
   风险自查 / 输出生成）按顺序编排，也支持直接触发单一子技能。适用于买卖合同、

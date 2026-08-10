@@ -1,5 +1,5 @@
 ---
-name: case-study
+name: law-student-case-study
 description: >
   案例研习编排入口。编排四个案例研习子技能（案件事实识别 → 法律问题定性 →
   多方观点论证 → 结论结构化输出），训练学习者掌握法律案例分析方法论。

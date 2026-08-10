@@ -1,5 +1,5 @@
 ---
-name: case-management
+name: legal-aid-case-management
 description: >
   法援案件管理编排入口。编排四个子技能（案件登记与指派 → 案件进展跟踪 → 质量审查与监督 → 结案归档与统计），
   覆盖法援案件从受理到归档的全流程管理。

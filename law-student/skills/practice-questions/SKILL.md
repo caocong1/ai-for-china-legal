@@ -1,5 +1,5 @@
 ---
-name: practice-questions
+name: law-student-practice-questions
 description: >
   模拟题生成编排入口。编排四个模拟题子技能（题型设计 → 情景构建 → 答案解析 →
   难度校准），系统生成法考模拟题供学习者训练。

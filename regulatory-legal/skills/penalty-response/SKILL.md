@@ -1,5 +1,5 @@
 ---
-name: penalty-response
+name: regulatory-penalty-response
 description: >
   行政处罚应对编排入口 — 将行政处罚应对拆分为四个可独立触发的子技能
   （合法性审查/陈述申辩与听证/从轻减轻不予处罚争取/行政复议与诉讼衔接），

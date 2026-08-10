@@ -1,5 +1,5 @@
 ---
-name: network-security-compliance
+name: data-compliance-network-security-compliance
 description: 网络安全法合规检查编排入口——依据《网络安全法》（2017年），协调四个子技能（网络安全等级保护 / 关键信息基础设施保护 / 网络运营者义务 / 个人信息收集合规）完成全面的网络安全法合规审查
 argument-hint: "[合规检查场景，如：互联网平台网络安全合规自查 / 金融机构等保与关基合规审查 / 年度网络安全合规体检]"
 ---

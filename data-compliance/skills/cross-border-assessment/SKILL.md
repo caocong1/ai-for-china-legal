@@ -1,5 +1,5 @@
 ---
-name: cross-border-assessment
+name: data-compliance-cross-border-assessment
 description: 数据出境评估编排入口——依据 PIPL 第38-40条及网信办出境评估办法/标准合同办法，协调四个子技能（出境路径判定 / 安全评估申报 / 标准合同备案 / 出境合规装配）完成完整的数据出境合规评估
 argument-hint: "[出境业务场景描述，如：向境外母公司传输员工薪酬数据 / 向境外SaaS服务商共享用户行为数据]"
 ---

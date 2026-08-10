@@ -1,5 +1,5 @@
 ---
-name: skill-discovery
+name: legal-builder-hub-skill-discovery
 description: 技能发现编排入口——协调四个子技能（技能搜索与浏览/技能详情与评价/分类标签筛选/推荐排序）完成法律技能的发现、评估和选择
 argument-hint: "[描述你需要什么类型的法律技能，如：合同审查/法规检索/案例分析/合规检查]"
 ---

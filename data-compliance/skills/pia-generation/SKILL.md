@@ -1,5 +1,5 @@
 ---
-name: pia-generation
+name: data-compliance-pia-generation
 description: >
   个人信息保护影响评估（PIA）编排入口。依《个人信息保护法》第55-56条协调四个可独立触发的
   子技能，生成完整 PIA 报告。深度内容已拆分到四个子技能，本入口负责护栏、立场加载与子技能编排。

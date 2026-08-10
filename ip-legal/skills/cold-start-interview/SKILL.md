@@ -1,5 +1,5 @@
 ---
-name: cold-start-interview
+name: ip-cold-start-interview
 description: 知识产权冷启动访谈编排入口——顺序调用四个访谈子技能（身份与团队/维权与申请立场/风险与升级/文书风格与检索数据库），初始化或更新 ip-legal/CLAUDE.md 实践配置档案；也可单独触发各访谈子技能更新特定章节
 argument-hint: 开始知识产权实践配置初始化访谈（约 10-15 分钟），或说「只更新[子技能名]部分」以单独更新某章节
 ---

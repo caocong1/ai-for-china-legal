@@ -1,5 +1,5 @@
 ---
-name: cold-start-interview
+name: ai-governance-cold-start-interview
 description: AI 治理冷启动访谈编排入口——按顺序调用四个子技能，将访谈结果写入 ai-governance/CLAUDE.md 各章节
 ---
 

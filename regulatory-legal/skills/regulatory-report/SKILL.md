@@ -1,5 +1,5 @@
 ---
-name: regulatory-report
+name: regulatory-regulatory-report
 description: >
   监管报告起草编排入口 — 将监管报告起草拆分为四个可独立触发的子技能
   （报告类型与监管要求识别/数据收集与事实梳理/报告结构与起草/合规声明与报送），

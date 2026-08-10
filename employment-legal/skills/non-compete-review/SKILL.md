@@ -1,5 +1,5 @@
 ---
-name: non-compete-review
+name: employment-non-compete-review
 description: >
   竞业限制审查编排入口。编排四个竞业限制审查子技能（人员范围与保密义务 → 期限与经济补偿合规 →
   竞业范围与可执行性 → 违约责任与救济），对照团队实践配置文件审查竞业限制协议，
