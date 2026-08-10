@@ -16,12 +16,21 @@ const SOURCES = [
   },
   {
     id: 'xzfg',
-    name: '国家规章库（司法部）',
+    name: '国家行政法规库（司法部）',
     base_url: 'https://xzfg.moj.gov.cn',
+    channel_level: 'A',
+    doc_types: ['行政法规'],
+    access: 'html-fetch',
+    health_url: 'https://xzfg.moj.gov.cn',
+  },
+  {
+    id: 'gov-guizhangku',
+    name: '国家规章库（中国政府网）',
+    base_url: 'https://www.gov.cn/zhengce/xxgk/gjgzk',
     channel_level: 'A',
     doc_types: ['部门规章', '地方政府规章'],
     access: 'html-fetch',
-    health_url: 'https://xzfg.moj.gov.cn',
+    health_url: 'https://www.gov.cn/zhengce/xxgk/gjgzk/index.htm',
   },
   {
     id: 'gov-zcwjk',
@@ -56,8 +65,19 @@ const SOURCES = [
     base_url: 'https://rmfyalk.court.gov.cn',
     channel_level: 'A',
     doc_types: ['入库案例'],
+    access: 'json-api',
+    health_url: 'https://rmfyalk.court.gov.cn/cpws_al_api/api/cpwsAl/indexTongji',
+    note: '连接器已实现（connectors/rmfyalk）：检索/详情 JSON API 需共道账号登录（faxin-cpws-al-token），indexTongji 统计匿名可用',
+  },
+  {
+    id: 'court-gongbao',
+    name: '最高人民法院公报',
+    base_url: 'http://gongbao.court.gov.cn',
+    channel_level: 'A',
+    doc_types: ['公报案例', '司法解释'],
     access: 'html-fetch',
-    health_url: 'https://rmfyalk.court.gov.cn',
+    health_url: 'http://gongbao.court.gov.cn',
+    note: '2026-08 实测：https 被奇安信云 WAF 按客户端指纹拦截（curl 502，浏览器正常）；http 协议可正常抓取',
   },
   {
     id: 'spp',
@@ -85,6 +105,7 @@ const SOURCES = [
     doc_types: ['法律', '行政法规', '部门规章', '地方性法规', '司法解释', '法条', '裁判文书', '指导性案例', '典型案例'],
     access: 'json-api',
     health_url: 'https://open.chineselaw.com/api/apis?pageNum=1&pageSize=1',
+    note: '兜底/最后选择：按调用计点；赠送积分 2026-09 到期后不再续费，转入冷藏',
   },
 ];
 

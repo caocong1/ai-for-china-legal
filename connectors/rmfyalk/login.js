@@ -2,37 +2,36 @@
 'use strict';
 
 /**
- * 裁判文书网登录辅助（一次性扫码，人速操作）。
+ * 人民法院案例库登录辅助（一次性登录，人速操作）。
  *
  * 用法：
- *   node connectors/wenshu/login.js
+ *   node connectors/rmfyalk/login.js
  *
  * 行为：
- *   1. 用本机 Chrome 打开一个【可见】窗口，进入裁判文书网登录页（支付宝扫码）
- *   2. 由你本人扫码并完成可能的滑块/人机验证（本工具绝不自动处理验证）
+ *   1. 用本机 Chrome 打开一个【可见】窗口，进入人民法院案例库首页
+ *   2. 由你本人点击「登录」，跳转共道统一认证（account.court.gov.cn）完成登录
+ *      （本工具绝不自动处理登录表单/验证码）
  *   3. 窗口保持打开，后台探针每 4 秒检测登录态，成功即自动关窗退出——
  *      无需守在会话前，中途离开没关系（默认不限时）
  *   4. 若你直接关闭了窗口，会用已保存的会话做最后一次无头探测
  *      （覆盖"登录成功后顺手关窗"的情形），然后退出
  *
  * 环境变量：
- *   WENSHU_PROFILE_DIR        自定义会话目录（默认 ~/.cache/com.sorawatcher.inkstatute/wenshu-profile）
- *   WENSHU_LOGIN_TIMEOUT_MIN  等待登录的最长分钟数；0 = 不限时（默认 0）
+ *   RMFYALK_PROFILE_DIR        自定义会话目录（默认 ~/.cache/com.sorawatcher.inkstatute/rmfyalk-profile）
+ *   RMFYALK_LOGIN_TIMEOUT_MIN  等待登录的最长分钟数；0 = 不限时（默认 0）
  */
 
 const path = require('path');
 const os = require('os');
 
-const HOME_URL = 'https://wenshu.court.gov.cn/';
-// 频道页（未登录访问会被 302 到登录页）——作为登录态的硬判据
-const CHANNEL_PROBE_URL =
-  'https://wenshu.court.gov.cn/website/wenshu/181217BMTKHNT2W0/index.html?s8=03';
-const LOGIN_PAGE_MARK = '181010CARHS5BS3C';
+const HOME_URL = 'https://rmfyalk.court.gov.cn/home.html';
+// helper.html 在 base.min.js 白名单中（未登录不强制跳转），作为探针底座页
+const PROBE_URL = 'https://rmfyalk.court.gov.cn/helper.html';
 
 function profileDir() {
-  if (process.env.WENSHU_PROFILE_DIR) return process.env.WENSHU_PROFILE_DIR;
+  if (process.env.RMFYALK_PROFILE_DIR) return process.env.RMFYALK_PROFILE_DIR;
   const base = process.env.LOCALAPPDATA || path.join(os.homedir(), '.cache');
-  return path.join(base, 'com.sorawatcher.inkstatute', 'wenshu-profile');
+  return path.join(base, 'com.sorawatcher.inkstatute', 'rmfyalk-profile');
 }
 
 function launch(chromium, headless) {
@@ -45,21 +44,25 @@ function launch(chromium, headless) {
   });
 }
 
-/** 硬判据：频道页不再跳转登录页 = 已登录（在独立探针页执行，不打扰用户扫码的页面）。 */
+/** 硬判据：getUserInfo 返回 code 0 = 已登录。 */
 async function probeLoggedIn(probePage) {
-  await probePage
-    .goto(CHANNEL_PROBE_URL, { waitUntil: 'domcontentloaded', timeout: 30000 })
-    .catch(() => {});
-  await probePage.waitForTimeout(1200);
-  const url = probePage.url();
-  const title = await probePage.title().catch(() => '');
-  if (url.includes(LOGIN_PAGE_MARK) || /登录\/注册/.test(title)) return false;
-  const text = await probePage
-    .evaluate(() => (document.body ? document.body.innerText : ''))
-    .catch(() => '');
-  // 排除停在人机验证页的情形
-  if (/扫码登录|验证码|滑块|安全验证|人机验证/.test(text)) return false;
-  return true;
+  await probePage.goto(PROBE_URL, { waitUntil: 'domcontentloaded', timeout: 30000 }).catch(() => {});
+  await probePage.waitForTimeout(800);
+  const resp = await probePage
+    .evaluate(async () => {
+      try {
+        const r = await fetch('/cpws_al_api/api/user/getUserInfo', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+          body: '{}',
+        });
+        return await r.json();
+      } catch (e) {
+        return { code: -1, msg: String(e) };
+      }
+    })
+    .catch(() => null);
+  return !!(resp && String(resp.code) === '0' && resp.data);
 }
 
 (async () => {
@@ -67,12 +70,12 @@ async function probeLoggedIn(probePage) {
   try {
     ({ chromium } = require('playwright-core'));
   } catch {
-    console.error('[wenshu-login] 缺少依赖 playwright-core，请先在项目根目录执行 npm install');
+    console.error('[rmfyalk-login] 缺少依赖 playwright-core，请先在项目根目录执行 npm install');
     process.exit(1);
   }
 
-  const timeoutMin = parseInt(process.env.WENSHU_LOGIN_TIMEOUT_MIN || '0', 10);
-  console.log('[wenshu-login] 正在打开 Chrome 登录窗口（会话目录: ' + profileDir() + '）...');
+  const timeoutMin = parseInt(process.env.RMFYALK_LOGIN_TIMEOUT_MIN || '0', 10);
+  console.log('[rmfyalk-login] 正在打开 Chrome 登录窗口（会话目录: ' + profileDir() + '）...');
 
   const ctx = await launch(chromium, false);
   let ctxClosed = false;
@@ -84,16 +87,13 @@ async function probeLoggedIn(probePage) {
   try {
     const page = await ctx.newPage();
     await page.goto(HOME_URL, { waitUntil: 'domcontentloaded', timeout: 45000 });
-    await page.waitForTimeout(1000);
-    const loginLink = page.locator('text=登录').first();
-    if (await loginLink.count()) await loginLink.click().catch(() => {});
 
     console.log(
-      '[wenshu-login] 请在窗口中用支付宝扫码，并在手机上【确认登录】。' +
+      '[rmfyalk-login] 请在窗口中点击「登录」并完成共道账号认证。' +
         (timeoutMin > 0 ? `等待最多 ${timeoutMin} 分钟；` : '不限时；') +
         '登录成功会自动关窗，也可直接关闭窗口结束。'
     );
-    const probe = await ctx.newPage(); // 后台探针页，不打扰用户扫码
+    const probe = await ctx.newPage(); // 后台探针页，不打扰用户操作
     const deadline = timeoutMin > 0 ? Date.now() + timeoutMin * 60 * 1000 : Infinity;
     while (!ctxClosed && Date.now() < deadline) {
       await new Promise((r) => setTimeout(r, 4000));
@@ -131,13 +131,13 @@ async function probeLoggedIn(probePage) {
   }
 
   if (ok) {
-    console.log('[wenshu-login] ✅ 检测到已登录。会话已保存。');
+    console.log('[rmfyalk-login] ✅ 检测到已登录。会话已保存。');
     process.exitCode = 0;
   } else {
-    console.error('[wenshu-login] 未检测到登录态。可重新运行本脚本重试。');
+    console.error('[rmfyalk-login] 未检测到登录态。可重新运行本脚本重试。');
     process.exitCode = 1;
   }
 })().catch((e) => {
-  console.error('[wenshu-login] 失败:', e.message);
+  console.error('[rmfyalk-login] 失败:', e.message);
   process.exit(1);
 });

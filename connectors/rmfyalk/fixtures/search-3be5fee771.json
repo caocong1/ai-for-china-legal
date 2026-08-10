@@ -1,0 +1,62 @@
+{
+  "msg": "获取成功！",
+  "code": 0,
+  "data": {
+    "totalCount": 1,
+    "datas": [
+      {
+        "id": "xcUSrmDkU3%2B2QQMjp6J0VJkWusoVKCiIgEAqBObbni0%3D",
+        "cpws_al_id": "xcUSrmDkU3%2B2QQMjp6J0VJkWusoVKCiIgEAqBObbni0%3D",
+        "cpws_al_type": "02",
+        "cpws_al_status": "01",
+        "cpws_al_fb_date": "",
+        "cpws_al_no": "2024-01-2-091-002",
+        "cpws_al_title": "上海嘉某置业有限公司诉陈某祥、陈某俊房屋买卖合同纠纷案",
+        "cpws_al_case_sort_id": [
+          "02",
+          "A02"
+        ],
+        "cpws_al_case_sort_name": "民事",
+        "cpws_al_sort_name": "房屋买卖合同纠纷",
+        "cpws_al_slfy_name": "上海市普陀区人民法院",
+        "cpws_al_slfy_sf_name": "上海市",
+        "cpws_al_zs_date": "2021.10.20",
+        "cpws_al_ajzh": "（2021）沪0107民初25146号",
+        "cpws_al_slcx_name": "一审",
+        "cpws_al_cpyz": "　　    政策性房屋买卖合同纠纷应按照不动产纠纷确定管辖，由不动产所在地人民法院专属管辖。共有产权保障住房买卖合同约定了政府住房保障实施机构为共有产权保障住房的管理人，对共有产权保障住房享有回购、收回等权利的，表明该类合同担负一定的房地产宏观调控功能，属于政策性房屋买卖合同，发生纠纷应由不动产所在地人民法院专属管辖。<br/>　　",
+        "cpws_al_fyjb_id": "",
+        "cpws_al_fyjb_name": "",
+        "cpws_al_spnf": "",
+        "cpws_al_fbnf": "",
+        "cpws_al_fulltext": "",
+        "cpws_al_jbaq": "",
+        "cpws_al_cpjg": "",
+        "cpws_al_cply": "",
+        "cpws_al_aljz": "",
+        "cpws_al_glsy": "",
+        "cpws_al_sub_title": "",
+        "cpws_al_is_del": "",
+        "cpws_al_infos": "2024-01-2-091-002 / 民事 / 房屋买卖合同纠纷 / 上海市普陀区人民法院 / 2021.10.20 / （2021）沪0107民初25146号 / 一审 / 入库日期：2024.12.23",
+        "cpws_al_fbxx": "",
+        "cpws_al_sxcpr": "",
+        "cpws_al_pdls": "",
+        "sort_num": "27678",
+        "cpws_al_add_time": "",
+        "cpws_al_rk_time": "2024-12-23 13:14:32",
+        "cpws_al_update_time": "",
+        "cpws_al_wsxz": "",
+        "cpws_al_ts": "01",
+        "cpws_al_ts_name": "（立案庭）",
+        "cpws_al_sf": "上海市",
+        "cpws_al_source_id": [
+          "0101"
+        ],
+        "cpws_al_lzgc": "",
+        "cpws_al_zdyy": "",
+        "cpws_al_jdhg_id": "1300516882582872064",
+        "ai_score": 0,
+        "cpws_al_new_zdxal": ""
+      }
+    ]
+  }
+}

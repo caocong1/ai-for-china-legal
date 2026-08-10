@@ -37,9 +37,10 @@ MCP（Model Context Protocol）连接器是本项目与外部法律数据源之�
 | 连接器 | 目录 | 数据源 | 状态 |
 |-------|------|--------|------|
 | 裁判文书网 | `wenshu/` | wenshu.court.gov.cn | ✅ 浏览器自动化实现（实验性，需用户本人扫码登录） |
+| 人民法院案例库 | `rmfyalk/` | rmfyalk.court.gov.cn | ✅ 已实现（站内 JSON API；检索/详情需共道账号登录，收录统计匿名可用） |
 | 企业信用系统 | `gsxt/` | gsxt.gov.cn | 配置完成 |
 | 法规数据库 | `law-database/` | flk.npc.gov.cn | ✅ 原型已实现（MCP server + health check） |
-| 元典开放平台 | `yuandian/` | open.chineselaw.com | ✅ 原型已实现（MCP server + health check，API Key 支持调用时询问并临时保存） |
+| 元典开放平台 | `yuandian/` | open.chineselaw.com | ✅ 已实现（MCP server + health check，API Key 调用时询问并临时保存）；定位：兜底/最后选择，按调用计点，赠送积分 2026-09 到期后冷藏 |
 | 微信/钉钉通知 | `wechat-notify/` | 企业微信/钉钉 API | 配置完成 |
 | 商标查询 | `trademark/` | sbj.cnipa.gov.cn | 配置完成 |
 | 专利查询 | `patent/` | pss-system.cnipa.gov.cn | 配置完成 |

@@ -23,6 +23,7 @@ const METHOD = {
   COURT_FETCH: 'court-fetch',
   GOV_FETCH: 'gov-fetch',
   YUANDIAN_API: 'yuandian-api',
+  RMFYALK_API: 'rmfyalk-api',
   CACHED: '缓存',
   NO_FULLTEXT: '未获全文',
 };

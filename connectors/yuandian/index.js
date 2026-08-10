@@ -1,5 +1,6 @@
 'use strict';
 // yuandian MCP connector — 元典开放平台（open.chineselaw.com）法律法规/案例检索 + 法律幻觉校验.
+// 定位：兜底/最后选择（按调用计点）——优先用 law-database（flk 官方源）与 wenshu 连接器；赠送积分 2026-09 到期后转入冷藏。
 // Launched as `node index.js`; line-delimited JSON-RPC over stdio.
 // Node 18+ built-ins only, zero npm dependencies. ALL logging -> stderr.
 //

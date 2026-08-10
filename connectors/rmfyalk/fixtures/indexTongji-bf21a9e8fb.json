@@ -1,0 +1,9 @@
+{
+  "msg": "获取成功！",
+  "code": 0,
+  "data": {
+    "currDayOnlineCount": 0,
+    "allCount": 5521,
+    "currMonth": "2026-08"
+  }
+}

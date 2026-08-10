@@ -57,10 +57,10 @@ description: 中国法研究闸门 — 所有法律文书生成前的强制检�
 > 🔌 **MCP 连接器用法（如已配置）**：
 >
 > - **法规检索**（优先官方源）：`law-database` 连接器直连国家法律法规数据库（A 级，无需 Key）——`search_laws`（法规列表）、`search_law_articles`（法条级正文检索）、`get_law_detail`（全文）、`get_article_detail`（单条法条）。
-> - **案例检索**（裁判文书网替代）：裁判文书网维护中不可达，`yuandian` 连接器（元典智库，B 级商业库）作为案例检索主渠道——`search_cases`（普通案例）、`search_authoritative_cases`（指导/公报/典型案例）、`semantic_search_cases`（语义检索）、`get_case_detail`（按案号查详情）。
-> - **引用核验**：法规引用先用 `law-database` 的 `verify_citations`（存在性/时效性/条文核验，免费）；需核验案号或语义一致性时再用 `yuandian` 的 `verify_legal_citations`（计点调用）。
+> - **案例检索**：权威案例（指导性/参考案例）优先 `rmfyalk` 连接器（人民法院案例库，A 级，共道账号登录后检索）；普通裁判文书用 `wenshu` 连接器（裁判文书网，用户本人扫码会话，人速按需查询，非全量镜像）；court.gov.cn 指导/典型案例可直接 WebFetch。`yuandian`（元典智库，B 级商业库，按调用计点）仅作**最后选择**——`search_cases`（普通案例）、`search_authoritative_cases`（指导/公报/典型案例）、`semantic_search_cases`（语义检索）、`get_case_detail`（按案号查详情）；赠送积分 2026-09 到期后不再续费，届时跳过此连接器。
+> - **引用核验**：法规引用先用 `law-database` 的 `verify_citations`（存在性/时效性/条文核验，免费）；案号/语义一致性核验可用 `yuandian` 的 `verify_legal_citations`（VIP 专属接口，非 VIP 账号返回 403）。
 >
-> **元典 API Key 流程**：`yuandian` 首次调用若返回「需要元典 API Key」，**立即向用户询问其元典开放平台 API Key**（open.chineselaw.com 注册获取），然后以 `apiKey` 参数重新调用。连接器会将 Key 临时保存到本机系统临时目录（0600 权限），后续调用无需再带；用户拒绝提供时，案例检索降级为 court.gov.cn 指导/典型案例 + WebSearch。
+> **元典 API Key 流程**：`yuandian` 首次调用若返回「需要元典 API Key」，**立即向用户询问其元典开放平台 API Key**（open.chineselaw.com 注册获取），然后以 `apiKey` 参数重新调用。连接器会将 Key 临时保存到本机系统临时目录（0600 权限），后续调用无需再带；用户拒绝提供或积分耗尽时，案例检索降级为 wenshu 连接器 + court.gov.cn 指导/典型案例 + WebSearch。
 
 ### 第四步：动态网页处理
 
@@ -86,7 +86,7 @@ description: 中国法研究闸门 — 所有法律文书生成前的强制检�
 - 如果权威来源冲突，**必须陈述冲突并给出更稳妥路线**，不得隐藏不利案例
 - 如果关键结论无可靠权威来源，标注 `待律师复核`，**不得呈现为已定论**
 - **禁止**仅引"百度百科"、"知乎"、个人博客作为法律依据
-- **幻觉校验**：文书定稿前对全文法律引用做一次核验——法规引用用 `law-database` 的 `verify_citations`（无需 Key，对照 flk 官方全文）；案号核验与语义比对用 `yuandian` 的 `verify_legal_citations`（如已配置 Key）。不一致或未命中的引用必须修正或标注 `待律师复核`
+- **幻觉校验**：文书定稿前对全文法律引用做一次核验——法规引用用 `law-database` 的 `verify_citations`（无需 Key，对照 flk 官方全文）；案号核验与语义比对用 `yuandian` 的 `verify_legal_citations`（VIP 专属，如账号有权限）。不一致或未命中的引用必须修正或标注 `待律师复核`
 
 ## 来源分级
 

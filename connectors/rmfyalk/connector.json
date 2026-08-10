@@ -1,0 +1,103 @@
+{
+  "name": "rmfyalk",
+  "version": "1.0.0",
+  "description": "人民法院案例库 MCP 连接器（rmfyalk.court.gov.cn），提供权威入库案例（指导性案例/参考案例等）检索与详情。检索/详情接口需登录（共道统一认证），采用浏览器持久会话 + 页面内 JSON API 调用；收录统计接口匿名可用。",
+  "displayName": "人民法院案例库连接器",
+  "category": "legal-data",
+  "dataSources": [
+    {
+      "name": "人民法院案例库",
+      "url": "https://rmfyalk.court.gov.cn",
+      "type": "rest-api-via-browser-session",
+      "description": "最高人民法院建设的权威案例库（2026-08 实测收录 5521 篇）。JSON API 位于 /cpws_al_api/api/cpwsAl/*，检索/详情需登录后携带 faxin-cpws-al-token 调用；indexTongji 统计接口匿名可用"
+    }
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "note": "无 API Key 体系。检索/详情要求共道统一认证登录（account.court.gov.cn/oauth）：node connectors/rmfyalk/login.js 打开可见窗口由用户本人登录，会话保存于本机持久化 profile（RMFYALK_PROFILE_DIR，默认 ~/.cache/com.sorawatcher.inkstatute/rmfyalk-profile），后续 headless 复用；连接器绝不自动处理登录/验证码"
+  },
+  "env": {
+    "RMFYALK_PROFILE_DIR": {
+      "description": "浏览器会话目录（含登录 Cookie，敏感）",
+      "default": "~/.cache/com.sorawatcher.inkstatute/rmfyalk-profile",
+      "required": false,
+      "secret": true
+    },
+    "RMFYALK_FIXTURES": {
+      "description": "置 1 时从 ./fixtures 读取罐装响应（离线测试，不启动浏览器）",
+      "required": false
+    },
+    "RMFYALK_CAPTURE_DIR": {
+      "description": "设置后把真实 API 响应写入该目录（用于固化 fixtures）",
+      "required": false
+    }
+  },
+  "tools": [
+    {
+      "name": "open_login_window",
+      "description": "打开可见的 Chrome 窗口进入人民法院案例库，由用户本人完成共道统一认证登录。会话保存在本机持久化 profile，后续查询自动复用。",
+      "inputSchema": { "type": "object", "properties": {}, "required": [] }
+    },
+    {
+      "name": "check_session",
+      "description": "检查人民法院案例库当前登录状态。",
+      "inputSchema": { "type": "object", "properties": {}, "required": [] }
+    },
+    {
+      "name": "search_cases",
+      "description": "检索人民法院案例库入库案例（指导性案例/参考案例等权威案例）。需先登录。支持按全文/标题/案号/入库编号/关键词/基本案情等字段检索。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "keyword": { "type": "string", "description": "检索词（必填）" },
+          "field": {
+            "type": "string",
+            "enum": ["qw", "title", "albh", "cpws_al_ajzh", "keyword", "jbaq", "cprq"],
+            "default": "qw",
+            "description": "检索字段：qw=全文，title=标题，albh=入库编号，cpws_al_ajzh=案号，keyword=关键词，jbaq=基本案情，cprq=裁判日期"
+          },
+          "matchType": { "type": "string", "enum": ["1", "2"], "default": "1", "description": "1=精确检索（站点默认），2=模糊检索" },
+          "sort": {
+            "type": "string",
+            "enum": ["", "+cpws_al_no", "-cpws_al_no", "+cpws_al_zs_date", "-cpws_al_zs_date"],
+            "default": "",
+            "description": "排序：±cpws_al_no=入库编号，±cpws_al_zs_date=裁判时间；空为默认相关度"
+          },
+          "page": { "type": "integer", "default": 1, "description": "页码" },
+          "size": { "type": "integer", "default": 10, "description": "每页条数（最大 30）" }
+        },
+        "required": ["keyword"]
+      }
+    },
+    {
+      "name": "get_case_detail",
+      "description": "获取入库案例详情（含基本案情、裁判理由、裁判要旨等）。可按 gid、案号或入库编号。",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "gid": { "type": "string", "description": "案例 gid（search_cases 返回的 cpws_al_id）" },
+          "caseNumber": { "type": "string", "description": "案号" },
+          "caseNo": { "type": "string", "description": "入库编号（如：2024-10-2-358-001）" }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "get_library_stats",
+      "description": "获取案例库收录统计（总篇数等）。匿名可用，无需登录。",
+      "inputSchema": { "type": "object", "properties": {}, "required": [] }
+    },
+    {
+      "name": "close_browser",
+      "description": "关闭连接器持有的浏览器实例，释放资源（不影响已保存的登录会话）。",
+      "inputSchema": { "type": "object", "properties": {}, "required": [] }
+    }
+  ],
+  "rateLimit": {
+    "note": "人速操作：步骤间停顿、单页单查、互斥队列不并发"
+  },
+  "healthCheck": {
+    "command": "node connectors/rmfyalk/health-check.js",
+    "intervalSeconds": 300
+  }
+}
