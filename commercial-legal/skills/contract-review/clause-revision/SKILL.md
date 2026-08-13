@@ -31,6 +31,7 @@ argument-hint: "[合同文件路径或内容] [可选：--focus 第X.X条]"
 2. **风险识别结果**：来自 risk-identification 子技能（若单独触发，则先执行风险识别）
 3. **引用规范**：`commercial-legal/skills/_shared/legal-basis-conventions.md`
 4. **引用库**：`commercial-legal/skills/_shared/civil-code-contract-citations.md`
+5. **质量门禁**：`shared/references/contract-review-quality-gates.md`（第 4 节：直接修订 vs 批注；与下方最小粒度同时适用）
 
 **事项上下文**：检查实践配置文件 `## 事项工作区` 是否启用；若启用且有活跃事项，加载事项上下文。
 
@@ -69,6 +70,8 @@ argument-hint: "[合同文件路径或内容] [可选：--focus 第X.X条]"
 5. 仅当对方版本与立场相差太远，精细修改比新草稿更难阅读时，才替换整条款
 
 **拿不准时，选更小的粒度。**
+
+写出替换语言前，先按质量门禁第 4 节决定本条是直接修订还是批注：商业取舍、多种方案、事实待核 → 批注请律师/客户拍板，不要静默改掉对方交易结构。错别字、过时法规名、立场内可落地的缺失保护条款 → 直接修订并在备忘录告知。
 
 ### 第三步：生成逐条修改建议
 

@@ -44,7 +44,7 @@ cd /path/to/ai-for-china-legal
 bash scripts/setup-skills.sh
 ```
 
-这会创建 67 个符号链接，将各插件的 SKILL.md 链接到 `.qwen/skills/` 目录下，避免命名冲突。
+这会创建 68 个符号链接，将各插件的 SKILL.md 链接到 `.qwen/skills/` 目录下，避免命名冲突。
 
 ### 验证
 
@@ -77,7 +77,7 @@ ln -sf /path/to/ai-for-china-legal/commercial-legal/skills/contract-review ~/.qw
 
 ## 当前可用的 skill 列表
 
-安装后，以下 skill 可用（共 67 个：66 插件 + 1 共享）：
+安装后，以下 skill 可用（共 68 个：66 插件 + 2 共享）：
 
 ### 商事合同 (4)
 - `commercial-cold-start-interview` — 冷启动访谈
@@ -171,8 +171,9 @@ ln -sf /path/to/ai-for-china-legal/commercial-legal/skills/contract-review ~/.qw
 - `legal-builder-security-review` — 安全审查
 - `legal-builder-skill-registry` — 技能注册表
 
-### 共享研究基础设施 (1)
+### 共享研究基础设施 (2)
 - `shared-research-gate` — 中国法研究闸门
+- `shared-legal-reasoning` — 法律推理调度脊柱
 
 ## 待验证事项
 

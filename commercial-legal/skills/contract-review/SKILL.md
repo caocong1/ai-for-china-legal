@@ -69,6 +69,7 @@ argument-hint: "[合同文件路径或内容]"
 进入子技能前，读取以下共享资源（子技能自身也会读取，此处列出确保编排时已加载）：
 
 - `shared/references/subject-qualification-traps.md` — 主体资格陷阱清单（risk-identification 引用）
+- `shared/references/contract-review-quality-gates.md` — 效力优先、条款八维、修订方式路由、风险四要素（本入口与 clause-revision / output-formatting 引用）
 - `shared/research-gate/references/search-playbooks.md` — 搜索策略（涉担保/主体资格/管辖时使用）
 - `shared/research-gate/references/quality-gates.md` — 研究质量闸门（合同审查附加闸门）
 - `commercial-legal/skills/_shared/legal-basis-conventions.md` — 法律引用规范（legal-basis 引用）
@@ -88,6 +89,10 @@ argument-hint: "[合同文件路径或内容]"
 ### 哪一方
 
 在调用 risk-identification 前确认立场：若不明显（经销协议、合作协议等），询问：「在这个协议中，[公司] 是哪一方——甲方（买方/委托方）还是乙方（卖方/受托方）？」
+
+### 效力优先
+
+在调用 risk-identification 时同步执行 `shared/references/contract-review-quality-gates.md` 第 1–2 节：名实不符、格式条款、审批登记与物权变动区分、成立要素、主体与授权。**发现效力或主体不适格风险时，先处理这些问题，再进入条款优化与谈判策略。** 效力未决视为与交易破坏者同类：后续子技能结果参考意义有限，须在清单顶部标记。
 
 ### 交易破坏者优先
 

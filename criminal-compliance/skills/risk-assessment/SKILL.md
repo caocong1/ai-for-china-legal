@@ -124,10 +124,31 @@ description: 刑事风险评估编排入口 — 将刑事风险评估拆分为�
 
 各地试点覆盖范围、第三方监督评估机制运行细节、合规认定标准可能有差异，须核实当地检察机关实践。
 
+### 9. 输入脱敏（案卷与具体涉案事实）
+
+改编自 claude-for-legal-ZH `criminal-legal` 脱敏纪律（SOURCE_INDEX S2）。**本护栏在用户粘贴具体案件材料时适用，优先于服务立场。**
+
+禁止进入模型上下文的内容：犯罪嫌疑人/被告人/被害人/证人的真实姓名与身份证件号、联系方式；涉案企业与办案机关的具体全称；卷宗编号、起诉书文号；未脱敏的卷宗照片或 PDF 截图。
+
+发现上述内容：**停止子技能**，要求改为占位符后重传。不得「先分析再提醒」。行业合规、无个案材料的制度审查不触发停机，但输出中不得回写用户无意提供的真实案号。
+
+通过后在入口输出中写一行：`已确认输入完成脱敏` 或 `本次为无个案材料的合规扫描，未接收卷宗`。
+
+### 10. 定罪量刑强制库核
+
+`[条号待验证]` 不是可以跳过检索的免责声明。凡输出具体罪名条号、入罪数额、法定刑档或地方标准：
+
+1. 本次会话用 `law-database`（`search_law_articles` / `get_article_detail` / `verify_citations`）对照 flk 官方全文；司法解释同步核最高法/最高检官网。
+2. 未配置连接器时，按研究闸门两段式检索 flk / court.gov.cn / spp.gov.cn，并留下源 URL。
+3. 仍无法核验：保持待验证，**禁止**写成「构成 XX 罪、数额已达追诉标准」的确定句。
+4. 不得捏造指导性案例或案号。类案须有用户提供的案号/链接，或经 `rmfyalk` / `wenshu` 命中。
+
+细则见 `criminal-compliance/skills/_shared/legal-basis-conventions.md`「强制库核」。
+
 ---
 
 ## 引用基础设施
 
-- **法律引用规范**：`criminal-compliance/skills/_shared/legal-basis-conventions.md`（来源分类规范、待验证规则、具体罪名条号一律待验证纪律、涉案企业合规规范性文件快速演进标注、合规预防与辩护定位）
+- **法律引用规范**：`criminal-compliance/skills/_shared/legal-basis-conventions.md`（来源分类规范、待验证规则、**强制库核**、具体罪名条号一律待验证纪律、涉案企业合规规范性文件快速演进标注、合规预防与辩护定位）
 - **法律引用库**：`criminal-compliance/skills/_shared/criminal-law-citations.md`（中度把握锚点 第30/31/67/68/72条、第177/15条，建议复核；具体罪名构成要件占位；涉案企业合规规范性文件规则描述；案例/学说占位）
 - **配置契约**：`criminal-compliance/skills/_shared/practice-profile-schema.md`（字段映射、技能读取契约、涉案强制升级契约、合规边界契约）

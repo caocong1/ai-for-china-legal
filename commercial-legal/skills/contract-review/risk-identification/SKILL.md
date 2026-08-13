@@ -32,8 +32,9 @@ argument-hint: "[合同文件路径或内容] [可选：--party 甲方|乙方]"
 1. **实践配置文件**：`commercial-legal/CLAUDE.md`（审查立场、交易破坏者、升级矩阵）
    - 若配置文件缺失或有占位符，提示用户运行 `/commercial-legal:cold-start-interview` 或说「临时模式」
 2. **主体资格陷阱清单**：`shared/references/subject-qualification-traps.md`
-3. **引用规范**：`commercial-legal/skills/_shared/legal-basis-conventions.md`
-4. **引用库**：`commercial-legal/skills/_shared/civil-code-contract-citations.md`
+3. **合同质量门禁**：`shared/references/contract-review-quality-gates.md`（效力优先、条款八维）
+4. **引用规范**：`commercial-legal/skills/_shared/legal-basis-conventions.md`
+5. **引用库**：`commercial-legal/skills/_shared/civil-code-contract-citations.md`
 
 **事项上下文**：检查实践配置文件 `## 事项工作区` 是否启用；若启用且有活跃事项，加载事项 `matter.md`。
 
@@ -74,6 +75,8 @@ argument-hint: "[合同文件路径或内容] [可选：--party 甲方|乙方]"
 | 外商投资企业对外担保 | 是否有外汇局备案/登记 | 外汇管理条例 `[待验证]` |
 
 **主体资格问题处理**：若发现问题，在风险清单顶部显著标记，并评估对合同效力的影响。
+
+**效力优先扫描**（质量门禁第 1 节，在逐条商务条款对比之前）：名实不符交易、关联交易对价、格式条款提示义务、审批/登记与合同效力的区分、成立要素是否具备。效力风险与主体不适格一并置顶，先于条款优化。
 
 ### 第三步：交易破坏者检查
 

@@ -9,6 +9,7 @@
 | `document-structures.md` | 各类法律文书的通用结构模板（含诉讼方案 13 段结构、证据目录 3 大类分组、风险段强制要求、保函/担保案件强化要求） | ✅ 已完成 |
 | `guarantee-bond-playbook.md` | 保函/担保案件专用 playbook（触发信号、主体资格核验流程、保证方式分析、案由锁定、反例预警） | ✅ 已完成 |
 | `subject-qualification-traps.md` | 主体资格陷阱清单（融资担保公司/银行分支机构/保险公司/上市公司/国企/外商投资企业等 7 类主体） | ✅ 已完成 |
+| `contract-review-quality-gates.md` | 合同审查质量门禁（效力优先、主体授权、条款八维、修订方式、风险四要素）；`commercial-legal` 合同审查引用 | ✅ 已完成 |
 
 ## 原始规划（待拆分）
 
