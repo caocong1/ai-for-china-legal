@@ -79,3 +79,14 @@ HEAD 相对 5 月无新提交。S4 方法论经 S2 进入。**本轮只登记。
 6. 法律推理调度脊柱
 7. `iterate-reference-sources` 元技能
 8. CHANGELOG / README / INSTALL / setup-skills
+
+## 1.1 接线补强（同日）
+
+SHA 未变。把 1.0 已合入的纪律接到其余入口，避免只写在单一编排文件里：
+
+- 刑事：`non-prosecution` / `corporate-crime` / `compliance-system-building` 入口护栏 + CLAUDE.md 共享护栏 + practice-profile-schema 6.4
+- 施工合同审查、商事合同起草加载质量门禁
+- 诉讼代理词 / 答辩状研究闸门补充十库路由、C1/C2/C3、legal-reasoning
+- 劳动 / 数据合规 / 监管实践配置引用十库路由
+- `integrate-external-skill` 与 `iterate-reference-sources` 分工
+- SOURCE_INDEX 增加「下一轮候选」

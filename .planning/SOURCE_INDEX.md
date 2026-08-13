@@ -2,7 +2,7 @@
 
 本文件是外部 Git 参考仓库的**钉选清单**。后续迭代必须先读本表，用 `git ls-remote` 对照 HEAD，再决定是否合入。
 
-- **分析版本**：1.0
+- **分析版本**：1.1
 - **钉选日期**：2026-08-13
 - **迭代技能**：`.qwen/skills/iterate-reference-sources/SKILL.md`
 - **差距分析**：`.planning/research/UPSTREAM-GAP-2026-08.md`
@@ -97,5 +97,17 @@
 | 分析版本 | 日期 | 摘要 |
 |----------|------|------|
 | 1.0 | 2026-08-13 | 首次钉选 7 库；合入十库路由、合同质量门禁、刑事脱敏与强制库核、法律推理调度脊柱、iterate-reference-sources |
+| 1.1 | 2026-08-13 | 护栏接到其余刑事编排入口、施工合同审查、诉讼代理词/答辩、合同起草；劳动/数据/监管实践配置引用十库路由 |
 
 下次迭代：读取本表 → `git ls-remote` → 若 SHA 变化则按 `.qwen/skills/iterate-reference-sources/SKILL.md` 出差距说明并选择性合入 → 更新本表 SHA 与分析版本。
+
+## 下一轮候选（SHA 未变时也可做，非本轮必做）
+
+1. **S2** ZH `references/trial-preparation-framework.md`：改编为诉讼庭审准备共享参考（Apache-2.0），挂到 `litigation-legal` 尚未覆盖的庭审提纲技能——本仓库目前无独立庭审准备顶层 skill。
+2. **S2** ZH `knowledge-base-crossref.md`：仅在本仓库引入所级知识库约定后再合入，避免空路径。
+3. **S6** cn-law-hub：若其许可变为 OSI 许可，再评估是否把脚本作为**可选外部依赖**（仍不 vendoring 进本仓库）。
+4. **S7** Legal-Skills-Chinese：只跟踪七类划分是否增删；**禁止**为对齐而新增 38 个平行 SKILL.md。
+5. **S5** Greater-China-Legal：仅当出现可独立抽取且明确适用大陆法的单点方法论时另开分析版本。
+6. **S1** claude-for-legal：无便携中国法增量则只更新 SHA。
+
+不在候选内：Codex 适配器、内置易过时法条全文、港澳台新场景包、把元典/法宝提升为法规首选。

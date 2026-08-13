@@ -29,6 +29,9 @@ argument-hint: "[案件 slug] [庭审阶段]"
 ```
 必须先运行 shared/research-gate/SKILL.md，研究底稿完成后方可开始起草。
 豁免条件：律师明确声明「豁免联网检索」。
+法规按 `shared/research-gate/references/official-source-routing.md` 选型；效力状态禁止推断。
+争议跨领域或需穷尽检索时走 `shared/research-gate/references/agentic-search-routing.md`。
+完整论证链（争议焦点 → 涵摄 → 文书）读取 `shared/legal-reasoning/SKILL.md`。
 ```
 
 ### 加载实践配置文件

@@ -45,6 +45,14 @@ argument-hint: 请提供施工合同文本，说明代理立场（发包人侧/�
 
 **临时模式默认值**（标注 `[临时模式]`）：代理立场=中立审查、角色=律师、合同审查严格度=保守型、争议处理=协商优先（同时提示优先受偿权期限须核实 `[待验证]`）、项目类型=按合同标的逐案判断。
 
+### 共享资源
+
+进入子技能前读取：
+
+- `shared/references/contract-review-quality-gates.md` — 效力优先（与本插件第一步主体资质与合同效力对齐）、条款八维中的价款/交付/违约/解除；建设工程加码见该文件第 7 节
+- `shared/references/subject-qualification-traps.md` — 特殊主体
+- `shared/research-gate/references/official-source-routing.md` — 住建/规章走国家规章库，禁止无官方效力字段却写现行有效
+
 ---
 
 ## 子技能编排顺序

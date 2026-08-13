@@ -83,6 +83,10 @@ requirements-intake → framework-design → clause-drafting → risk-self-check
 
 若在步骤 1 中合同金额超过实践配置文件升级阈值，本编排入口在进入步骤 2 前提示升级。
 
+### 质量门禁
+
+起草与风险自查须对照 `shared/references/contract-review-quality-gates.md`：成立与效力要素先于条款堆砌；价款/验收/违约/送达等八维在框架设计中覆盖；风险自查的每个风险块含四要素（是什么 / 如何触发 / 后果 / 怎么改）。
+
 ---
 
 ## 法律依据引用规范
