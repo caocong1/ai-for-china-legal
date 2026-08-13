@@ -24,9 +24,11 @@ argument-hint: "[案件 slug 或事项路径]"
 > 完成研究底稿后再进入本技能。
 
 研究闸门保障：
-- 核验本案适用的最新民事诉讼法/仲裁法/民法典版本
-- 检索对方主张的法律条文是否准确
-- 搜索类案（如有，用于支撑或反驳）
+- 核验本案适用的最新民事诉讼法/仲裁法/民法典版本（按 `shared/research-gate/references/official-source-routing.md` 选型，禁止推断现行有效）
+- 检索对方主张的法律条文是否准确（`law-database` / 官方源）
+- 搜索类案（指导/参考优先 `rmfyalk`，普通文书 `wenshu`）
+- 跨领域或依据不足时按 `shared/research-gate/references/agentic-search-routing.md` 加宽
+- 涵摄与论证步骤见 `shared/legal-reasoning/SKILL.md`
 
 ---
 

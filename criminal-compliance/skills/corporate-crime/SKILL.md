@@ -126,6 +126,10 @@ argument-hint: "[企业行业/业务模式描述] [关注的犯罪风险类型�
 [地方 flagged — 需核实地方涉案企业合规试点口径与地方检察机关/公安机关实践]
 ```
 
+### 8. 输入脱敏与强制库核
+
+用户提供具体涉案事实或案卷时，适用 `criminal-compliance/CLAUDE.md` 顶部脱敏红线及 `skills/_shared/legal-basis-conventions.md` 强制库核。单位犯罪构成与罪名类型输出中的条号、数额须本次会话库核。
+
 ---
 
 ## 子技能编排顺序

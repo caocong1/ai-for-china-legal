@@ -39,3 +39,4 @@ coverage/
 !.qwen/skills/parallel-ai-code-review/
 !.qwen/skills/project-status/
 !.qwen/skills/recover-uncommitted-work/
+!.qwen/skills/iterate-reference-sources/

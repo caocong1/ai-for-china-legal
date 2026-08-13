@@ -46,11 +46,13 @@ description: 中国法研究闸门 — 所有法律文书生成前的强制检�
 按以下优先级检索：
 
 1. 用户提供的本地材料
-2. 国家法律法规数据库、最高人民法院官网、司法解释、部门规章
+2. 国家法律法规数据库、最高人民法院官网、司法解释、部门规章（**按库选型**：法律/司法解释用 `law-database`；规章用国家规章库；条约/税务/生态环境/党内法规等见 `references/official-source-routing.md`。禁止把政策文件写成法律，禁止无官方效力字段却写「现行有效」）
 3. 人民法院案例库、指导性案例、公报案例、最高法典型案例
 4. 中国裁判文书网、地方法院公开判决
 5. 监管机构材料
 6. 法律公众号、律所文章、实务评论
+
+拆维后若满足 C1/C2/C3（多领域、穷尽检索、或五步后仍缺 L1/L2），按 `references/agentic-search-routing.md` 加宽检索，再进入文书起草。
 
 > ⚠️ **两段式检索协议**：由于 `flk.npc.gov.cn` 是动态 SPA，headless 环境不可直接抓取，必须使用 **WebSearch 定位 → WebFetch 全文** 的两段式。详见 `references/authoritative-sources.md`。
 
@@ -106,3 +108,6 @@ description: 中国法研究闸门 — 所有法律文书生成前的强制检�
 - `references/quality-gates.md` — 研究质量闸门
 - `references/search-playbooks.md` — 专项搜索策略（保函、管辖、主体资格等）
 - `references/authoritative-sources.md` — 实测可访问的权威来源 URL 及抓取方式
+- `references/official-source-routing.md` — 十个官方库何时使用、效力状态纪律（禁止推断现行有效）
+- `references/agentic-search-routing.md` — 复杂问题 C1/C2/C3 检索加宽
+- `shared/legal-reasoning/SKILL.md` — 跨插件推理调度（检索→要素→涵摄→文书），需要完整论证时读取

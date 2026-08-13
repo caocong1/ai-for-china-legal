@@ -6,7 +6,7 @@
 
 AI for China Legal 是一套模块化的法律 AI 插件套件，面向中国大陆法律体系、执业环境和监管要求进行中国化适配。
 
-本项目的架构和设计模式参考了 Anthropic 的 [claude-for-legal](https://github.com/anthropics/claude-for-legal) 项目。
+本项目的架构和设计模式参考了 Anthropic 的 [claude-for-legal](https://github.com/anthropics/claude-for-legal) 项目。持续跟踪的 Git 参考仓库、钉选 commit、许可与合入落点见 [`.planning/SOURCE_INDEX.md`](.planning/SOURCE_INDEX.md)；上游更新按 [iterate-reference-sources](.qwen/skills/iterate-reference-sources/SKILL.md) 迭代。
 
 ## 核心概念
 
@@ -24,7 +24,7 @@ AI for China Legal 是一套模块化的法律 AI 插件套件，面向中国大
 
 ```bash
 cd /path/to/ai-for-china-legal
-bash scripts/setup-skills.sh    # 注册 67 个 skill（66 插件 + 1 共享）
+bash scripts/setup-skills.sh    # 注册 68 个 skill（66 插件 + 2 共享）
 bash scripts/cleanup-skills.sh  # 卸载
 ```
 
@@ -76,11 +76,13 @@ v1.1 新增。从既有实务验证经验中沉淀共享研究能力：
 
 | 目录 | 说明 |
 |------|------|
-| [shared/research-gate/](shared/research-gate/SKILL.md) | **中国法研究闸门** — 所有法律文书生成前的强制检索前置机制。包含目录清点、五维度搜索（正向依据/反向依据/程序陷阱）、来源分级（L1-L5）、两段式检索协议 |
-| [shared/research-gate/references/](shared/research-gate/references/) | 研究闸门参考文档：权威来源 URL、质量闸门、搜索策略（保函/管辖/主体资格）、引用策略与失败回退链 |
+| [shared/research-gate/](shared/research-gate/SKILL.md) | **中国法研究闸门** — 所有法律文书生成前的强制检索前置机制。包含目录清点、五维度搜索（正向依据/反向依据/程序陷阱）、来源分级（L1-L5）、两段式检索协议、十库路由与复杂问题检索加宽 |
+| [shared/research-gate/references/](shared/research-gate/references/) | 研究闸门参考文档：权威来源 URL、十库路由、检索升级、质量闸门、搜索策略、引用策略 |
+| [shared/legal-reasoning/](shared/legal-reasoning/SKILL.md) | **法律推理调度** — 将检索/要素/解释/涵摄/论证接到已有领域插件，不替代专项 skill |
 | [shared/references/document-structures.md](shared/references/document-structures.md) | 诉讼文书结构模板（诉讼方案 13 段、起诉状、答辩状、证据目录 3 大类分组、风险段 5 类强制要求） |
 | [shared/references/guarantee-bond-playbook.md](shared/references/guarantee-bond-playbook.md) | 保函/担保案件专用 playbook：裁判共识、保证方式分析、案由锁定、OCR 校验、反例预警 |
 | [shared/references/subject-qualification-traps.md](shared/references/subject-qualification-traps.md) | 主体资格陷阱清单（融资担保公司、银行分支机构、上市公司、国企等 7 类主体） |
+| [shared/references/contract-review-quality-gates.md](shared/references/contract-review-quality-gates.md) | 合同审查质量门禁：效力优先、条款八维、修订方式、风险四要素 |
 
 ## 真实案例测试框架
 
@@ -96,7 +98,9 @@ ai-for-china-legal/
 │   └── marketplace.json          # 市场清单
 ├── .planning/
 │   ├── PROJECT.md                # 项目概述和历史
-│   └── ROADMAP.md                # 开发路线图
+│   ├── ROADMAP.md                # 开发路线图
+│   ├── SOURCE_INDEX.md           # 外部 Git 参考仓库钉选（URL / SHA / 许可 / 落点）
+│   └── research/                 # 上游差距分析
 ├── CLAUDE.md                     # 全局配置模板
 ├── README.md                     # 本文件
 ├── CONNECTORS.md                 # MCP 连接器说明
@@ -105,11 +109,14 @@ ai-for-china-legal/
 │   ├── CLAUDE.md                 # 共享资源使用说明
 │   ├── research-gate/            # 研究闸门
 │   │   ├── SKILL.md              # 核心逻辑
-│   │   └── references/           # 权威来源、质量闸门、搜索策略、引用策略
+│   │   └── references/           # 权威来源、十库路由、质量闸门、搜索策略、引用策略
+│   ├── legal-reasoning/          # 法律推理调度脊柱
+│   │   └── SKILL.md
 │   └── references/               # 共享模板和 playbook
 │       ├── document-structures.md
 │       ├── guarantee-bond-playbook.md
-│       └── subject-qualification-traps.md
+│       ├── subject-qualification-traps.md
+│       └── contract-review-quality-gates.md
 │
 ├── learning-materials/           # 真实案例测试框架 (v1.1 新增)
 │   └── <case>/
@@ -134,7 +141,7 @@ ai-for-china-legal/
 ├── managed-agent-cookbooks/      # 定时 Agent 配方
 ├── connectors/                   # MCP 连接器
 ├── scripts/                      # 验证和部署脚本
-└── references/                   # 共享模板
+└── .qwen/skills/                 # 项目级 skill 注册（含 iterate-reference-sources）
 ```
 
 ## 中国化适配要点

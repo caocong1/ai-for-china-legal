@@ -1,7 +1,7 @@
 # 项目总结 — AI for China Legal
 
-> 更新日期: 2026-06-08
-> 参考项目: https://github.com/anthropics/claude-for-legal
+> 更新日期: 2026-08-13
+> 参考来源钉选: `.planning/SOURCE_INDEX.md`（含 claude-for-legal 及其他跟踪仓库的 commit SHA）
 
 ---
 
@@ -17,6 +17,7 @@ AI for China Legal 是一套模块化的法律 AI 插件套件，面向中国大
 
 - ✅ 克隆并深度解析了 Anthropic `claude-for-legal` 参考项目
 - ✅ 生成详细的 ROADMAP.md 解析报告（12 个插件、SKILL.md 格式、MCP 连接器、安全分层）
+- ✅ 2026-08 钉选 7 个 Git 参考仓库（URL / SHA / 许可 / 落点），并合入十库路由、合同质量门禁、刑事脱敏与强制库核、法律推理调度（见 SOURCE_INDEX）
 
 ### 2. 13 个法律插件（全部完成）
 

@@ -1,6 +1,6 @@
 # 中国大陆法律源 — 实测可访问性与引用策略
 
-**验证日期**: 2026-05-26（2026-08-10 增补：商业库评估与官方源联邦路线见第 7 节，元典改为兜底定位，新增最高法公报/国家规章库条目）
+**验证日期**: 2026-05-26（2026-08-10 增补：商业库评估与官方源联邦路线见第 7 节，元典改为兜底定位，新增最高法公报/国家规章库条目；2026-08-13 增补：十库路由见 `official-source-routing.md`）
 **验证环境**: WebFetch（HTML → markdown）+ WebSearch（headless Linux）
 
 ---
@@ -107,7 +107,11 @@
 | 法意 MCP (mcp.lawyee.net) | 观察 | 注册建设中，服务尚未开放 |
 | 威科先行 / 律商联讯 | 不推荐 | 中国法数据无个人自助 API |
 
-**官方源联邦检索路线（主方案）**：flk（已接入 law-database）→ 国家行政法规库 xzfg.moj.gov.cn → 国家规章库 gov.cn/zhengce/xxgk/gjgzk → 国务院政策文件库 sousuo.www.gov.cn/zcwjk → 人民法院案例库 rmfyalk（公开 JSON API 已实测可用，无登录无验证码）→ 最高法公报 gongbao.court.gov.cn（2026-08 实测 502，待复测）/ 最高检发布厅 spp.gov.cn。
+**官方源联邦检索路线（主方案）**：flk（已接入 law-database）→ 国家行政法规库 xzfg.moj.gov.cn → 国家规章库 gov.cn/zhengce/xxgk/gjgzk → 国务院政策文件库 sousuo.www.gov.cn/zcwjk → 人民法院案例库 rmfyalk → 最高法公报 gongbao.court.gov.cn（2026-08 实测 https 502，http 可抓，待复测）/ 最高检发布厅 spp.gov.cn。
+
+**何时用哪库、效力状态如何标注**（含条约库、税务法规库、生态环境部、党内法规库、国防部法规文库、最高法发布栏目，以及禁止推断「现行有效」）：见同目录 `official-source-routing.md`。复杂问题是否加宽检索：见 `agentic-search-routing.md`。
+
+可选：律师环境可另行安装 [cn-law-hub](https://github.com/ZongziForu/cn-law-hub) 做批量下载；本仓库不内置其脚本。
 
 ## 8. 重测信号
 

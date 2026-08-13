@@ -17,7 +17,9 @@ AI for China Legal 指导文件。本项目是一个法律 AI 插件套件，包
 managed-agent-cookbooks/          # 定时 Agent 配置 (YAML)
 shared/                           # 共享法律研究基础设施
   research-gate/SKILL.md          # 研究闸门
+  legal-reasoning/SKILL.md        # 法律推理调度
   references/                     # 共享模板和 playbook
+.planning/SOURCE_INDEX.md         # 外部 Git 参考仓库钉选（URL / SHA / 许可）
 scripts/                          # 验证和部署脚本
 connectors/                       # MCP 连接器
 ```

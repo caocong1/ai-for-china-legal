@@ -123,3 +123,12 @@ git push
 - [ ] 现有 skill 正确引用了 shared/ 资源
 - [ ] PROJECT.md 已更新里程碑
 - [ ] 已提交并推送到远程仓库
+
+## 与 iterate-reference-sources 的分工
+
+| 技能 | 用途 |
+|------|------|
+| 本技能 | 把**本地或已知路径**的外部 skill 项目迁入（无钉选 SHA 的一次性整合） |
+| `iterate-reference-sources` | 按 `.planning/SOURCE_INDEX.md` 的 **Git URL + SHA** 检查公开仓库更新并选择性合入 |
+
+公开 GitHub 法律技能仓库的持续跟踪，优先用 `iterate-reference-sources`，不要跳过许可检查和 SHA 回写。

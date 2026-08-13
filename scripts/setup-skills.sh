@@ -63,6 +63,16 @@ if [ -d "$research_gate" ]; then
   fi
 fi
 
+# 注册共享法律推理调度
+legal_reasoning="$PROJECT_DIR/shared/legal-reasoning"
+if [ -d "$legal_reasoning" ]; then
+  link_path="$SKILLS_DIR/shared-legal-reasoning"
+  if [ ! -L "$link_path" ]; then
+    ln -sf "../../shared/legal-reasoning" "$link_path"
+    echo "  [已注册] shared-legal-reasoning -> ../../shared/legal-reasoning"
+  fi
+fi
+
 echo ""
 echo "完成。已注册 $(ls -1 "$SKILLS_DIR" | grep -v '^\.' | wc -l) 个 skill。"
 echo ""

@@ -130,6 +130,8 @@
 
 当雇佣文件涉及特别管辖时，标记 `[管辖 flagged — 需验证地方性规定]`
 
+地方性规章与劳动政策文件走 `shared/research-gate/references/official-source-routing.md`（法律用法 `law-database`，部门规章走国家规章库）。禁止把地方政策写成「法律」，禁止无官方效力字段却标注现行有效。
+
 ## 审查过的种子文档
 
 | 文档 | 来源 | 日期 | 备注 |

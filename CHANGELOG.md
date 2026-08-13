@@ -10,12 +10,23 @@
 
 ### Added
 
+- 参考来源钉选与迭代：`.planning/SOURCE_INDEX.md`（7 个 GitHub 仓库 URL + 全 SHA + 许可 + 落地点，分析版本 1.0）、`.planning/research/UPSTREAM-GAP-2026-08.md`、`.qwen/skills/iterate-reference-sources/SKILL.md`。
+- `shared/research-gate/references/official-source-routing.md`：十个官方法规库何时使用、效力状态禁止推断；不内置 cn-law-hub 脚本。
+- `shared/research-gate/references/agentic-search-routing.md`：复杂问题 C1/C2/C3 检索加宽（改编自 claude-for-legal-ZH，源顺序改为本仓库连接器）。
+- `shared/references/contract-review-quality-gates.md`：效力优先、条款八维、修订方式、风险四要素（改编自 claude-for-legal-ZH）。
+- `shared/legal-reasoning/SKILL.md`：跨插件法律推理调度脊柱（参考 Legal-Skills-Chinese 七类划分后自写；CC BY-NC-ND，无原文拷贝）。
 - `shared/feedback-refinement/SKILL.md`：面向墨律反馈导出的 skill 精炼工作流。
 - `shared/inkstatute-integration/AGENT-UX-OPTIMIZATION.md`：墨律 agent 体验优化记录。
 - 墨律集成说明：README 增加子模块使用、同步服务分发、反馈驱动更新流程。
 
 ### Changed
 
+- 研究闸门第三步按十库路由选型；合同审查附加闸门指向质量门禁。
+- `commercial-legal` 合同审查入口与子技能加载质量门禁（效力优先、直接修订 vs 批注）。
+- `criminal-compliance`：案卷输入脱敏停机；定罪量刑须本次会话 `law-database` / 官方网站核验，不得只靠待验证标注。脱敏与强制库核接到全部刑事编排入口与实践配置共享护栏。
+- 施工合同审查、商事合同起草加载合同质量门禁；诉讼代理词/答辩状研究闸门补充十库路由与推理调度。
+- 劳动、数据合规、监管实践配置引用十库路由（规章与政策不得混称、禁止推断现行有效）。
+- README 增加参考来源索引链接；安装 skill 计数改为 66 插件 + 2 共享。
 - README 重写为以实际使用为主的项目文档，区分独立 Qwen 使用和墨律集成使用。
 - README 修正项目结构：共享参考文档位于 `shared/references/`，不是根目录 `references/`。
 - README 更新 connector 状态说明，避免把所有非 `law-database` connector 都描述成可直接生产使用。
