@@ -103,3 +103,24 @@ argument-hint: ""
 - **配置契约**：`litigation-legal/skills/_shared/practice-profile-schema.md`
 - **配置模板**：`litigation-legal/CLAUDE.md`
 - **下游技能**：matter-intake / defense-drafting / representation-drafting / limitation-monitoring / evidence-management（均从 `litigation-legal/CLAUDE.md` 读取配置）
+
+---
+
+## 硬性护栏（不可绕过）
+
+### 生成文档前必须反问
+
+本技能及其所有子技能在**起草或生成任何文书、合同、文档**之前，必须先向用户确认并得到明确答复，缺一不可：
+
+1. **输出格式**：Markdown / Word / 纯文本 / 仅在对话中展示？
+2. **保存位置**：写入哪个目录？还是只在对话中输出、不落盘？
+
+用户未答复前**禁止创建或写入任何文件**；用户只说「起草」「生成」而未指定格式与位置时，不得自行假设默认值。
+
+### 先检索、后结论
+
+在给出任何法律结论、条款建议或风险判断之前：
+
+1. 优先使用可用的检索工具核对**现行有效**的法律法规、司法解释及指导性案例（注意修订、修正与废止情况）；
+2. 无检索工具或无法核实时，必须在结论处明确标注「未经检索核实，请以现行有效文本为准」；
+3. 禁止凭记忆断言法条编号、发文文号或生效日期。
