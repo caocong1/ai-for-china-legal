@@ -1,7 +1,7 @@
 {
   "name": "employment-legal",
-  "version": "0.3.1",
-  "description": "劳动人事法律技能套件：覆盖冷启动访谈（身份/立场/风险/风格）、雇佣审查（必备条款/试用期工时/社保报酬/服务期违约金/装配）、解雇审查（事由合法性/经济补偿/程序/违法解除救济）、竞业限制（人员保密/期限补偿/可执行性/违约救济）、假期管理（年休假/病假医疗期/生育假女职工保护/其他法定假期考勤）、劳动争议处理（定性时效/调解/仲裁一裁终局/诉讼衔接），共六大模块二十二个子技能加六个编排入口，从入职到争议全链路覆盖。",
+  "version": "0.4.0",
+  "description": "劳动人事法律技能套件：覆盖冷启动访谈（身份/立场/风险/风格）、雇佣审查（必备条款/试用期工时/社保报酬/服务期违约金/装配）、解雇审查（事由合法性/经济补偿/程序/违法解除救济）、竞业限制（人员保密/期限补偿/可执行性/违约救济）、假期管理（年休假/病假医疗期/生育假女职工保护/其他法定假期考勤）、劳动争议处理（定性时效/调解/仲裁一裁终局/诉讼衔接）、劳动用工合规调查（三表交叉比对/用工形态定性/合同制度审查/报告装配），共七大模块二十六个子技能加七个编排入口，从入职到争议、从单份合同到整家公司调查全链路覆盖。",
   "author": {
     "name": "AI for China Legal Contributors"
   },
@@ -160,6 +160,31 @@
       "name": "litigation-path",
       "path": "skills/labor-dispute-handling/litigation-path/SKILL.md",
       "description": "争议处理子技能：不服裁决起诉15日 + 一裁终局有限救济 + 用人单位30日撤销申请 + 强制执行"
+    },
+    {
+      "name": "workforce-compliance-dd",
+      "path": "skills/workforce-compliance-dd/SKILL.md",
+      "description": "劳动用工合规调查报告编排入口：三表交叉比对 → 用工形态定性 → 合同制度审查 → 报告与附录装配（critical 执行档）"
+    },
+    {
+      "name": "headcount-reconciliation",
+      "path": "skills/workforce-compliance-dd/headcount-reconciliation/SKILL.md",
+      "description": "合规调查子技能：资料清点 + 花名册/社保表/考勤表交叉比对口径固化 + 差异清单（OCR 后台、只定位）"
+    },
+    {
+      "name": "workforce-classification",
+      "path": "skills/workforce-compliance-dd/workforce-classification/SKILL.md",
+      "description": "合规调查子技能：直签/派遣/外包/劳务/实习/关联交叉用工/异地代缴/代发薪定性 + 名为外包实为派遣判定 + 解除协议审查"
+    },
+    {
+      "name": "contract-policy-review",
+      "path": "skills/workforce-compliance-dd/contract-policy-review/SKILL.md",
+      "description": "合规调查子技能：合同范本与规章制度逐条审查，以法释〔2025〕12号与地方年度标准识别废止规则与旧数字"
+    },
+    {
+      "name": "dd-report-assembly",
+      "path": "skills/workforce-compliance-dd/dd-report-assembly/SKILL.md",
+      "description": "合规调查子技能：正文 → 倒推重大问题 → 附录三分类 → 模板包成稿 → 覆盖审计/渲染 QA → 交付说明与 REVIEW_STATUS"
     }
   ]
 }

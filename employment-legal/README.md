@@ -17,6 +17,7 @@
 | 竞业限制审查 | `/employment-legal:non-compete-review` | 审查竞业限制协议 |
 | 假期管理 | `/employment-legal:leave-management` | 追踪年休假/医疗期期限 |
 | 争议处理 | `/employment-legal:labor-dispute-handling` | 处理劳动争议案件 |
+| 用工合规调查 | `/employment-legal:workforce-compliance-dd` | 整家公司或用工群体的合规调查报告：三表比对、用工定性、文本审查、附录装配 |
 | 冷启动访谈 | `/employment-legal:cold-start-interview` | 初始化实践配置 |
 
 ## 本插件不做什么
