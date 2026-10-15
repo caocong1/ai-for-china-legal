@@ -15,14 +15,15 @@
 
 ## P0 — 必须与产品交互对齐
 
-### 1. 起草前反问（需求收集闸门）`open`
+### 1. 起草前反问（需求收集闸门）`partial`（2026-08-28）
 
 | 字段 | 内容 |
 |------|------|
 | **产品期望** | 用户给出初稿意图后，agent **先反问 3–6 个结构化问题**（合同类型、立场、金额、期限、交付、争议解决等），信息不足时 **阻断进入正文起草**。 |
-| **现有 skill 覆盖** | `commercial-legal/skills/contract-drafting/requirements-intake/SKILL.md` 已有完整问题矩阵与「信息不全须追问」规则；`contract-drafting/SKILL.md` 编排入口写明步骤 1 信息不全时停下追问。 |
-| **缺口** | ① 缺少 **跨文书类型**（起诉状、律师函、法律意见书）的统一 intake skill；② Inkstatute 系统提示要求「直接输出 JSON 正文」，与 intake 闸门 **冲突**；③ 无机器可读输出格式（如 `intake_questions[]`）供前端渲染为可点击追问卡片。 |
-| **建议优化** | 新建 `shared/inkstatute-integration/legal-document-intake/SKILL.md`（或扩展各 plugin 的 intake 子技能），规定：<br>• 触发条件：用户首次起草且关键字段缺失<br>• 输出 JSON：`{ "mode": "intake", "questions": [{ "id", "text", "priority", "options?" }] }`<br>• 明确 **禁止** 在 `mode=intake` 时输出文书 JSON<br>• 各 plugin 编排入口在步骤 1 引用此约定 |
+| **现有 skill 覆盖** | `shared/legal-document-intake/SKILL.md` 已实现跨文书动态 intake；`commercial-legal` 的审查、起草和责任分析入口已接入；`ASK-USER-PROTOCOL.md` 同时支持 App 卡片与人工微信中继。 |
+| **已解决缺口** | 人工运营链路已具备：① 统一判定 `known/derived/material_missing/optional_missing`；② 每轮只问 2–5 个会改变成果的问题；③ `[CLARIFY:]` 未解决时阻断正文；④ 用户答复后从事项摘要恢复，不重复提问；⑤ 格式/路径已明确时不再机械反问。 |
+| **仍待产品侧完成** | 宿主需实现稳定的 `mode=intake` 机器可读输出、澄清卡片状态持久化及系统提示分模式切换；在这些能力落地并联调前，不视为 App 自动闭环完成。 |
+| **实现路径** | `shared/legal-document-intake/SKILL.md`、`shared/legal-document-intake/references/question-routing.md`、`shared/inkstatute-integration/ASK-USER-PROTOCOL.md`、`commercial-legal/skills/contract-review/SKILL.md`、`commercial-legal/skills/contract-drafting/requirements-intake/SKILL.md` |
 | **关联 skill** | `contract-drafting/requirements-intake`、`research-gate`、`litigation-legal` 各 matter-intake 类子技能 |
 
 ### 2. 完成后建议深入提示词 `open`
@@ -143,4 +144,4 @@
 
 ---
 
-*最后更新：2026-06-10 · 来源：墨律用户反馈（进度条消失、反问与建议提示缺失）*
+*最后更新：2026-08-28 · 来源：墨律用户反馈（进度条消失、反问与建议提示缺失；新增人工微信中继场景）*

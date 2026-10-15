@@ -32,7 +32,7 @@ argument-hint: "[合同类型] [我方立场] [关键条款要求]（若单独�
 
 | 步骤 | 子技能 | 路径 | 可单独触发 | 说明 |
 |-----|-------|-----|---------|-----|
-| 1 | `requirements-intake` | `skills/contract-drafting/requirements-intake/SKILL.md` | ✓ | 收集合同类型、当事方、金额、交付、特殊需求，信息不全时主动追问 |
+| 1 | `requirements-intake` | `skills/contract-drafting/requirements-intake/SKILL.md` | ✓ | 先读材料，按 `shared/legal-document-intake` 只追问会改变合同框架或风险分配的信息 |
 | 2 | `framework-design` | `skills/contract-drafting/framework-design/SKILL.md` | ✓ | 确定标准条款清单+特别条款（数据/IP/竞业/担保），担保条款提示主体资格陷阱 |
 | 3 | `clause-drafting` | `skills/contract-drafting/clause-drafting/SKILL.md` | ✓ | 逐条起草，引用民法典 577/585/496-498，遵循五原则，为最深子技能 |
 | 4 | `risk-self-check` | `skills/contract-drafting/risk-self-check/SKILL.md` | ✓ | 五维度可勾选自查（结构/立场/常见风险/交易破坏者/效力瑕疵） |
@@ -70,8 +70,8 @@ requirements-intake → framework-design → clause-drafting → risk-self-check
 
 在任何子技能执行前，本编排入口须确认：
 1. `commercial-legal/CLAUDE.md` 已加载
-2. 关键字段（`## 审查立场`、`## 升级矩阵`）不含 `[PLACEHOLDER]`
-3. 若含占位符，按 `skills/_shared/practice-profile-schema.md` §3.2 提示律师
+2. 按 `skills/_shared/practice-profile-schema.md` 判断与本次起草相关的字段状态
+3. 只有会改变本次合同结构或风险分配的字段缺失时，才进入配置模式/临时模式；`视情况而定` 转入事项级 intake，无关占位符不阻断
 
 ### 立场一致性
 
@@ -113,14 +113,9 @@ requirements-intake → framework-design → clause-drafting → risk-self-check
 
 ## 硬性护栏（不可绕过）
 
-### 生成文档前必须反问
+### 动态 Intake 与输出确认
 
-本技能及其所有子技能在**起草或生成任何文书、合同、文档**之前，必须先向用户确认并得到明确答复，缺一不可：
-
-1. **输出格式**：Markdown / Word / 纯文本 / 仅在对话中展示？
-2. **保存位置**：写入哪个目录？还是只在对话中输出、不落盘？
-
-用户未答复前**禁止创建或写入任何文件**；用户只说「起草」「生成」而未指定格式与位置时，不得自行假设默认值。
+完整流程第一步必须读取 `shared/legal-document-intake/SKILL.md`。用户已经给出的格式、路径和材料不得重复询问；有安全实践默认值时直接采用并说明。只有影响合同结构的必须项未解决，或写入目标不明/可能覆盖原件时才输出 `[CLARIFY:]` 并暂停。
 
 ### 先检索、后结论
 

@@ -14,6 +14,7 @@ argument-hint: "[时间范围|skill名|remote_id 列表，如：过去7天 litig
 
 - 收到 `feedback-export.md` 或调用 `GET /api/feedback/export.md`
 - 用户说：「根据最近 XXX 反馈更新 skill」「处理某类文书质量 down 反馈」
+- 用户提供同一法律任务的多模型成果及律师人工评价，希望沉淀案例并改进工作流
 - Skill 包发布前需要对照真实律师意见做最后一轮修正
 
 ## 输入来源
@@ -30,6 +31,7 @@ argument-hint: "[时间范围|skill名|remote_id 列表，如：过去7天 litig
    bun run feedback:export -- --rating=down --status=open -o feedback-export.md
    ```
 3. **Dev 环境**（仅开发机）：`lawyer-desktop` 内 `Ctrl+Shift+O` 面板的本地 `skill_feedback` 表
+4. **人工操作员反馈**：律师经微信/面谈给出的定性评价 + 本地成果文件。律师评价必须原意记录，不用模型分数替代。
 
 ## 仓库分流（必做）
 
@@ -47,6 +49,16 @@ curl -X POST -H "Authorization: Bearer $KEY" -H "Content-Type: application/json"
 ```
 
 ## 工作流
+
+### 0. 脱敏案例捕获
+
+当用户提供本地成果和律师评价时，先生成案例 id，并记录：任务类型、脱敏事项摘要、输入/输出 sha256、模型/推理档、结构指标、律师原意评价、可复用经验和 skill 改动映射。
+
+- 不复制客户合同、提示词全文、案情全文、批注全文或可识别个人信息；
+- 文件路径只保留脱敏 label，不写绝对路径；
+- 结构指标只用于解释，律师人审标签权重最高；
+- 从单次案例提炼窄规则，不把一次偏好扩张为所有案件的绝对规则；
+- 若消费者项目已有 `docs/legal-ops/case-library/`，按其 schema 记录；否则只在会话中生成待保存记录并询问目标仓库。
 
 ### 1. 聚类
 
@@ -110,12 +122,13 @@ node tools/publish-skill.mjs --root ../ai-for-china-legal --version 2026.06.15.1
 4. **验证结果** — val 分数或人工核对结论
 5. **发布版本** — manifest version + sha256
 6. **Triage** — 已标记 handled 的 remote_id
+7. **案例库** — case id、脱敏记录路径及人审标签
 
 ## 禁止
 
 - 在律师 App 或生产包中运行 SkillOpt 管理面板逻辑
 - 把 GitHub token / sync API 密钥写入 skill 或 App
-- 未经律师授权上传/扩散案情全文（默认只有 500 字摘要）
+- 未经律师授权上传/扩散案情全文；案例库默认只保存脱敏摘要、哈希和评价标签
 
 ## 相关文档
 

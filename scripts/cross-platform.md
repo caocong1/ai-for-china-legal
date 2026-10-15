@@ -100,6 +100,20 @@ npm run convert -- --from qwen --to kimi --input ./skills --output ./kimi-skills
 npm run convert -- --from qwen --to opencode --input ./skills --output ./opencode-skills
 ```
 
+顶层路由和动态 intake 可分别转换并与领域技能一起分发：
+
+```bash
+node scripts/convert-skills.js --to all \
+  --input ./shared/ai-for-china-legal-workflow \
+  --output ./dist/ai-for-china-legal-workflow
+
+node scripts/convert-skills.js --to all \
+  --input ./shared/legal-document-intake \
+  --output ./dist/shared-legal-document-intake
+```
+
+各平台应把 `ai-for-china-legal-workflow` 的 description 用于自动发现，使自然语言「请使用 ai-for-china-legal 法律工作流」触发总路由。无论平台名称如何变化，动态 intake 的 `known / derived / material_missing / optional_missing` 判定、可观察 `INTAKE_DECISION`、微信 `[CLARIFY:]` 中继和律师人审门槛保持一致；模型品牌与额度不写入 skill。
+
 ### 平台检测
 
 ```javascript

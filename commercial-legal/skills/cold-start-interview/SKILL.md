@@ -38,7 +38,7 @@ argument-hint: ""
 | 1 | **identity-team** | 律师身份、执业环境、团队结构、可用集成 | `skills/cold-start-interview/identity-team/SKILL.md` | `/commercial-legal:identity-team` |
 | 2 | **review-stance** | 风险偏好（保守/平衡/进取）、甲乙方双立场六维度、交易破坏者、可接受备选 | `skills/cold-start-interview/review-stance/SKILL.md` | `/commercial-legal:review-stance` |
 | 3 | **escalation-rules** | 升级矩阵（金额阈值、风险等级触发、自动触发条件）、审批人信息 | `skills/cold-start-interview/escalation-rules/SKILL.md` | `/commercial-legal:escalation-rules` |
-| 4 | **document-style** | 输出格式偏好、文书语气、法条/案例引用偏好、双语需求、常用模板 | `skills/cold-start-interview/document-style/SKILL.md` | `/commercial-legal:document-style` |
+| 4 | **document-style** | 输出格式/路径、文书语气、引用偏好、动态提问渠道、默认假设和独立复核偏好 | `skills/cold-start-interview/document-style/SKILL.md` | `/commercial-legal:document-style` |
 | 5 | **jurisdiction-profile** | 主要管辖法律、地方性法规、法院偏好（含四级法院）、经济特区/自贸区/港澳台、行业合规 | `skills/cold-start-interview/jurisdiction-profile/SKILL.md` | `/commercial-legal:jurisdiction-profile` |
 
 **顺序说明**：身份在前（建立基础上下文）→ 审查立场第二（最核心配置）→ 升级规则第三（依赖前两步的团队层级和立场设置）→ 文书风格第四（独立性强，可分开）→ 管辖法律最后（补充地域和行业维度）。
@@ -116,14 +116,9 @@ argument-hint: ""
 
 ## 硬性护栏（不可绕过）
 
-### 生成文档前必须反问
+### 配置写入确认
 
-本技能及其所有子技能在**起草或生成任何文书、合同、文档**之前，必须先向用户确认并得到明确答复，缺一不可：
-
-1. **输出格式**：Markdown / Word / 纯文本 / 仅在对话中展示？
-2. **保存位置**：写入哪个目录？还是只在对话中输出、不落盘？
-
-用户未答复前**禁止创建或写入任何文件**；用户只说「起草」「生成」而未指定格式与位置时，不得自行假设默认值。
+本访谈固定写入 `commercial-legal/CLAUDE.md`，无需反复询问输出格式和保存位置。若用户要求写入其他配置文件或目标不明，才按 `shared/legal-document-intake/SKILL.md` 确认。写入时仅更新本次访谈对应章节，保留其他未提交配置改动。
 
 ### 先检索、后结论
 

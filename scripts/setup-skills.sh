@@ -63,6 +63,26 @@ if [ -d "$research_gate" ]; then
   fi
 fi
 
+# 注册共享法律事项动态 intake
+legal_document_intake="$PROJECT_DIR/shared/legal-document-intake"
+if [ -d "$legal_document_intake" ]; then
+  link_path="$SKILLS_DIR/shared-legal-document-intake"
+  if [ ! -L "$link_path" ]; then
+    ln -sf "../../shared/legal-document-intake" "$link_path"
+    echo "  [已注册] shared-legal-document-intake -> ../../shared/legal-document-intake"
+  fi
+fi
+
+# 注册 ai-for-china-legal 顶层工作流
+legal_workflow="$PROJECT_DIR/shared/ai-for-china-legal-workflow"
+if [ -d "$legal_workflow" ]; then
+  link_path="$SKILLS_DIR/ai-for-china-legal-workflow"
+  if [ ! -L "$link_path" ]; then
+    ln -sf "../../shared/ai-for-china-legal-workflow" "$link_path"
+    echo "  [已注册] ai-for-china-legal-workflow -> ../../shared/ai-for-china-legal-workflow"
+  fi
+fi
+
 echo ""
 echo "完成。已注册 $(ls -1 "$SKILLS_DIR" | grep -v '^\.' | wc -l) 个 skill。"
 echo ""
