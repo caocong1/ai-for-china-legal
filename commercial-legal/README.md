@@ -16,6 +16,7 @@
 | 冷启动访谈 | `/commercial-legal:cold-start-interview` | 初始化实践配置 |
 | 合同起草 | `/commercial-legal:contract-drafting` | 起草商事合同 |
 | 违约责任分析 | `/commercial-legal:liability-analysis` | 分析违约责任条款 |
+| 股权交易尽调 | `/commercial-legal:equity-transaction-dd` | 目标公司资料室尽调：清点与覆盖审计、分章底稿、交易程序核查、报告与问题清单 |
 
 ## 本插件不做什么
 

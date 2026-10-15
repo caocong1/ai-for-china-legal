@@ -1,7 +1,7 @@
 {
   "name": "commercial-legal",
-  "version": "0.3.0",
-  "description": "审查和起草买卖合同、技术服务合同、租赁合同等对中国大陆执业律师的商事合同。含冷启动访谈、合同审查、合同起草、违约责任分析四大编排入口，及19个可独立触发的深层子技能（子技能深度拆分：每个编排入口下4-5个独立子技能，含详细步骤、检查清单、输出模板、法律依据）。",
+  "version": "0.4.0",
+  "description": "审查和起草买卖合同、技术服务合同、租赁合同等对中国大陆执业律师的商事合同，并承担股权交易目标公司法律尽调。含冷启动访谈、合同审查、合同起草、违约责任分析、股权交易尽调五大编排入口，及23个可独立触发的深层子技能（每个编排入口下4-5个独立子技能，含详细步骤、检查清单、输出模板、法律依据）。",
   "author": {
     "name": "AI for China Legal Contributors"
   },
@@ -120,6 +120,31 @@
       "name": "carveout-review",
       "path": "skills/liability-analysis/carveout-review/SKILL.md",
       "description": "违约责任子技能：例外清单全面审查（完整性/过宽过窄/定义争议/法律强制例外核查）"
+    },
+    {
+      "name": "equity-transaction-dd",
+      "path": "skills/equity-transaction-dd/SKILL.md",
+      "description": "股权交易法律尽调编排入口：资料室清点 → 分章事实底稿 → 交易程序核查 → 报告 / 问题清单 / 编制说明（critical 执行档，交易结构为首要澄清项）"
+    },
+    {
+      "name": "data-room-inventory",
+      "path": "skills/equity-transaction-dd/data-room-inventory/SKILL.md",
+      "description": "尽调子技能：递归清点、sha256 去重与版本识别、分章映射、OCR 后台、聚合指纹、装配前覆盖审计"
+    },
+    {
+      "name": "chapter-fact-memos",
+      "path": "skills/equity-transaction-dd/chapter-fact-memos/SKILL.md",
+      "description": "尽调子技能：分章事实底稿（文件 + 页码溯源、原件核对、数字多源勾稽、版本差异与矛盾、子代理规则）"
+    },
+    {
+      "name": "transaction-procedure-check",
+      "path": "skills/equity-transaction-dd/transaction-procedure-check/SKILL.md",
+      "description": "尽调子技能：国资 / 外资过渡 / 负面清单 / 经营者集中 / 优先购买权 / 认缴 / 控制权变更触发条款核查，结构未知按一般情形"
+    },
+    {
+      "name": "dd-report-issue-list",
+      "path": "skills/equity-transaction-dd/dd-report-issue-list/SKILL.md",
+      "description": "尽调子技能：沿用参考稿版式成稿、摘要倒推、问题清单三分类、编制说明、覆盖审计与渲染 QA、REVIEW_STATUS"
     }
   ]
 }
