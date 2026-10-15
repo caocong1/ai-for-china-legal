@@ -5,7 +5,7 @@
 ## 项目现状
 
 当前项目处于 **SKILL.md 定义完成** 阶段：
-- 13 个插件，共 **66 个顶层 skill**（含 336 个子技能 SKILL.md）已定义
+- 13 个插件，共 **68 个顶层 skill**（含 278 个子技能 SKILL.md）已定义
 - `shared/` 共享研究基础设施已建立（研究闸门、质量闸门、搜索策略）
 - SKILL.md 文件**未被任何 Agent 平台自动发现**——需要通过符号链接手动注册
 
@@ -44,7 +44,7 @@ cd /path/to/ai-for-china-legal
 bash scripts/setup-skills.sh
 ```
 
-这会创建 67 个符号链接，将各插件的 SKILL.md 链接到 `.qwen/skills/` 目录下，避免命名冲突。
+这会创建 71 个符号链接，将各插件的 SKILL.md 链接到 `.qwen/skills/` 目录下，避免命名冲突。
 
 ### 验证
 
@@ -77,7 +77,7 @@ ln -sf /path/to/ai-for-china-legal/commercial-legal/skills/contract-review ~/.qw
 
 ## 当前可用的 skill 列表
 
-安装后，以下 skill 可用（共 67 个：66 插件 + 1 共享）：
+安装后，以下 skill 可用（共 71 个：68 插件 + 3 共享）：
 
 ### 商事合同 (4)
 - `commercial-cold-start-interview` — 冷启动访谈

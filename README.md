@@ -35,7 +35,7 @@ bash scripts/setup-codex-skills.sh
 
 ```bash
 cd /path/to/ai-for-china-legal
-bash scripts/setup-skills.sh    # 注册 69 个 skill（66 插件 + 3 共享）
+bash scripts/setup-skills.sh    # 注册 71 个 skill（68 插件 + 3 共享）
 bash scripts/cleanup-skills.sh  # 卸载
 ```
 
@@ -65,9 +65,9 @@ bash scripts/cleanup-skills.sh  # 卸载
 
 | 插件 | 说明 | Skills 数量 |
 |------|------|------------|
-| [商事合同](commercial-legal/README.md) | 买卖合同、技术服务合同、租赁合同审查，含主体资格预检 | 4 |
+| [商事合同](commercial-legal/README.md) | 买卖合同、技术服务合同、租赁合同审查，含主体资格预检；股权交易法律尽调 | 5 |
 | [数据合规](data-compliance/README.md) | 个保法/数据安全法合规、PIA、数据出境 | 5 |
-| [劳动人事](employment-legal/README.md) | 劳动合同、竞业限制、裁员方案 | 6 |
+| [劳动人事](employment-legal/README.md) | 劳动合同、竞业限制、裁员方案、劳动用工合规调查 | 7 |
 | [知识产权](ip-legal/README.md) | 商标/专利/著作权初步筛查 | 5 |
 | [AI 治理](ai-governance/README.md) | 深度合成备案、算法备案、生成式 AI 合规 | 5 |
 | [监管合规](regulatory-legal/README.md) | 监管动态监控、行政处罚应对 | 5 |
@@ -109,10 +109,12 @@ v1.1 新增。从既有实务验证经验中沉淀共享研究能力：
 | [shared/legal-document-intake/](shared/legal-document-intake/SKILL.md) | **法律事项动态 Intake** — 先读材料，再只询问会改变成果的问题；支持 App `ask_user`、人工微信中继、答复合并恢复及多模型执行分级 |
 | [shared/legal-document-intake/references/](shared/legal-document-intake/references/) | 动态问题路由、边界示例与品牌无关的多模型操作员编排建议 |
 | [shared/research-gate/](shared/research-gate/SKILL.md) | **中国法研究闸门** — 所有法律文书生成前的强制检索前置机制。包含目录清点、五维度搜索（正向依据/反向依据/程序陷阱）、来源分级（L1-L5）、两段式检索协议 |
-| [shared/research-gate/references/](shared/research-gate/references/) | 研究闸门参考文档：权威来源 URL、质量闸门、搜索策略（保函/管辖/主体资格）、引用策略与失败回退链 |
+| [shared/research-gate/references/](shared/research-gate/references/) | 研究闸门参考文档：权威来源 URL（含税务 / 信用 / 上市公司公告源实测）、质量闸门、搜索策略（保函/管辖/主体资格/信用修复/劳动用工合规调查/股权尽调程序）、原件与摘要规则、引用策略与失败回退链 |
 | [shared/references/document-structures.md](shared/references/document-structures.md) | 诉讼文书结构模板（诉讼方案 13 段、起诉状、答辩状、证据目录 3 大类分组、风险段 5 类强制要求） |
 | [shared/references/guarantee-bond-playbook.md](shared/references/guarantee-bond-playbook.md) | 保函/担保案件专用 playbook：裁判共识、保证方式分析、案由锁定、OCR 校验、反例预警 |
 | [shared/references/subject-qualification-traps.md](shared/references/subject-qualification-traps.md) | 主体资格陷阱清单（融资担保公司、银行分支机构、上市公司、国企等 7 类主体） |
+| [shared/references/due-diligence-playbook.md](shared/references/due-diligence-playbook.md) | 尽职调查 / 合规调查共享数据结构：开工必答项、资料清单与去重、分章事实底稿、覆盖审计、问题清单三分类、子代理规则 |
+| [shared/references/document-delivery-qa.md](shared/references/document-delivery-qa.md) | Word / PDF 交付 QA：修订稿可逆性、模板包成稿、pandoc 中文模板、渲染与结构校验、交付说明 |
 
 ## 真实案例测试框架
 

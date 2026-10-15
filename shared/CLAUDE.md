@@ -7,19 +7,36 @@
 ```
 shared/
 ├── CLAUDE.md                          # 本文件
+├── ai-for-china-legal-workflow/       # 顶层自动路由（intake → 研究闸门 → 专项技能 → 文档交付）
+├── legal-document-intake/             # 法律事项动态 Intake
+│   ├── SKILL.md                       # INTAKE_DECISION / [CLARIFY:] / 执行档 / REVIEW_STATUS
+│   └── references/                    # 问题路由、边界示例、操作员快速说明、多模型编排
 ├── research-gate/                     # 研究闸门（强制检索前置机制）
 │   ├── SKILL.md                       # 研究闸门核心逻辑
 │   └── references/
-│       ├── authoritative-sources.md   # 实测可访问的权威来源 URL
+│       ├── authoritative-sources.md   # 实测可访问的权威来源 URL（含税务 / 信用 / 公告源）
 │       ├── quality-gates.md           # 研究质量闸门
-│       ├── search-playbooks.md        # 专项搜索策略（保函、管辖等）
-│       └── source-policy.md           # 引用策略和失败回退链
-└── references/                        # 共享模板和 playbook
-    ├── README.md
-    ├── document-structures.md         # 诉讼/合同/意见书/函件结构模板
-    ├── guarantee-bond-playbook.md     # 保函/担保案件专用 playbook
-    └── subject-qualification-traps.md # 主体资格陷阱清单
+│       ├── search-playbooks.md        # 专项搜索策略（保函、管辖、信用修复、用工合规、股权尽调）
+│       └── source-policy.md           # 引用策略、原件与摘要规则、失败回退链
+├── references/                        # 共享模板和 playbook
+│   ├── README.md
+│   ├── document-structures.md         # 诉讼/合同/意见书/函件结构模板
+│   ├── guarantee-bond-playbook.md     # 保函/担保案件专用 playbook
+│   ├── subject-qualification-traps.md # 主体资格陷阱清单
+│   ├── due-diligence-playbook.md      # 尽调 / 合规调查数据结构与闸门
+│   └── document-delivery-qa.md        # Word / PDF 交付 QA 清单
+├── feedback-refinement/               # 律师反馈 → skill 精炼 → 案例库
+├── inkstatute-integration/            # 墨律 ask_user 协议与 agent 体验记录
+└── cross-platform/                    # 跨平台格式说明
 ```
+
+### 尽职调查 / 合规调查
+
+`commercial-legal/skills/equity-transaction-dd` 与 `employment-legal/skills/workforce-compliance-dd` 共用 `shared/references/due-diligence-playbook.md` 的资料清单、事实底稿、覆盖审计与问题清单结构；默认执行档 `critical`。
+
+### 文档交付
+
+任何 Word / PDF 交付前执行 `shared/references/document-delivery-qa.md`；`high` / `critical` 事项交付前输出 `legal-document-intake/SKILL.md` 规定的 `REVIEW_STATUS`。
 
 ## 使用规则
 
