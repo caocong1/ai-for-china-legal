@@ -2,8 +2,22 @@
 
 本文件记录 AI for China Legal 的主要变更。仓库版本、文档里程碑和墨律生产 skill 包版本可能不是同一个编号：
 
-- 仓库代码/文档里程碑使用 `v1.x`，`package.json` 与之同步（当前 `1.2.0`）。
+- 仓库代码/文档里程碑使用 `v1.x`，`package.json` 与之同步（当前 `1.2.1`）。
 - 墨律生产 skill 包建议使用 `YYYY.MM.DD.N`，例如 `2026.06.15.1`。
+
+## [v1.2.1] - 2026-10-15
+
+2026 年法规更新回灌（外部调研，以官方页面核验为主；二手来源与未核实项逐条标注）。
+
+### Changed
+
+- employment-legal `labor-law-citations.md`：法释〔2025〕12号条号按官方转载全文重排（第 1–2、3、10、13–16、19 条）；新增 I 节超龄劳动者（人社部等令第 56 号，2026-07-01）与延迟退休到龄；案例类登记北京 2025 年度仲裁典型案例；配套法释〔2026〕14号、案由规定第三次修正。`local-rules-beijing.md` 补非全日制时薪、2026 年度基数补差口径、陪产假 / 育儿假核实、生育津贴直发。
+- employment-legal `workforce-compliance-dd`：超龄 / 退休返聘定性与合同制度检查项改按令第 56 号。
+- commercial-legal `transaction-procedure-citations.md`：国务院令第 784 号认缴截止 2027-06-30 升为已核实；新增七节（国资交易操作规则、登记文书规范 2026 年版、鼓励外商投资目录 2025 年版、对外投资规定、仲裁法 2025 修订、反不正当竞争法 2025 修订、法释〔2026〕6号、商标法 2026 修订、负面清单与申报标准现行状态）。
+- regulatory-legal `administrative-law-citations.md`：H.3 补 36 号令条文细节、2026 年版惩戒清单文号 caveat、两部规章协调待核；新增 I 节（行政复议法实施条例 2026 修订、法释〔2026〕3号起诉期限、治安管理处罚法 2025、税务行政处罚裁量基准 2026 年版、金融失信名单、增值税法、54 号令现行状态）；B.3 / B.4 行内指向。
+- data-compliance / construction-legal / litigation-legal / criminal-compliance `_shared` 引用库：各新增「2026 年更新」节——网络安全法 2025 修正条号后移、个人信息出境认证办法、网信办令第 24 / 25 号；建工解释（二）法释〔2026〕12号与实际施工人路径限制；仲裁法 2025 修订版本说明、法释〔2026〕19号刑民交叉、法发〔2026〕10号、法释〔2025〕15号、案由修正、律师法重新编号、指导案例清理；法释〔2026〕6号第 8 条等。
+- research-gate 信用修复 playbook 版本时效清单：2026 年版清单文号二次检索 caveat、裁量基准 2026 年版、复议条例 2026 修订。
+- 插件版本：employment-legal 0.4.1、commercial-legal 0.4.1、regulatory-legal 0.2.2、litigation-legal 0.3.2、data-compliance 0.2.1、construction-legal 0.2.1、criminal-compliance 0.2.1；`package.json` 1.2.1。
 
 ## [v1.2] - 2026-10-15
 
