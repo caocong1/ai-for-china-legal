@@ -11,7 +11,7 @@
 |------|------|--------|----------|------|
 | L1 | 法律/司法解释全文 | `www.court.gov.cn/zixun/xiangqing/{id}.html` | WebFetch | ✅ 全文可抓 |
 | L1 | 行政法规/部门规章 | `www.gov.cn/gongbao/.../content_{id}.html` | WebFetch | ⚠️ 已索引，待直测 |
-| L1(备份) | 法律法规 | `flk.npc.gov.cn` | ❌ 不可直接抓 | 动态 SPA |
+| L1(备份) | 法律法规 | `flk.npc.gov.cn` | ❌ 页面不可 WebFetch；✅ JSON 接口可直连（`/law-search/search/list`、`flfgDetails?bbbs=`、`download/pc`、`enumData`，无 key 无验证码，2026-10 调研） | 动态 SPA；旧 `/api/` 已下线，`law-database` 连接器已改用 JSON 接口 |
 | L2 | 入库案例 | `rmfyalk.court.gov.cn` | JSON API（需登录） | ✅ rmfyalk 连接器（共道账号登录后检索/详情；收录统计接口匿名可用） |
 | L2 | 指导/公报/典型案例 | `www.court.gov.cn/shenpan/gengduo/` 等 | WebFetch | ✅ |
 | L2 | 最高法公报 | `gongbao.court.gov.cn` | WebFetch | ✅ http 协议可抓（https 被奇安信云 WAF 按客户端指纹拦截返回 502，浏览器正常） |
@@ -82,6 +82,8 @@
 
 **API Key**：未配置 `YUANDIAN_API_KEY` 时首次调用返回「需要元典 API Key」提示——向用户索取后以 `apiKey` 参数重试，连接器临时保存到系统临时目录（0600），后续调用免带。
 
+**2026-10 调研**：元典已发布官方 DSH 插件（`yuandian_dsh_plugin`，MIT，2026-10-02，要求 DSH ≥0.1.2-rc.1 <0.2.0）和统一 MCP 端点 `open.chineselaw.com/mcp`（法规、案例、企业 26 接口、证券），OAuth 或 API key；未实测。
+
 ### 6.3 rmfyalk（人民法院案例库，A 级官方案例源，需登录）
 
 **定位：权威案例首选**。入库案例（指导性案例/参考案例等，2026-08 收录 5521 篇）经最高法筛选，重质量不重数量。连接器通过浏览器持久会话调用站内 JSON API：
@@ -101,7 +103,9 @@
 | 产品 | 结论 | 说明 |
 |------|------|------|
 | 北大法宝 MCP (mcp.pkulaw.com) | 唯一建议试用的校验型辅助源 | 法规时效/版本校验、法条案号识别、官方源漏检补召回；支持 MCP/CLI；自助充值最低档约 18 元，验证无效即停。2026-09 起为 MCP 2.0，含 `pkulaw-citation-validator`、`pkulaw-case-number-recognition`、`pkulaw-law-recognition` 等服务器，Bearer token，CLI 调用不消耗 LLM token（2026-10-15 调研，未实测；接入后须列入客户材料外传提示） |
-| 元典开放平台 | 兜底/最后选择 | 见 6.2；赠送积分 2026-09 到期后冷藏 |
+| 元典开放平台 | 兜底/最后选择 | 见 6.2；赠送积分 2026-09 到期后冷藏；2026-10 有官方 DSH 插件 |
+| 企查查法律数据 MCP (agent.qcc.com/legal) | 第二校验源 + 企业数据（GSXT 替代） | 10 个工具含法条 / 案号引用核验（`get_legal_citation_verify` / `get_judicial_citation_verify`）；企业数据为另一 MCP；社区 DSH OAuth 插件（MIT，2026-08-19，要求 `dsh-mcp-client ^0.1.0-rc.6`）；付费；2026-10-15 调研，未实测 |
+| 得理开放平台 | 观察 | 预付费 API（判决、法规、评注、专利、商标），企业账号 10 并发、个人 1 并发；MCP 支持仅见搜索摘要、页面未证实 |
 | 法信 | 不作数据源 | 人民法院出版社独家内容（理解与适用、审判指导参考）确有增量，但服务协议禁止系统提取/建库，只适合人工查阅 |
 | 法研开放平台 (data.court.gov.cn) | 观察 | 宣称标准接口，但个人套餐与下游授权不透明 |
 | 法意 MCP (mcp.lawyee.net) | 观察 | 注册建设中，服务尚未开放 |
@@ -133,6 +137,9 @@
 | 信用中国 `www.creditchina.gov.cn` | 失信记录、修复状态 | ❌ 查询接口返回 40001 令牌错误 | 需浏览器扩展 |
 | 巨潮资讯网 `cninfo.com.cn`、深交所公告接口 | 上市公司公告原文 | ❌ 2026-09 被拦截 | 回退东方财富 |
 | 东方财富网公告栏目 | 上市公司公告 PDF（含母公司补充披露、交易所监管函） | HTTP 抓取公告列表与 PDF 链接 | ✅ 回退可用（具体接口 URL 以当次实测为准） |
+| 国家企业信用信息公示系统 `gsxt.gov.cn` | 企业登记、行政处罚、经营异常 | ❌ 2026-08 境外自动请求 24 次中 21 次 403（第三方可达性研究） | 改用企查查 / 元典企业数据；`connectors/gsxt` 仍为占位 |
+| `lawtext/laws`（GitHub，每日自动更新 2,000+ 国家法律 Markdown / docx；地方法规卷 2026-04-19 停更） | 法律文本变化监测 | git 拉取 | ✅ 仅作变化信号；无许可声明，引用仍回官方源 |
+| `law-crawler-unified`（MIT，2026-04） | flk + 外交部条约库 + 国务院规章库抓取 | 本地运行 | ✅ 规章 / 条约补充；未实测 |
 
 **摘要型工具不可用于逐字核验**：WebFetch 内置摘要器对长条文只返回框架，不返回原文。条文核验必须取原文页面文本（原始 HTTP + 去标签，或连接器 `get_law_detail`），摘要工具只用于定位（见 `source-policy.md`）。
 

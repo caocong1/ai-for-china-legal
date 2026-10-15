@@ -2,8 +2,19 @@
 
 本文件记录 AI for China Legal 的主要变更。仓库版本、文档里程碑和墨律生产 skill 包版本可能不是同一个编号：
 
-- 仓库代码/文档里程碑使用 `v1.x`，`package.json` 与之同步（当前 `1.2.1`）。
+- 仓库代码/文档里程碑使用 `v1.x`，`package.json` 与之同步（当前 `1.2.2`）。
 - 墨律生产 skill 包建议使用 `YYYY.MM.DD.N`，例如 `2026.06.15.1`。
+
+## [v1.2.2] - 2026-10-15
+
+开源生态调研回灌（工具与数据源登记，均标「未实测」）。
+
+### Changed
+
+- `shared/research-gate/references/authoritative-sources.md`：flk JSON 接口可直连说明；元典官方 DSH 插件与统一 MCP 端点；新增企查查法律数据 MCP（含法条 / 案号引用核验）与得理开放平台行；第 9 节新增 GSXT 403 与企查查 / 元典替代、`lawtext/laws` 变化监测、`law-crawler-unified`。
+- `shared/references/document-delivery-qa.md`：第 6 节工具参考（docx-redline-js 的「拒绝全部恢复源稿」门禁、Docxodus、OfficeCLI、adeu / safe-docx、vespper 样本、pandoc 中文模板、公文版式；避开 AGPL 与专有脚本）。
+- `shared/references/due-diligence-playbook.md`：OCR 工具选型（RapidOCR / MinerU 4 / PaddleOCR-VL / oar-ocr）与「无法院文书准确率、须自评」提示。
+- `package.json` 1.2.2。
 
 ## [v1.2.1] - 2026-10-15
 
