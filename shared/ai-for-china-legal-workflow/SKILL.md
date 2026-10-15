@@ -75,6 +75,8 @@ Intake 通过后，按交付物选择最具体的可用中国法 skill：
 - 有 `cn-lawyer-docs` 时，以其作为诉讼/合同/意见书/函件总路由；
 - 合同审查或起草可继续使用 `commercial-legal` 相关技能；
 - 建设工程、劳动、数据、知识产权等专业事项使用对应领域技能；
+- 股权交易 / 并购的目标公司法律尽调使用 `commercial-legal/skills/equity-transaction-dd`；整家公司或用工群体的劳动用工合规调查使用 `employment-legal/skills/workforce-compliance-dd`；两者共用 `shared/references/due-diligence-playbook.md`；
+- 重大税收违法失信、信用修复类意见使用 `regulatory-legal` 技能，并先读 `shared/research-gate/references/search-playbooks.md` 的信用修复 playbook；
 - 不得用通用写作流程替代专项法律技能。
 
 ### 3. 研究闸门
@@ -93,7 +95,8 @@ Intake 通过后，按交付物选择最具体的可用中国法 skill：
 - 不覆盖原件；
 - 真实 Track Changes 应可接受、可拒绝；
 - 核心事实待核实时，正文确定性须与批注一致；
-- 完成结构检查及渲染/视觉 QA 后再交付；
+- 完成结构检查及渲染/视觉 QA 后再交付，清单见 `shared/references/document-delivery-qa.md`；
+- `high` / `critical` 事项交付前输出 `../legal-document-intake/SKILL.md` 规定的 `REVIEW_STATUS`，独立复核未执行时如实写明；
 - 正式成果恒由执业律师复核。
 
 ## 条件性继续
