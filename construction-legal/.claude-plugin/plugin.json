@@ -1,8 +1,10 @@
 {
   "name": "construction-legal",
-  "version": "0.2.1",
-  "description": "建设工程法律全流程辅助：冷启动访谈（主体画像项目组合/审查争议立场/风险升级矩阵/文书风格地方规定）、施工合同审查（主体资质与合同效力/工期与质量/价款与结算/违约与解除）、工程款争议处理（优先受偿权/结算依据黑白合同/质量抗辩反索赔/利息垫资）、建设工程招投标合规（必须招标范围/招标投标程序/串通投标/中标无效投诉）、商品房买卖合同审查（预售许可主体/定金认购/交付违约面积误差/贷款解除风险）；五大模块二十个子技能加五个编排入口",
-  "author": { "name": "AI for China Legal Contributors" },
+  "version": "0.3.0",
+  "description": "建设工程法律全流程辅助：冷启动访谈（主体画像项目组合/审查争议立场/风险升级矩阵/文书风格地方规定）、施工合同审查（主体资质与合同效力/工期与质量/价款与结算/违约与解除）、工程款争议处理（优先受偿权/结算依据黑白合同/质量抗辩反索赔/利息垫资）、建设工程招投标合规（必须招标范围/招标投标程序/串通投标/中标无效投诉）、商品房买卖合同审查（预售许可主体/定金认购/交付违约面积误差/贷款解除风险）、存量土地变性与合作开发（改变用途与供地方式/价款出让合同与登记/土地进入项目公司与合作开发）；六大模块二十三个子技能加六个编排入口",
+  "author": {
+    "name": "AI for China Legal Contributors"
+  },
   "skills": [
     {
       "name": "cold-start-interview",
@@ -128,6 +130,26 @@
       "name": "loan-termination-risk",
       "path": "skills/commercial-housing-review/loan-termination-risk/SKILL.md",
       "description": "贷款解除与风险——按揭不成的可归责vs不可归责分析、退房退款项目、一房二卖履行顺位与赔偿、网签备案/预告登记/不动产登记保护对比"
+    },
+    {
+      "name": "land-use-redevelopment",
+      "path": "skills/land-use-redevelopment/SKILL.md",
+      "description": "存量土地变性与合作开发编排入口——划拨补办出让与改变用途的合规性（规划前提、供地方式三层判断、地方城市更新通道前提、替代路径）、价款与出让合同、土地进入项目公司与合作开发（作价出资即转让、预告登记、资质、国资参股约束、税负）；成果为律所致客户的法律备忘录加成稿说明"
+    },
+    {
+      "name": "land-use-change-path",
+      "path": "skills/land-use-redevelopment/land-use-change-path/SKILL.md",
+      "description": "改变用途与供地方式——规划前提、国家一般规则/国家保留通道/地方通道三层判断、前提对照表、附条件结论与签约前提、政府收回或协商收储替代路径、停用收回风险"
+    },
+    {
+      "name": "land-premium-contract",
+      "path": "skills/land-use-redevelopment/land-premium-contract/SKILL.md",
+      "description": "价款、出让合同与登记——双评估价差与地方计收档位、复算与现金口径、分期与利息、全款后登记、示范文本GF-2025-2601关键条款、房地一致、资金来源与国企内部决策、签约前提与时间表"
+    },
+    {
+      "name": "land-contribution-jv",
+      "path": "skills/land-use-redevelopment/land-contribution-jv/SKILL.md",
+      "description": "土地进入项目公司与合作开发——作价出资即转让与25%条件、出资协议效力与出资责任、预告登记/项目公司受让/合作开发合同路径比较、开发资质不可承继、国资主业负面清单参股与进场增资、参股治理、毗邻土地竞买、税负提示"
     }
   ]
 }
