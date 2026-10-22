@@ -16,15 +16,15 @@ shared/
 │   └── references/
 │       ├── authoritative-sources.md   # 实测可访问的权威来源 URL（含税务 / 信用 / 公告源）
 │       ├── quality-gates.md           # 研究质量闸门
-│       ├── search-playbooks.md        # 专项搜索策略（保函、管辖、信用修复、用工合规、股权尽调）
+│       ├── search-playbooks.md        # 专项搜索策略（保函、管辖、信用修复、用工合规、股权尽调、存量土地变性）
 │       └── source-policy.md           # 引用策略、原件与摘要规则、失败回退链
 ├── references/                        # 共享模板和 playbook
 │   ├── README.md
-│   ├── document-structures.md         # 诉讼/合同/意见书/函件结构模板
+│   ├── document-structures.md         # 诉讼文书结构模板；法律备忘录（致客户）骨架与写法
 │   ├── guarantee-bond-playbook.md     # 保函/担保案件专用 playbook
 │   ├── subject-qualification-traps.md # 主体资格陷阱清单
 │   ├── due-diligence-playbook.md      # 尽调 / 合规调查数据结构与闸门
-│   └── document-delivery-qa.md        # Word / PDF 交付 QA 清单
+│   └── document-delivery-qa.md        # Word / PDF 交付 QA 清单；客户成稿模式与《成稿说明》
 ├── feedback-refinement/               # 律师反馈 → skill 精炼 → 案例库
 ├── inkstatute-integration/            # 墨律 ask_user 协议与 agent 体验记录
 └── cross-platform/                    # 跨平台格式说明
@@ -37,6 +37,12 @@ shared/
 ### 文档交付
 
 任何 Word / PDF 交付前执行 `shared/references/document-delivery-qa.md`；`high` / `critical` 事项交付前输出 `legal-document-intake/SKILL.md` 规定的 `REVIEW_STATUS`。
+
+律师要求「可以直接给客户」时，按该清单第 5 节交付客户成稿与《成稿说明（致承办律师）》两份文件：客户成稿正文不放内部标记，人审要求由《成稿说明》与 `REVIEW_STATUS` 承载；咨询型备忘录骨架见 `document-structures.md`。
+
+### 存量土地变性与合作开发
+
+`construction-legal/skills/land-use-redevelopment` 编排划拨补办出让、改变用途、价款与出让合同、土地进入项目公司与合作开发。锚点在 `construction-legal/skills/_shared/land-law-citations.md` 与 `local-rules-<city>.md`；国资锚点在 `commercial-legal/skills/_shared/transaction-procedure-citations.md` 第八节。国有企业主体或亿元级价款的，默认 `critical`。
 
 ## 使用规则
 
