@@ -2,8 +2,46 @@
 
 本文件记录 AI for China Legal 的主要变更。仓库版本、文档里程碑和墨律生产 skill 包版本可能不是同一个编号：
 
-- 仓库代码/文档里程碑使用 `v1.x`，`package.json` 与之同步（当前 `1.2.2`）。
+- 仓库代码/文档里程碑使用 `v1.x`，`package.json` 与之同步（当前 `1.3.0`）。
 - 墨律生产 skill 包建议使用 `YYYY.MM.DD.N`，例如 `2026.06.15.1`。
+
+## [v1.3.0] - 2026-10-22
+
+案例驱动迭代：落地案例库 LWC-2026-0007 的「Skill 改进映射」。该案是律所致客户的咨询型法律备忘录（存量划拨土地变性 + 与房地产开发企业设立项目公司），在律所既有模板内成稿，另附给承办律师的成稿说明，律师评价「很满意」。本版本把这次的交付方式与判断顺序固化下来，不固化该案结论。
+
+### Added
+
+- `construction-legal/skills/land-use-redevelopment/`：存量土地变性与合作开发工作流，包括编排入口和三个子技能：
+  - `land-use-change-path`：规划前提；供地方式三层判断（国家一般规则 / 国家保留通道 / 地方通道及其前提）；附条件结论与签约前提；替代路径（政府收回、协商收储）；
+  - `land-premium-contract`：「双评估」价差与地方计收档位；复算与现金口径；分期与利息；全款后登记；示范文本 GF-2025-2601；房地一致；资金来源；
+  - `land-contribution-jv`：作价出资即转让与 25% 条件；预告登记、项目公司受让、合作开发合同的路径比较；资质不可承继；国资参股；税负提示。
+- `construction-legal/skills/_shared/land-law-citations.md`：全国性锚点，2026-10-22 按官方原文核验，逐条区分「已核实」与「代理核对」；附常见错引对照表。
+- `construction-legal/skills/_shared/local-rules-chengdu.md`：地方规则样板，包括城市更新条例、低效用地再开发意见（按日期分档计收，30% 档已于 2026-04-30 届满）、转让管理办法（预告登记、先投入后转让）、已失效文件清单。
+- `commercial-legal/skills/_shared/transaction-procedure-citations.md`：
+  - 新增第八节「中央企业投资监管与参股管理」，覆盖 34 号令、国资发改革规〔2023〕41 号（126 号已废止）、46 号令、2010 年主业沿革、检索不到的国资文件的处理；
+  - 第三节 32 号令、12 号令的条号核验升级；增资 40 个工作日与产权转让披露口径分开。
+- `shared/references/document-structures.md`：新增「法律备忘录（致客户，咨询型）」骨架与写法：委托说明、材料简称、确认与保证、基本事实来源句、小节标题即结论、小结、结语、落款、附件、逐字脚注与「同前注」。
+- `shared/research-gate/references/search-playbooks.md`：新增「存量土地变性 / 城市更新 / 土地合作开发 Playbook」。
+- `shared/research-gate/references/source-policy.md`：新增「客户材料中的依据、地方文件时效与反向条款」：客户援引的依据逐条判定；检索不到的文件不据此分析；地方文件先查有效期；有利依据同摘反向条款。`quality-gates.md` 增加对应检查项。
+- `shared/research-gate/references/authoritative-sources.md`：新增第 10 节，记录自然资源、国资、金融与地方政府源的实测情况（自然资源部站点不可连、成都市政府系网站返回 412、国资委未公开文件用转载本）、转载本规则；flk 收录地方性法规。
+- `shared/legal-document-intake/references/intake-examples.md`：示例 8，给客户的咨询型备忘录（旧稿作模板，政府设定时限），决策为 ready / conditional / critical。
+
+### Changed
+
+- **客户成稿模式**：
+  - `document-delivery-qa.md`：通用前提由「最终成果恒标待执业律师复核」改为按交付模式放置人审标记——律师拟原样转发客户的成稿，正文不放内部标记，人审要求由《成稿说明》、`REVIEW_STATUS` 与宿主人审标识承担；
+  - 第 5 节改为「客户成稿模式与《成稿说明》」，给出九节结构；
+  - 第 2—4 节补充：以旧稿作模板、直接格式模板、每个引用一个脚注与「同前注」、核心属性重置、模板残留检索、客户成稿不设 `updateFields`、pandoc reference-doc 的 `tblInd` 顺序、中文字体映射渲染。
+- **条件性继续的边界**（workflow「条件性继续」、intake 第二步、question-routing §6）：经律师转发客户的咨询型备忘录可以写附条件结论；阻断限于以下情形：提交法院、仲裁机构或监管机关；向第三方出具、供其依赖的法律意见书；要求无保留结论；缺口改变委托问题或我方身份。
+- workflow：
+  - 新增土地变性 / 城市更新 / 合作开发路由与触发词；
+  - `INTAKE_DECISION` 须在第一次实质检索或派出子代理前输出（0002、0005、0007 三次读取了 intake 却未输出）；
+  - 客户成稿模式交付要求。
+- intake：`REVIEW_STATUS` 补充复核模型不可用时的替换、未做第二轮复核的声明；客户成稿模式下，未消解分歧写入《成稿说明》。
+- 操作员编排：
+  - `operator-orchestration.md` 新增「按议题拆分检索」的统一规则，以及复核输入输出约定（官方原文目录、三档输出、能否发送的总体评价）；
+  - `operator-quickstart.md` 第 6 节换用 LWC-2026-0007 实测有效的复核提示词。
+- 插件版本：construction-legal 0.3.0（新模块）、commercial-legal 0.4.2；marketplace 与 README / INSTALL 计数同步（69 个顶层 skill、281 个子技能）；`package.json` 1.3.0。
 
 ## [v1.2.2] - 2026-10-15
 

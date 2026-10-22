@@ -5,7 +5,7 @@
 ## 项目现状
 
 当前项目处于 **SKILL.md 定义完成** 阶段：
-- 13 个插件，共 **68 个顶层 skill**（含 278 个子技能 SKILL.md）已定义
+- 13 个插件，共 **69 个顶层 skill**（含 281 个子技能 SKILL.md）已定义
 - `shared/` 共享研究基础设施已建立（研究闸门、质量闸门、搜索策略）
 - SKILL.md 文件**未被任何 Agent 平台自动发现**——需要通过符号链接手动注册
 
@@ -44,7 +44,7 @@ cd /path/to/ai-for-china-legal
 bash scripts/setup-skills.sh
 ```
 
-这会创建 71 个符号链接，将各插件的 SKILL.md 链接到 `.qwen/skills/` 目录下，避免命名冲突。
+这会创建 72 个符号链接，将各插件的 SKILL.md 链接到 `.qwen/skills/` 目录下，避免命名冲突。
 
 ### 验证
 
@@ -77,13 +77,14 @@ ln -sf /path/to/ai-for-china-legal/commercial-legal/skills/contract-review ~/.qw
 
 ## 当前可用的 skill 列表
 
-安装后，以下 skill 可用（共 71 个：68 插件 + 3 共享）：
+安装后，以下 skill 可用（共 72 个：69 插件 + 3 共享）：
 
-### 商事合同 (4)
+### 商事合同 (5)
 - `commercial-cold-start-interview` — 冷启动访谈
 - `commercial-contract-review` — 合同审查
 - `commercial-contract-drafting` — 合同起草
 - `commercial-liability-analysis` — 违约责任分析
+- `commercial-equity-transaction-dd` — 股权交易法律尽调
 
 ### 诉讼仲裁 (6)
 - `litigation-cold-start-interview` — 冷启动访谈
@@ -93,13 +94,14 @@ ln -sf /path/to/ai-for-china-legal/commercial-legal/skills/contract-review ~/.qw
 - `litigation-representation-drafting` — 代理词起草
 - `litigation-limitation-monitoring` — 诉讼时效监控
 
-### 劳动人事 (6)
+### 劳动人事 (7)
 - `employment-cold-start-interview` — 冷启动访谈
 - `employment-hiring-review` — 招聘审查
 - `employment-termination-review` — 离职审查
 - `employment-non-compete-review` — 竞业限制
 - `employment-leave-management` — 休假管理
 - `employment-labor-dispute-handling` — 劳动争议处理
+- `employment-workforce-compliance-dd` — 劳动用工合规调查
 
 ### 数据合规 (5)
 - `data-cold-start-interview` — 冷启动访谈
@@ -129,12 +131,13 @@ ln -sf /path/to/ai-for-china-legal/commercial-legal/skills/contract-review ~/.qw
 - `ai-governance-generative-ai` — 生成式 AI 合规
 - `ai-governance-ai-use-case-classification` — AI 用例分类
 
-### 建设工程 (5)
+### 建设工程 (6)
 - `construction-cold-start-interview` — 冷启动访谈
 - `construction-contract-review` — 施工合同审查
 - `construction-payment-dispute` — 工程款争议
 - `construction-bidding-compliance` — 招投标合规
 - `construction-commercial-housing-review` — 商品房买卖审查
+- `construction-land-use-redevelopment` — 存量土地变性与合作开发
 
 ### 婚姻家事 (5)
 - `family-cold-start-interview` — 冷启动访谈

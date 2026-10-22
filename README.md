@@ -82,7 +82,7 @@ bash scripts/cleanup-skills.sh  # 卸载
 
 | 插件 | 说明 | Skills 数量 |
 |------|------|------------|
-| [建设工程](construction-legal/README.md) | 施工合同、工程款争议、商品房买卖 | 5 |
+| [建设工程](construction-legal/README.md) | 施工合同、工程款争议、商品房买卖、存量土地变性与合作开发 | 6 |
 | [婚姻家事](family-legal/README.md) | 离婚协议、遗嘱、继承 | 5 |
 | [刑事合规](criminal-compliance/README.md) | 刑事风险评估、合规不起诉 | 5 |
 
