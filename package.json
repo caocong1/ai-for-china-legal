@@ -1,6 +1,6 @@
 {
   "name": "ai-for-china-legal",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "AI Legal Assistant Framework for China-based lawyers — 13 plugins, MCP connectors, managed agents",
   "private": true,
   "type": "module",
