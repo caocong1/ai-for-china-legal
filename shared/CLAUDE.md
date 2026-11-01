@@ -9,8 +9,8 @@ shared/
 ├── CLAUDE.md                          # 本文件
 ├── ai-for-china-legal-workflow/       # 顶层自动路由（intake → 研究闸门 → 专项技能 → 文档交付）
 ├── legal-document-intake/             # 法律事项动态 Intake
-│   ├── SKILL.md                       # INTAKE_DECISION / [CLARIFY:] / 执行档 / REVIEW_STATUS
-│   └── references/                    # 问题路由、边界示例、操作员快速说明、多模型编排
+│   ├── SKILL.md                       # 问题分档 / 两种提问方式 / INTAKE_DECISION / 执行档 / REVIEW_STATUS
+│   └── references/                    # 问题路由、问卷文档模式、边界示例、操作员快速说明、多模型编排
 ├── research-gate/                     # 研究闸门（强制检索前置机制）
 │   ├── SKILL.md                       # 研究闸门核心逻辑
 │   └── references/

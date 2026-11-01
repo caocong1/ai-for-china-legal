@@ -1,5 +1,17 @@
 # CLAUDE.md
 
+## 用本库处理具体法律事项时（先读）
+
+被要求「使用 ai-for-china-legal 的法律 skill」处理一个具体事项（起草、审查、出意见、诉讼文书、尽调等）时：
+
+1. 先读 `shared/ai-for-china-legal-workflow/SKILL.md`（总路由），按它的顺序执行。
+2. 读完材料、第一次检索或派出子代理之前，按 `shared/legal-document-intake/SKILL.md` 列出会改变成果的问题，在回复中输出 `INTAKE_DECISION`，然后提问：直接问（Claude Code 用 `AskUserQuestion`），或生成问卷文档发给律师。操作员没说用哪种时，让操作员选。
+3. 只在思考里判断「信息够了」不算完成 intake。此前 11 项任务都这样跳过了提问，缺口全部留到了《成稿说明》。
+
+本文件以下部分是维护本仓库（编辑 skill）的说明。
+
+---
+
 AI for China Legal 指导文件。本项目是一个法律 AI 插件套件，包含 13 个第一方插件，覆盖商事合同、诉讼仲裁、劳动人事、数据合规、知识产权、监管合规、AI 治理、建设工程、婚姻家事、刑事合规、法考培训、法律援助和社区技能中心。
 
 本项目的工作主要是编辑提示词内容（skills、agents、hooks）、插件元数据和连接器配置——不是应用程序代码。

@@ -25,6 +25,7 @@
 |------|----------|
 | `claude plugin add <github-url>` | ❌ 待验证（本项目在 Gitee，不在 GitHub） |
 | 本地目录注册为 marketplace | ❌ 待验证 |
+| `bash scripts/setup-claude-skills.sh`：总路由与动态 intake 链接到 `~/.claude/skills/` | ✅ 2026-11-01 实测：运行后两个 skill 即出现在 Claude Code 的 skill 列表中 |
 
 ## 方式 A：项目级 skill（Qwen Code，已验证可用）
 
@@ -66,9 +67,11 @@ ln -sf /path/to/ai-for-china-legal/commercial-legal/skills/contract-review ~/.qw
 
 **注意**：全局安装后所有项目都能用，可能与其他项目的 skill 冲突。
 
-## 方式 C：Claude Code（待验证）
+## 方式 C：Claude Code
 
-本项目有 `.claude-plugin/marketplace.json` 定义，符合 Claude Code 插件格式。但实际安装需要：
+日常使用只需总路由与动态 intake：运行 `bash scripts/setup-claude-skills.sh`，在 `~/.claude/skills/` 创建两个符号链接；专项技能由总路由按需读取语料仓文件，不必逐个注册。卸载时删除这两个链接。
+
+插件方式：本项目有 `.claude-plugin/marketplace.json` 定义，符合 Claude Code 插件格式。但实际安装需要：
 
 1. 将项目推送到 GitHub（当前在 Gitee）
 2. 通过 `claude plugin add` 安装
