@@ -21,7 +21,7 @@ argument-hint: "[案件 slug 或事项路径]"
 ## Intake 前置
 
 > ⚠️ **开始前**：确认已在回复中显式输出 `INTAKE_DECISION`，并按 `shared/legal-document-intake/SKILL.md` 完成提问。拟提交法院的文书，举证期限、答辩期、是否反诉等有硬时限或会改变文书形态的缺口属于「必须确认」。
-> 律师中途发来自改稿，视为换了底稿，重新输出一次 intake；处理方法见 `shared/references/document-delivery-qa.md` §2「以律师自改稿或返回稿为底稿」。稿中的依据与事实断言和客户材料同等核验（`shared/research-gate/references/source-policy.md`；事实句见 `defense-assembly` 4.5）。
+> 律师中途发来自改稿，视为换了底稿，重新输出一次 intake；处理方法见 `shared/references/document-delivery-qa.md` §2「以律师自改稿或返回稿为底稿」。稿中的依据与事实断言和客户材料同等核验（`shared/research-gate/references/source-policy.md`；事实句自检见「答辩状装配」子技能 4.5）。
 
 ---
 
