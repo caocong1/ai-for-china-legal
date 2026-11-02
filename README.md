@@ -50,6 +50,14 @@ bash scripts/cleanup-skills.sh  # 卸载
 
 注册后，在 Qwen Code 中打开本项目目录，各 skill 将自动加载。详见 [INSTALL.md](INSTALL.md)。
 
+## 给律师看的 skill 说明
+
+`docs/` 是一套静态页面，把每个 skill 改写成律师能读的说明：能做什么、怎么做到、分几步、内置了哪些法律判断，并把可以提意见的地方逐条标出、一键复制成引用。在线地址：https://caocong1.github.io/ai-for-china-legal/ （GitHub Pages，`master` 分支 `/docs` 目录）；本地直接打开 `docs/index.html` 也可以。
+
+- 数据：`docs/data/skills/parts/*.json`（结构见 `docs/data/skills/schema.json`）
+- 生成：`python3 scripts/build-docs-site.py`（校验数据后重写全部页面）
+- 改了 SKILL.md 之后，更新对应摘要再重新生成
+
 ## 日常使用：操作员模式
 
 忘记如何执行时，先看 [动态 Intake 操作员快速说明](shared/legal-document-intake/references/operator-quickstart.md)。其中包含启动任务、微信转问、律师回复后续接、换模型交接、独立复核和反馈入库的可复制提示词。

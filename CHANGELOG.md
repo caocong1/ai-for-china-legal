@@ -2,8 +2,27 @@
 
 本文件记录 AI for China Legal 的主要变更。仓库版本、文档里程碑和墨律生产 skill 包版本可能不是同一个编号：
 
-- 仓库代码/文档里程碑使用 `v1.x`，`package.json` 与之同步（当前 `1.4.0`）。
+- 仓库代码/文档里程碑使用 `v1.x`，`package.json` 与之同步（当前 `1.5.0`）。
 - 墨律生产 skill 包建议使用 `YYYY.MM.DD.N`，例如 `2026.06.15.1`。
+
+## [v1.5.0] - 2026-11-01
+
+给律师看的 skill 说明站（`docs/`）。律师不读 SKILL.md 原文，也能知道每个 skill 做什么、怎么做到、分几步、内置了哪些法律判断，并对这些判断逐条提意见。
+
+### Added
+
+- `docs/`：静态站点。首页（一个事项怎么走、十三个领域、怎么读、怎么提意见）、`docs/skills/`（全部 skill 索引，可过滤）、`docs/feedback/`（怎么提意见）、每个插件一页、每个顶层 skill 一页（概要、适用与边界、输入与产出、开始前、执行步骤、主要法律依据、引用的共享规则、交付前检查、何时暂停或升级、请律师重点核对、示例提示词、源文件）。共享流程（总路由、动态 intake、研究闸门、反馈精炼）同样成页。
+- `docs/data/skills/parts/*.json`：每个 skill 的律师版摘要数据，由通读 SKILL.md 的子代理按 `docs/data/skills/schema.json` 产出；每个子技能对应一个步骤，带做法、内置规则、法律依据、产出和「请律师核对」；每个 skill 另有 5–12 条审阅条目。
+- `scripts/build-docs-site.py`：从数据生成全站（Python 标准库）；`scripts/validate-skill-digest.py`：数据结构校验。
+- 页面上的每条核对与审阅条目可一键复制成带 skill 标识、步骤号和条目号的引用，便于粘到微信或 GitHub issue。
+- 审阅条目下按文字重合自动列出相关的步骤批注（提示，可能不全）；步骤标签附源文件自己的编号（「步骤 6 · 原文第四步」）；路径、命令和英文标识等宽显示，首页「标记与术语」解释英文标记。
+- 设计按 design-skill-lab 的 design-studio 流程做，经两轮新上下文评审（`.design/critique/2026-11-01-site/`）：第一轮的 320 宽重排问题（P1）已修复，第二轮结论仍为 fix，此后的修正未再送评，残留项见 `report-r2.md`。全站 90 页在 320 与 390 宽下无横向滚动，内部链接与锚点全部可达。
+- `.design/`：站点的设计真相文件（PRODUCT、brief、surface 契约、decisions、DESIGN.md、评审报告），按 design-skill-lab 的 design-studio 流程产出；`.design/shots/` 不入库。
+
+### 维护约定
+
+- 改了 SKILL.md 后，相应更新 `docs/data/skills/parts/` 里的摘要，再运行 `python3 scripts/build-docs-site.py`。
+- 说明与源文件不一致时，以源文件为准。摘要时发现的源文件内部不一致（入口与子技能的命令名、访谈时长、阈值刻度前后不一等）已写进各页「请律师重点核对」，待逐项核对后回改 SKILL.md。
 
 ## [v1.4.0] - 2026-11-01
 

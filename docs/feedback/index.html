@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-Hans" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>怎么提意见 · AI for China Legal Skill 说明</title>
+<meta name="description" content="如何对 ai-for-china-legal 的 skill 规则提意见">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#fcfaf7">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1c1915">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23fbfaf8'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%23b4392c' font-family='serif' font-weight='700'%3E%E6%B3%95%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<div id="live" class="vh" role="status" aria-live="polite"></div>
+<header class="hd"><div class="wrap hd-in">
+  <a class="hd-mark" href="../index.html">AI for China Legal<small>Skill 说明</small></a>
+  <nav class="hd-nav" aria-label="站点"><a href="../index.html">首页</a><a href="../skills/index.html">全部 skill</a><a href="../shared/index.html">共享流程</a><a href="../feedback/index.html" aria-current="page">怎么提意见</a></nav>
+</div></header>
+<nav class="crumbs wrap" aria-label="位置"><span><a href="../index.html">首页</a></span><span>怎么提意见</span></nav>
+<main id="main" class="wrap">
+<div class="page">
+
+
+<div class="article">
+<header class="lead"><h1>怎么提意见</h1><p class="tagline">意见要能对回源文件的某一条，才能变成 skill 的修改。页面上的每条「核对」和「审阅」都带编号，复制就是现成的引用。</p></header>
+<section class="sec" id="what"><h2><span class="n">01</span>提什么</h2>
+<ul class="measure">
+<li><b>内置假设不对或不全</b>：某个阈值、分级、清单、默认立场与贵所实践不符。</li>
+<li><b>法条有误</b>：条号、文号、生效情况、适用范围写错了，或漏了关键司法解释。</li>
+<li><b>步骤顺序或缺步</b>：实务上先后应当颠倒，或少了一个必须做的核查。</li>
+<li><b>该问没问</b>：开工前应当向律师确认的事项没有列进 intake 的候选问题。</li>
+<li><b>措辞与文书体例</b>：产出文书的结构、口吻、落款与贵所模板不一致。</li>
+<li><b>说明与源文件不一致</b>：本站是摘要，发现与 SKILL.md 原文不符请一并指出。</li>
+</ul></section>
+<section class="sec" id="how"><h2><span class="n">02</span>怎么写</h2>
+<p class="measure">三行即可：引用、结论、依据。引用从页面复制；结论写「同意 / 反对 / 应改为……」；依据写法条、案号或实务经验。</p>
+<pre class="measure">【商事合同／合同审查（commercial-legal/contract-review）· 步骤1 风险识别 · 核对 1.2】风险等级把「超出备选范围」定为高风险……
+
+反对。我所实践中……应改为……
+依据：《民法典》第585条第2款；（2023）京03民终xxxx号。</pre>
+<p class="measure small">一次可以发多条；不同 skill 的意见请分开，每条带自己的引用。不要把客户材料或案情原文写进意见。</p>
+</section>
+<section class="sec" id="where"><h2><span class="n">03</span>发到哪里</h2>
+<ul class="measure">
+<li><b>微信发给操作员</b>：最常用。操作员按<a href="../shared/feedback-refinement/index.html">律师反馈精炼</a>流程处理。</li>
+<li><b>GitHub issue</b>：每个 skill 页末尾有「在 GitHub 提 issue」按钮，标题已带 skill 标识：<a href="https://github.com/caocong1/ai-for-china-legal/issues">https://github.com/caocong1/ai-for-china-legal/issues</a>。</li>
+<li><b>墨律桌面端</b>：对单次成果点 👍/👎 并留言，会随同步服务汇总。</li>
+</ul></section>
+<section class="sec" id="then"><h2><span class="n">04</span>之后会发生什么</h2>
+<p class="measure">意见按 skill 聚类，定位到源文件，只做 1–3 处有边界的替换或追加，每处写明对应哪条意见；不删研究闸门的强制步骤，不编造法条，新增规则拿不准的标「待律师复核」。改完对照至少一个真实场景核对，再发布新版本 skill 包。来自真实任务的经验会脱敏后进入案例库。</p>
+</section>
+</div>
+</div>
+</main>
+<footer class="ft"><div class="wrap">
+  <p>本站把 <a href="https://github.com/caocong1/ai-for-china-legal">ai-for-china-legal</a> 仓库里的 skill 文件改写成给律师看的说明。所有 skill 的输出都是供律师审查的草稿，不是法律意见。页面由 <code>scripts/build-docs-site.py</code> 从 <code>docs/data/skills/parts/</code> 生成；生成日期 2026-11-02。</p>
+  <p>发现说明与源文件不一致、或对 skill 的规则有意见：见<a href="../feedback/index.html">怎么提意见</a>。</p>
+</div></footer>
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

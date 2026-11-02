@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ai-for-china-legal skill digest (lawyer-facing)",
+  "description": "docs/data/skills/parts/*.json 的结构。每个文件描述一个插件（或 shared）里的若干顶层 skill。plugin 块只在该插件的第一个分片里出现；scripts/build-docs-site.py 按 plugin.id 合并全部分片。所有文字面向执业律师，简体中文。",
+  "type": "object",
+  "required": ["plugin_id", "skills"],
+  "properties": {
+    "plugin_id": {"type": "string", "description": "插件目录名，如 commercial-legal；共享流程用 shared"},
+    "part": {"type": "string", "description": "分片名，如 a / b / c"},
+    "plugin": {
+      "type": "object",
+      "description": "插件级说明，只在第一个分片写",
+      "required": ["name", "tagline", "summary", "not_for", "shared_libraries", "practice_profile"],
+      "properties": {
+        "name": {"type": "string", "description": "中文名，如 商事合同"},
+        "tagline": {"type": "string", "description": "≤40 字，这组工具替律师做什么"},
+        "summary": {"type": "string", "description": "2–4 句，面向律师"},
+        "not_for": {"type": "array", "items": {"type": "string"}, "description": "本插件明确不做的事（来自 README 等）"},
+        "shared_libraries": {
+          "type": "array",
+          "description": "skills/_shared/ 下的领域引用库与配置 schema，每个文件一条",
+          "items": {
+            "type": "object",
+            "required": ["file", "name", "what"],
+            "properties": {
+              "file": {"type": "string", "description": "相对仓库根的路径"},
+              "name": {"type": "string"},
+              "what": {"type": "string", "description": "内容概要：收录了哪些法条/规则/口径，律师能看懂"},
+              "used_by": {"type": "array", "items": {"type": "string"}, "description": "引用它的顶层 skill id"}
+            }
+          }
+        },
+        "practice_profile": {
+          "type": "object",
+          "description": "实践配置文件（<plugin>/CLAUDE.md）配置什么、如何影响输出",
+          "required": ["file", "sections", "effects"],
+          "properties": {
+            "file": {"type": "string"},
+            "sections": {"type": "array", "items": {"type": "string"}, "description": "配置文件的章节名"},
+            "effects": {"type": "array", "items": {"type": "string"}, "description": "3–6 条：配置的哪一项会怎样改变输出"}
+          }
+        }
+      }
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "command", "name", "kind", "tagline", "summary", "when", "not_for", "inputs", "outputs", "preconditions", "guardrails", "steps", "legal_basis", "shared_refs", "quality_checks", "escalation", "review_points", "example_prompts", "sources"],
+        "properties": {
+          "id": {"type": "string", "description": "顶层 skill 目录名，如 contract-review"},
+          "command": {"type": "string", "description": "斜杠命令，如 /commercial-legal:contract-review"},
+          "name": {"type": "string", "description": "中文名"},
+          "kind": {"type": "string", "enum": ["workflow", "setup", "monitor", "shared"], "description": "workflow=办案/文书流程；setup=冷启动访谈/配置；monitor=监控或定时类；shared=共享流程"},
+          "tagline": {"type": "string", "description": "≤30 字"},
+          "summary": {"type": "string", "description": "3–5 句：能做到什么、给谁用、产出什么、怎么做到"},
+          "when": {"type": "array", "items": {"type": "string"}, "description": "适用场景 / 触发时机"},
+          "not_for": {"type": "array", "items": {"type": "string"}, "description": "边界：不做什么、何时不适用"},
+          "inputs": {
+            "type": "array",
+            "items": {"type": "object", "required": ["item", "required"], "properties": {"item": {"type": "string"}, "required": {"type": "boolean"}, "note": {"type": "string"}}}
+          },
+          "outputs": {
+            "type": "array",
+            "items": {"type": "object", "required": ["name", "structure"], "properties": {"name": {"type": "string"}, "structure": {"type": "string", "description": "结构/章节/格式"}, "audience": {"type": "string", "description": "律师内部 / 客户 / 对方 / 法院"}}}
+          },
+          "preconditions": {"type": "array", "items": {"type": "string"}, "description": "开始前必须发生的事：读取实践配置、动态 intake、研究闸门、事项上下文等"},
+          "guardrails": {
+            "type": "array",
+            "description": "入口级护栏与硬性规则",
+            "items": {"type": "object", "required": ["name", "rule"], "properties": {"name": {"type": "string"}, "rule": {"type": "string"}}}
+          },
+          "steps": {
+            "type": "array",
+            "description": "按执行顺序的步骤；每个子技能一个步骤。没有子技能的 skill 按 SKILL.md 自身的步骤拆",
+            "items": {
+              "type": "object",
+              "required": ["n", "name", "goal", "actions", "rules", "legal_basis", "output", "lawyer_check"],
+              "properties": {
+                "n": {"type": "integer"},
+                "id": {"type": "string", "description": "子技能目录名；没有则省略"},
+                "command": {"type": "string", "description": "可单独触发时的命令；没有则省略"},
+                "name": {"type": "string"},
+                "standalone": {"type": "boolean", "description": "律师可否单独触发"},
+                "goal": {"type": "string", "description": "这一步要解决什么"},
+                "actions": {"type": "array", "items": {"type": "string"}, "description": "具体做法，按原文顺序，每条一句，保留原文的判断标准与数字"},
+                "rules": {"type": "array", "items": {"type": "string"}, "description": "内置的判断规则、分级标准、阈值、表格要点、模板要点"},
+                "legal_basis": {"type": "array", "items": {"type": "string"}, "description": "本步骤引用的法条/司法解释/规章，写法：《民法典》第585条 — 用途；原文带 [待验证] 的照抄"},
+                "output": {"type": "string", "description": "本步骤产出什么、什么格式"},
+                "lawyer_check": {"type": "array", "items": {"type": "string"}, "description": "请律师核对或可提意见的点：这一步内置的法律假设、立场、阈值、措辞"}
+              }
+            }
+          },
+          "legal_basis": {"type": "array", "items": {"type": "string"}, "description": "整个 skill 层面最主要的 5–15 条法律依据"},
+          "shared_refs": {
+            "type": "array",
+            "items": {"type": "object", "required": ["file", "why"], "properties": {"file": {"type": "string"}, "why": {"type": "string"}}}
+          },
+          "quality_checks": {"type": "array", "items": {"type": "string"}, "description": "交付前质量检查、自查清单"},
+          "escalation": {"type": "array", "items": {"type": "string"}, "description": "何时暂停、升级、转人工、提示律师"},
+          "review_points": {"type": "array", "items": {"type": "string"}, "description": "最重要：5–12 条供律师提意见的点。每条点出一个内置的法律假设、立场、阈值、清单或措辞，写成律师可以同意/反对/补充的陈述"},
+          "example_prompts": {"type": "array", "items": {"type": "string"}, "description": "2–4 条律师可直接使用的提示词"},
+          "sources": {"type": "array", "items": {"type": "string"}, "description": "本 skill 所有 SKILL.md 的相对路径"}
+        }
+      }
+    }
+  }
+}

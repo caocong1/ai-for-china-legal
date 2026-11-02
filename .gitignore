@@ -39,3 +39,7 @@ coverage/
 !.qwen/skills/parallel-ai-code-review/
 !.qwen/skills/project-status/
 !.qwen/skills/recover-uncommitted-work/
+
+# Design shots (bulk captures, see .design/)
+.design/shots/
+__pycache__/
