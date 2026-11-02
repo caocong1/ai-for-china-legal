@@ -1,0 +1,38 @@
+lint.mjs: 1280 light 1280x800...
+lint.mjs: 390 light 390x844...
+lint.mjs: 320 light 320x640...
+lint.mjs: 1280 dark 1280x800...
+lint.mjs: 390 dark 390x844...
+lint.mjs: 320 dark 320x640...
+lint.mjs  docs/skills/index.html
+runs      1280 light · 390 light (touch 44) · 320 light (touch 44) · 1280 dark · 390 dark (touch 44) · 320 dark (touch 44)
+
+WARN
+  label-wrap            38  short labels (buttons, badges, tabs, column headers, times, inline code) broken over 2+ lines
+    [390 light, 390 dark] wraps to 2 lines  footer.ft > div.wrap > p:nth-of-type(1) > code:nth-of-type(1)  "scripts/build-docs-site.py"
+    [320 light, 320 dark] wraps to 2 lines  tbody > tr:nth-of-type(1) > td:nth-of-type(1) > code  "/commercial-legal:contract-review"
+    [320 light, 320 dark] wraps to 2 lines  tbody > tr:nth-of-type(2) > td:nth-of-type(1) > code  "/commercial-legal:contract-drafting"
+    [320 light, 320 dark] wraps to 2 lines  tbody > tr:nth-of-type(3) > td:nth-of-type(1) > code  "/commercial-legal:liability-analysis"
+    [320 light, 320 dark] wraps to 2 lines  tbody > tr:nth-of-type(4) > td:nth-of-type(1) > code  "/commercial-legal:equity-transaction-dd"
+    [320 light, 320 dark] wraps to 2 lines  tbody > tr:nth-of-type(5) > td:nth-of-type(1) > code  "/commercial-legal:cold-start-interview"
+    [320 light, 320 dark] wraps to 2 lines  tbody > tr:nth-of-type(2) > td:nth-of-type(1) > code  "/data-compliance:cross-border-assessment"
+    [320 light, 320 dark] wraps to 2 lines  tbody > tr:nth-of-type(5) > td:nth-of-type(1) > code  "/data-compliance:cold-start-interview"
+    +30 more (--max 38 or --json)
+
+FLOOR  passes: contrast, overflow, accessible names
+
+INVENTORY  distinct values used across all runs; "near" = near-duplicates (token drift)
+  text colour         8  #2c2823 #f1eeea #524c44 #e0d8cd #655e55 #c9c1b7 #b4392c #ec8070
+  background          4  #f4f0eb #25221e #fcfaf7 #1c1915
+  border colour       6  #787067 #aaa298 #c9c1b7 #655e55 #b4392c #ec8070
+  font-size           4  14 16 20 32
+  font-weight         3  400 600 700
+  line-height/size    4  1.25 1.4 1.5 1.75
+  family (first)      3  "-apple-system" "ui-monospace" "Songti SC"
+  radius              1  2px
+  shadow              0  
+  padding/gap        11  1 1.5 4 5 7 8 12 16 24 32 48
+  z-index             1  10
+  duration ms         1  120
+
+Not checked: non-text contrast (color_tools.py matrix --from), focus visibility, keyboard order, rAF motion, text in images, iframes.

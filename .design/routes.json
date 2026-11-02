@@ -1,0 +1,17 @@
+{
+  "base": "../docs/index.html",
+  "locale": "zh-CN",
+  "timezone": "Asia/Shanghai",
+  "viewports": ["1280x800", "390x844"],
+  "themes": ["light", "dark"],
+  "routes": [
+    {"id": "home", "path": "index.html", "ready": ".flow"},
+    {"id": "index", "path": "skills/index.html", "ready": ".skill-list", "themes": ["light"]},
+    {"id": "feedback", "path": "feedback/index.html", "ready": "pre", "themes": ["light"]},
+    {"id": "plugin", "path": "commercial-legal/index.html", "ready": ".skill-list", "themes": ["light"]},
+    {"id": "skill-top", "path": "commercial-legal/contract-review/index.html", "ready": ".steps"},
+    {"id": "skill-steps", "path": "commercial-legal/contract-review/index.html#steps", "ready": ".steps"},
+    {"id": "skill-review", "path": "commercial-legal/contract-review/index.html#review", "ready": ".review", "themes": ["light"]},
+    {"id": "shared-intake", "path": "shared/legal-document-intake/index.html#steps", "ready": ".steps", "themes": ["light"]}
+  ]
+}

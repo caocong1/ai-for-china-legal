@@ -1,0 +1,35 @@
+lint.mjs: 1280 light 1280x800...
+lint.mjs: 390 light 390x844...
+lint.mjs: 320 light 320x640...
+lint.mjs  docs/shared/legal-document-intake/index.html
+runs      1280 light · 390 light (touch 44) · 320 light (touch 44)
+
+WARN
+  label-wrap            40  short labels (buttons, badges, tabs, column headers, times, inline code) broken over 2+ lines
+    [1280 light] wraps to 2 lines  ul > li:nth-of-type(1) > span.small:nth-of-type(2) > code:nth-of-type(5)  "execution_profile"
+    [1280 light] wraps to 2 lines  ul > li:nth-of-type(4) > span.small:nth-of-type(2) > code:nth-of-type(3)  "task_type"
+    [1280 light] wraps to 2 lines  div.step-part:nth-of-type(1) > ol > li:nth-of-type(2) > code:nth-of-type(2)  "optional_missing"
+    [390 light] wraps to 2 lines  section#summary > div.prose.measure > p > code:nth-of-type(1)  "INTAKE_DECISION"
+    [390 light] wraps to 2 lines  ul > li:nth-of-type(1) > span.small:nth-of-type(2) > code:nth-of-type(2)  "ask_mode"
+    [390 light, 320 light] wraps to 2 lines  ul > li:nth-of-type(1) > span.small:nth-of-type(2) > code:nth-of-type(4)  "not_applicable"
+    [390 light] wraps to 2 lines  ul > li:nth-of-type(4) > span.small:nth-of-type(2) > code:nth-of-type(6)  "party_role"
+    [390 light] wraps to 2 lines  section#before > ul > li:nth-of-type(2) > code  "INTAKE_DECISION"
+    +32 more (--max 40 or --json)
+
+FLOOR  passes: contrast, overflow, accessible names
+
+INVENTORY  distinct values used across all runs; "near" = near-duplicates (token drift)
+  text colour         5  #2c2823 #655e55 #524c44 #b4392c #ffffff
+  background          3  #f4f0eb #fcfaf7 #b4392c
+  border colour       3  #787067 #c9c1b7 #b4392c
+  font-size           5  14 16 20 25 32
+  font-weight         3  400 600 700
+  line-height/size    5  1 1.25 1.4 1.5 1.75
+  family (first)      3  "-apple-system" "ui-monospace" "Songti SC"
+  radius              1  2px
+  shadow              0  
+  padding/gap        14  1 1.5 4 5 7 8 12 16 19 21 24 32 48 64
+  z-index             1  10
+  duration ms         1  120
+
+Not checked: non-text contrast (color_tools.py matrix --from), focus visibility, keyboard order, rAF motion, text in images, iframes.
