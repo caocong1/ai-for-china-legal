@@ -351,7 +351,9 @@
         "criminal-compliance/skills/corporate-crime/common-unit-crime-types/SKILL.md",
         "criminal-compliance/skills/corporate-crime/internal-control-prevention/SKILL.md",
         "criminal-compliance/skills/corporate-crime/incident-response/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "non-prosecution",
@@ -728,7 +730,9 @@
         "criminal-compliance/skills/non-prosecution/compliance-plan/SKILL.md",
         "criminal-compliance/skills/non-prosecution/third-party-monitoring/SKILL.md",
         "criminal-compliance/skills/non-prosecution/application-hearing/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

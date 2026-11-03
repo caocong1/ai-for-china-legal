@@ -85,7 +85,9 @@
         "「共享护栏」给所有流程加了硬规则：距最后更新超过 6 个月的司法解释条号引用标「时效性需核实」，涉及具体地区的标「地方规定需核实」，涉及不同项目类型的标「项目类型需核实」；成果要发给对方当事人、法院、仲裁机构、监管机构等会使特权保护失效的对象时，提供特权版和脱敏版两套。",
         "「文书风格」中合同审查意见书、工程款函件、争议分析、商品房审查报告的风格和成果存放位置，决定各流程最终成果的结构与交付形式。"
       ]
-    }
+    },
+    "source_commit": "102f91692024402c0661732192097ff69753551b",
+    "source_date": "2026-11-03"
   },
   "skills": [
     {
@@ -475,7 +477,9 @@
         "construction-legal/skills/land-use-redevelopment/land-use-change-path/SKILL.md",
         "construction-legal/skills/land-use-redevelopment/land-premium-contract/SKILL.md",
         "construction-legal/skills/land-use-redevelopment/land-contribution-jv/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "cold-start-interview",
@@ -741,7 +745,9 @@
         "construction-legal/skills/cold-start-interview/review-stance/SKILL.md",
         "construction-legal/skills/cold-start-interview/risk-escalation/SKILL.md",
         "construction-legal/skills/cold-start-interview/style-local-rules/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

@@ -42,7 +42,8 @@ def check(node, schema, path, out):
 
 # ------------------------------------------------------------------ lawyer language
 # These keys carry identifiers for maintainers and are not shown in the page body; every other string is read by lawyers.
-MAINT_KEYS = {'plugin_id', 'part', 'id', 'command', 'kind', 'n', 'standalone', 'required', 'sources', 'file', 'used_by'}
+MAINT_KEYS = {'plugin_id', 'part', 'id', 'command', 'kind', 'n', 'standalone', 'required', 'sources', 'file', 'used_by',
+              'source_commit', 'source_date'}
 
 # English a Chinese lawyer reads without help: legal and business abbreviations, standards, licences, products.
 ASCII_OK = frozenset("""
@@ -126,6 +127,14 @@ def validate(path):
                 for m in re.finditer(r'第\s*(\d+)\s*步', t):
                     if not 1 <= int(m.group(1)) <= len(steps):
                         out.append(f'{jp}: 「{m.group(0)}」超出本页步骤数 {len(steps)}（步骤引用用本页编号）')
+    # 摘要依据的仓库提交：scripts/digest-drift.py 靠它判断哪些摘要过时
+    blocks = ([('$.plugin', data['plugin'])] if isinstance(data.get('plugin'), dict) else []) + \
+        [(f'$.skills[{i}]', s) for i, s in enumerate(data.get('skills', [])) if isinstance(s, dict)]
+    for jp, rec in blocks:
+        if not re.fullmatch(r'[0-9a-f]{40}', str(rec.get('source_commit', ''))):
+            out.append(f'{jp}.source_commit: 应为 40 位提交哈希（用 scripts/digest-drift.py --mark 记录）')
+        if not re.fullmatch(r'\d{4}-\d{2}-\d{2}', str(rec.get('source_date', ''))):
+            out.append(f'{jp}.source_date: 应为 YYYY-MM-DD')
     out += plain_language(data)
     return [f'{os.path.relpath(path, ROOT)}: {m}' for m in out]
 

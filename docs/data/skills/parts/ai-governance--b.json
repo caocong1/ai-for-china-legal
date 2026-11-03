@@ -366,7 +366,9 @@
         "ai-governance/skills/algorithm-filing/filing-requirement-analysis/SKILL.md",
         "ai-governance/skills/algorithm-filing/filing-material-preparation/SKILL.md",
         "ai-governance/skills/algorithm-filing/post-filing-change-management/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "deep-synthesis-filing",
@@ -752,7 +754,9 @@
         "ai-governance/skills/deep-synthesis-filing/filing-material-preparation/SKILL.md",
         "ai-governance/skills/deep-synthesis-filing/security-assessment-filing/SKILL.md",
         "ai-governance/skills/deep-synthesis-filing/post-filing-compliance/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

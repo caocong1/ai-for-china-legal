@@ -321,7 +321,9 @@
         "legal-aid/skills/document-templates/power-of-attorney-agreement/SKILL.md",
         "legal-aid/skills/document-templates/litigation-document-drafting/SKILL.md",
         "legal-aid/skills/document-templates/case-closure-report/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "legal-aid-application",
@@ -647,7 +649,9 @@
         "legal-aid/skills/legal-aid-application/material-preparation/SKILL.md",
         "legal-aid/skills/legal-aid-application/application-submission-tracking/SKILL.md",
         "legal-aid/skills/legal-aid-application/review-result-response/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

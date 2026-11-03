@@ -68,7 +68,9 @@
         "「我们是谁」中的所属行业，对应「共享护栏」里的行业监管识别表（金融、医疗健康、汽车、教育、互联网/平台、电信、能源/交通），涉及时成果加「行业监管需核实（主管部门规定）」标记；按「时效性触发」，距最后更新超过 6 个月的规章引用、网信办办法的任何具体规则、具体处罚金额或数量门槛、国家标准编号，一律标「时效性需核实（最新法规版本）」，涉及网信办规章的配置建议每季度复核。",
         "「文书风格」决定合规报告的形式（结构化风险清单加整改建议，或律师审查意见书等）、PIA 和出境评估报告出正式版还是简明版、与监管机构沟通的语气，以及工作产物存放位置；「输出」规定每份成果都附审查者注释（材料日期、审查范围、法规来源、各级标记项数量、时效性日期），结尾给出五个下一步选项：出具合规报告、升级处理、补充信息、申报监管、整改优先。"
       ]
-    }
+    },
+    "source_commit": "102f91692024402c0661732192097ff69753551b",
+    "source_date": "2026-11-03"
   },
   "skills": [
     {
@@ -376,7 +378,9 @@
         "data-compliance/skills/cold-start-interview/compliance-stance/SKILL.md",
         "data-compliance/skills/cold-start-interview/risk-escalation/SKILL.md",
         "data-compliance/skills/cold-start-interview/style-cross-border-policy/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

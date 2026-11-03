@@ -77,7 +77,9 @@
         "「共享护栏」给所有流程加了硬规则：涉及的法规距最后更新超过 6 个月的，标「时效性需核实」；每条依据标明出处（法规数据库、政府官网、网络搜索、AI 记忆、用户提供五类，网络搜索和 AI 记忆两类须核实后才能依赖）；每个问题同时评法律风险和商业摩擦两个维度；成果要发给对方、公司全员群等会使特权保护失效的对象时，提供特权版和脱敏版。",
         "「管辖识别」提示经济特区（深圳、珠海、汕头、厦门、海南）、民族自治地方、自贸区、港澳台的特别规定，合同涉及时标「管辖需核实（特别规定）」；「升级矩阵」中的金额阈值和自动升级条件，决定什么时候提示把问题升级给指定人员。"
       ]
-    }
+    },
+    "source_commit": "102f91692024402c0661732192097ff69753551b",
+    "source_date": "2026-11-03"
   },
   "skills": [
     {
@@ -453,7 +455,9 @@
         "commercial-legal/skills/equity-transaction-dd/chapter-fact-memos/SKILL.md",
         "commercial-legal/skills/equity-transaction-dd/transaction-procedure-check/SKILL.md",
         "commercial-legal/skills/equity-transaction-dd/dd-report-issue-list/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

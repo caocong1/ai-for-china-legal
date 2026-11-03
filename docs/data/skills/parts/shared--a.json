@@ -169,7 +169,9 @@
         "「文档交付」：任何 Word、PDF 交付前都按交付检查清单逐项检查；按加强或最高执行强度办理的事项，交付前写出复核情况说明；律师说「可以直接给客户」时交付两份文件——客户成稿和《成稿说明（致承办律师）》，客户成稿正文不放内部标记，人工审核要求由《成稿说明》和复核情况说明承载。",
         "「尽职调查 / 合规调查」和「存量土地变性与合作开发」：股权交易尽调与劳动用工合规调查共用尽职调查与合规调查作业手册，默认按最高执行强度办理；存量土地变性与合作开发事项的依据在建设工程领域的土地法规索引和城市地方规则里，国资依据取股权交易程序法规索引中「中央企业投资监管与参股管理」部分，涉及国有企业主体或亿元级价款的，默认按最高执行强度办理。"
       ]
-    }
+    },
+    "source_commit": "102f91692024402c0661732192097ff69753551b",
+    "source_date": "2026-11-03"
   },
   "skills": [
     {
@@ -510,7 +512,9 @@
       ],
       "sources": [
         "shared/ai-for-china-legal-workflow/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "legal-document-intake",
@@ -896,7 +900,9 @@
       ],
       "sources": [
         "shared/legal-document-intake/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "research-gate",
@@ -1274,7 +1280,9 @@
       ],
       "sources": [
         "shared/research-gate/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "feedback-refinement",
@@ -1592,7 +1600,9 @@
       ],
       "sources": [
         "shared/feedback-refinement/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

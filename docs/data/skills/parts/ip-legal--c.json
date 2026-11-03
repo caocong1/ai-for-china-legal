@@ -387,7 +387,9 @@
         "ip-legal/skills/ip-clearance/patent-fto/SKILL.md",
         "ip-legal/skills/ip-clearance/copyright-tradename-domain-clearance/SKILL.md",
         "ip-legal/skills/ip-clearance/clearance-risk-report/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "patent-analysis",
@@ -751,7 +753,9 @@
         "ip-legal/skills/patent-analysis/all-elements-rule/SKILL.md",
         "ip-legal/skills/patent-analysis/doctrine-of-equivalents/SKILL.md",
         "ip-legal/skills/patent-analysis/prior-art-defense/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

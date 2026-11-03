@@ -408,7 +408,9 @@
         "ai-governance/skills/generative-ai/training-data-compliance/SKILL.md",
         "ai-governance/skills/generative-ai/content-safety-mechanism/SKILL.md",
         "ai-governance/skills/generative-ai/user-protection-filing/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

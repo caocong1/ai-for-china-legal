@@ -370,7 +370,9 @@
         "employment-legal/skills/non-compete-review/term-and-compensation/SKILL.md",
         "employment-legal/skills/non-compete-review/scope-enforceability/SKILL.md",
         "employment-legal/skills/non-compete-review/breach-liability-remedy/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

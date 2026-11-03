@@ -367,7 +367,9 @@
         "regulatory-legal/skills/regulatory-monitoring/capture-classification/SKILL.md",
         "regulatory-legal/skills/regulatory-monitoring/impact-gap-assessment/SKILL.md",
         "regulatory-legal/skills/regulatory-monitoring/alert-register/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "regulatory-report",
@@ -722,7 +724,9 @@
         "regulatory-legal/skills/regulatory-report/data-fact-gathering/SKILL.md",
         "regulatory-legal/skills/regulatory-report/structure-drafting/SKILL.md",
         "regulatory-legal/skills/regulatory-report/compliance-statement-submission/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

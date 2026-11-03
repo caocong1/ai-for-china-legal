@@ -372,7 +372,9 @@
         "regulatory-legal/skills/compliance-system/policy-duty-design/SKILL.md",
         "regulatory-legal/skills/compliance-system/operation-training/SKILL.md",
         "regulatory-legal/skills/compliance-system/evaluation-improvement/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "penalty-response",
@@ -750,7 +752,9 @@
         "regulatory-legal/skills/penalty-response/statement-defense-hearing/SKILL.md",
         "regulatory-legal/skills/penalty-response/mitigation-no-penalty/SKILL.md",
         "regulatory-legal/skills/penalty-response/review-litigation-bridge/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

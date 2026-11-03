@@ -335,7 +335,9 @@
         "legal-builder-hub/skills/security-review/permission-scope-review/SKILL.md",
         "legal-builder-hub/skills/security-review/data-privacy-assessment/SKILL.md",
         "legal-builder-hub/skills/security-review/review-report-certification/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "skill-registry",
@@ -644,7 +646,9 @@
         "legal-builder-hub/skills/skill-registry/version-release-management/SKILL.md",
         "legal-builder-hub/skills/skill-registry/dependency-resolution/SKILL.md",
         "legal-builder-hub/skills/skill-registry/registry-search-publish/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

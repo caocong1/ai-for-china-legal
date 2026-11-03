@@ -69,7 +69,9 @@
         "「升级规则」的三条默认——某学科连续3次自测正确率低于50%，建议寻求专业教师辅导；距考试不足30天但基础阶段未完成，建议调整备考策略或寻求一对一辅导；主观题写作反复不得要领，建议找老师批改——决定何时提示学员找老师。",
         "档案缺失或仍有未填写的项时，各流程先提示做冷启动访谈或说「临时模式」；临时模式按默认画像运行（法学本科在校生首次备考、目标通过线、读写型、主客观题均衡、每日4小时、基础阶段），并在成果上标「[临时模式 — 配置你的档案以获得定制训练]」。"
       ]
-    }
+    },
+    "source_commit": "102f91692024402c0661732192097ff69753551b",
+    "source_date": "2026-11-03"
   },
   "skills": [
     {
@@ -316,7 +318,9 @@
         "law-student/skills/cold-start-interview/study-stance-goals/SKILL.md",
         "law-student/skills/cold-start-interview/weakness-escalation/SKILL.md",
         "law-student/skills/cold-start-interview/style-resources/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "case-study",
@@ -604,7 +608,9 @@
         "law-student/skills/case-study/legal-issue-analysis/SKILL.md",
         "law-student/skills/case-study/multi-perspective-argumentation/SKILL.md",
         "law-student/skills/case-study/conclusion-structured-output/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "law-memorization",
@@ -903,7 +909,9 @@
         "law-student/skills/law-memorization/key-provision-identification/SKILL.md",
         "law-student/skills/law-memorization/memory-technique-application/SKILL.md",
         "law-student/skills/law-memorization/spaced-repetition-review/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

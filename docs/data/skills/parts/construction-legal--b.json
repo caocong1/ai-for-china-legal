@@ -342,7 +342,9 @@
         "construction-legal/skills/bidding-compliance/bidding-procedure/SKILL.md",
         "construction-legal/skills/bidding-compliance/collusion-fraud/SKILL.md",
         "construction-legal/skills/bidding-compliance/bid-invalidity-complaint/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "commercial-housing-review",
@@ -712,7 +714,9 @@
         "construction-legal/skills/commercial-housing-review/deposit-subscription/SKILL.md",
         "construction-legal/skills/commercial-housing-review/delivery-breach/SKILL.md",
         "construction-legal/skills/commercial-housing-review/loan-termination-risk/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

@@ -399,7 +399,9 @@
         "employment-legal/skills/hiring-review/social-insurance-wages/SKILL.md",
         "employment-legal/skills/hiring-review/service-period-penalty/SKILL.md",
         "employment-legal/skills/hiring-review/hiring-review-assembly/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "labor-dispute-handling",
@@ -764,7 +766,9 @@
         "employment-legal/skills/labor-dispute-handling/mediation-path/SKILL.md",
         "employment-legal/skills/labor-dispute-handling/arbitration-path/SKILL.md",
         "employment-legal/skills/labor-dispute-handling/litigation-path/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

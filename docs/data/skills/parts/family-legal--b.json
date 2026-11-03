@@ -380,7 +380,9 @@
         "family-legal/skills/divorce-agreement/child-custody-visitation/SKILL.md",
         "family-legal/skills/divorce-agreement/debt-handling/SKILL.md",
         "family-legal/skills/divorce-agreement/effectiveness-registration/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "will-drafting",
@@ -773,7 +775,9 @@
         "family-legal/skills/will-drafting/will-form-selection/SKILL.md",
         "family-legal/skills/will-drafting/content-reserved-share/SKILL.md",
         "family-legal/skills/will-drafting/witnessing-effectiveness/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

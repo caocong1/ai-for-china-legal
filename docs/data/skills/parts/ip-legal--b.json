@@ -348,7 +348,9 @@
         "ip-legal/skills/copyright-registration/ownership-determination/SKILL.md",
         "ip-legal/skills/copyright-registration/registration-materials/SKILL.md",
         "ip-legal/skills/copyright-registration/registration-process/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "trademark-search",
@@ -702,7 +704,9 @@
         "ip-legal/skills/trademark-search/similarity-assessment/SKILL.md",
         "ip-legal/skills/trademark-search/goods-services-classification/SKILL.md",
         "ip-legal/skills/trademark-search/prior-rights-obstacles/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

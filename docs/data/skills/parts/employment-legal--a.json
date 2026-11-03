@@ -97,7 +97,9 @@
         "「风险校准」的四级（[红] 关键、[橙] 高、[黄] 中等、[绿] 低）和「升级矩阵」决定风险怎么标、问题升级给谁；「文书风格」和「输出」中的下一步决策树决定文书语气和备忘录结尾的五个选项（起草修改版文件、升级、与 HR 或业务方沟通、准备谈判、法律咨询）；客户报告成稿偏好决定合规调查报告直接给客户时，风险等级、附件、调查局限和用语怎么处理。",
         "配置缺失或有未填写项的，各流程按临时模式的默认值运行，成果上标「[临时模式 — 配置你的档案以获得定制输出]」；劳动用工合规调查在这种情况下默认平衡型风险偏好、被调查公司合规视角、工作地点按资料确认。"
       ]
-    }
+    },
+    "source_commit": "102f91692024402c0661732192097ff69753551b",
+    "source_date": "2026-11-03"
   },
   "skills": [
     {
@@ -370,7 +372,9 @@
         "employment-legal/skills/cold-start-interview/review-stance/SKILL.md",
         "employment-legal/skills/cold-start-interview/risk-escalation/SKILL.md",
         "employment-legal/skills/cold-start-interview/style-local-rules/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "workforce-compliance-dd",
@@ -773,7 +777,9 @@
         "employment-legal/skills/workforce-compliance-dd/contract-policy-review/SKILL.md",
         "employment-legal/skills/workforce-compliance-dd/dd-report-assembly/SKILL.md",
         "employment-legal/skills/_shared/outsourcing-compliance-playbook.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

@@ -350,7 +350,9 @@
         "criminal-compliance/skills/compliance-system-building/policy-process-design/SKILL.md",
         "criminal-compliance/skills/compliance-system-building/organization-training/SKILL.md",
         "criminal-compliance/skills/compliance-system-building/effectiveness-evaluation/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "risk-assessment",
@@ -715,7 +717,9 @@
         "criminal-compliance/skills/risk-assessment/position-conduct-risk/SKILL.md",
         "criminal-compliance/skills/risk-assessment/risk-level-likelihood/SKILL.md",
         "criminal-compliance/skills/risk-assessment/risk-list-control-output/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

@@ -315,7 +315,9 @@
         "commercial-legal/skills/cold-start-interview/escalation-rules/SKILL.md",
         "commercial-legal/skills/cold-start-interview/document-style/SKILL.md",
         "commercial-legal/skills/cold-start-interview/jurisdiction-profile/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "contract-review",
@@ -722,7 +724,9 @@
         "commercial-legal/skills/contract-review/clause-revision/SKILL.md",
         "commercial-legal/skills/contract-review/negotiation-points/SKILL.md",
         "commercial-legal/skills/contract-review/output-formatting/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

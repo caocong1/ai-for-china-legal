@@ -68,7 +68,9 @@
         "「本地资源」中的法援中心、常用法院、民政部门、劳动仲裁委、公证处、鉴定机构，是转介建议和申请指引里联系方式的来源；「共享护栏」的管辖识别要求，涉及各省经济困难标准、各省扩大的法援事项范围或地方性法律援助条例时，标「管辖需核实（地方性规定）」。",
         "配置缺失或仍有未填写的项时，流程提示先做冷启动访谈或说「临时模式」；临时模式按法援律师角色、民事法援为主、办理法律援助案件程序规定的基本要求、标准法律文书格式、中国大陆通用（不含地方性差异）运行，每份成果标 [临时模式]。"
       ]
-    }
+    },
+    "source_commit": "102f91692024402c0661732192097ff69753551b",
+    "source_date": "2026-11-03"
   },
   "skills": [
     {
@@ -335,7 +337,9 @@
         "legal-aid/skills/cold-start-interview/service-stance-scope/SKILL.md",
         "legal-aid/skills/cold-start-interview/quality-escalation/SKILL.md",
         "legal-aid/skills/cold-start-interview/style-local-resources/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "client-intake",
@@ -651,7 +655,9 @@
         "legal-aid/skills/client-intake/case-fact-collection/SKILL.md",
         "legal-aid/skills/client-intake/eligibility-preliminary-assessment/SKILL.md",
         "legal-aid/skills/client-intake/conflict-check-referral/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "case-management",
@@ -979,7 +985,9 @@
         "legal-aid/skills/case-management/case-progress-tracking/SKILL.md",
         "legal-aid/skills/case-management/quality-review-supervision/SKILL.md",
         "legal-aid/skills/case-management/case-closure-archiving/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

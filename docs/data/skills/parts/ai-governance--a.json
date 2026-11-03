@@ -68,7 +68,9 @@
         "「备案时限触发升级表」要求按服务上线日期倒推备案准备时间（算法备案、深度合成备案都须在上线前完成，具体时限 [待验证]），收到整改通知立即标出期限；「时效性触发」要求引用 AI 治理专项规章的标「时效性需核实：AI 治理法规快速演进，须核实现行版本」，引用备案流程细节的标「时效性需核实：备案实践持续更新」，引用地方性 AI 法规的标「地方规定需核实」。",
         "「输出」一章规定每份成果附审查者注（材料日期、分析范围、法规快速演进提示、刑事风险提示及转刑事合规领域处理、法律依据来源、服务立场、监管关系、四级各几项），最后给出七个下一步选项：深度合成备案、算法备案、生成式 AI 合规、AI 使用案例分类、强制升级律师、更新合规配置、观望记录（暂不行动，记入合规义务台账定期复查）。"
       ]
-    }
+    },
+    "source_commit": "102f91692024402c0661732192097ff69753551b",
+    "source_date": "2026-11-03"
   },
   "skills": [
     {
@@ -381,7 +383,9 @@
         "ai-governance/skills/cold-start-interview/compliance-stance-scope/SKILL.md",
         "ai-governance/skills/cold-start-interview/risk-escalation/SKILL.md",
         "ai-governance/skills/cold-start-interview/style-regulatory-resources/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "ai-use-case-classification",
@@ -725,7 +729,9 @@
         "ai-governance/skills/ai-use-case-classification/risk-level-classification/SKILL.md",
         "ai-governance/skills/ai-use-case-classification/compliance-requirement-mapping/SKILL.md",
         "ai-governance/skills/ai-use-case-classification/classification-report-output/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

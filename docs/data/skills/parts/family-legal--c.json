@@ -379,7 +379,9 @@
         "family-legal/skills/inheritance/testate-succession-validity/SKILL.md",
         "family-legal/skills/inheritance/legal-succession-order/SKILL.md",
         "family-legal/skills/inheritance/subrogation-transmission/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "property-division",
@@ -749,7 +751,9 @@
         "family-legal/skills/property-division/special-asset-division/SKILL.md",
         "family-legal/skills/property-division/division-principles-care/SKILL.md",
         "family-legal/skills/property-division/concealed-asset-remedy/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

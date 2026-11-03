@@ -363,7 +363,9 @@
         "data-compliance/skills/network-security-compliance/cii-protection/SKILL.md",
         "data-compliance/skills/network-security-compliance/operator-obligations/SKILL.md",
         "data-compliance/skills/network-security-compliance/personal-info-collection/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "pia-generation",
@@ -732,7 +734,9 @@
         "data-compliance/skills/pia-generation/data-mapping-necessity/SKILL.md",
         "data-compliance/skills/pia-generation/risk-mitigation-assessment/SKILL.md",
         "data-compliance/skills/pia-generation/pia-report-assembly/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

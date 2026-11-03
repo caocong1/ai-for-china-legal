@@ -56,7 +56,8 @@ bash scripts/cleanup-skills.sh  # 卸载
 
 - 数据：`docs/data/skills/parts/*.json`（结构见 `docs/data/skills/schema.json`）
 - 生成：`python3 scripts/build-docs-site.py`（校验数据后重写全部页面）
-- 改了 SKILL.md 之后，更新对应摘要再重新生成
+- 版本：页脚写说明站版本（跟 `package.json`）；每个 skill 和领域说明在数据里记着摘要依据的仓库提交（`source_commit`），页末「维护信息」也显示，并链到该提交之后的改动
+- 仓库更新后：先运行 `python3 scripts/digest-drift.py`，列出源文件在记录的提交之后改过的摘要（附提交和改动的文件；`--diff <plugin>/<skill>` 看具体改动）；改完摘要后用 `python3 scripts/digest-drift.py --mark <plugin>/<skill>` 记录新的提交（先提交 skill 本身的改动），再重新生成
 - 摘要用律师语言写：不写文件名、命令、字段名、状态值和内部编号，技术机制只写结果，法律实质照原文；校验脚本会拦下残留的标识
 
 ## 日常使用：操作员模式

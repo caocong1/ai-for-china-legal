@@ -72,7 +72,9 @@
         "「文书风格 → 代理词风格 / 法条引用偏好 / 案例引用偏好」控制代理词和答辩状的引用密度与行文；无论偏好如何，案例引用都保留 [待验证]。",
         "配置缺失或关键项未填写时，任何流程都先提示做冷启动访谈或进入「临时模式」；临时模式下每份成果都标 [临时模式 — 配置你的档案以获得定制输出]。"
       ]
-    }
+    },
+    "source_commit": "102f91692024402c0661732192097ff69753551b",
+    "source_date": "2026-11-03"
   },
   "skills": [
     {
@@ -346,7 +348,9 @@
         "litigation-legal/skills/cold-start-interview/risk-calibration/SKILL.md",
         "litigation-legal/skills/cold-start-interview/case-management/SKILL.md",
         "litigation-legal/skills/cold-start-interview/document-style/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "limitation-monitoring",
@@ -689,7 +693,9 @@
         "litigation-legal/skills/limitation-monitoring/accrual-determination/SKILL.md",
         "litigation-legal/skills/limitation-monitoring/tolling-interruption/SKILL.md",
         "litigation-legal/skills/limitation-monitoring/monitoring-ledger/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

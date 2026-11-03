@@ -449,7 +449,9 @@
         "litigation-legal/skills/defense-drafting/substantive-defense/SKILL.md",
         "litigation-legal/skills/defense-drafting/procedural-limitation-defense/SKILL.md",
         "litigation-legal/skills/defense-drafting/defense-assembly/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "representation-drafting",
@@ -824,7 +826,9 @@
         "litigation-legal/skills/representation-drafting/fact-argumentation/SKILL.md",
         "litigation-legal/skills/representation-drafting/legal-argumentation/SKILL.md",
         "litigation-legal/skills/representation-drafting/representation-assembly/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

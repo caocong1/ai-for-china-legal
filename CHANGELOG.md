@@ -2,8 +2,22 @@
 
 本文件记录 AI for China Legal 的主要变更。仓库版本、文档里程碑和墨律生产 skill 包版本可能不是同一个编号：
 
-- 仓库代码/文档里程碑使用 `v1.x`，`package.json` 与之同步（当前 `1.7.0`）。
+- 仓库代码/文档里程碑使用 `v1.x`，`package.json` 与之同步（当前 `1.8.0`）。
 - 墨律生产 skill 包建议使用 `YYYY.MM.DD.N`，例如 `2026.06.15.1`。
+
+## [v1.8.0] - 2026-11-03
+
+说明站加上版本，并把每页摘要和仓库提交对应起来：仓库迭代后，能直接查出哪些说明页要跟着改、要看哪些改动。
+
+### Added
+
+- `docs/data/skills/parts/*.json`：每个插件块和 skill 记录 `source_commit`（摘要依据的仓库提交）与 `source_date`。现有 87 项都记为 `102f916`：v1.7.0 改写依据的提交，其中的 skill 文件与当前一致。`schema.json` 与校验脚本要求这两个字段。
+- `scripts/digest-drift.py`：对照记录的提交，列出源文件（skill 规则文件、引用的共用规则、领域的引用库、实践配置与 README）此后有改动的摘要，附提交列表和改动行数（含未提交的改动）；`--diff <plugin>/<skill>` 输出具体改动；`--mark` 在更新摘要后记录新的提交，源文件有未提交改动时拒绝；同时列出仓库里还没有摘要的 skill、步骤和引用库。
+- 页面：页脚写说明站版本（跟 `package.json`）；页末「维护信息」写摘要依据的提交，链到该提交时的源文件和此后的全部改动；「在 GitHub 提 issue」自动带上说明站版本和提交。
+
+### 维护约定
+
+- 仓库里的 skill 更新后：`python3 scripts/digest-drift.py` 看哪些摘要过时 → 按 `--diff` 列出的改动更新摘要 → 先提交 skill 本身的改动，再用 `--mark <plugin>/<skill>` 记录新提交 → `python3 scripts/build-docs-site.py`。
 
 ## [v1.7.0] - 2026-11-03
 

@@ -371,7 +371,9 @@
         "construction-legal/skills/contract-review/schedule-quality/SKILL.md",
         "construction-legal/skills/contract-review/price-settlement/SKILL.md",
         "construction-legal/skills/contract-review/breach-termination/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "payment-dispute",
@@ -735,7 +737,9 @@
         "construction-legal/skills/payment-dispute/quality-defense-counterclaim/SKILL.md",
         "construction-legal/skills/payment-dispute/interest-advance-funding/SKILL.md",
         "construction-legal/skills/payment-dispute/priority-payment-right/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

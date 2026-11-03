@@ -458,7 +458,9 @@
         "commercial-legal/skills/contract-drafting/clause-drafting/SKILL.md",
         "commercial-legal/skills/contract-drafting/risk-self-check/SKILL.md",
         "commercial-legal/skills/contract-drafting/output-generation/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "liability-analysis",
@@ -804,7 +806,9 @@
         "commercial-legal/skills/liability-analysis/penalty-assessment/SKILL.md",
         "commercial-legal/skills/liability-analysis/damages-scope/SKILL.md",
         "commercial-legal/skills/liability-analysis/carveout-review/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

@@ -69,7 +69,9 @@
         "「风险校准」的四级表决定每项审查发现怎么标（原文用红、橙、黄、绿色圆点）：红级为关键，存在严重安全隐患或违规风险，禁止安装（如含恶意代码或后门、未经授权收集用户数据、要求读取全部文件等过度权限、违反《个人信息保护法》收集个人信息）；橙级为高，修复后方可安装（如权限超出所声明功能的需要、没有隐私政策或数据处理说明、依赖的组件有已知漏洞）；黄级为中等，风险可控但建议改进（如缺少安全文档）；绿级为低，风险可接受。「升级矩阵」的五项自动升级条件——审查发现红级风险，技能要求访问法律文件、客户信息、案件数据等敏感数据，技能能向外部服务器发送数据，依赖的组件有严重漏洞，违反平台安全策略——不论角色，一律暂停，等人工确认。",
         "「共享护栏」规定：未经安全审查的技能不得安装，开发者声明安全也须独立审查，安全审查报告至少保留 2 年；涉及数据处理的技能须同时符合《个人信息保护法》第13条（合法性基础）和第29条（敏感个人信息单独同意）、《数据安全法》第21条（数据分类分级）、《网络安全法》第21条（等级保护），四条均标「已核实」；社区贡献的技能须声明许可证类型（如 MIT、Apache 2.0、GPL），开发者须保证不侵犯第三方知识产权。「技能注册表」一章的类型、地址和发布审核方式（自动审核：通过安全审查即可发布；人工审核：须审核员批准；社区审核：社区投票）决定技能注册表流程怎么运行。"
       ]
-    }
+    },
+    "source_commit": "102f91692024402c0661732192097ff69753551b",
+    "source_date": "2026-11-03"
   },
   "skills": [
     {
@@ -330,7 +332,9 @@
         "legal-builder-hub/skills/cold-start-interview/preference-scope/SKILL.md",
         "legal-builder-hub/skills/cold-start-interview/security-escalation/SKILL.md",
         "legal-builder-hub/skills/cold-start-interview/style-resources/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "skill-discovery",
@@ -616,7 +620,9 @@
         "legal-builder-hub/skills/skill-discovery/skill-search-browse/SKILL.md",
         "legal-builder-hub/skills/skill-discovery/recommendation-ranking/SKILL.md",
         "legal-builder-hub/skills/skill-discovery/skill-detail-evaluation/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "installation",
@@ -915,7 +921,9 @@
         "legal-builder-hub/skills/installation/installation-execution/SKILL.md",
         "legal-builder-hub/skills/installation/post-install-configuration/SKILL.md",
         "legal-builder-hub/skills/installation/update-uninstall/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

@@ -301,7 +301,9 @@
         "law-student/skills/practice-questions/scenario-construction/SKILL.md",
         "law-student/skills/practice-questions/answer-key-explanation/SKILL.md",
         "law-student/skills/practice-questions/difficulty-calibration/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "wrong-answer-analysis",
@@ -591,7 +593,9 @@
         "law-student/skills/wrong-answer-analysis/knowledge-gap-diagnosis/SKILL.md",
         "law-student/skills/wrong-answer-analysis/targeted-remediation/SKILL.md",
         "law-student/skills/wrong-answer-analysis/progress-tracking/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

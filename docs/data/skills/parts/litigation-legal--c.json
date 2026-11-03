@@ -360,7 +360,9 @@
         "litigation-legal/skills/evidence-management/three-properties-review/SKILL.md",
         "litigation-legal/skills/evidence-management/evidence-catalog/SKILL.md",
         "litigation-legal/skills/evidence-management/evidence-exchange/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "matter-intake",
@@ -745,7 +747,9 @@
         "litigation-legal/skills/matter-intake/key-dates-limitation/SKILL.md",
         "litigation-legal/skills/matter-intake/evidence-preservation/SKILL.md",
         "litigation-legal/skills/matter-intake/initial-theory/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }

@@ -33,7 +33,7 @@ shared/                           # 共享法律研究基础设施
 scripts/                          # 验证和部署脚本
 connectors/                       # MCP 连接器
 docs/                             # 给律师看的 skill 说明站（scripts/build-docs-site.py 生成）
-  data/skills/parts/*.json        # 每个 skill 的律师版摘要（律师语言，校验脚本会查）；改了 SKILL.md 要同步更新再重新生成
+  data/skills/parts/*.json        # 每个 skill 的律师版摘要（律师语言，校验脚本会查），记着依据的仓库提交；改了 SKILL.md 后用 scripts/digest-drift.py 查哪些摘要要更新，改完再重新生成
 ```
 
 ## 中国化原则

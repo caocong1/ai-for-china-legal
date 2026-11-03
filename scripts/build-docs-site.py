@@ -26,6 +26,8 @@ SITE_NAME = 'AI for China Legal'
 SITE_SUB = 'Skill 说明'
 SITE_URL = 'https://caocong1.github.io/ai-for-china-legal/'
 TODAY = date.today().isoformat()
+# 说明站的版本跟仓库版本（package.json）走；每页摘要依据的仓库提交记在数据的 source_commit 里。
+VERSION = json.load(open(os.path.join(ROOT, 'package.json'), encoding='utf-8'))['version']
 
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 import importlib.util  # noqa: E402
@@ -134,11 +136,14 @@ def para(s, cls=''):
     return f'<p{c}>{glue_tail(inline(s))}</p>'
 
 
-def maint_block(pairs, files):
-    """Identifiers and source files for maintainers, folded away from the lawyer's reading path."""
+def maint_block(pairs, files, rec, tree):
+    """Identifiers, the commit the digest was written from and the source files, folded away from the lawyer's reading path."""
     meta = '；'.join(f'{esc(k)} <code>{esc(v)}</code>' for k, v in pairs)
+    c = rec['source_commit']
+    base = (f'摘要依据仓库提交 <a href="{REPO}/tree/{c}/{tree}"><code>{c[:7]}</code></a>（{esc(rec["source_date"])}）时的文件；'
+            f'<a href="{REPO}/compare/{c}...master">查看此后的改动</a>，或运行 <code>python3 scripts/digest-drift.py</code> 列出要更新的摘要。')
     items = ''.join(f'<li><a href="{gh(f)}">{esc(f)}</a></li>' for f in files)
-    return (f'<details class="maint"><summary>维护信息（律师可略过）</summary><p class="small">{meta}</p>'
+    return (f'<details class="maint"><summary>维护信息（律师可略过）</summary><p class="small">{meta}</p><p class="small">{base}</p>'
             + (f'<ul class="sources">{items}</ul>' if items else '') + '</details>')
 
 
@@ -303,7 +308,7 @@ def shell(*, title, body, depth, description='', current='', crumbs=None, has_ra
 </div>
 </main>
 <footer class="ft"><div class="wrap">
-  <p>本站把 <a href="{REPO}">{SITE_NAME}</a> 项目里的 skill 规则改写成给律师看的说明，与 skill 原文不一致时以原文为准。所有 skill 的输出都是供律师审查的草稿，不是法律意见。生成日期 <span class="nw">{TODAY}</span>。</p>
+  <p>本站把 <a href="{REPO}">{SITE_NAME}</a> 项目里的 skill 规则改写成给律师看的说明，与 skill 原文不一致时以原文为准。所有 skill 的输出都是供律师审查的草稿，不是法律意见。说明站版本 <span class="nw">{VERSION}</span>，生成日期 <span class="nw">{TODAY}</span>。</p>
   <p>发现说明与 skill 的实际表现不一致，或对 skill 的规则有意见：见<a href="{r}feedback/index.html">怎么提意见</a>。</p>
 </div></footer>
 <script src="{r}assets/site.js" defer></script>
@@ -462,7 +467,7 @@ def render_skill(plugin, skill, depth=2):
             rev.append((label, f'<li><span>{inline(t)}{xref}</span>' + copy_btn(label) + '</li>'))
         items = ''.join(h for _, h in rev)
         all_text = '\n'.join(lbl for lbl, _ in rev)
-        gh_body = f'页面：{SITE_URL}{pid}/{sid}/\n\n针对哪一条（复制页面上的引用粘贴在此）：\n\n\n意见（同意 / 反对 / 应改为）：\n\n\n依据或实务经验：\n'
+        gh_body = f'页面：{SITE_URL}{pid}/{sid}/\n说明站版本：{VERSION}；摘要依据的仓库提交：{skill["source_commit"][:7]}\n\n针对哪一条（复制页面上的引用粘贴在此）：\n\n\n意见（同意 / 反对 / 应改为）：\n\n\n依据或实务经验：\n'
         gh_title = f'[skill 意见] {p["name"]}／{skill["name"]}'
         actions = (f'<div class="review-actions" id="review-actions">{copy_btn(all_text, "复制全部审阅条目", primary=True)}'
                    f'<a class="btn" href="{issue_url(gh_title, gh_body)}">在 GitHub 提 issue</a>'
@@ -478,7 +483,8 @@ def render_skill(plugin, skill, depth=2):
         body.append(sec('prompts', nxt(), '示例提示词', '<ul class="prompts measure">' + ''.join(f'<li>{inline(t)}</li>' for t in skill['example_prompts']) + '</ul>'))
 
     # 维护信息：不编号、不进目录
-    body.append(maint_block([('skill 标识', ref), ('命令', skill['command'])], skill['sources']))
+    body.append(maint_block([('skill 标识', ref), ('命令', skill['command'])], skill['sources'], skill,
+                            f'shared/{sid}' if pid == 'shared' else f'{pid}/skills/{sid}'))
 
     def toc_li(item):
         i, t = item[0], item[1]
@@ -546,7 +552,7 @@ def render_plugin(plugin, depth=1):
         body.append(sec('libs', nxt(), '领域引用库', para('本领域各流程共用的法条、口径和规则；法条有误通常改这里。', 'muted') + f'<ul class="refs measure">{items}</ul>'))
     if p['not_for']:
         body.append(sec('notfor', nxt(), '不做什么', ul(p['not_for'])))
-    body.append(maint_block([('领域标识', pid)], ([pp['file']] if pp.get('file') else []) + [l['file'] for l in p['shared_libraries']]))
+    body.append(maint_block([('领域标识', pid)], ([pp['file']] if pp.get('file') else []) + [l['file'] for l in p['shared_libraries']], p, pid))
     crumbs = [('首页', r + 'index.html'), (p['name'], None)]
     return shell(title=p['name'], body=''.join(body), depth=depth, description=p['tagline'], current='shared' if pid == 'shared' else '', crumbs=crumbs)
 

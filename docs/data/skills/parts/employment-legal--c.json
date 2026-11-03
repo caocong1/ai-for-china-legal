@@ -358,7 +358,9 @@
         "employment-legal/skills/leave-management/sick-leave-medical-period/SKILL.md",
         "employment-legal/skills/leave-management/maternity-female-protection/SKILL.md",
         "employment-legal/skills/leave-management/statutory-leave-attendance/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     },
     {
       "id": "termination-review",
@@ -714,7 +716,9 @@
         "employment-legal/skills/termination-review/severance-calculation/SKILL.md",
         "employment-legal/skills/termination-review/termination-procedure/SKILL.md",
         "employment-legal/skills/termination-review/unlawful-termination-remedy/SKILL.md"
-      ]
+      ],
+      "source_commit": "102f91692024402c0661732192097ff69753551b",
+      "source_date": "2026-11-03"
     }
   ]
 }
