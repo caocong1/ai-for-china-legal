@@ -233,9 +233,6 @@ tbody tr:hover { background: var(--color-well); }
 .lead .tagline { font-size: var(--text-lead); color: var(--color-text-2); margin-top: var(--space-3); max-width: var(--measure); text-wrap: balance; }
 .lead .meta { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); align-items: center; margin-top: var(--space-4); font-size: var(--text-label); color: var(--color-text-2); }
 .kind { display: inline-block; font-size: var(--text-caption); line-height: 1.4; padding: 0.1em 0.5em; border: 1px solid var(--color-border-strong); border-radius: var(--radius-control); color: var(--color-text-2); white-space: nowrap; }
-.cmd { display: inline-flex; align-items: center; gap: var(--space-2); max-width: 100%; }
-.cmd code { font-size: var(--text-label); padding: 4px 8px; white-space: nowrap; overflow-x: auto; max-width: 100%; display: inline-block; vertical-align: middle; }
-@media (max-width: 599px) { .cmd code { white-space: normal; overflow: visible; } }
 .notice { border-left: 3px solid var(--color-border-strong); padding: var(--space-2) var(--space-4); color: var(--color-text-2); max-width: var(--measure); }
 
 .lead-notes { margin-top: var(--space-4); padding-left: var(--space-4); border-left: 2px solid var(--color-accent); line-height: 1.6; color: var(--color-text-2); max-width: var(--measure); }
@@ -299,8 +296,7 @@ h3 code { font-size: 0.8em; }
 .step:last-child { border-bottom: 1px solid var(--color-border); }
 .step-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-2) var(--space-3); }
 .step-head h3 { margin: 0; flex-basis: 100%; }
-.step-head h3::before { content: "步骤 " counter(step) attr(data-src); display: block; font-family: var(--font-mono); font-size: var(--text-label); font-weight: 400; color: var(--color-text-3); margin-bottom: var(--space-1); font-variant-numeric: tabular-nums; }
-.step-head .cmd code { font-size: var(--text-caption); }
+.step-head h3::before { content: "步骤 " counter(step); display: block; font-family: var(--font-mono); font-size: var(--text-label); font-weight: 400; color: var(--color-text-3); margin-bottom: var(--space-1); font-variant-numeric: tabular-nums; }
 .step-goal { margin-top: var(--space-3); max-width: var(--measure); color: var(--color-text-2); }
 .step-part { margin-top: var(--space-4); }
 .step-part h4 { color: var(--color-text-2); margin-bottom: var(--space-1); }
@@ -368,6 +364,15 @@ dl.terms dd { color: var(--color-text-2); }
 .prompts li { background: var(--color-well); padding: var(--space-3) var(--space-4); border-radius: var(--radius-control); list-style: none; }
 .prompts { padding: 0; }
 .prompts li + li { margin-top: var(--space-3); }
+.refs { padding-left: 0; list-style: none; }
+.refs li + li { margin-top: var(--space-3); }
+.maint { margin-top: var(--space-8); padding-top: var(--space-2); border-top: 1px solid var(--color-border); color: var(--color-text-3); font-size: var(--text-label); }
+.maint > summary { display: flex; align-items: center; gap: var(--space-2); min-height: 44px; cursor: pointer; list-style: none; }
+.maint > summary::-webkit-details-marker { display: none; }
+.maint > summary::before { content: "▸"; }
+.maint[open] > summary::before { content: "▾"; }
+.maint .small { margin-top: var(--space-2); }
+.maint code { font-size: inherit; overflow-wrap: anywhere; }
 .sources { font-size: var(--text-label); line-height: var(--leading-dense); }
 .sources a { font-family: var(--font-mono); font-size: inherit; overflow-wrap: anywhere; }
 
@@ -435,6 +440,7 @@ dl.terms dd { color: var(--color-text-2); }
   .crumbs span + span::before { display: inline-block; }
   .skill-list .name a, .group h4 a { display: inline-flex; align-items: center; min-height: 44px; }
   .sources a { display: inline-flex; align-items: center; min-height: 44px; }
+  .refs > li > a, .refs .small a { display: inline-flex; align-items: center; min-height: 44px; }
   .lead-notes a, .xref a { display: inline-flex; align-items: center; min-height: 44px; }
   .xref { margin-top: 0; }
 }

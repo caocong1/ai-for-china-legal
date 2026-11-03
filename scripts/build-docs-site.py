@@ -24,6 +24,7 @@ REPO = 'https://github.com/caocong1/ai-for-china-legal'
 BLOB = REPO + '/blob/master/'
 SITE_NAME = 'AI for China Legal'
 SITE_SUB = 'Skill 说明'
+SITE_URL = 'https://caocong1.github.io/ai-for-china-legal/'
 TODAY = date.today().isoformat()
 
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
@@ -35,7 +36,7 @@ _spec.loader.exec_module(_val)
 
 # 分组沿用 README 的分类；顺序即首页顺序。
 GROUPS = [
-    ('共享工作流', '每个事项都要经过的总路由、动态 intake、研究闸门，以及律师反馈的回流机制', ['shared']),
+    ('共享流程', '每个事项都要经过的总流程、开工前确认、研究闸门，以及律师反馈的回流机制', ['shared']),
     ('交易与咨询', '', ['commercial-legal', 'data-compliance', 'employment-legal', 'ip-legal', 'ai-governance', 'regulatory-legal']),
     ('诉讼', '', ['litigation-legal']),
     ('中国特有领域', '', ['construction-legal', 'family-legal', 'criminal-compliance']),
@@ -52,50 +53,13 @@ def esc(s):
     return html.escape(str(s), quote=True)
 
 
-_CODE = re.compile(r'`([^`\n]+)`')
-# Tokens a lawyer should see as identifiers (monospace, breakable only after / _ - : .), in priority order.
-_TOKEN = re.compile(
-    r'(?P<path>(?<![\w/.-])(?:[\w.-]+/)+[\w.-]+\.(?:md|json|js|mjs|py|sh|ya?ml|txt|html)(?:#[\w-]+)?)'
-    r'|(?P<file>\b(?:CLAUDE|SKILL|README|CHANGELOG|INSTALL|DESIGN)\.md\b)'
-    r'|(?P<cmd>(?<![\w/])/[a-z][a-z0-9-]*:[a-z][a-z0-9-]*)'
-    r'|(?P<url>\b(?:https?://)?(?:[a-z0-9-]+\.)+(?:cn|com|org|gov|net|io)(?:/[\w./%#?=-]*)?)'
-    r'|(?P<slist>(?<![\w/])[a-z][a-z0-9_]*(?:\s?[/|]\s?[a-z][a-z0-9_]*)+(?![\w/]))'
-    r'|(?P<ident>(?<![\w/])[A-Za-z][A-Za-z0-9]*(?:_[A-Za-z0-9]+)+(?![\w/]))'
-    r'|(?P<camel>\b[a-z]*[A-Z][a-z]+(?:[A-Z][a-z]+){2,}\b)'
-    r'|(?P<date>\b\d{4}-\d{1,2}(?:-\d{1,2})?\b)'
-    r'|(?P<status>(?<![\w/-])(?:known|derived|ready|ask|clarify|interactive|questionnaire|pending|conditional|standard|high|critical)(?![\w/-]))'
-    r'|(?P<tag>\[[^\[\]\n<>]{1,16}\])')
-
-
-# Values of intake / execution fields: shown as identifiers wherever they stand alone in Chinese text.
-_STATUS_WORDS = {'known', 'derived', 'ready', 'ask', 'clarify', 'interactive', 'questionnaire', 'pending',
-                 'conditional', 'standard', 'high', 'critical'}
-
-
-def code_html(token):
-    """An identifier as <code>, with break opportunities only after / _ - : ."""
-    return '<code>' + re.sub(r'(?<=.)([/_:.-])(?=.)', r'\1<wbr>', token) + '</code>'
-
-
-def _tokens(text):
-    def rep(m):
-        if m.group('tag') or m.group('date'):
-            return '<span class="nw">' + m.group(0) + '</span>'
-        if m.group('slist') and '_' not in m.group('slist') and not _STATUS_WORDS.intersection(re.split(r'\s?[/|]\s?', m.group('slist'))):
-            return m.group(0)
-        return code_html(m.group(0))
-    return _TOKEN.sub(rep, text)
+# Lawyer-facing text is plain Chinese (scripts/validate-skill-digest.py enforces it); only marks and dates need care.
+_NOWRAP = re.compile(r'\[[^\[\]\n<>]{1,16}\]|\b\d{4}-\d{1,2}(?:-\d{1,2})?\b')
 
 
 def inline(s):
-    """Escape; turn `code` spans into <code>; mark paths, commands and identifiers in the rest."""
-    out, pos, e = [], 0, esc(s)
-    for m in _CODE.finditer(e):
-        out.append(_tokens(e[pos:m.start()]))
-        out.append(code_html(m.group(1)))
-        pos = m.end()
-    out.append(_tokens(e[pos:]))
-    return ''.join(out)
+    """Escape; keep [待验证]-style marks and dates on one line."""
+    return _NOWRAP.sub(lambda m: '<span class="nw">' + m.group(0) + '</span>', esc(s))
 
 
 _STEP_PREFIX = re.compile(r'^\s*(?:第[一二三四五六七八九十零〇\d]+步|步骤\s*[\d一二三四五六七八九十]+)\s*[：:、.．]?\s*')
@@ -117,12 +81,6 @@ def step_name(name):
     """Drop the source's own 第X步 prefix: the page numbers steps itself."""
     cleaned = _STEP_PREFIX.sub('', name)
     return cleaned or name
-
-
-def step_src(name):
-    """The source's own step label (第四步), kept so references in the body text can be matched."""
-    m = re.match(r'^\s*(第[一二三四五六七八九十零〇\d]+步|步骤\s*[\d一二三四五六七八九十]+)', name)
-    return m.group(1).replace(' ', '') if m else ''
 
 
 def _grams(t):
@@ -176,9 +134,45 @@ def para(s, cls=''):
     return f'<p{c}>{glue_tail(inline(s))}</p>'
 
 
-def cmd_html(command):
-    """Escape a slash command; allow line breaks only after ':' and '-' (never mid-token)."""
-    return re.sub(r'([:-])(?=.)', r'\1<wbr>', esc(command))
+def maint_block(pairs, files):
+    """Identifiers and source files for maintainers, folded away from the lawyer's reading path."""
+    meta = '；'.join(f'{esc(k)} <code>{esc(v)}</code>' for k, v in pairs)
+    items = ''.join(f'<li><a href="{gh(f)}">{esc(f)}</a></li>' for f in files)
+    return (f'<details class="maint"><summary>维护信息（律师可略过）</summary><p class="small">{meta}</p>'
+            + (f'<ul class="sources">{items}</ul>' if items else '') + '</details>')
+
+
+def lib_anchor(path):
+    return 'lib-' + re.sub(r'[^a-z0-9]+', '-', path.lower().rsplit('.', 1)[0]).strip('-')
+
+
+# Every file a skill cites as a shared rule, named from the data itself: source path -> (label, href from site root).
+REFS = {}
+# skill id -> [(plugin id, plugin name, skill name)]; ids repeat across plugins (contract-review).
+SKILLS = {}
+
+
+def build_refs(plugins):
+    for p in plugins:
+        pid, pname = p['id'], p['plugin']['name']
+        for sk in p['skills']:
+            SKILLS.setdefault(sk['id'], []).append((pid, pname, sk['name']))
+        REFS[f'{pid}/CLAUDE.md'] = (p['plugin']['practice_profile'].get('name') or f'{pname}实践配置', f'{pid}/index.html#profile')
+        for l in p['plugin']['shared_libraries']:
+            REFS[l['file']] = (l['name'], f'{pid}/index.html#{lib_anchor(l["file"])}')
+        base = 'shared' if pid == 'shared' else f'{pid}/skills'
+        for sk in p['skills']:
+            REFS[f'{base}/{sk["id"]}/SKILL.md'] = (sk['name'], f'{pid}/{sk["id"]}/index.html')
+            for st in sk['steps']:
+                if st.get('id'):
+                    REFS[f'{base}/{sk["id"]}/{st["id"]}/SKILL.md'] = (
+                        f'{sk["name"]} · 第 {st["n"]} 步「{step_name(st["name"])}」', f'{pid}/{sk["id"]}/index.html#step-{st["n"]}')
+    return sorted({r['file'] for p in plugins for sk in p['skills'] for r in sk['shared_refs'] if r['file'] not in REFS})
+
+
+def ref_link(path, r):
+    label, href = REFS[path]
+    return f'<a href="{r}{href}">{esc(label)}</a>'
 
 
 def copy_btn(text, label='复制引用', primary=False):
@@ -241,6 +235,9 @@ def load():
     if extra:
         print('warning: plugins not in GROUPS (appended at the end): ' + ', '.join(extra))
     ordered = [plugins[pid] for pid in PLUGIN_ORDER if pid in plugins] + [plugins[pid] for pid in sorted(extra)]
+    unnamed = build_refs(ordered)
+    if unnamed:
+        sys.exit('shared_refs without a name (add the file to its plugin\'s shared_libraries, or drop the ref):\n  ' + '\n  '.join(unnamed))
     return ordered
 
 
@@ -306,8 +303,8 @@ def shell(*, title, body, depth, description='', current='', crumbs=None, has_ra
 </div>
 </main>
 <footer class="ft"><div class="wrap">
-  <p>本站把 <a href="{REPO}">ai-for-china-legal</a> 仓库里的 skill 文件改写成给律师看的说明。所有 skill 的输出都是供律师审查的草稿，不是法律意见。页面由 <code>scripts/build-docs-site.py</code> 从 <code>docs/data/skills/parts/</code> 生成；生成日期 {TODAY}。</p>
-  <p>发现说明与源文件不一致、或对 skill 的规则有意见：见<a href="{r}feedback/index.html">怎么提意见</a>。</p>
+  <p>本站把 <a href="{REPO}">{SITE_NAME}</a> 项目里的 skill 规则改写成给律师看的说明，与 skill 原文不一致时以原文为准。所有 skill 的输出都是供律师审查的草稿，不是法律意见。生成日期 <span class="nw">{TODAY}</span>。</p>
+  <p>发现说明与 skill 的实际表现不一致，或对 skill 的规则有意见：见<a href="{r}feedback/index.html">怎么提意见</a>。</p>
 </div></footer>
 <script src="{r}assets/site.js" defer></script>
 </body>
@@ -350,7 +347,7 @@ def render_skill(plugin, skill, depth=2):
     lead_notes = (f'<aside class="lead-notes" aria-label="本页批注"><p class="note-k">本页批注</p>{"".join(lines)}'
                   f'<p class="small">先读概要和审阅清单，再按需看步骤细节。</p></aside>') if lines else ''
     lead = (f'''<header class="lead{" has-notes" if lead_notes else ""}">
-  <div class="meta"><span class="kind">{KIND_LABEL.get(skill["kind"], skill["kind"])}</span><span class="cmd"><code>{cmd_html(skill["command"])}</code>{copy_btn(skill["command"], "复制命令")}</span></div>
+  <div class="meta"><span class="kind">{KIND_LABEL.get(skill["kind"], skill["kind"])}</span></div>
   <h1>{title_html(skill["name"])}</h1>
   <p class="tagline">{inline(skill["tagline"])}</p>
   {lead_notes}
@@ -382,10 +379,10 @@ def render_skill(plugin, skill, depth=2):
         items = ''.join(
             f'<li>{inline(i["item"])}<span class="req">{"必需" if i.get("required") else "可选"}</span>'
             + (f'<br><span class="small">{inline(i["note"])}</span>' if i.get('note') else '') + '</li>' for i in skill['inputs'])
-        facts.append(f'<div><h3>需要律师提供</h3><ul>{items}</ul></div>')
+        facts.append(f'<div><h3>需要提供</h3><ul>{items}</ul></div>')
     if skill['outputs']:
         items = ''.join(
-            f'<li><b>{inline(o["name"])}</b>' + (f'<span class="req">给{esc(o["audience"])}</span>' if o.get('audience') else '')
+            f'<li><b>{inline(o["name"])}</b>' + (f'<span class="req">读者：{esc(o["audience"])}</span>' if o.get('audience') else '')
             + f'<br><span class="small">{inline(o["structure"])}</span></li>' for o in skill['outputs'])
         facts.append(f'<div><h3>产出</h3><ul>{items}</ul></div>')
     if facts:
@@ -409,13 +406,9 @@ def render_skill(plugin, skill, depth=2):
         for st in skill['steps']:
             k = st['n']
             name = step_name(st['name'])
-            src = step_src(st['name'])
-            src_attr = f' data-src=" · 原文{src}"' if src else ''
-            head = f'<h3 id="step-{k}"{src_attr}>{inline(name)}</h3>'
-            if st.get('command'):
-                head += f'<span class="cmd"><code>{cmd_html(st["command"])}</code></span>'
-                if st.get('standalone'):
-                    head += '<span class="small">可单独运行</span>'
+            head = f'<h3 id="step-{k}">{inline(name)}</h3>'
+            if st.get('standalone'):
+                head += '<span class="small">可单独使用</span>'
             top = f'<div class="step-top"><div class="step-head">{head}</div>{para(st["goal"], "step-goal")}</div>'
             parts = []
             if st['actions']:
@@ -430,24 +423,25 @@ def render_skill(plugin, skill, depth=2):
             if st['lawyer_check']:
                 items = ''.join(
                     f'<li class="note" id="check-{k}-{j}"><span class="note-k">核对 {k}.{j}</span>{inline(t)}'
-                    + copy_btn(f'【{p["name"]}／{skill["name"]}（{ref}）· 步骤{k}{"（原文" + src + "）" if src else ""} {name} · 核对 {k}.{j}】{t}') + '</li>'
+                    + copy_btn(f'【{p["name"]}／{skill["name"]} · 第{k}步 {name} · 核对 {k}.{j}】{t}') + '</li>'
                     for j, t in enumerate(st['lawyer_check'], 1))
                 notes = f'<aside class="step-notes" aria-label="步骤 {k} 请律师核对"><h4>请律师核对</h4><ul class="notes">{items}</ul></aside>'
             steps_html.append(f'<li class="step">{top}{notes}<div class="step-detail">{"".join(parts)}</div></li>')
         toc_items.append(('steps', '执行步骤', [(f'step-{st["n"]}', st['n'], step_name(st['name'])) for st in skill['steps']]))
-        intro = para(f'共 {len(skill["steps"])} 步，按执行顺序。每步旁边（窄屏在步骤说明之后）是请律师核对的内置假设，可逐条复制。页面里的英文标记见首页「标记与术语」。', 'muted')
+        intro = para(f'共 {len(skill["steps"])} 步，按执行顺序。每步旁边（窄屏在步骤说明之后）是请律师核对的内置判断，可逐条复制。', 'muted')
         body.append(sec('steps', nxt(), '执行步骤', intro + '<ol class="steps">' + ''.join(steps_html) + '</ol>'))
 
     # 6 法律依据汇总
     if skill['legal_basis']:
         toc_items.append(('law', '主要法律依据'))
-        body.append(sec('law', nxt(), '主要法律依据', ul(skill['legal_basis'], 'law') + para('带「待验证」「待律师复核」标记的，是源文件自己标出的未核验引用。', 'small')))
+        body.append(sec('law', nxt(), '主要法律依据', ul(skill['legal_basis'], 'law') + para('带「待验证」「待律师复核」标记的，是 skill 原文自己标出的未核验引用。', 'small')))
 
-    # 7 共享规则
+    # 7 共用规则
     if skill['shared_refs']:
-        items = ''.join(f'<li><a href="{gh(s["file"])}">{esc(s["file"])}</a><br><span class="small">{inline(s["why"])}</span></li>' for s in skill['shared_refs'])
-        toc_items.append(('shared', '引用的共享规则'))
-        body.append(sec('shared', nxt(), '引用的共享规则', f'<ul class="sources">{items}</ul>'))
+        items = ''.join(f'<li>{ref_link(s["file"], r)}<br><span class="small">{inline(s["why"])}</span></li>' for s in skill['shared_refs'])
+        toc_items.append(('shared', '依据的共用规则'))
+        body.append(sec('shared', nxt(), '依据的共用规则',
+                        para('这些法条库、口径和流程由多个 skill 共用；里面的法条或口径有误，通常改那里。', 'muted') + f'<ul class="refs">{items}</ul>'))
 
     # 8 质量检查 / 9 暂停与升级
     if skill['quality_checks']:
@@ -463,29 +457,28 @@ def render_skill(plugin, skill, depth=2):
         rev = []
         for j, t in enumerate(skill['review_points'], 1):
             rel_keys = related_checks(t, note_keys)
-            label = f'【{p["name"]}／{skill["name"]}（{ref}）· 审阅 {j:02d}】{t}'
+            label = f'【{p["name"]}／{skill["name"]} · 审阅 {j:02d}】{t}'
             xref = ('<span class="xref">相关批注：' + '、'.join(f'<a href="#check-{k.replace(".", "-")}">核对 {k}</a>' for k in rel_keys) + '</span>') if rel_keys else ''
             rev.append((label, f'<li><span>{inline(t)}{xref}</span>' + copy_btn(label) + '</li>'))
         items = ''.join(h for _, h in rev)
         all_text = '\n'.join(lbl for lbl, _ in rev)
-        gh_body = f'Skill：{ref}\n页面：docs/{pid}/{sid}/\n\n针对哪一条（复制页面上的引用粘贴在此）：\n\n\n意见（同意 / 反对 / 应改为）：\n\n\n依据或实务经验：\n'
+        gh_body = f'页面：{SITE_URL}{pid}/{sid}/\n\n针对哪一条（复制页面上的引用粘贴在此）：\n\n\n意见（同意 / 反对 / 应改为）：\n\n\n依据或实务经验：\n'
+        gh_title = f'[skill 意见] {p["name"]}／{skill["name"]}'
         actions = (f'<div class="review-actions" id="review-actions">{copy_btn(all_text, "复制全部审阅条目", primary=True)}'
-                   f'<a class="btn" href="{issue_url(f"[skill 意见] {ref}", gh_body)}">在 GitHub 提 issue</a>'
+                   f'<a class="btn" href="{issue_url(gh_title, gh_body)}">在 GitHub 提 issue</a>'
                    f'<a class="btn" href="{r}feedback/index.html">怎么提意见</a>'
-                   f'<p class="small">复制后粘到微信给操作员即可；每条前的编号让意见能对回源文件。</p></div>')
-        toc_items.append(('review', '请律师重点核对'))
-        body.append(sec('review', nxt(), '请律师重点核对',
-                        para('下面是这个流程内置的法律假设、立场、阈值和清单，每一条都可以同意、反对或补充。条目下的「相关批注」按文字重合自动匹配到步骤旁的核对条目，可能不全。', 'muted') + f'<ol class="review">{items}</ol>' + actions))
+                   f'<p class="small">复制后粘到微信发给操作员即可；每条前的编号能让维护者找到对应的规则。</p></div>')
+        toc_items.append(('review', '审阅清单'))
+        body.append(sec('review', nxt(), '审阅清单',
+                        para('请律师重点核对：下面是这个流程内置的法律判断、立场、阈值和清单，每一条都可以同意、反对或补充。条目里「供核对」之后的内容是本站整理时对照现行条文补充的提示，不是 skill 原文。条目下的「相关批注」按文字重合自动匹配到步骤旁的核对条目，可能不全。', 'muted') + f'<ol class="review">{items}</ol>' + actions))
 
     # 11 示例提示词
     if skill['example_prompts']:
         toc_items.append(('prompts', '示例提示词'))
         body.append(sec('prompts', nxt(), '示例提示词', '<ul class="prompts measure">' + ''.join(f'<li>{inline(t)}</li>' for t in skill['example_prompts']) + '</ul>'))
 
-    # 12 源文件
-    items = ''.join(f'<li><a href="{gh(s)}">{esc(s)}</a></li>' for s in skill['sources'])
-    toc_items.append(('sources', '源文件'))
-    body.append(sec('sources', nxt(), '源文件', f'<ul class="sources">{items}</ul>' + para('说明与源文件不一致时，以源文件为准，并请告知我们。', 'small')))
+    # 维护信息：不编号、不进目录
+    body.append(maint_block([('skill 标识', ref), ('命令', skill['command'])], skill['sources']))
 
     def toc_li(item):
         i, t = item[0], item[1]
@@ -507,7 +500,7 @@ def skill_table(plugin, depth, with_plugin_col=False):
         href = f'{r}{plugin["id"]}/{s["id"]}/index.html'
         search = ' '.join([s['name'], s['command'], s['tagline'], plugin['plugin']['name'], plugin['id'], s['id']] + s['when'][:3]).lower()
         pcol = f'<td>{esc(plugin["plugin"]["name"])}</td>' if with_plugin_col else ''
-        rows.append(f'<tr data-search="{esc(search)}">{pcol}<td><span class="name"><a href="{href}">{esc(s["name"])}</a></span> <span class="kind">{KIND_LABEL.get(s["kind"], s["kind"])}</span><br><code>{esc(s["command"])}</code></td>'
+        rows.append(f'<tr data-search="{esc(search)}">{pcol}<td><span class="name"><a href="{href}">{esc(s["name"])}</a></span> <span class="kind">{KIND_LABEL.get(s["kind"], s["kind"])}</span></td>'
                     f'<td>{inline(s["tagline"])}</td><td class="n num">{len(s["steps"])}</td></tr>')
     head = ('<th>领域</th>' if with_plugin_col else '') + '<th>skill</th><th>做什么</th><th class="n">步骤</th>'
     return f'<table class="skill-list"><thead><tr>{head}</tr></thead><tbody>{"".join(rows)}</tbody></table>'
@@ -532,19 +525,28 @@ def render_plugin(plugin, depth=1):
     body.append(sec('summary', nxt(), '概要', '<div class="prose measure">' + para(p['summary']) + '</div>'))
     pp = p['practice_profile']
     if pp.get('sections') or pp.get('effects'):
-        inner = para(f'实践配置文件 <a href="{gh(pp["file"])}">{esc(pp["file"])}</a> 记录贵所的立场与习惯；所有流程开始前先读它。', 'measure') if pp.get('file') else ''
+        has_interview = any(sk['kind'] == 'setup' for sk in plugin['skills'])
+        intro = pp.get('intro') or ('实践配置记录贵所在本领域的立场与习惯，由冷启动访谈生成，律师也可以直接修改；每个流程开始前都会先读它。' if has_interview
+                                    else '这份配置记录这组流程共用的规则与默认做法，律师可以直接阅读和修改；每个流程开始前都会先读它。')
+        inner = para(intro, 'measure')
         if pp.get('sections'):
             inner += '<h3>配置哪些内容</h3>' + ul(pp['sections'])
         if pp.get('effects'):
             inner += '<h3>会怎样改变输出</h3>' + ul(pp['effects'])
-        body.append(sec('profile', nxt(), '实践配置', inner))
+        body.append(sec('profile', nxt(), pp.get('name') or '实践配置', inner))
     if p['shared_libraries']:
+        def used_by(ids):
+            links = []
+            for i in ids:
+                hits = [h for h in SKILLS.get(i, []) if h[0] == pid] or SKILLS.get(i, [])
+                links += [f'<a href="{r}{hp}/{i}/index.html">{esc(sn if hp == pid else f"{sn}（{pn}）")}</a>' for hp, pn, sn in hits]
+            return f'<br><span class="small">用于：{"、".join(links)}</span>' if links else ''
         items = ''.join(
-            f'<li><a href="{gh(l["file"])}">{esc(l.get("name") or l["file"])}</a> <span class="small">{esc(l["file"])}</span><br>{inline(l["what"])}'
-            + (f'<br><span class="small">用于：{esc("、".join(l["used_by"]))}</span>' if l.get('used_by') else '') + '</li>' for l in p['shared_libraries'])
-        body.append(sec('libs', nxt(), '领域引用库', para('这些文件收录本领域各流程共用的法条、口径和规则；法条有误通常改这里。', 'muted') + f'<ul class="sources measure">{items}</ul>'))
+            f'<li id="{lib_anchor(l["file"])}"><b>{esc(l["name"])}</b><br>{inline(l["what"])}{used_by(l.get("used_by", []))}</li>' for l in p['shared_libraries'])
+        body.append(sec('libs', nxt(), '领域引用库', para('本领域各流程共用的法条、口径和规则；法条有误通常改这里。', 'muted') + f'<ul class="refs measure">{items}</ul>'))
     if p['not_for']:
         body.append(sec('notfor', nxt(), '不做什么', ul(p['not_for'])))
+    body.append(maint_block([('领域标识', pid)], ([pp['file']] if pp.get('file') else []) + [l['file'] for l in p['shared_libraries']]))
     crumbs = [('首页', r + 'index.html'), (p['name'], None)]
     return shell(title=p['name'], body=''.join(body), depth=depth, description=p['tagline'], current='shared' if pid == 'shared' else '', crumbs=crumbs)
 
@@ -562,23 +564,23 @@ def render_index(plugins, depth=1):
     if extra:
         groups.append('<section class="group"><h3>其他</h3>' + ''.join(skill_table(p, depth) for p in extra) + '</section>')
     total = sum(len(p['skills']) for p in plugins)
-    body = f'''<header class="lead"><h1>全部 skill</h1><p class="tagline">按领域分组。输入名称、命令或关键词（如「竞业」「保函」「问卷」）过滤。</p></header>
-<form class="search" role="search" onsubmit="return false"><label class="vh" for="q">过滤 skill</label><input id="q" type="search" placeholder="名称、命令、关键词…" autocomplete="off"><output id="q-count" for="q">共 {total} 个</output></form>
+    body = f'''<header class="lead"><h1>全部 skill</h1><p class="tagline">按领域分组。输入名称或关键词（如「竞业」「保函」「问卷」）过滤。</p></header>
+<form class="search" role="search" onsubmit="return false"><label class="vh" for="q">过滤 skill</label><input id="q" type="search" placeholder="名称或关键词…" autocomplete="off"><output id="q-count" for="q">共 {total} 个</output></form>
 <p class="muted" id="q-empty" hidden>没有匹配的 skill。试试更短的关键词，例如「合同」「劳动」「备案」。</p>
 {''.join(groups)}'''
-    return shell(title='全部 skill', body=body, depth=depth, description='ai-for-china-legal 全部 skill 索引', current='skills', crumbs=[('首页', rel(depth) + 'index.html'), ('全部 skill', None)])
+    return shell(title='全部 skill', body=body, depth=depth, description=f'{SITE_NAME} 全部 skill 索引', current='skills', crumbs=[('首页', rel(depth) + 'index.html'), ('全部 skill', None)])
 
 
 def render_home(plugins):
     shared = next((p for p in plugins if p['id'] == 'shared'), None)
     flow_steps = []
     flow_def = [
-        ('ai-for-china-legal-workflow', '自动接管法律事项（总路由）', '律师发来任务或文件，工具按内容进入法律工作流，不用说口令；默认按资深大陆律师的工作产物标准，但不代替签字律师。'),
-        ('legal-document-intake', '开工前先问清（动态 intake）', '读完全部材料后列出会改变成果的问题，分成必须确认、建议确认、可按默认、材料请求四档；在回复里写出开工决定，然后直接问，或生成问卷文档发给律师。'),
-        ('research-gate', '先检索、后结论（研究闸门）', '对每个法律问题同时找支持依据、反向依据和程序陷阱；来源分 L1–L5 五级，法条逐字核验，不能核验的标「待律师复核」。'),
-        (None, '进入专项流程', '按交付物进入具体领域的流程（合同审查、答辩状、尽调、备案……）。每个流程的步骤、规则和内置假设见各 skill 页。'),
-        (None, '交付前检查与复核声明', '不覆盖原件，修订可接受、可拒绝，结构与渲染检查后交付；高风险事项写明是否做了不同模型的独立复核。'),
-        ('feedback-refinement', '律师意见回流', '律师的评价与文字意见按 skill 聚类，只做有边界的修改，并沉淀为脱敏案例。本站每条「核对」都是为这一步准备的。'),
+        ('ai-for-china-legal-workflow', '自动接管法律事项', '律师发来任务或文件，AI 按内容判断进入法律工作流，不需要说口令；默认按资深大陆律师的工作产物标准办，但不代替签字律师。'),
+        ('legal-document-intake', '开工前先问清', '读完全部材料，列出会改变成果的问题，分成必须确认、建议确认、可按默认、材料请求四档；在回复里写明开工前确认结论，然后直接提问，或生成问卷文档发给律师。'),
+        ('research-gate', '先检索、后结论', '每个法律问题都同时找支持依据、反向依据和程序上的陷阱；来源分五级，法条逐字核对官方文本，核对不了的标「待律师复核」。'),
+        (None, '进入专项流程', '按要交付的文书进入具体领域的流程（合同审查、答辩状、尽调、备案……）。每个流程的步骤、规则和内置判断见各 skill 页。'),
+        (None, '交付前检查与复核说明', '不覆盖原件；修订可以逐条接受或拒绝；版式逐页检查后交付。高风险事项写明是否由另一个 AI 模型独立复核。'),
+        ('feedback-refinement', '律师意见回流', '律师的评价和修改意见按 skill 归类，只做小范围、可核对的修改，并记成脱敏案例。本站每条「核对」都是为这一步准备的。'),
     ]
     for sid, title, text in flow_def:
         link = ''
@@ -593,21 +595,21 @@ def render_home(plugins):
             continue
         rows.append(f'<tr><th colspan="3">{esc(gname)}</th></tr>')
         for p in ps:
-            rows.append(f'<tr><td><span class="name"><a href="{p["id"]}/index.html">{esc(p["plugin"]["name"])}</a></span><br><code>{esc(p["id"])}</code></td>'
+            rows.append(f'<tr><td><span class="name"><a href="{p["id"]}/index.html">{esc(p["plugin"]["name"])}</a></span></td>'
                         f'<td>{inline(p["plugin"]["tagline"])}</td><td class="n num">{len(p["skills"])}</td></tr>')
     nplugins = len([p for p in plugins if p['id'] != 'shared'])
     nskills = sum(len(p['skills']) for p in plugins)
     nsteps = sum(len(s['steps']) for p in plugins for s in p['skills'])
     body = f'''<header class="lead home-lead">
   <h1><span class="nw">给律师看的</span> <span class="nw">skill 说明</span></h1>
-  <p class="tagline">ai-for-china-legal 是一套面向中国大陆律师的法律 AI 工作流。这里按律师能读的方式讲清每个 skill 能做什么、怎么做到、分几步、内置了哪些法律判断，并把可以提意见的地方逐条标出来。</p>
+  <p class="tagline">{SITE_NAME} 是一套面向中国大陆律师的法律 AI 工作流。这里按律师能读的方式讲清每个 skill 能做什么、怎么做到、分几步、内置了哪些法律判断，并把可以提意见的地方逐条标出来。</p>
   <p class="notice">所有 skill 的输出都是供律师审查的草稿，不是法律意见，也不替代执业律师的判断。本站只讲工具怎么工作。</p>
   <div class="stats"><span><b class="num">{nplugins}</b>个领域</span><span><b class="num">{nskills}</b>个 skill</span><span><b class="num">{nsteps}</b>个步骤</span></div>
 </header>
 <section class="sec" id="flow"><h2><span class="n">01</span>一个事项怎么走</h2>
 <p class="measure">不论哪个领域，每个法律事项都经过同样的外层流程。专项流程在第 4 步。</p>
 <ol class="flow">{''.join(flow_steps)}</ol>
-<p class="small">四个共享流程的详细说明：<a href="shared/index.html">共享工作流</a>。</p>
+<p class="small">四个共享流程的详细说明：<a href="shared/index.html">共享流程</a>。</p>
 </section>
 <section class="sec" id="plugins"><h2><span class="n">02</span>十三个领域</h2>
 <p class="measure">每个领域一组流程，加一份「实践配置文件」记录贵所的立场。点进领域看 skill 一览；或直接用<a href="skills/index.html">全部 skill</a>页搜索。</p>
@@ -616,44 +618,51 @@ def render_home(plugins):
 <section class="sec" id="howto"><h2><span class="n">03</span>怎么读一个 skill 页</h2>
 <div class="legend">
   <div><h3>概要、适用与边界、输入与产出</h3><p>先判断这个流程是不是您要评的那个：它接什么材料、出什么文书、给谁看。</p></div>
-  <div><h3>开始前</h3><p>流程开始前必须发生的事（读实践配置、动态 intake、研究闸门）和不可绕过的硬性规则。</p></div>
-  <div><h3>执行步骤</h3><p>主体。每一步写明做法的先后顺序、内置的判断规则与阈值、引用的法条、产出什么。这是源文件里最厚的部分，已按原文顺序保留数字与清单。</p></div>
-  <div><h3>请律师核对（朱砂色）</h3><p>每一步旁边标出的内置假设，以及页末的「请律师重点核对」清单。每条都可以一键复制成带编号的引用，粘到微信给操作员。</p></div>
-  <div><h3>法律依据、共享规则、源文件</h3><p>法条照原文保留《》与条号；「待验证」是源文件自己的标记。源文件链接到 GitHub，便于核对原文。</p></div>
+  <div><h3>开始前</h3><p>流程开始前一定会做的事（读实践配置、开工前确认、研究闸门），以及不能绕过的硬性规则。</p></div>
+  <div><h3>执行步骤</h3><p>主体。每一步写明怎么做、内置了哪些判断标准和阈值、引用哪些法条、产出什么。技术细节已略去，法律上的数字和清单照原文保留。</p></div>
+  <div><h3>请律师核对（朱砂色）</h3><p>每一步旁边标出的内置判断，以及页末的审阅清单。每条都可以一键复制成带编号的引用，粘到微信发给操作员。</p></div>
+  <div><h3>法律依据与共用规则</h3><p>法条照原文保留书名号与条号；「待验证」是 skill 原文自己的标记。共用规则是多个流程共享的法条库和口径，点名称可以看它收录了什么。</p></div>
 </div>
 </section>
-<section class="sec" id="terms"><h2><span class="n">04</span>标记与术语</h2>
-<p class="measure">skill 页照录源文件，保留了少量英文标记。它们的意思如下。</p>
+<section class="sec" id="terms"><h2><span class="n">04</span>常用说法</h2>
+<p class="measure">skill 页里反复出现的几个说法，意思如下。</p>
 <dl class="kv terms measure">
-<dt>请律师核对 / 审阅清单</dt><dd>本站加的批注：前者在每个步骤旁，后者在页末汇总；两者对应时，审阅条目会写「对应 核对 n.k」。</dd>
-<dt><span class="nw">[待验证]</span> <span class="nw">[待律师复核]</span></dt><dd>源文件自己标出的未核验引用或需要律师判断的点，本站原样保留。</dd>
-<dt><code>INTAKE_DECISION</code></dt><dd>动态 intake 在开工前写在回复里的决定：是否暂停、各档问题几题、用哪种方式问。</dd>
-<dt><code>[CLARIFY:]</code></dt><dd>没有提问工具时，交给律师按编号回复的待确认清单。</dd>
-<dt><code>REVIEW_STATUS</code></dt><dd>高风险事项交付前写明的复核状态：是否做了不同模型的独立复核、有无未消解的分歧。</dd>
-<dt>执行档 standard / high / critical</dt><dd>按风险定的执行强度：单模型自检；强模型起草加不同模型复核；材料提取、检索、起草、复核分角色执行，最后律师人审。</dd>
-<dt>必须确认 / 建议确认 / 可按默认 / 材料请求</dt><dd>intake 给问题分的四档。只有必须确认未答复时，受影响部分才暂停起草。</dd>
-<dt>来源分级 L1–L5</dt><dd>研究闸门的来源层级：法律与司法解释、入库与指导案例、普通判决、监管文件、实务文章；L5 只作线索。</dd>
-<dt>实践配置文件 / 临时模式</dt><dd>每个领域的 <code>CLAUDE.md</code> 记录贵所立场与习惯，由冷启动访谈填写；没有配置时可用临时模式按通用默认值运行，并在输出上标注。</dd>
+<dt>请律师核对 / 审阅清单</dt><dd>本站加的批注：前者在每个步骤旁，后者在页末汇总；两者说的是同一件事时，审阅条目下会提示「相关批注」。条目里「供核对」之后的内容，是本站整理时对照现行条文补充的提示，不是 skill 原文。</dd>
+<dt>操作员</dt><dd>把律师的需求交给 AI、转发问题和答复的人。可能是律师本人，也可能是助理或负责操作软件的人员。</dd>
+<dt><span class="nw">[待验证]</span> <span class="nw">[待律师复核]</span> <span class="nw">[模型知识 — 需验证]</span></dt><dd>skill 原文自己的核验标记，本站原样保留：前两个表示依据未核验或需要律师判断；「模型知识」表示 AI 凭记忆写出、尚未检索核实的依据。</dd>
+<dt>实践配置 / 临时模式</dt><dd>每个领域一份实践配置，记录贵所的立场、审查尺度和文书习惯，律师可以直接修改。还没有配置时按通用默认值办理（临时模式），并在成果上注明。</dd>
+<dt>冷启动访谈</dt><dd>每个领域首次使用前的配置访谈：问清贵所的立场和习惯，答案写进实践配置。</dd>
+<dt>护栏 / 升级 / 强制升级</dt><dd>护栏是 skill 里不能绕过的硬性规则（实践配置里的「共享护栏」一章对本领域所有流程生效）。升级是停下来交给指定的人决定，通常是执业律师或合伙人；实践配置里的「升级矩阵」规定什么情况交给谁。强制升级是不能经配置关闭的情形，如涉嫌犯罪、人身安全风险。</dd>
+<dt>风险等级 <span class="nw">[红]</span> <span class="nw">[橙]</span> <span class="nw">[黄]</span> <span class="nw">[绿]</span></dt><dd>关键、高、中等、低四级；各领域的具体口径写在本领域的实践配置里。</dd>
+<dt>开工前确认结论</dt><dd>开工前写在回复里的一段说明：直接开工、先问再写还是暂停等答复，理由是什么；四档问题各几个、怎么问；按什么执行强度办；哪些事项暂缓确认。</dd>
+<dt>文字版待确认问题清单 / 问卷文档</dt><dd>开工前提问的两种书面形式：前者是按编号列出、可以直接粘到微信的清单；后者是 Word 文件，由操作员转给承办律师填写。</dd>
+<dt>必须确认 / 建议确认 / 可按默认 / 材料请求</dt><dd>开工前确认给问题分的四档。只有「必须确认」的问题没有答复时，受影响的部分才暂停起草。</dd>
+<dt>执行强度：常规 / 加强 / 最高</dt><dd>按事项风险定的办理方式：常规由 AI 自查；加强由另一个 AI 模型独立复核；最高把材料提取、检索、起草、复核分开做，最后由律师人工审核。</dd>
+<dt>复核情况说明</dt><dd>按加强或最高强度办理的事项，交付时写明：是否由另一个 AI 模型独立复核、还有几处分歧未解决、没做的原因；复核意见本身写在《成稿说明》里。</dd>
+<dt>《成稿说明》</dt><dd>交付文书时另附给承办律师的内部说明，不随文书发给客户：形成方式、核心结论、客户材料中的问题、发送前请律师关注或确认的事项、法律依据核验情况、检索到但未采用的依据、建议客户补充的材料、复核情况等。</dd>
+<dt>来源一级至五级</dt><dd>研究闸门给来源分的等级：法律与司法解释、入库案例与指导性案例、普通裁判文书、监管文件、实务文章；五级只作线索。</dd>
+<dt>律师复核稿 / 律师工作产物</dt><dd>成果上的标注，表示这是供律师复核的草稿，不是定稿。部分领域的标题写「受律师-当事人特权保护」，沿用了普通法的说法；中国法下对应的是律师的保密义务，本站照录原文，是否改写请律师提意见。</dd>
+<dt>常见缩写</dt><dd>CIIO：关键信息基础设施运营者；PIA：个人信息保护影响评估；DPO：个人信息保护负责人；FTO：自由实施（不侵权）分析；API、SDK：软件接口与开发工具包；LPR：贷款市场报价利率；IRAC：问题—规则—适用—结论的分析方法；PDCA：计划—执行—检查—改进的循环。</dd>
 </dl>
 </section>
 <section class="sec" id="feedback"><h2><span class="n">05</span>怎么提意见</h2>
 <p class="measure">对任何一条规则：复制页面上的引用，写上「同意 / 反对 / 应改为」和依据，发给操作员或在 GitHub 提 issue。意见会按<a href="shared/feedback-refinement/index.html">律师反馈精炼</a>流程转成有边界的 skill 修改。格式与示例见<a href="feedback/index.html">怎么提意见</a>。</p>
 </section>'''
-    return shell(title='首页', body=body, depth=0, description='给律师看的 ai-for-china-legal skill 说明：每个 skill 能做什么、怎么做到、步骤和内置假设。', current='home')
+    return shell(title='首页', body=body, depth=0, description=f'给律师看的 {SITE_NAME} skill 说明：每个 skill 能做什么、怎么做到、步骤和内置判断。', current='home')
 
 
 def render_feedback(plugins, depth=1):
     r = rel(depth)
-    example = '【商事合同／合同审查（commercial-legal/contract-review）· 步骤1 风险识别 · 核对 1.2】风险等级把「超出备选范围」定为高风险……\n\n反对。我所实践中……应改为……\n依据：《民法典》第585条第2款；（2023）京03民终xxxx号。'
-    body = f'''<header class="lead"><h1>怎么提意见</h1><p class="tagline">意见要能对回源文件的某一条，才能变成 skill 的修改。页面上的每条「核对」和「审阅」都带编号，复制就是现成的引用。</p></header>
+    example = '【商事合同／合同审查 · 第1步 风险识别 · 核对 1.2】风险等级把「超出备选范围」定为高风险……\n\n反对。我所实践中……应改为……\n依据：《民法典》第585条第2款；（2023）京03民终××××号。'
+    body = f'''<header class="lead"><h1>怎么提意见</h1><p class="tagline">意见要能对回 skill 里的某一条规则，才能变成修改。页面上的每条「核对」和「审阅」都带编号，复制就是现成的引用。</p></header>
 <section class="sec" id="what"><h2><span class="n">01</span>提什么</h2>
 <ul class="measure">
 <li><b>内置假设不对或不全</b>：某个阈值、分级、清单、默认立场与贵所实践不符。</li>
 <li><b>法条有误</b>：条号、文号、生效情况、适用范围写错了，或漏了关键司法解释。</li>
 <li><b>步骤顺序或缺步</b>：实务上先后应当颠倒，或少了一个必须做的核查。</li>
-<li><b>该问没问</b>：开工前应当向律师确认的事项没有列进 intake 的候选问题。</li>
+<li><b>该问没问</b>：开工前应当向律师确认的事项，没有列进开工前确认的问题里。</li>
 <li><b>措辞与文书体例</b>：产出文书的结构、口吻、落款与贵所模板不一致。</li>
-<li><b>说明与源文件不一致</b>：本站是摘要，发现与 SKILL.md 原文不符请一并指出。</li>
+<li><b>说明与实际表现不一致</b>：本站是摘要；skill 实际交出的成果与这里写的不一样，请一并指出。</li>
 </ul></section>
 <section class="sec" id="how"><h2><span class="n">02</span>怎么写</h2>
 <p class="measure">三行即可：引用、结论、依据。引用从页面复制；结论写「同意 / 反对 / 应改为……」；依据写法条、案号或实务经验。</p>
@@ -663,13 +672,13 @@ def render_feedback(plugins, depth=1):
 <section class="sec" id="where"><h2><span class="n">03</span>发到哪里</h2>
 <ul class="measure">
 <li><b>微信发给操作员</b>：最常用。操作员按<a href="{r}shared/feedback-refinement/index.html">律师反馈精炼</a>流程处理。</li>
-<li><b>GitHub issue</b>：每个 skill 页末尾有「在 GitHub 提 issue」按钮，标题已带 skill 标识：<a href="{REPO}/issues">{REPO}/issues</a>。</li>
+<li><b>GitHub</b>：每个 skill 页末尾有「在 GitHub 提 issue」按钮，会自动带上页面地址（需要 GitHub 账号）：<a href="{REPO}/issues">项目的意见列表</a>。</li>
 <li><b>墨律桌面端</b>：对单次成果点 👍/👎 并留言，会随同步服务汇总。</li>
 </ul></section>
 <section class="sec" id="then"><h2><span class="n">04</span>之后会发生什么</h2>
-<p class="measure">意见按 skill 聚类，定位到源文件，只做 1–3 处有边界的替换或追加，每处写明对应哪条意见；不删研究闸门的强制步骤，不编造法条，新增规则拿不准的标「待律师复核」。改完对照至少一个真实场景核对，再发布新版本 skill 包。来自真实任务的经验会脱敏后进入案例库。</p>
+<p class="measure">意见按 skill 归类，找到对应的规则，每次只做 1–3 处小范围的替换或追加，每处写明对应哪条意见；不删研究闸门的强制步骤，不编造法条，拿不准的新规则标「待律师复核」。改完至少对照一个真实场景核对，再发布新版本，律师端下次启动时自动更新。来自真实任务的经验脱敏后进入案例库。</p>
 </section>'''
-    return shell(title='怎么提意见', body=body, depth=depth, description='如何对 ai-for-china-legal 的 skill 规则提意见', current='feedback', crumbs=[('首页', r + 'index.html'), ('怎么提意见', None)])
+    return shell(title='怎么提意见', body=body, depth=depth, description=f'如何对 {SITE_NAME} 的 skill 规则提意见', current='feedback', crumbs=[('首页', r + 'index.html'), ('怎么提意见', None)])
 
 
 # ------------------------------------------------------------------ main

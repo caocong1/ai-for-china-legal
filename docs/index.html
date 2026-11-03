@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>首页 · AI for China Legal Skill 说明</title>
-<meta name="description" content="给律师看的 ai-for-china-legal skill 说明：每个 skill 能做什么、怎么做到、步骤和内置假设。">
+<meta name="description" content="给律师看的 AI for China Legal skill 说明：每个 skill 能做什么、怎么做到、步骤和内置判断。">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fcfaf7">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1c1915">
@@ -26,40 +26,47 @@
 <div class="article">
 <header class="lead home-lead">
   <h1><span class="nw">给律师看的</span> <span class="nw">skill 说明</span></h1>
-  <p class="tagline">ai-for-china-legal 是一套面向中国大陆律师的法律 AI 工作流。这里按律师能读的方式讲清每个 skill 能做什么、怎么做到、分几步、内置了哪些法律判断，并把可以提意见的地方逐条标出来。</p>
+  <p class="tagline">AI for China Legal 是一套面向中国大陆律师的法律 AI 工作流。这里按律师能读的方式讲清每个 skill 能做什么、怎么做到、分几步、内置了哪些法律判断，并把可以提意见的地方逐条标出来。</p>
   <p class="notice">所有 skill 的输出都是供律师审查的草稿，不是法律意见，也不替代执业律师的判断。本站只讲工具怎么工作。</p>
   <div class="stats"><span><b class="num">13</b>个领域</span><span><b class="num">73</b>个 skill</span><span><b class="num">309</b>个步骤</span></div>
 </header>
 <section class="sec" id="flow"><h2><span class="n">01</span>一个事项怎么走</h2>
 <p class="measure">不论哪个领域，每个法律事项都经过同样的外层流程。专项流程在第 4 步。</p>
-<ol class="flow"><li><div><h3>自动接管法律事项（总路由）</h3><p>律师发来任务或文件，工具按内容进入法律工作流，不用说口令；默认按资深大陆律师的工作产物标准，但不代替签字律师。 <a href="shared/ai-for-china-legal-workflow/index.html">详细说明</a></p></div></li><li><div><h3>开工前先问清（动态 intake）</h3><p>读完全部材料后列出会改变成果的问题，分成必须确认、建议确认、可按默认、材料请求四档；在回复里写出开工决定，然后直接问，或生成问卷文档发给律师。 <a href="shared/legal-document-intake/index.html">详细说明</a></p></div></li><li><div><h3>先检索、后结论（研究闸门）</h3><p>对每个法律问题同时找支持依据、反向依据和程序陷阱；来源分 L1–L5 五级，法条逐字核验，不能核验的标「待律师复核」。 <a href="shared/research-gate/index.html">详细说明</a></p></div></li><li><div><h3>进入专项流程</h3><p>按交付物进入具体领域的流程（合同审查、答辩状、尽调、备案……）。每个流程的步骤、规则和内置假设见各 skill 页。</p></div></li><li><div><h3>交付前检查与复核声明</h3><p>不覆盖原件，修订可接受、可拒绝，结构与渲染检查后交付；高风险事项写明是否做了不同模型的独立复核。</p></div></li><li><div><h3>律师意见回流</h3><p>律师的评价与文字意见按 skill 聚类，只做有边界的修改，并沉淀为脱敏案例。本站每条「核对」都是为这一步准备的。 <a href="shared/feedback-refinement/index.html">详细说明</a></p></div></li></ol>
-<p class="small">四个共享流程的详细说明：<a href="shared/index.html">共享工作流</a>。</p>
+<ol class="flow"><li><div><h3>自动接管法律事项</h3><p>律师发来任务或文件，AI 按内容判断进入法律工作流，不需要说口令；默认按资深大陆律师的工作产物标准办，但不代替签字律师。 <a href="shared/ai-for-china-legal-workflow/index.html">详细说明</a></p></div></li><li><div><h3>开工前先问清</h3><p>读完全部材料，列出会改变成果的问题，分成必须确认、建议确认、可按默认、材料请求四档；在回复里写明开工前确认结论，然后直接提问，或生成问卷文档发给律师。 <a href="shared/legal-document-intake/index.html">详细说明</a></p></div></li><li><div><h3>先检索、后结论</h3><p>每个法律问题都同时找支持依据、反向依据和程序上的陷阱；来源分五级，法条逐字核对官方文本，核对不了的标「待律师复核」。 <a href="shared/research-gate/index.html">详细说明</a></p></div></li><li><div><h3>进入专项流程</h3><p>按要交付的文书进入具体领域的流程（合同审查、答辩状、尽调、备案……）。每个流程的步骤、规则和内置判断见各 skill 页。</p></div></li><li><div><h3>交付前检查与复核说明</h3><p>不覆盖原件；修订可以逐条接受或拒绝；版式逐页检查后交付。高风险事项写明是否由另一个 AI 模型独立复核。</p></div></li><li><div><h3>律师意见回流</h3><p>律师的评价和修改意见按 skill 归类，只做小范围、可核对的修改，并记成脱敏案例。本站每条「核对」都是为这一步准备的。 <a href="shared/feedback-refinement/index.html">详细说明</a></p></div></li></ol>
+<p class="small">四个共享流程的详细说明：<a href="shared/index.html">共享流程</a>。</p>
 </section>
 <section class="sec" id="plugins"><h2><span class="n">02</span>十三个领域</h2>
 <p class="measure">每个领域一组流程，加一份「实践配置文件」记录贵所的立场。点进领域看 skill 一览；或直接用<a href="skills/index.html">全部 skill</a>页搜索。</p>
-<table class="plugins skill-list"><thead><tr><th>领域</th><th>做什么</th><th class="n">skill</th></tr></thead><tbody><tr><th colspan="3">交易与咨询</th></tr><tr><td><span class="name"><a href="commercial-legal/index.html">商事合同</a></span><br><code>commercial-legal</code></td><td>审查、起草商事合同，分析违约责任，做股权交易目标公司法律尽调</td><td class="n num">5</td></tr><tr><td><span class="name"><a href="data-compliance/index.html">数据合规</a></span><br><code>data-compliance</code></td><td>围绕个保法、数据安全法、网络安全法做 PIA、出境评估与合规检查</td><td class="n num">5</td></tr><tr><td><span class="name"><a href="employment-legal/index.html">劳动人事</a></span><br><code>employment-legal</code></td><td>审查劳动合同、解雇与竞业方案，追踪假期期限，处理劳动争议，调查整家公司用工合规</td><td class="n num">7</td></tr><tr><td><span class="name"><a href="ip-legal/index.html">知识产权</a></span><br><code>ip-legal</code></td><td>商标查询、专利侵权初判、著作权登记与多维清权的全流程辅助</td><td class="n num">5</td></tr><tr><td><span class="name"><a href="ai-governance/index.html">AI 治理</a></span><br><code>ai-governance</code></td><td>辅助深度合成备案、算法备案、生成式 AI 合规与 AI 应用场景分类</td><td class="n num">5</td></tr><tr><td><span class="name"><a href="regulatory-legal/index.html">监管合规</a></span><br><code>regulatory-legal</code></td><td>监管动态监控、行政处罚应对、合规体系建设与监管报告起草的全流程辅助</td><td class="n num">5</td></tr><tr><th colspan="3">诉讼</th></tr><tr><td><span class="name"><a href="litigation-legal/index.html">诉讼仲裁</a></span><br><code>litigation-legal</code></td><td>诉讼仲裁案件从录入、答辩、证据、代理词到时效监控的全流程助手</td><td class="n num">6</td></tr><tr><th colspan="3">中国特有领域</th></tr><tr><td><span class="name"><a href="construction-legal/index.html">建设工程</a></span><br><code>construction-legal</code></td><td>施工合同、工程款、招投标、商品房与存量土地变性的全流程法律辅助</td><td class="n num">6</td></tr><tr><td><span class="name"><a href="family-legal/index.html">婚姻家事</a></span><br><code>family-legal</code></td><td>起草离婚协议与遗嘱、分析继承权与财产分割，家暴与未成年人护栏贯穿全程</td><td class="n num">5</td></tr><tr><td><span class="name"><a href="criminal-compliance/index.html">刑事合规</a></span><br><code>criminal-compliance</code></td><td>替企业梳理刑事风险、搭建合规体系、争取合规不起诉、防范单位犯罪双罚</td><td class="n num">5</td></tr><tr><th colspan="3">学习与实务</th></tr><tr><td><span class="name"><a href="law-student/index.html">法考培训</a></span><br><code>law-student</code></td><td>为法考学员建学习档案，训练案例分析、法条记忆、模拟题与错题复盘</td><td class="n num">5</td></tr><tr><td><span class="name"><a href="legal-aid/index.html">法律援助</a></span><br><code>legal-aid</code></td><td>法援案件从当事人接待、资格评估、申请与文书到质量监督、结案归档的全流程工具</td><td class="n num">5</td></tr><tr><th colspan="3">生态系统</th></tr><tr><td><span class="name"><a href="legal-builder-hub/index.html">法律技能中心</a></span><br><code>legal-builder-hub</code></td><td>替团队发现、审查、安装和登记社区法律技能，未过安全审查的技能不装</td><td class="n num">5</td></tr></tbody></table>
+<table class="plugins skill-list"><thead><tr><th>领域</th><th>做什么</th><th class="n">skill</th></tr></thead><tbody><tr><th colspan="3">交易与咨询</th></tr><tr><td><span class="name"><a href="commercial-legal/index.html">商事合同</a></span></td><td>审查、起草商事合同，分析违约责任，做股权交易目标公司法律尽调</td><td class="n num">5</td></tr><tr><td><span class="name"><a href="data-compliance/index.html">数据合规</a></span></td><td>依《个人信息保护法》《数据安全法》《网络安全法》做 PIA、出境评估和合规检查</td><td class="n num">5</td></tr><tr><td><span class="name"><a href="employment-legal/index.html">劳动人事</a></span></td><td>审查劳动合同、解雇与竞业方案，追踪假期期限，处理劳动争议，调查整家公司用工合规</td><td class="n num">7</td></tr><tr><td><span class="name"><a href="ip-legal/index.html">知识产权</a></span></td><td>商标检索与近似分析、专利侵权初判、著作权登记方案和使用前清权</td><td class="n num">5</td></tr><tr><td><span class="name"><a href="ai-governance/index.html">AI 治理</a></span></td><td>辅助深度合成备案、算法备案、生成式 AI 合规与 AI 应用场景分类</td><td class="n num">5</td></tr><tr><td><span class="name"><a href="regulatory-legal/index.html">监管合规</a></span></td><td>监管动态监控、行政处罚应对、合规体系建设与监管报告起草的全流程辅助</td><td class="n num">5</td></tr><tr><th colspan="3">诉讼</th></tr><tr><td><span class="name"><a href="litigation-legal/index.html">诉讼仲裁</a></span></td><td>诉讼仲裁案件从录入、答辩、证据、代理词到诉讼时效监控的全流程工具</td><td class="n num">6</td></tr><tr><th colspan="3">中国特有领域</th></tr><tr><td><span class="name"><a href="construction-legal/index.html">建设工程</a></span></td><td>施工合同、工程款、招投标、商品房与存量土地变性的全流程法律辅助</td><td class="n num">6</td></tr><tr><td><span class="name"><a href="family-legal/index.html">婚姻家事</a></span></td><td>起草离婚协议和遗嘱，分析继承权，制定财产分割方案；家暴、未成年人护栏贯穿全程</td><td class="n num">5</td></tr><tr><td><span class="name"><a href="criminal-compliance/index.html">刑事合规</a></span></td><td>替企业梳理刑事风险、搭建合规体系、争取合规不起诉、防范单位犯罪双罚</td><td class="n num">5</td></tr><tr><th colspan="3">学习与实务</th></tr><tr><td><span class="name"><a href="law-student/index.html">法考培训</a></span></td><td>为法考学员建学习档案，训练案例分析、法条记忆、模拟题与错题复盘</td><td class="n num">5</td></tr><tr><td><span class="name"><a href="legal-aid/index.html">法律援助</a></span></td><td>法援案件从当事人接待、资格评估、申请与文书到质量监督、结案归档的全流程工具</td><td class="n num">5</td></tr><tr><th colspan="3">生态系统</th></tr><tr><td><span class="name"><a href="legal-builder-hub/index.html">法律技能中心</a></span></td><td>替团队查找、审查、安装和发布社区法律技能，未过安全审查的一律不装</td><td class="n num">5</td></tr></tbody></table>
 </section>
 <section class="sec" id="howto"><h2><span class="n">03</span>怎么读一个 skill 页</h2>
 <div class="legend">
   <div><h3>概要、适用与边界、输入与产出</h3><p>先判断这个流程是不是您要评的那个：它接什么材料、出什么文书、给谁看。</p></div>
-  <div><h3>开始前</h3><p>流程开始前必须发生的事（读实践配置、动态 intake、研究闸门）和不可绕过的硬性规则。</p></div>
-  <div><h3>执行步骤</h3><p>主体。每一步写明做法的先后顺序、内置的判断规则与阈值、引用的法条、产出什么。这是源文件里最厚的部分，已按原文顺序保留数字与清单。</p></div>
-  <div><h3>请律师核对（朱砂色）</h3><p>每一步旁边标出的内置假设，以及页末的「请律师重点核对」清单。每条都可以一键复制成带编号的引用，粘到微信给操作员。</p></div>
-  <div><h3>法律依据、共享规则、源文件</h3><p>法条照原文保留《》与条号；「待验证」是源文件自己的标记。源文件链接到 GitHub，便于核对原文。</p></div>
+  <div><h3>开始前</h3><p>流程开始前一定会做的事（读实践配置、开工前确认、研究闸门），以及不能绕过的硬性规则。</p></div>
+  <div><h3>执行步骤</h3><p>主体。每一步写明怎么做、内置了哪些判断标准和阈值、引用哪些法条、产出什么。技术细节已略去，法律上的数字和清单照原文保留。</p></div>
+  <div><h3>请律师核对（朱砂色）</h3><p>每一步旁边标出的内置判断，以及页末的审阅清单。每条都可以一键复制成带编号的引用，粘到微信发给操作员。</p></div>
+  <div><h3>法律依据与共用规则</h3><p>法条照原文保留书名号与条号；「待验证」是 skill 原文自己的标记。共用规则是多个流程共享的法条库和口径，点名称可以看它收录了什么。</p></div>
 </div>
 </section>
-<section class="sec" id="terms"><h2><span class="n">04</span>标记与术语</h2>
-<p class="measure">skill 页照录源文件，保留了少量英文标记。它们的意思如下。</p>
+<section class="sec" id="terms"><h2><span class="n">04</span>常用说法</h2>
+<p class="measure">skill 页里反复出现的几个说法，意思如下。</p>
 <dl class="kv terms measure">
-<dt>请律师核对 / 审阅清单</dt><dd>本站加的批注：前者在每个步骤旁，后者在页末汇总；两者对应时，审阅条目会写「对应 核对 n.k」。</dd>
-<dt><span class="nw">[待验证]</span> <span class="nw">[待律师复核]</span></dt><dd>源文件自己标出的未核验引用或需要律师判断的点，本站原样保留。</dd>
-<dt><code>INTAKE_DECISION</code></dt><dd>动态 intake 在开工前写在回复里的决定：是否暂停、各档问题几题、用哪种方式问。</dd>
-<dt><code>[CLARIFY:]</code></dt><dd>没有提问工具时，交给律师按编号回复的待确认清单。</dd>
-<dt><code>REVIEW_STATUS</code></dt><dd>高风险事项交付前写明的复核状态：是否做了不同模型的独立复核、有无未消解的分歧。</dd>
-<dt>执行档 standard / high / critical</dt><dd>按风险定的执行强度：单模型自检；强模型起草加不同模型复核；材料提取、检索、起草、复核分角色执行，最后律师人审。</dd>
-<dt>必须确认 / 建议确认 / 可按默认 / 材料请求</dt><dd>intake 给问题分的四档。只有必须确认未答复时，受影响部分才暂停起草。</dd>
-<dt>来源分级 L1–L5</dt><dd>研究闸门的来源层级：法律与司法解释、入库与指导案例、普通判决、监管文件、实务文章；L5 只作线索。</dd>
-<dt>实践配置文件 / 临时模式</dt><dd>每个领域的 <code>CLAUDE.md</code> 记录贵所立场与习惯，由冷启动访谈填写；没有配置时可用临时模式按通用默认值运行，并在输出上标注。</dd>
+<dt>请律师核对 / 审阅清单</dt><dd>本站加的批注：前者在每个步骤旁，后者在页末汇总；两者说的是同一件事时，审阅条目下会提示「相关批注」。条目里「供核对」之后的内容，是本站整理时对照现行条文补充的提示，不是 skill 原文。</dd>
+<dt>操作员</dt><dd>把律师的需求交给 AI、转发问题和答复的人。可能是律师本人，也可能是助理或负责操作软件的人员。</dd>
+<dt><span class="nw">[待验证]</span> <span class="nw">[待律师复核]</span> <span class="nw">[模型知识 — 需验证]</span></dt><dd>skill 原文自己的核验标记，本站原样保留：前两个表示依据未核验或需要律师判断；「模型知识」表示 AI 凭记忆写出、尚未检索核实的依据。</dd>
+<dt>实践配置 / 临时模式</dt><dd>每个领域一份实践配置，记录贵所的立场、审查尺度和文书习惯，律师可以直接修改。还没有配置时按通用默认值办理（临时模式），并在成果上注明。</dd>
+<dt>冷启动访谈</dt><dd>每个领域首次使用前的配置访谈：问清贵所的立场和习惯，答案写进实践配置。</dd>
+<dt>护栏 / 升级 / 强制升级</dt><dd>护栏是 skill 里不能绕过的硬性规则（实践配置里的「共享护栏」一章对本领域所有流程生效）。升级是停下来交给指定的人决定，通常是执业律师或合伙人；实践配置里的「升级矩阵」规定什么情况交给谁。强制升级是不能经配置关闭的情形，如涉嫌犯罪、人身安全风险。</dd>
+<dt>风险等级 <span class="nw">[红]</span> <span class="nw">[橙]</span> <span class="nw">[黄]</span> <span class="nw">[绿]</span></dt><dd>关键、高、中等、低四级；各领域的具体口径写在本领域的实践配置里。</dd>
+<dt>开工前确认结论</dt><dd>开工前写在回复里的一段说明：直接开工、先问再写还是暂停等答复，理由是什么；四档问题各几个、怎么问；按什么执行强度办；哪些事项暂缓确认。</dd>
+<dt>文字版待确认问题清单 / 问卷文档</dt><dd>开工前提问的两种书面形式：前者是按编号列出、可以直接粘到微信的清单；后者是 Word 文件，由操作员转给承办律师填写。</dd>
+<dt>必须确认 / 建议确认 / 可按默认 / 材料请求</dt><dd>开工前确认给问题分的四档。只有「必须确认」的问题没有答复时，受影响的部分才暂停起草。</dd>
+<dt>执行强度：常规 / 加强 / 最高</dt><dd>按事项风险定的办理方式：常规由 AI 自查；加强由另一个 AI 模型独立复核；最高把材料提取、检索、起草、复核分开做，最后由律师人工审核。</dd>
+<dt>复核情况说明</dt><dd>按加强或最高强度办理的事项，交付时写明：是否由另一个 AI 模型独立复核、还有几处分歧未解决、没做的原因；复核意见本身写在《成稿说明》里。</dd>
+<dt>《成稿说明》</dt><dd>交付文书时另附给承办律师的内部说明，不随文书发给客户：形成方式、核心结论、客户材料中的问题、发送前请律师关注或确认的事项、法律依据核验情况、检索到但未采用的依据、建议客户补充的材料、复核情况等。</dd>
+<dt>来源一级至五级</dt><dd>研究闸门给来源分的等级：法律与司法解释、入库案例与指导性案例、普通裁判文书、监管文件、实务文章；五级只作线索。</dd>
+<dt>律师复核稿 / 律师工作产物</dt><dd>成果上的标注，表示这是供律师复核的草稿，不是定稿。部分领域的标题写「受律师-当事人特权保护」，沿用了普通法的说法；中国法下对应的是律师的保密义务，本站照录原文，是否改写请律师提意见。</dd>
+<dt>常见缩写</dt><dd>CIIO：关键信息基础设施运营者；PIA：个人信息保护影响评估；DPO：个人信息保护负责人；FTO：自由实施（不侵权）分析；API、SDK：软件接口与开发工具包；LPR：贷款市场报价利率；IRAC：问题—规则—适用—结论的分析方法；PDCA：计划—执行—检查—改进的循环。</dd>
 </dl>
 </section>
 <section class="sec" id="feedback"><h2><span class="n">05</span>怎么提意见</h2>
@@ -69,8 +76,8 @@
 </div>
 </main>
 <footer class="ft"><div class="wrap">
-  <p>本站把 <a href="https://github.com/caocong1/ai-for-china-legal">ai-for-china-legal</a> 仓库里的 skill 文件改写成给律师看的说明。所有 skill 的输出都是供律师审查的草稿，不是法律意见。页面由 <code>scripts/build-docs-site.py</code> 从 <code>docs/data/skills/parts/</code> 生成；生成日期 2026-11-02。</p>
-  <p>发现说明与源文件不一致、或对 skill 的规则有意见：见<a href="feedback/index.html">怎么提意见</a>。</p>
+  <p>本站把 <a href="https://github.com/caocong1/ai-for-china-legal">AI for China Legal</a> 项目里的 skill 规则改写成给律师看的说明，与 skill 原文不一致时以原文为准。所有 skill 的输出都是供律师审查的草稿，不是法律意见。生成日期 <span class="nw">2026-11-03</span>。</p>
+  <p>发现说明与 skill 的实际表现不一致，或对 skill 的规则有意见：见<a href="feedback/index.html">怎么提意见</a>。</p>
 </div></footer>
 <script src="assets/site.js" defer></script>
 </body>

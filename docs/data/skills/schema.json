@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "ai-for-china-legal skill digest (lawyer-facing)",
-  "description": "docs/data/skills/parts/*.json 的结构。每个文件描述一个插件（或 shared）里的若干顶层 skill。plugin 块只在该插件的第一个分片里出现；scripts/build-docs-site.py 按 plugin.id 合并全部分片。所有文字面向执业律师，简体中文。",
+  "description": "docs/data/skills/parts/*.json 的结构。每个文件描述一个插件（或 shared）里的若干顶层 skill。plugin 块只在该插件的第一个分片里出现；scripts/build-docs-site.py 按 plugin_id 合并全部分片。律师读的文字一律用律师语言（简体中文）：不写文件名、路径、命令、字段名、状态值、内部编号和编程用语，技术机制只写结果，法律实质照原文（scripts/validate-skill-digest.py 校验）。维护字段 plugin_id、part、id、command、kind、n、standalone、sources、file、used_by 可以是标识，不显示在正文里。",
   "type": "object",
   "required": ["plugin_id", "skills"],
   "properties": {
@@ -36,6 +36,8 @@
           "required": ["file", "sections", "effects"],
           "properties": {
             "file": {"type": "string"},
+            "name": {"type": "string", "description": "可选：实践配置在本领域的叫法（如法考领域的「学员档案」）；不写时叫「实践配置」"},
+            "intro": {"type": "string", "description": "可选：领域页「实践配置」一节的开头一句；不写时用通用说法"},
             "sections": {"type": "array", "items": {"type": "string"}, "description": "配置文件的章节名"},
             "effects": {"type": "array", "items": {"type": "string"}, "description": "3–6 条：配置的哪一项会怎样改变输出"}
           }
@@ -49,7 +51,7 @@
         "required": ["id", "command", "name", "kind", "tagline", "summary", "when", "not_for", "inputs", "outputs", "preconditions", "guardrails", "steps", "legal_basis", "shared_refs", "quality_checks", "escalation", "review_points", "example_prompts", "sources"],
         "properties": {
           "id": {"type": "string", "description": "顶层 skill 目录名，如 contract-review"},
-          "command": {"type": "string", "description": "斜杠命令，如 /commercial-legal:contract-review"},
+          "command": {"type": "string", "description": "斜杠命令，如 /commercial-legal:contract-review（维护字段，只在页末维护信息里显示）"},
           "name": {"type": "string", "description": "中文名"},
           "kind": {"type": "string", "enum": ["workflow", "setup", "monitor", "shared"], "description": "workflow=办案/文书流程；setup=冷启动访谈/配置；monitor=监控或定时类；shared=共享流程"},
           "tagline": {"type": "string", "description": "≤30 字"},
@@ -83,7 +85,7 @@
                 "name": {"type": "string"},
                 "standalone": {"type": "boolean", "description": "律师可否单独触发"},
                 "goal": {"type": "string", "description": "这一步要解决什么"},
-                "actions": {"type": "array", "items": {"type": "string"}, "description": "具体做法，按原文顺序，每条一句，保留原文的判断标准与数字"},
+                "actions": {"type": "array", "items": {"type": "string"}, "description": "具体做法，按先后顺序，每条一句；法律判断标准与数字照原文，技术机制只写结果"},
                 "rules": {"type": "array", "items": {"type": "string"}, "description": "内置的判断规则、分级标准、阈值、表格要点、模板要点"},
                 "legal_basis": {"type": "array", "items": {"type": "string"}, "description": "本步骤引用的法条/司法解释/规章，写法：《民法典》第585条 — 用途；原文带 [待验证] 的照抄"},
                 "output": {"type": "string", "description": "本步骤产出什么、什么格式"},
@@ -94,13 +96,13 @@
           "legal_basis": {"type": "array", "items": {"type": "string"}, "description": "整个 skill 层面最主要的 5–15 条法律依据"},
           "shared_refs": {
             "type": "array",
-            "items": {"type": "object", "required": ["file", "why"], "properties": {"file": {"type": "string"}, "why": {"type": "string"}}}
+            "items": {"type": "object", "required": ["file", "why"], "properties": {"file": {"type": "string", "description": "相对仓库根的路径。页面按插件块的 shared_libraries、skill 和步骤显示中文名；找不到名字时生成失败"}, "why": {"type": "string", "description": "这份共用规则在本流程里管什么，不写源文件章节号"}}}
           },
           "quality_checks": {"type": "array", "items": {"type": "string"}, "description": "交付前质量检查、自查清单"},
           "escalation": {"type": "array", "items": {"type": "string"}, "description": "何时暂停、升级、转人工、提示律师"},
           "review_points": {"type": "array", "items": {"type": "string"}, "description": "最重要：5–12 条供律师提意见的点。每条点出一个内置的法律假设、立场、阈值、清单或措辞，写成律师可以同意/反对/补充的陈述"},
-          "example_prompts": {"type": "array", "items": {"type": "string"}, "description": "2–4 条律师可直接使用的提示词"},
-          "sources": {"type": "array", "items": {"type": "string"}, "description": "本 skill 所有 SKILL.md 的相对路径"}
+          "example_prompts": {"type": "array", "items": {"type": "string"}, "description": "2–4 条律师可直接使用的提示词，不写路径、文件名和命令"},
+          "sources": {"type": "array", "items": {"type": "string"}, "description": "本 skill 所有 SKILL.md 的相对路径（维护字段，只在页末维护信息里显示）"}
         }
       }
     }

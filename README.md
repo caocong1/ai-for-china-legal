@@ -57,6 +57,7 @@ bash scripts/cleanup-skills.sh  # 卸载
 - 数据：`docs/data/skills/parts/*.json`（结构见 `docs/data/skills/schema.json`）
 - 生成：`python3 scripts/build-docs-site.py`（校验数据后重写全部页面）
 - 改了 SKILL.md 之后，更新对应摘要再重新生成
+- 摘要用律师语言写：不写文件名、命令、字段名、状态值和内部编号，技术机制只写结果，法律实质照原文；校验脚本会拦下残留的标识
 
 ## 日常使用：操作员模式
 
