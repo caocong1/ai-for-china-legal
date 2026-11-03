@@ -1,16 +1,16 @@
 # Surface: 领域页与全部索引 (`docs/<plugin>/`, `docs/skills/`)
 
-Visitor mode: Read - Targets: web 1280×800, 390×844 - Direction: 实务指引 + 批注栏 - Updated: 2026-11-01
+Visitor mode: Read - Targets: web 1280×800, 390×844 - Direction: 实务指引 + 批注栏 - Updated: 2026-11-03
 
 ## Thesis
 
-律师在一分钟内找到要看的 skill：领域页按领域列出 skill 与配置、引用库；索引页跨领域按名称、命令、一句话过滤。
+律师在一分钟内找到要看的 skill：领域页按领域列出 skill 与配置、引用库；索引页跨领域按名称、一句话和关键词过滤。
 
 ## Own-world
 
 法规汇编的分编目录与总索引。
 
-One memorable idea: 索引表的每一行就是一条可点的「条目」：名称、命令（等宽）、一句话、步骤数，无图标。
+One memorable idea: 索引表的每一行就是一条可点的「条目」：名称、类型、一句话、步骤数，无图标。
 
 ## Story
 
@@ -28,4 +28,4 @@ One memorable idea: 索引表的每一行就是一条可点的「条目」：名
 ## Finish line
 
 - [ ] 索引页搜索「竞业」只剩竞业限制相关行，其余组标题隐藏
-- [ ] 领域页 skill 行在 390 下仍是一行一个条目，命令可换行
+- [ ] 领域页 skill 行在 390 下仍是一行一个条目
